@@ -1,0 +1,74 @@
+<!--
+  Generated template for the SharedReportsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Shared Reports</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<ion-card *ngIf="doctorListInfo?.length == 0">
+		<ion-card-content>
+			No Report Shared
+		</ion-card-content>
+	</ion-card>
+	<ion-list class="listGrp" *ngIf="doctorListInfo?.length > 0">
+		<ion-card  *ngFor="let d of doctorListInfo">
+		<ion-item>
+		  <p class="notiLocation">#{{d.doctor_unique_id}}</p>
+		  <p class="notiMainTxt">{{d.doctor_name}}</p>
+		  <p class="notiLocation">{{d.labTests}}</p>
+		  <p class="notiLocation">{{d.doctor_location}}</p>
+		  <p class="notiLocation">Date : {{d.doctor_dateTime}}</p>
+		  <p class="notiSubTxt" (click)="view_shared_reports(d)">View Reports</p>
+		</ion-item>
+		<!-- <ion-item>
+		  <p class="notiLocation">#123456</p>
+		  <p class="notiMainTxt">John Smith</p>
+		  <p class="notiLocation">Blood Test</p>
+		  <p class="notiLocation">Vile Parle, Mumbai</p>
+		  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+		  <p class="notiSubTxt">View Reports</p>
+		</ion-item>
+		<ion-item>
+		  <p class="notiLocation">#123456</p>
+		  <p class="notiMainTxt">John Smith</p>
+		  <p class="notiLocation">Blood Test</p>
+		  <p class="notiLocation">Vile Parle, Mumbai</p>
+		  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+		  <p class="notiSubTxt">View Reports</p>
+		</ion-item>
+		<ion-item>
+		  <p class="notiLocation">#123456</p>
+		  <p class="notiMainTxt">John Smith</p>
+		  <p class="notiLocation">Blood Test</p>
+		  <p class="notiLocation">Vile Parle, Mumbai</p>
+		  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+		  <p class="notiSubTxt">View Reports</p>
+		</ion-item>
+		<ion-item>
+		  <p class="notiLocation">#123456</p>
+		  <p class="notiMainTxt">John Smith</p>
+		  <p class="notiLocation">Blood Test</p>
+		  <p class="notiLocation">Vile Parle, Mumbai</p>
+		  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+		  <p class="notiSubTxt">View Reports</p>
+		</ion-item>
+		<ion-item>
+		  <p class="notiLocation">#123456</p>
+		  <p class="notiMainTxt">John Smith</p>
+		  <p class="notiLocation">Blood Test</p>
+		  <p class="notiLocation">Vile Parle, Mumbai</p>
+		  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+		  <p class="notiSubTxt">View Reports</p>
+		</ion-item> -->
+		</ion-card>
+	</ion-list>
+</ion-content>

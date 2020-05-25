@@ -1,0 +1,30 @@
+page-lab-detail {
+  ion-label {
+    white-space: normal;
+  }
+  .title1 {
+    font-size: 1.2em;
+  }
+  .docDetail {
+    .listGrp {
+      ion-label:after {
+        content: '';
+        display: table;
+        clear: both;
+      }
+      ion-img {
+        img {
+          border-radius: 50%;
+        }
+        margin-right: 10px;
+        float: left;
+        background: #fff;
+      }
+    }
+  }
+  .docServicesList {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+}

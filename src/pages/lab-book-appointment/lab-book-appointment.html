@@ -1,0 +1,114 @@
+<!--
+  Generated template for the LabBookAppointmentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Lab book appointment</ion-title>
+	<ion-buttons end>
+		<button ion-button icon-only (click)="goHome()">
+			<ion-icon name="home"></ion-icon>
+		</button>
+	</ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<form [formGroup]="bookAppointment" (ngSubmit)="createBookLabAppointment(bookAppointment)" novalidate>
+		<p text-center>Select time slot to book an appointment</p>
+		<ion-item>
+			<ion-label stacked>Select Tests</ion-label>
+			<ion-select [(ngModel)]="labTests" formControlName="labTests" multiple="true">
+				<ion-option *ngFor="let lt of labtestsList" value="{{lt.id}}">{{lt.lab_test_name}}</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label stacked>Select Date</ion-label>
+			<ion-datetime  displayFormat="DD-MM-YYYY" [(ngModel)]="minmDate" formControlName="minmDate" min="{{minDate}}" (ngModelChange)="changeAppoinmentDate(minmDate)" ></ion-datetime>
+		</ion-item>
+		<div>
+			<ion-list>
+				<div class="accordion-group">
+					<div *ngFor="let d of diseases, let i = index">
+						<div class="accordion" [ngClass]="{'is-active' : activeIndex === i}">
+							<div class="accordion__container">
+								<div class="accordion__header" (click)="toggleClass($event, i)">
+									<h2 class="accordion__heading">{{d.title}}</h2>
+								</div>
+								<div class="accordion__content">
+									<div class="checkboxList">
+										<div *ngIf="d.title=='Morning'">
+											<div *ngIf="Morning?.length > 0">
+												<label for="{{timeM.time_interval}}"  *ngFor="let timeM of Morning; let i=index">
+													<input type="radio" name="selectTime" [(ngModel)]="selectTime" formControlName="selectTime" value="{{timeM.time_interval+'_'+'Morning'}}" id="{{timeM.time_interval}}" [attr.disabled]="timeM.is_booked ? '' : null">
+													<div class="rdBtn">{{timeM.time_interval}}</div>
+												</label>
+											</div>
+											<div *ngIf="Morning?.length < 1"  text-center >
+												<span>Not Available.</span>
+											</div>
+										</div>
+										<div *ngIf="d.title=='Afternoon'">
+											<div *ngIf="Afternoon?.length > 0">
+												<label for="{{timeA.time_interval}}"  *ngFor="let timeA of Afternoon; let i=index">
+													<input type="radio" name="selectTime" [(ngModel)]="selectTime" formControlName="selectTime" value="{{timeA.time_interval+'_'+'Afternoon'}}" id="{{timeA.time_interval}}" [attr.disabled]="timeA.is_booked ? '' : null">
+													<div class="rdBtn">{{timeA.time_interval}}</div>
+												</label>
+											</div>
+											<div *ngIf="Afternoon?.length < 1"  text-center >
+												<span>Not Available.</span>
+											</div>
+										</div>
+										<div *ngIf="d.title=='Evening'">
+											<div *ngIf="Evening?.length > 0">
+												<label for="{{timeE.time_interval}}"  *ngFor="let timeE of Evening; let i=index">
+													<input type="radio" name="selectTime" [(ngModel)]="selectTime" formControlName="selectTime" value="{{timeE.time_interval+'_'+'Evening'}}" id="{{timeE.time_interval}}" [attr.disabled]="timeE.is_booked ? '' : null">
+													<div class="rdBtn">{{timeE.time_interval}}</div>
+												</label>
+											</div>
+											<div *ngIf="Evening?.length < 1"  text-center >
+												<span>Not Available.</span>
+											</div>
+										</div>
+										<div *ngIf="d.title=='Night'">
+											<div *ngIf="Night?.length > 0">
+												<label for="{{timeN.time_interval}}"  *ngFor="let timeN of Night; let i=index">
+													<input type="radio" name="selectTime" [(ngModel)]="selectTime" formControlName="selectTime" value="{{timeN.time_interval+'_'+'Night'}}" id="{{timeN.time_interval}}" [attr.disabled]="timeN.is_booked ? '' : null">
+													<div class="rdBtn">{{timeN.time_interval}}</div>
+												</label>
+											</div>
+											<div *ngIf="Night?.length < 1"  text-center >
+												<span>Not Available.</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ion-list>
+		</div>
+		<ion-item>
+			<ion-label stacked>Patient Id</ion-label>
+			<ion-input type="text" [(ngModel)]="pUniqueId" formControlName="patientNumbar" disabled="true" ></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label stacked>For</ion-label>
+			<ion-select [(ngModel)]="membership" (ionChange)="onChange(membership)"  formControlName="membership">
+				<ion-option value="Self">Self</ion-option>
+				<ion-option value="Other">Other</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item [hidden]="!value">
+			<ion-label stacked>Full Name</ion-label>
+			<ion-input type="text" [(ngModel)]="patientName" formControlName="patientName" ></ion-input>
+		</ion-item>
+		<button ion-button full color="secondary" >Confirm Appointment</button>
+	</form>
+</ion-content>

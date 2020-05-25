@@ -1,0 +1,24 @@
+page-lab-profile {
+	.mainContent {
+		padding:0 16px 16px 16px;
+	}
+	.proImg1 {
+		position:relative;
+		.userImgContainer {
+			width:110px;
+			height:110px;
+			background:url('../assets/imgs/img_avatar1.png');
+			background-size:cover;
+			border-radius:50%;
+		}
+		img {
+			border-radius:50%;
+		}
+		button {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			padding: 12px;
+		}
+	}
+}

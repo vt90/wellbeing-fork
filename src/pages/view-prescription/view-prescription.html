@@ -1,0 +1,73 @@
+<!--
+  Generated template for the ViewPrescriptionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>view-prescription</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<ion-list class="listGrp">
+		<ion-card>
+			<ion-item>
+				<p class="notiMainTxt">{{appointmentStartDateFormatted}} <small>{{visit_type}} Visit</small></p>
+				<p class="notiLocation" *ngIf="medicineDetail" style="white-space:pre-wrap;">{{medicineDetail}}</p>
+				<p class="notiLocation" *ngIf="!medicineDetail">Medicine detail not given</p>
+				<br>
+				<div *ngIf="medicine_detail?.length > 0">
+					<table class="FullTble" *ngFor="let m of medicine_detail">
+						<tr>
+							<td>{{m.medicineStartDate}}</td>
+							<td>{{m.medicineName}}</td>
+						</tr>
+						<tr>
+							<td style="white-space:pre-wrap;" [innerHtml]="m.medicineTiming"  ></td>
+							<td><h4 style="width:100px;" [innerHtml]="m.medicineDays"></h4></td>
+						</tr>
+						<!-- <tr>
+							<td>{{m.medicineStartDate}}</td>
+							<td>&nbsp;</td>
+						</tr> -->
+					</table>
+				</div>
+				<div *ngIf="medicine_detail?.length == 0">
+					<p>No Medicine Added</p>
+				</div>
+				
+				<!--<table class="FullTble">
+					<tr>
+						<th colspan="2">
+						Omega 3 with Vitamin E (90 Softgels)
+						</th>
+					</tr>
+					<tr>
+						<td>Mon, Tus, Wed</td>
+						<td>Before Breakfast, After Dinner, Before Lunch</td>
+					</tr>
+					<tr>
+						<td>3 Times a day</td>
+						<td>From 31 Jan,2018 to 2 Feb,2018</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<button ion-button clear >
+								<ion-icon name="create"></ion-icon>&nbsp;&nbsp;&nbsp;Edit
+							</button>
+							<button ion-button clear >
+								<ion-icon name="trash"></ion-icon>&nbsp;&nbsp;&nbsp;Delete
+							</button>
+						</td>
+					</tr>
+				</table>-->
+				<button ion-button  *ngIf="imagePath"  (click)="viewPrescription(imagePath)" >View Prescription</button>
+			</ion-item>
+		</ion-card>
+	</ion-list>
+</ion-content>

@@ -1,0 +1,70 @@
+page-lab-book-appointment {
+.accordion-group {
+	padding:0 15px;
+}
+.accordion {
+  height: 40px;
+  overflow: hidden;
+  transition: height 0.3s cubic-bezier(1, 0, 0.41, 1.01);
+}
+.accordion.is-active {
+  height: auto;
+}
+.accordion.is-active .accordion__content {
+  opacity: 1;
+}
+.accordion__header {
+  cursor: pointer;
+  height: 40px;
+  padding: 0 15px;
+  position: relative;
+  background:#dddddd;
+}
+.accordion__heading {
+  line-height: 40px;
+  pointer-events: none;
+  font-size:14px;
+}
+.accordion__content {
+  opacity: 0;
+  transition: opacity .6s;
+  padding: 5px;
+  .checkboxList {
+        &:after {
+          content: '';
+          clear: both;
+          display: table;
+        }
+        label {
+          position: relative;
+          float: left;
+          margin-bottom: 5px;
+          margin-left: 5px;
+          input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+          }
+          input[type="radio"]:checked ~ .rdBtn {
+            background: $appColor;
+            border: 1px solid $appColor;
+            color: #fff;
+          }
+          input[disabled] ~ .rdBtn {
+            background: $appColor;
+            border: 1px solid $appColor;
+            color: #fff;
+            opacity: 0.4;
+          }
+          .rdBtn {
+            background: #fff;
+            border: 1px solid #888;
+            color: #333;
+            position: relative;
+            z-index: 1;
+            padding: 5px;
+            font-size: 13px;
+          }
+        }
+      }
+}
+}

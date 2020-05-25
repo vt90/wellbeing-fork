@@ -1,0 +1,175 @@
+<!--
+  Generated template for the ReportsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>reports</ion-title>
+	</ion-navbar>
+	<ion-toolbar class="stickyTb">
+		<ion-segment [(ngModel)]="status">
+			<ion-segment-button value="active">
+				Active
+			</ion-segment-button>
+			<ion-segment-button value="archived">
+				Archived
+			</ion-segment-button>
+		</ion-segment>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	
+	<div [ngSwitch]="status">
+		
+		<ion-list *ngSwitchCase="'active'" class="listGrp">
+			<ion-card *ngIf="activeAppointmentListInfo?.length == 0">
+				<ion-card-content>
+					No Report Found for this Appointment
+				</ion-card-content>
+			</ion-card>
+			<ion-item *ngFor="let ac of activeAppointmentListInfo">
+				<p class="notiLocation">#{{ac.lab_unique_id}}</p>
+				<p class="notiMainTxt">{{ac.lab_name}}</p>
+				<p class="notiLocation">{{ac.labTests}}</p>
+				<p class="notiLocation">{{ac.lab_location}}</p>
+				<p class="notiLocation">Date : {{ac.appointment_datetime}}</p>
+				<p class="notiSubTxt">
+					<span float-left (click)="viewReport(ac)">View Reports</span>
+					<span float-right (click)="moveArchived(ac)">Move to Archived</span> 
+				</p>
+			</ion-item>
+			<!-- <ion-item>
+			  <p class="notiLocation">#123456</p>
+			  <p class="notiMainTxt">Sunflower Laboratory and Diagnostic Center</p>
+			  <p class="notiLocation">Blood Test</p>
+			  <p class="notiLocation">Vile Parle, Mumbai</p>
+			  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+			  <p class="notiSubTxt">
+				<span float-left (click)="viewReport()">View Reports</span>
+				<span float-right (click)="moveArchived()">Move to Archived</span>
+			  </p>
+			</ion-item>
+			<ion-item>
+			  <p class="notiLocation">#123456</p>
+			  <p class="notiMainTxt">Sunflower Laboratory and Diagnostic Center</p>
+			  <p class="notiLocation">Blood Test</p>
+			  <p class="notiLocation">Vile Parle, Mumbai</p>
+			  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+			  <p class="notiSubTxt">
+				<span float-left (click)="viewReport()">View Reports</span>
+				<span float-right (click)="moveArchived()">Move to Archived</span>
+			  </p>
+			</ion-item>
+			<ion-item>
+			  <p class="notiLocation">#123456</p>
+			  <p class="notiMainTxt">Sunflower Laboratory and Diagnostic Center</p>
+			  <p class="notiLocation">Blood Test</p>
+			  <p class="notiLocation">Vile Parle, Mumbai</p>
+			  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+			  <p class="notiSubTxt">
+				<span float-left (click)="viewReport()">View Reports</span>
+				<span float-right (click)="moveArchived()">Move to Archived</span>
+			  </p>
+			</ion-item>
+			<ion-item>
+			  <p class="notiLocation">#123456</p>
+			  <p class="notiMainTxt">Sunflower Laboratory and Diagnostic Center</p>
+			  <p class="notiLocation">Blood Test</p>
+			  <p class="notiLocation">Vile Parle, Mumbai</p>
+			  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+			  <p class="notiSubTxt">
+				<span float-left (click)="viewReport()">View Reports</span>
+				<span float-right (click)="moveArchived()">Move to Archived</span>
+			  </p>
+			</ion-item>
+			<ion-item>
+			  <p class="notiLocation">#123456</p>
+			  <p class="notiMainTxt">Sunflower Laboratory and Diagnostic Center</p>
+			  <p class="notiLocation">Blood Test</p>
+			  <p class="notiLocation">Vile Parle, Mumbai</p>
+			  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+			  <p class="notiSubTxt">
+				<span float-left (click)="viewReport()">View Reports</span>
+				<span float-right (click)="moveArchived()">Move to Archived</span>
+			  </p>
+			</ion-item>
+			<ion-item>
+			  <p class="notiLocation">#123456</p>
+			  <p class="notiMainTxt">Sunflower Laboratory and Diagnostic Center</p>
+			  <p class="notiLocation">Blood Test</p>
+			  <p class="notiLocation">Vile Parle, Mumbai</p>
+			  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+			  <p class="notiSubTxt">
+				<span float-left (click)="viewReport()">View Reports</span>
+				<span float-right (click)="moveArchived()">Move to Archived</span>
+			  </p>
+			</ion-item>
+			<ion-item>
+			  <p class="notiLocation">#123456</p>
+			  <p class="notiMainTxt">Sunflower Laboratory and Diagnostic Center</p>
+			  <p class="notiLocation">Blood Test</p>
+			  <p class="notiLocation">Vile Parle, Mumbai</p>
+			  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+			  <p class="notiSubTxt">
+				<span float-left (click)="viewReport()">View Reports</span>
+				<span float-right (click)="moveArchived()">Move to Archived</span>
+			  </p>
+			</ion-item> -->
+		</ion-list>
+		<ion-list *ngSwitchCase="'archived'" class="listGrp">
+			<ion-card *ngIf="archiveAppointmentListInfo?.length == 0">
+				<ion-card-content>
+					No Report Found for this Appointment
+				</ion-card-content>
+			</ion-card>
+			<ion-item *ngFor="let ar of archiveAppointmentListInfo">
+				<p class="notiLocation">#{{ar.lab_unique_id}}</p>
+				<p class="notiMainTxt">{{ar.lab_name}}</p>
+				<p class="notiLocation">{{ar.labTests}}</p>
+				<p class="notiLocation">{{ar.lab_location}}</p>
+				<p class="notiLocation">Date : {{ar.appointment_datetime}}</p>
+				<p class="notiSubTxt">
+					<span float-left (click)="viewReport(ar)">View Reports</span>
+					<!-- <span float-right (click)="moveArchived(ar)">Move to Archived</span>  -->
+				</p>
+			</ion-item>
+			<!-- <ion-item>
+			  <p class="notiLocation">#123456</p>
+			  <p class="notiMainTxt">Sunflower Laboratory and Diagnostic Center</p>
+			  <p class="notiLocation">Blood Test</p>
+			  <p class="notiLocation">Vile Parle, Mumbai</p>
+			  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+			  <p class="notiSubTxt">
+				<span float-left (click)="viewReport()">View Reports</span>
+			  </p>
+			</ion-item>
+			<ion-item>
+			  <p class="notiLocation">#123456</p>
+			  <p class="notiMainTxt">Sunflower Laboratory and Diagnostic Center</p>
+			  <p class="notiLocation">Blood Test</p>
+			  <p class="notiLocation">Vile Parle, Mumbai</p>
+			  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+			  <p class="notiSubTxt">
+				<span float-left (click)="viewReport()">View Reports</span>
+			  </p>
+			</ion-item>
+			<ion-item>
+			  <p class="notiLocation">#123456</p>
+			  <p class="notiMainTxt">Sunflower Laboratory and Diagnostic Center</p>
+			  <p class="notiLocation">Blood Test</p>
+			  <p class="notiLocation">Vile Parle, Mumbai</p>
+			  <p class="notiLocation">Date : 21 jan 2018, 10.00 AM</p>
+			  <p class="notiSubTxt">
+				<span float-left (click)="viewReport()">View Reports</span>
+			  </p>
+			</ion-item> -->
+		</ion-list>
+	</div>
+
+</ion-content>

@@ -1,0 +1,167 @@
+<!--
+  Generated template for the LabCurrentAppointmentsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Appointments</ion-title>
+		<ion-buttons end>
+		<button ion-button icon-only (click)="goHome()">
+			<ion-icon name="home"></ion-icon>
+		</button>
+	</ion-buttons>
+	</ion-navbar>
+	<ion-toolbar class="stickyTb">
+		<ion-segment [(ngModel)]="status">
+			<ion-segment-button value="active">
+				Active
+			</ion-segment-button>
+			<ion-segment-button value="archived">
+				Archived
+			</ion-segment-button>
+		</ion-segment>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	
+	
+	<div [ngSwitch]="status">
+		<ion-list *ngSwitchCase="'active'" class="listGrp">
+			<ion-card *ngFor="let ac of activeAppointmentListInfo">
+				<ion-item>
+					<p class="notiMainTxt">{{ac.patient_name}}</p>
+					<p class="notiLocation">{{ac.patient_mobile_no}}</p>
+					<p class="notiLocation">{{ac.patient_location}}</p>
+					<p class="notiLocation">Appointment Date : {{ac.appointment_datetime}}</p>
+					<p class="notiLocation">Visit Type : {{ac.visit_type}}</p>
+					<p class="notiLocation"  *ngIf="ac.appointmentfor">Appointment For : {{ac.appointmentfor}}</p>
+					<!-- <p class="notiSubTxt">
+						<span float-right (click)="viewHistory(ac)">View History</span>
+					</p> -->
+					<p class="notiSubTxt" *ngIf="ac.appointment_status != 'Pending'">
+						<span>{{ac.appointment_status}}</span>
+					</p>
+				</ion-item>
+				<ion-item *ngIf="ac.appointment_status != 'Completed' && ac.appointment_status != 'Cancelled'">
+					<ion-label stacked>Select Confirmation</ion-label>
+					<ion-select [(ngModel)]="ac.appointment_status" (ionChange)="onChange(ac)">
+						<ion-option *ngIf="ac.appointment_status != 'Confirmed' && ac.appointment_status != 'Rescheduled'" value="Pending">Pending Confirmation</ion-option>
+						<ion-option value="Confirmed">Confirm</ion-option>
+						<ion-option *ngIf="ac.appointment_status != 'Confirmed'" value="Rescheduled">Reschedule</ion-option>
+						<ion-option value="Cancelled">Cancel</ion-option>
+					</ion-select>
+				</ion-item>
+				<ion-card-content [hidden]="ac.appointment_status != 'Confirmed'">
+					<button ion-button full color="dark" (click)="completeAppointment(ac)">Complete Appointment</button>
+				</ion-card-content>
+				<ion-card-content *ngIf="ac.appointment_status == 'Completed'">
+					<button ion-button full color="dark" (click)="uploadReports(ac)">Upload Reports</button>
+				</ion-card-content>
+			</ion-card>
+			<!--<ion-card>
+				<ion-item>
+				  <p class="notiMainTxt">John Smith <small>Home Visit</small></p>
+				  <p class="notiLocation">+918989898998</p>
+				  <p class="notiLocation">Vile Parle, Mumbai</p>
+				  <p class="notiLocation">Appointment Date : 21 jan 2018, 10.00 AM</p>
+				  <p class="notiSubTxt">
+					<span float-right (click)="viewHistory()">View History</span>
+				  </p>
+				</ion-item>
+				<ion-item>
+					<ion-label stacked>Select Confirmantion</ion-label>
+					<ion-select [(ngModel)]="c2">
+						<ion-option value="pending" selected>Pending Confirmantion</ion-option>
+						<ion-option value="done">Confirmed</ion-option>
+					</ion-select>
+				</ion-item>
+			</ion-card>
+			<ion-card>
+				<ion-item>
+				  <p class="notiMainTxt">John Smith <small>Home Visit</small></p>
+				  <p class="notiLocation">+918989898998</p>
+				  <p class="notiLocation">Vile Parle, Mumbai</p>
+				  <p class="notiLocation">Appointment Date : 21 jan 2018, 10.00 AM</p>
+				  <p class="notiSubTxt">
+					<span float-right (click)="viewHistory()">View History</span>
+				  </p>
+				</ion-item>
+				<ion-item>
+					<ion-label stacked>Select Confirmantion</ion-label>
+					<ion-select [(ngModel)]="c3">
+						<ion-option value="pending" selected>Pending Confirmantion</ion-option>
+						<ion-option value="done">Confirmed</ion-option>
+					</ion-select>
+				</ion-item>
+			</ion-card>-->
+			
+		</ion-list>
+		<ion-list *ngSwitchCase="'archived'" class="listGrp">
+			<ion-card *ngFor="let ar of archiveAppointmentListInfo">
+				<ion-item>
+					<p class="notiMainTxt">{{ar.patient_name}}</p>
+					<p class="notiLocation">{{ar.patient_mobile_no}}</p>
+					<p class="notiLocation">{{ar.patient_location}}</p>
+					<p class="notiLocation">Appointment Date : {{ar.appointment_datetime}}</p>
+					<p class="notiLocation">Visit Type : {{ar.visit_type}}</p>
+					<!-- <p class="notiSubTxt">
+						<span float-right (click)="viewHistory(ar)">View History</span>
+					</p> -->
+				</ion-item>
+			</ion-card>
+			<!--<ion-card>
+				<ion-item>
+				  <p class="notiMainTxt">John Smith <small>Home Visit</small></p>
+				  <p class="notiLocation">+918989898998</p>
+				  <p class="notiLocation">Vile Parle, Mumbai</p>
+				  <p class="notiLocation">Appointment Date : 21 jan 2018, 10.00 AM</p>
+				  <p class="notiSubTxt">
+					<span float-right (click)="viewHistory()">View History</span>
+				  </p>
+				</ion-item>
+			</ion-card>
+			<ion-card>
+				<ion-item>
+				  <p class="notiMainTxt">John Smith <small>Home Visit</small></p>
+				  <p class="notiLocation">+918989898998</p>
+				  <p class="notiLocation">Vile Parle, Mumbai</p>
+				  <p class="notiLocation">Appointment Date : 21 jan 2018, 10.00 AM</p>
+				  <p class="notiSubTxt">
+					<span float-right (click)="viewHistory()">View History</span>
+				  </p>
+				</ion-item>
+			</ion-card>
+			<ion-card>
+				<ion-item>
+				  <p class="notiMainTxt">John Smith <small>Home Visit</small></p>
+				  <p class="notiLocation">+918989898998</p>
+				  <p class="notiLocation">Vile Parle, Mumbai</p>
+				  <p class="notiLocation">Appointment Date : 21 jan 2018, 10.00 AM</p>
+				  <p class="notiSubTxt">
+					<span float-right (click)="viewHistory()">View History</span>
+				  </p>
+				</ion-item>
+			</ion-card>
+			<ion-card>
+				<ion-item>
+				  <p class="notiMainTxt">John Smith <small>Home Visit</small></p>
+				  <p class="notiLocation">+918989898998</p>
+				  <p class="notiLocation">Vile Parle, Mumbai</p>
+				  <p class="notiLocation">Appointment Date : 21 jan 2018, 10.00 AM</p>
+				  <p class="notiSubTxt">
+					<span float-right (click)="viewHistory()">View History</span>
+				  </p>
+				</ion-item>
+			</ion-card>-->
+			
+		</ion-list>
+	</div>
+
+</ion-content>
+

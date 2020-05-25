@@ -1,0 +1,87 @@
+<!--
+  Generated template for the AddMedicinePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add medicine</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<form [formGroup]="Medicine" (ngSubmit)="addMedicine(Medicine)" novalidate>
+		<ion-list>
+			<ion-item>
+				<ion-label stacked>Medicine Name</ion-label>
+				<ion-input type="text" [(ngModel)]="medicineName" formControlName="medicineName" value=""></ion-input>
+			</ion-item>
+			<!--<ion-item>
+				<ion-label stacked>How many times a day</ion-label>
+				<ion-select [(ngModel)]="timesday">
+					<ion-option value="1" selected>1</ion-option>
+					<ion-option value="2">2</ion-option>
+					<ion-option value="3">3</ion-option>
+				</ion-select>
+			</ion-item>-->
+			<ion-item>
+				<ion-label stacked>Timings</ion-label>
+				<ion-select [(ngModel)]="medicineTimings" formControlName="medicineTimings" multiple="true">
+					<ion-option value="Before Breakfast">Before Breakfast</ion-option>
+					<ion-option value="After Breakfast">After Breakfast</ion-option>
+					<ion-option value="Before Lunch">Before Lunch</ion-option>
+					<ion-option value="After Lunch">After Lunch</ion-option>
+					<ion-option value="Before Dinner">Before Dinner</ion-option>
+					<ion-option value="After Dinner">After Dinner</ion-option>
+					<ion-option value="Once a Day">Once a Day</ion-option>
+					<ion-option value="Twice a Day">Twice a Day</ion-option>
+					<ion-option value="Thrice a Day">Thrice a Day</ion-option>
+					<ion-option value="4 Times a Day">4 Times a Day</ion-option>
+					<ion-option value="Bedtime">Bedtime</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Days</ion-label>
+				<ion-select [(ngModel)]="medicineDays" formControlName="medicineDays" multiple="true">
+					<ion-option value="Sunday">Sunday</ion-option>
+					<ion-option value="Monday">Monday</ion-option>
+					<ion-option value="Tuesday">Tuesday</ion-option>
+					<ion-option value="Wednesday">Wednesday</ion-option>
+					<ion-option value="Thursday">Thursday</ion-option>
+					<ion-option value="Friday">Friday</ion-option>
+					<ion-option value="Saturday">Saturday</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Select Date</ion-label>
+				<ion-datetime displayFormat="DD-MM-YYYY" [(ngModel)]="minmDate" formControlName="minmDate" min="{{minDate}}"></ion-datetime>
+			</ion-item>
+			<!-- <ion-item>
+				<button ion-button icon-start text-center color="dark" (click)="openPicOption()">
+					<ion-icon name="attach"></ion-icon> Upload Prescription
+				</button>
+			</ion-item>
+			<ion-item>
+				<div class="prescriptionThumb">
+					<img [src]="base64Image" *ngIf="base64Image" width="110" height="110" />
+				</div>
+			</ion-item> -->
+			<!--<ion-item>
+				<ion-label stacked>From Date</ion-label>
+				<ion-datetime  displayFormat="DD-MM-YYYY" [(ngModel)]="fromDate" ></ion-datetime>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>To Date</ion-label>
+				<ion-datetime  displayFormat="DD-MM-YYYY" [(ngModel)]="toDate" ></ion-datetime>
+			</ion-item>-->
+			
+		</ion-list>
+		<div text-center>
+			<button ion-button color="dark" full>Submit</button>
+		</div>
+	</form>
+</ion-content>

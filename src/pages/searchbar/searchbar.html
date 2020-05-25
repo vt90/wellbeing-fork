@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar no-border-top>
+    <ion-searchbar placeholder="Search Doctor Name" (ionInput)="filterItems($event)"></ion-searchbar>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+
+  <!-- <p padding-left padding-right>Searchbars can be placed in a toolbar or anywhere in the content.</p> -->
+
+	<ion-list *ngIf="doctorList?.length > 0">
+		<ion-item *ngFor="let item of doctorList"  (click)="getDoctorDetails(item)">
+		{{ item }}
+		</ion-item>
+	</ion-list>
+	<div *ngIf="doctorList?.length < 1" padding text-center >
+		<p class="message">No Data. </p>
+	</div>
+
+</ion-content>
+
+

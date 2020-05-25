@@ -1,0 +1,109 @@
+<!--
+  Generated template for the LabViewReportsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="action != 'uploadDoctorDocs' && action != 'uploadDoctorDocsByProfile' && action != 'uploadLabDocs' && action != 'uploadLabDocsByProfile'">View Reports</ion-title>
+    <ion-title *ngIf="action == 'uploadDoctorDocs' || action == 'uploadDoctorDocsByProfile' || action == 'uploadLabDocs' || action == 'uploadLabDocsByProfile'">View Documents</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<ion-card *ngIf="(action != 'uploadDoctorDocs' && action != 'uploadDoctorDocsByProfile' && action != 'uploadLabDocs' && action != 'uploadLabDocsByProfile' && labReportsList?.length == 0) || ((action == 'uploadDoctorDocs' || action == 'uploadDoctorDocsByProfile' || action == 'uploadLabDocs' || action == 'uploadLabDocsByProfile') && uploadedDocsList?.length == 0)">
+		<ion-card-content *ngIf="action != 'uploadDoctorDocs' && action != 'uploadDoctorDocsByProfile' && action != 'uploadLabDocs' && action != 'uploadLabDocsByProfile'">
+			No Report Uploaded For This Appointment
+		</ion-card-content>
+		<ion-card-content *ngIf="action == 'uploadDoctorDocs' || action == 'uploadDoctorDocsByProfile' || action == 'uploadLabDocs' || action == 'uploadLabDocsByProfile'">
+			No Document Uploaded Yet!
+		</ion-card-content>
+	</ion-card>
+	<ion-list *ngIf="labReportsList?.length > 0">
+		<ion-item *ngFor="let r of labReportsList">
+			<p (click)="viewPrescription(r.report)"><img [src]="r.report" width="50" height="50"  /><!-- <span>{{r.reportSequence}}</span> --> {{r.reportName}}</p>
+			<button ion-button clear item-end icon-only (click)="deleteReport(r)"   *ngIf="action != 'ViewLabReports'">
+				<ion-icon name="trash"></ion-icon>
+			</button>
+		</ion-item>
+		<!-- <ion-item>
+			<p><span>2</span> Lipsum Dummy text report.pdf</p>
+			<button ion-button clear item-end icon-only>
+				<ion-icon name="trash"></ion-icon>
+			</button>
+		</ion-item>
+		<ion-item>
+			<p><span>3</span> Lipsum Dummy text report.pdf</p>
+			<button ion-button clear item-end icon-only>
+				<ion-icon name="trash"></ion-icon>
+			</button>
+		</ion-item>
+		<ion-item>
+			<p><span>4</span> Lipsum Dummy text report.pdf</p>
+			<button ion-button clear item-end icon-only>
+				<ion-icon name="trash"></ion-icon>
+			</button>
+		</ion-item>
+		<ion-item>
+			<p><span>5</span> Lipsum Dummy text report.pdf</p>
+			<button ion-button clear item-end icon-only>
+				<ion-icon name="trash"></ion-icon>
+			</button>
+		</ion-item> -->
+	</ion-list>
+	<ion-list *ngIf="uploadedDocsList?.length > 0">
+		<ion-item *ngFor="let d of uploadedDocsList">
+			<p (click)="viewPrescription(d.document)"><img [src]="d.document" width="50" height="50"  /><!-- <span>{{r.reportSequence}}</span> --> {{d.document_name}}</p>
+			<!-- <p><span>{{d.sequence}}</span> {{d.document_name}}</p> -->
+			<!-- <button ion-button clear item-end icon-only (click)="deleteReport(r)">
+				<ion-icon name="trash"></ion-icon>
+			</button> -->
+		</ion-item>
+	</ion-list>
+</ion-content>
+<ion-footer>
+	<ion-toolbar text-center color="dark" *ngIf="action == 'uploadDoctorDocs' || action == 'uploadDoctorDocsByProfile' || action == 'uploadLabDocs' || action == 'uploadLabDocsByProfile'">
+		<ion-row>
+			<ion-col col-12 *ngIf="uploadedDocsList?.length == 0">
+				<button ion-button icon-right (click)="uploadDocuments()" color="light" >
+					Upload Documents
+					<ion-icon name="attach"></ion-icon>
+				</button>
+			</ion-col>
+			<ion-col col-6 *ngIf="uploadedDocsList?.length > 0">
+				<button ion-button icon-right (click)="uploadDocuments()" color="light" >
+					Upload Documents
+					<ion-icon name="attach"></ion-icon>
+				</button>
+			</ion-col>
+			<ion-col col-6 *ngIf="uploadedDocsList?.length > 0">
+				<button ion-button icon-right (click)="gotoAddClinic()" color="light" *ngIf="action == 'uploadDoctorDocs'" >
+					Add Clinic
+					<ion-icon name="attach"></ion-icon>
+				</button>
+				<button ion-button icon-right (click)="gotoHome()" color="light" *ngIf="action == 'uploadLabDocs'" >
+					Home
+					<ion-icon name="attach"></ion-icon>
+				</button>
+				<button ion-button icon-right (click)="gotoDoctorProfile()" color="light" *ngIf="action == 'uploadDoctorDocsByProfile'" >
+					Profile
+					<!-- <ion-icon name="attach"></ion-icon> -->
+				</button>
+				<button ion-button icon-right (click)="gotoLabProfile()" color="light" *ngIf="action == 'uploadLabDocsByProfile'" >
+					Profile
+					<!-- <ion-icon name="attach"></ion-icon> -->
+				</button>
+			</ion-col>
+		</ion-row>
+	</ion-toolbar>
+	<ion-toolbar text-center color="dark" *ngIf="action != 'uploadDoctorDocs' && action != 'uploadDoctorDocsByProfile' && action != 'uploadLabDocs' && action != 'uploadLabDocsByProfile' && action != 'ViewLabReports'">
+		<button ion-button icon-right (click)="attachFiles()" color="light" >
+			Attach New Report
+			<ion-icon name="attach"></ion-icon>
+		</button>
+	</ion-toolbar>
+</ion-footer>

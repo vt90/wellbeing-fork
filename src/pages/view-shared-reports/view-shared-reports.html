@@ -1,0 +1,39 @@
+<!--
+  Generated template for the ViewSharedReportsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>view-shared-reports</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<ion-card *ngIf="reportList?.length == 0">
+		<ion-card-content>
+			No Report Found
+		</ion-card-content>
+	</ion-card>
+	<ion-list *ngIf="reportList?.length > 0">
+		<ion-item *ngFor="let r of reportList"  (click)="viewReport(r.reportPath)"  >
+			<ion-label> {{r.report}} </ion-label>
+			<button ion-button clear item-end icon-only>
+				<ion-icon name="eye"></ion-icon>
+			</button>
+			
+		</ion-item>
+		
+		<!-- <ion-item *ngFor="let r of reportList"  >
+			<ion-label> {{r.report}}</ion-label>
+			<button ion-button clear item-end icon-only  (click)="window.open('http://www.nraboy.com/contact', '_system', 'location=yes');">
+				<ion-icon name="eye"></ion-icon>
+			</button>
+		</ion-item> 
+		this.iab.create('https://www.techiediaries.com','_self',{location:'no'});-->
+	</ion-list>
+</ion-content>

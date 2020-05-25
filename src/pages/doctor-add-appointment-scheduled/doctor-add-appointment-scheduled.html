@@ -1,0 +1,183 @@
+<!--
+  Generated template for the DoctorAddAppointmentScheduledPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Appointment</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<form [formGroup]="drAppScheduled" (ngSubmit)="createScheduledAppoinment(drAppScheduled)" novalidate>
+		<ion-list>
+			<ion-item>
+				<ion-label stacked>Select Day</ion-label>
+				<ion-select [(ngModel)]="appointmentDay" formControlName="appointmentDay"  >
+					<ion-option value="Monday" (ionSelect)="setAppointmentDay('Monday')">Monday</ion-option>
+					<ion-option value="Tuesday" (ionSelect)="setAppointmentDay('Tuesday')">Tuesday</ion-option>
+					<ion-option value="Wednesday" (ionSelect)="setAppointmentDay('Wednesday')">Wednesday</ion-option>
+					<ion-option value="Thursday" (ionSelect)="setAppointmentDay('Thursday')">Thursday</ion-option>
+					<ion-option value="Friday" (ionSelect)="setAppointmentDay('Friday')">Friday</ion-option>
+					<ion-option value="Saturday" (ionSelect)="setAppointmentDay('Saturday')">Saturday</ion-option>
+					<ion-option value="Sunday" (ionSelect)="setAppointmentDay('Sunday')">Sunday</ion-option>
+				</ion-select>
+			</ion-item>
+		</ion-list>
+		<ion-card>
+			<ion-card-header >
+				<ion-checkbox color="dark" [(ngModel)]="monCheck" formControlName="monCheck"  ></ion-checkbox> Morning Time <ion-icon name="time" float-right ></ion-icon>
+			</ion-card-header>
+			<ion-card-content >
+				<ion-list>
+					<ion-item>
+						<ion-label stacked>From</ion-label>
+						<!-- <ion-datetime [(ngModel)]="mFrom" [max]="mMaxFrom" [min]="mMinFrom" minuteValues="0,15,30,45"  displayformat="HH:mm" pickerFormat="HH:mm" formControlName="mFrom" (ionChange)="checkTimeFormat(mFrom,'mondayFrom')"></ion-datetime> -->
+						<!-- <ion-datetime [(ngModel)]="mFrom" [min]="mMinFrom" [max]="mMaxFrom"  minuteValues="0,15,30,45"  displayformat="HH:mm" pickerFormat="HH:mm" formControlName="mFrom" ></ion-datetime> -->
+						<ion-select [(ngModel)]="mFrom" formControlName="mFrom">
+							<ion-option *ngFor="let mf of mScheduleList" (ionSelect)="checkValidTime(mf.format24, mTo,'morning')" value="{{mf.format24}}">{{mf.format12}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>To</ion-label>
+						<!-- <ion-datetime [(ngModel)]="mTo" [max]="mMaxTo" [min]="mMinTo" minuteValues="0,15,30,45"  displayformat="HH:mm" pickerFormat="HH:mm" formControlName="mTo" (ionChange)="checkTimeFormat(mTo,'mondayTo')"></ion-datetime> -->
+						<!-- <ion-datetime [(ngModel)]="mTo" [min]="mMinTo" [max]="mMaxTo"  minuteValues="0,15,30,45"  displayformat="HH:mm" pickerFormat="HH:mm" formControlName="mTo"></ion-datetime> -->
+						<ion-select [(ngModel)]="mTo" formControlName="mTo">
+							<ion-option *ngFor="let mt of mScheduleList" (ionSelect)="checkValidTime(mFrom, mt.format24,'morning')" value="{{mt.format24}}">{{mt.format12}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>avg time / patient</ion-label>
+						<ion-select [(ngModel)]="mAvTime" formControlName="mAvTime">
+							<ion-option value="15">15 min</ion-option>
+							<ion-option value="30">30 min</ion-option>
+							<ion-option value="45">45 min</ion-option>
+							<ion-option value="60">1 hour</ion-option>
+						</ion-select>
+						<!--<ion-datetime displayFormat="HH:mm" [(ngModel)]="mAvTime" formControlName="mAvTime" ></ion-datetime>-->
+					</ion-item>
+				</ion-list>
+			</ion-card-content>
+		</ion-card>
+		
+		<ion-card>
+			<ion-card-header >
+				<ion-checkbox color="dark" [(ngModel)]="aftCheck" formControlName="aftCheck"  ></ion-checkbox> Afternoon Time <ion-icon name="time" float-right></ion-icon>
+			</ion-card-header>
+			<ion-card-content >
+				<ion-list>
+					<ion-item>
+						<ion-label stacked>From</ion-label>
+						<!-- <ion-datetime displayFormat="hh:mm A" [(ngModel)]="aFrom" formControlName="aFrom"  ></ion-datetime> -->
+						<!-- <ion-datetime [(ngModel)]="aFrom" [min]="aMinFrom"  [max]="aMaxFrom" minuteValues="0,15,30,45"  displayformat="HH:mm" pickerFormat="HH:mm" formControlName="aFrom" ></ion-datetime> -->
+						<ion-select [(ngModel)]="aFrom" formControlName="aFrom">
+							<ion-option *ngFor="let af of aScheduleList" (ionSelect)="checkValidTime(af.format24, aTo,'after')" value="{{af.format24}}">{{af.format12}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>To</ion-label>
+						<!-- <ion-datetime displayFormat="hh:mm A" [(ngModel)]="aTo" formControlName="aTo" ></ion-datetime> -->
+						<!-- <ion-datetime [(ngModel)]="aTo" [min]="aMinTo" [max]="aMaxTo"  minuteValues="0,15,30,45"  displayformat="HH:mm" pickerFormat="HH:mm" formControlName="aTo"></ion-datetime> -->
+						<ion-select [(ngModel)]="aTo" formControlName="aTo">
+							<ion-option *ngFor="let at of aScheduleList" (ionSelect)="checkValidTime(aFrom, at.format24,'after')" value="{{at.format24}}">{{at.format12}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>avg time / patient</ion-label>
+						<!-- <ion-datetime displayFormat="HH:mm" [(ngModel)]="aAvTime" formControlName="aAvTime"></ion-datetime> -->
+						<ion-select [(ngModel)]="aAvTime" formControlName="aAvTime">
+							<ion-option value="15">15 min</ion-option>
+							<ion-option value="30">30 min</ion-option>
+							<ion-option value="45">45 min</ion-option>
+							<ion-option value="60">1 hour</ion-option>
+						</ion-select>
+					</ion-item>
+				</ion-list>
+			</ion-card-content>
+		</ion-card>
+		<ion-card>
+			<ion-card-header >
+				<ion-checkbox color="dark" [(ngModel)]="eveCheck" formControlName="eveCheck"  ></ion-checkbox> Evening Time <ion-icon name="time" float-right></ion-icon>
+			</ion-card-header>
+			<ion-card-content >
+				<ion-list>
+					<ion-item>
+						<ion-label stacked>From</ion-label>
+						<!-- <ion-datetime displayFormat="hh:mm A" [(ngModel)]="eFrom" formControlName="eFrom"></ion-datetime> -->
+						<!-- <ion-datetime [(ngModel)]="eFrom" [min]="eMinFrom"  [max]="eMaxFrom" minuteValues="0,15,30,45"  displayformat="HH:mm" pickerFormat="HH:mm" formControlName="eFrom" ></ion-datetime> -->
+						<ion-select [(ngModel)]="eFrom" formControlName="eFrom">
+							<ion-option *ngFor="let ef of eScheduleList" (ionSelect)="checkValidTime(ef.format24, eTo,'evening')" value="{{ef.format24}}">{{ef.format12}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>To</ion-label>
+						<!-- <ion-datetime displayFormat="hh:mm A" [(ngModel)]="eTo" formControlName="eTo"></ion-datetime> -->
+						<!-- <ion-datetime [(ngModel)]="eTo" [min]="eMinTo" [max]="eMaxTo"  minuteValues="0,15,30,45"  displayformat="HH:mm" pickerFormat="HH:mm" formControlName="eTo"></ion-datetime> -->
+						<ion-select [(ngModel)]="eTo" formControlName="eTo">
+							<ion-option *ngFor="let et of eScheduleList" (ionSelect)="checkValidTime(eFrom, et.format24,'evening')" value="{{et.format24}}">{{et.format12}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>avg time / patient</ion-label>
+						<!-- <ion-datetime displayFormat="HH:mm" [(ngModel)]="eAvTime" formControlName="eAvTime"></ion-datetime> -->
+						<ion-select [(ngModel)]="eAvTime" formControlName="eAvTime">
+							<ion-option value="15">15 min</ion-option>
+							<ion-option value="30">30 min</ion-option>
+							<ion-option value="45">45 min</ion-option>
+							<ion-option value="60">1 hour</ion-option>
+						</ion-select>
+					</ion-item>
+				</ion-list>
+			</ion-card-content>
+		</ion-card>
+		<ion-card>
+			<ion-card-header >
+				<ion-checkbox color="dark" [(ngModel)]="nightCheck" formControlName="nightCheck"  ></ion-checkbox> Night Time <ion-icon name="time" float-right></ion-icon>
+			</ion-card-header>
+			<ion-card-content >
+				<ion-list>
+					<ion-item>
+						<ion-label stacked>From</ion-label>
+						<!-- <ion-datetime displayFormat="hh:mm A" [(ngModel)]="nFrom" formControlName="nFrom"></ion-datetime> -->
+						<!-- <ion-datetime [(ngModel)]="nFrom" [min]="nMinFrom"  [max]="nMaxFrom" minuteValues="0,15,30,45"  displayformat="HH:mm" pickerFormat="HH:mm" formControlName="nFrom" ></ion-datetime> -->
+						<ion-select [(ngModel)]="nFrom" formControlName="nFrom">
+							<ion-option *ngFor="let nf of nScheduleList" (ionSelect)="checkValidTime(nf.format24, nTo,'night')" value="{{nf.format24}}">{{nf.format12}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>To</ion-label>
+						<!-- <ion-datetime displayFormat="hh:mm A" [(ngModel)]="nTo" formControlName="nTo"></ion-datetime> -->
+						<!-- <ion-datetime [(ngModel)]="nTo" [min]="nMinTo" [max]="nMaxTo"  minuteValues="0,15,30,45"  displayformat="HH:mm" pickerFormat="HH:mm" formControlName="nTo"></ion-datetime> -->
+						<ion-select [(ngModel)]="nTo" formControlName="nTo">
+							<ion-option *ngFor="let nt of nScheduleList" (ionSelect)="checkValidTime(nFrom, nt.format24,'night')" value="{{nt.format24}}">{{nt.format12}}</ion-option>
+						</ion-select>
+					</ion-item>
+					<ion-item>
+						<ion-label stacked>avg time / patient</ion-label>
+						<!-- <ion-datetime displayFormat="HH:mm" [(ngModel)]="nAvTime" formControlName="nAvTime"></ion-datetime> -->
+						<ion-select [(ngModel)]="nAvTime" formControlName="nAvTime">
+							<ion-option value="15">15 min</ion-option>
+							<ion-option value="30">30 min</ion-option>
+							<ion-option value="45">45 min</ion-option>
+							<ion-option value="60">1 hour</ion-option>
+						</ion-select>
+					</ion-item>
+				</ion-list>
+			</ion-card-content>
+		</ion-card> 
+		
+		<input type="submit" id="submit" value="Submit" style="display:none"/>
+	</form>
+</ion-content>
+<ion-footer>
+  <ion-toolbar text-center color="dark">
+	<label ion-button for="submit" color="light">Update</label>
+	  <!--<button ion-button color="light" >
+	  </button>-->
+  </ion-toolbar>
+</ion-footer>

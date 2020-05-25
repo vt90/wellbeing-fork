@@ -1,0 +1,78 @@
+<!--
+  Generated template for the DoctorRegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Sign Up</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<form [formGroup]="Doctor" (ngSubmit)="registerDoctor(Doctor)" novalidate>
+		<ion-list>
+			<ion-item>
+				<ion-label stacked>Full Name</ion-label>
+				<ion-input type="text" formControlName="doctorName"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Mobile Number</ion-label>
+				<ion-input type="tel" formControlName="doctorMobileNo" minlength="10" maxlength="15" ></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Email Id</ion-label>
+				<ion-input type="email" formControlName="doctorEmail"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Password</ion-label>
+				<ion-input type="password" formControlName="doctorPassword"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Registration ID</ion-label>
+				<ion-input type="text" value="" formControlName="doctorRegistrationId"></ion-input>
+			</ion-item>
+		
+		<!--<button ion-button icon-start text-center color="dark">
+			<ion-icon name="attach"></ion-icon> Upload required documents
+		</button>-->
+		
+			<!--<ion-item>
+				<ion-label stacked>Clinic / Hospital Name</ion-label>
+				<ion-input type="text" value=""></ion-input>
+			</ion-item>-->
+			<ion-item>
+				<ion-label stacked>Specializations</ion-label>
+				<ion-select [(ngModel)]="doctorSpecializationIds" formControlName="doctorSpecializationIds" (ngModelChange)="changeSubSpecializationsByMultipleSpecialization(doctorSpecializationIds)" multiple="true">
+					<ion-option value="{{i.id}}" *ngFor="let i of doctorSpecializations">{{i.specialization_name}}</ion-option>
+					<ion-option value="Other">Other</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item *ngIf="test">
+				<ion-label floating>Enter Specialization</ion-label>
+				<ion-input type="text" formControlName="other_specialization"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Select Category</ion-label>
+				<ion-select [(ngModel)]="doctorSubSpecializationIds" formControlName="doctorSubSpecializationIds" multiple="true" (ngModelChange)="setSubSpecialization(doctorSubSpecializationIds)">
+					<ion-option *ngFor="let j of doctorSubSpecializations" value="{{j.id}}">{{j.sub_specialization_name}}</ion-option>
+					<ion-option value="Other">Other</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item *ngIf="test1">
+				<ion-label floating>Enter Sub Specialization</ion-label>
+				<ion-input type="text" formControlName="other_sub_specialization"></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label>Terms and conditions apply</ion-label>
+				<ion-checkbox color="dark" formControlName="termsConditions"></ion-checkbox>
+			</ion-item>
+		</ion-list>
+		<button ion-button full>Submit</button>
+	</form>
+</ion-content>

@@ -1,0 +1,134 @@
+<!--
+  Generated template for the AppointmemtHistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Appointment history</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+<ion-list class="listGrp">
+	<ion-item>
+	  <h2>{{patientName}}</h2>
+	  <p class="notiLocation">{{patientMobileNo}}</p>
+	  <p class="notiLocation">{{patientLocation}}</p>
+	</ion-item>
+	<ion-card *ngFor="let ah of appointmentList">
+		<ion-item>
+			<p class="notiMainTxt">{{ah.appointmentStartDateFormatted}} <small>{{ah.visit_type}} Visit</small></p>
+			<p class="notiLocation" *ngIf="ah.prescription_detail" style="white-space:pre-wrap;" >{{ah.prescription_detail}}</p>
+			<p class="notiLocation" *ngIf="!ah.prescription_detail" >Medicine detail not given</p>
+			<br>
+			<div *ngIf="ah.medicine_detail?.length > 0">
+				<table class="FullTble"*ngFor="let m of ah.medicine_detail">
+					<tr>
+						<td>{{m.medicineStartDateFormatted}}</td>
+						<td>{{m.medicineName}}</td>
+					</tr>
+					<tr>
+						<td style="white-space:pre-wrap;" [innerHtml]="m.medicineTimings"></td>
+						<!-- <td valign="top">Sunday,Monday,Tuesday,wednesday,friday,saturday</td> -->
+						<td><h4 style="width:100px;" [innerHtml]="m.medicineDays"></h4></td>
+					</tr>
+				</table>
+			</div>
+			<div *ngIf="ah.medicine_detail?.length == 0">
+					<p>No Medicine Added</p>
+				</div>
+			<!--<table class="FullTble">
+				<tr>
+					<th colspan="2">
+					Omega 3 with Vitamin E (90 Softgels)
+					</th>
+				</tr>
+				<tr>
+					<td>Mon, Tus, Wed</td>
+					<td>Before Breakfast, After Dinner, Before Lunch</td>
+				</tr>
+				<tr>
+					<td>3 Times a day</td>
+					<td>From 31 Jan,2018 to 2 Feb,2018</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button ion-button clear >
+							<ion-icon name="create"></ion-icon>&nbsp;&nbsp;&nbsp;Edit
+						</button>
+						<button ion-button clear >
+							<ion-icon name="trash"></ion-icon>&nbsp;&nbsp;&nbsp;Delete
+						</button>
+					</td>
+				</tr>
+			</table>-->
+			<button ion-button *ngIf="ah.imagePath"  (click)="viewPrescription(ah.imagePath)" >Download Prescription</button>
+		</ion-item>
+	</ion-card>
+	<!--<ion-card>
+		<ion-item>
+		  <p class="notiMainTxt">21 jan 2018, 10.00 AM <small>Home Visit</small></p>
+		  <p class="notiLocation">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+		  <p class="notiLocation">Place : Vile Parle, Mumbai</p>
+		  <br>
+		  <table class="FullTble">
+			<tr>
+				<th colspan="2">
+				Omega 3 with Vitamin E (90 Softgels)
+				</th>
+			</tr>
+			<tr>
+				<td>Mon, Tus, Wed</td>
+				<td>Before Breakfast, After Dinner, Before Lunch</td>
+			</tr>
+			<tr>
+				<td>3 Times a day</td>
+				<td>From 31 Jan,2018 to 2 Feb,2018</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button ion-button clear >
+						<ion-icon name="create"></ion-icon>&nbsp;&nbsp;&nbsp;Edit
+					</button>
+					<button ion-button clear >
+						<ion-icon name="trash"></ion-icon>&nbsp;&nbsp;&nbsp;Delete
+					</button>
+				</td>
+			</tr>
+		  </table>
+		  <table class="FullTble">
+			<tr>
+				<th colspan="2">
+				Omega 3 with Vitamin E (90 Softgels)
+				</th>
+			</tr>
+			<tr>
+				<td>Mon, Tus, Wed</td>
+				<td>Before Breakfast, After Dinner, Before Lunch</td>
+			</tr>
+			<tr>
+				<td>3 Times a day</td>
+				<td>From 31 Jan,2018 to 2 Feb,2018</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button ion-button clear >
+						<ion-icon name="create"></ion-icon>&nbsp;&nbsp;&nbsp;Edit
+					</button>
+					<button ion-button clear >
+						<ion-icon name="trash"></ion-icon>&nbsp;&nbsp;&nbsp;Delete
+					</button>
+				</td>
+			</tr>
+		  </table>
+		  <button ion-button>Download Prescription</button>
+		</ion-item>
+	</ion-card>-->
+</ion-list>
+
+</ion-content>

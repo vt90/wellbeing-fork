@@ -1,0 +1,23 @@
+page-successful-appointment {
+  .listGrp {
+    ion-label:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+    ion-img {
+      img {
+        border-radius: 50%;
+      }
+      margin-right: 10px;
+      float: left;
+      background: #fff;
+    }
+  }
+  ion-chip {
+    width: 100%;
+	display:block;
+	background: rgba(45, 204, 112,0.4) !important;
+    color: rgb(1, 45, 20) !important;
+  }
+}

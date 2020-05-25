@@ -1,0 +1,54 @@
+page-doctor-detail {
+  ion-label {
+    white-space: normal;
+  }
+  .title1 {
+    font-size: 1.2em;
+  }
+  .docDetail {
+    .listGrp {
+      ion-label:after {
+        content: '';
+        display: table;
+        clear: both;
+      }
+      ion-img {
+        img {
+          border-radius: 50%;
+        }
+        margin-right: 10px;
+        float: left;
+        background: #fff;
+      }
+    }
+  }
+  .docServicesList {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+  ion-slides {
+    height: auto;
+  }
+  ion-slide.swiper-slide {
+      //left: 25%;
+  }
+
+  .slide-zoom {
+      background: #fff;
+  }
+  .thumb-img {
+      padding: 0 5px;
+  }
+  .extraList {
+	&.list {
+		margin:0;
+		padding:8px 0;
+		border-bottom:1px solid #ddd;
+		ion-label {
+			margin-top:0;
+			margin-bottom:0;
+		}
+	}
+  }
+}

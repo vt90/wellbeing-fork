@@ -1,0 +1,41 @@
+\<!--
+  Generated template for the LabListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Lab's List</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="baseList">
+	<ion-card *ngIf="labs_list?.length == 0">
+		<ion-card-content>
+			No Lab Found for this Search Criteria
+			<ion-spinner  *ngIf="NewLoader" icon="ios-small"></ion-spinner>
+		</ion-card-content>
+	</ion-card>
+	<ion-item-group class="listGrp" *ngIf="labs_list?.length > 0">
+		<ion-item-divider color="light">Found <strong>{{labs_count}}</strong> labs near <strong>{{searchedLocations}}</strong></ion-item-divider>
+
+		<ion-item *ngFor="let i of labs_list">
+			<!-- <ion-img width="80" height="80" src="{{i.lab_images}}" class="round"></ion-img> -->
+			<ion-thumbnail  item-start>
+				<img [src]="i.lab_images" *ngIf="i.lab_images" width="80" height="80" class="round" style="border-radius:50px"/>
+			</ion-thumbnail>
+			<p class="notiMainTxt">{{i.lab_name}}</p>
+			<p class="notiLocation">{{i.lab_location}}</p>
+			<p class="notiSubTxt">{{i.labtestDetails}}</p>
+			<button ion-button (click)="openLabDetail(i)">View Details</button>
+		</ion-item>
+	</ion-item-group>
+  
+	<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+		<ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

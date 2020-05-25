@@ -1,0 +1,166 @@
+<!--
+  Generated template for the ActiveAppointmentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>active appointments</ion-title>
+	<ion-buttons end>
+		<button ion-button icon-only (click)="goHome()">
+			<ion-icon name="home"></ion-icon>
+		</button>
+	</ion-buttons>
+  </ion-navbar>
+	<ion-toolbar class="stickyTb">
+		<ion-segment [(ngModel)]="status">
+			<ion-segment-button value="doctor">
+				Doctor
+			</ion-segment-button>
+			<ion-segment-button value="lab">
+				Lab
+			</ion-segment-button>
+		</ion-segment>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content class="baseList">
+	<!-- <ion-toolbar>
+		<ion-segment [(ngModel)]="status">
+			<ion-segment-button value="doctor">
+				Doctor
+			</ion-segment-button>
+			<ion-segment-button value="lab">
+				Lab
+			</ion-segment-button>
+		</ion-segment>
+	</ion-toolbar> -->
+	<div [ngSwitch]="status">
+		<!-- activeAppointmentListInfo -->
+		
+		<div *ngSwitchCase="'doctor'">
+			<ion-card *ngIf="doctorActiveAppointmentListInfo?.length == 0">
+				<ion-card-content>
+					No Appointment Shared
+				</ion-card-content>
+			</ion-card>
+			<ion-list  *ngSwitchCase="'doctor'" class="listGrp" >
+				<ion-item *ngFor="let l of doctorActiveAppointmentListInfo">
+					<p class="notiMainTxt">Dr. {{l.doctor_name}} <small>{{l.visit_type}} Visit</small></p>
+					<p class="notiLocation">#{{l.doctor_unique_id}}</p>
+					<p class="notiLocation">{{l.clinic_location}}</p>
+					<p class="notiLocation">Appointment Time : {{l.appointment_datetime}}</p>
+					<p class="notiSubTxt">{{l.appointment_status}}</p>
+					<p class="notiSubTxt" *ngIf="l.patientTurn">
+						<span float-left>Turn No.is {{l.patientTurn}}</span>
+						<span float-right>{{l.timeLeft}}</span>
+					</p>
+					<div>
+						<button ion-button *ngIf="l.appointment_status == 'Pending' || l.appointment_status == 'Rescheduled'" (click)="cancelDocAppointmentByPatient(l.id)">Cancel Appointment</button>
+						<button ion-button *ngIf="l.appointment_status == 'Pending' || l.appointment_status == 'Rescheduled'" color="dark" (click)="rescheduleAppointment(l.id)">Reschedule Appointment</button>
+						<button ion-button *ngIf="l.appointment_status == 'Completed' || l.appointment_status == 'Prescription Completed'" color="dark" (click)="viewPrescription(l.id)">View Prescription</button>
+					</div>
+				</ion-item>
+
+				<!-- <ion-item>
+				  <p class="notiMainTxt">Dr.Alpha Dawda <small>Home Visit</small></p>
+				  <p class="notiLocation">#123456</p>
+				  <p class="notiLocation">Vile Parle West, Mumbai</p>
+				  <p class="notiLocation">Diabetologist</p>
+				  <p class="notiLocation">Appointment Time : 12 Jan 2018, 11.45 AM</p>
+				  <p class="notiSubTxt">
+					<span float-left>Turn No.is 9</span>
+					<span float-right>19 Minutes left for your turn</span>
+				  </p>
+				  <div>
+					<button ion-button>Cancel Appointment</button>
+				  </div>
+				</ion-item>
+				
+				<ion-item>
+				  <p class="notiMainTxt">Dr.Alpha Dawda <small>Home Visit</small></p>
+				  <p class="notiLocation">#123456</p>
+				  <p class="notiLocation">Vile Parle West, Mumbai</p>
+				  <p class="notiLocation">Diabetologist</p>
+				  <p class="notiLocation">Appointment Time : 12 Jan 2018, 11.45 AM</p>
+				  <p class="notiSubTxt">Confirmation Pending</p>
+				  <div>
+					<button ion-button>Cancel Appointment</button>
+					<button ion-button color="dark" (click)="bookAppointment()">Reschedule Appointment</button>
+				  </div>
+				</ion-item>
+
+				<ion-item>
+				  <p class="notiMainTxt">Dr.Alpha Dawda <small>Home Visit</small></p>
+				  <p class="notiLocation">#123456</p>
+				  <p class="notiLocation">Vile Parle West, Mumbai</p>
+				  <p class="notiLocation">Diabetologist</p>
+				  <p class="notiLocation">Appointment Time : 12 Jan 2018, 11.45 AM</p>
+				  <p class="notiSubTxt">
+					<span float-left>Turn No.is 9</span>
+					<span float-right>19 Minutes left for your turn</span>
+				  </p>
+				  <div>
+					<button ion-button>Cancel Appointment</button>
+				  </div>
+				</ion-item>
+				
+				<ion-item>
+				  <p class="notiMainTxt">Dr.Alpha Dawda <small>Home Visit</small></p>
+				  <p class="notiLocation">#123456</p>
+				  <p class="notiLocation">Vile Parle West, Mumbai</p>
+				  <p class="notiLocation">Diabetologist</p>
+				  <p class="notiLocation">Appointment Time : 12 Jan 2018, 11.45 AM</p>
+				  <p class="notiSubTxt">Confirmation Pending</p>
+				  <div>
+					<button ion-button>Cancel Appointment</button>
+					<button ion-button color="dark" (click)="bookAppointment()">Reschedule Appointment</button>
+				  </div>
+				</ion-item>
+
+				<ion-item>
+				  <p class="notiMainTxt">Dr.Alpha Dawda <small>Home Visit</small></p>
+				  <p class="notiLocation">#123456</p>
+				  <p class="notiLocation">Vile Parle West, Mumbai</p>
+				  <p class="notiLocation">Diabetologist</p>
+				  <p class="notiLocation">Appointment Time : 12 Jan 2018, 11.45 AM</p>
+				  <p class="notiSubTxt">
+					<span float-left>Turn No.is 9</span>
+					<span float-right>19 Minutes left for your turn</span>
+				  </p>
+				  <div>
+					<button ion-button>Cancel Appointment</button>
+				  </div>
+				</ion-item> -->    
+			</ion-list>
+		</div>
+		<div *ngSwitchCase="'lab'">
+			<ion-card *ngIf="labActiveAppointmentListInfo?.length == 0">
+				<ion-card-content>
+					No Appointment Shared
+				</ion-card-content>
+			</ion-card>
+			<ion-list  *ngSwitchCase="'lab'" class="listGrp" >
+				<ion-item *ngFor="let l of labActiveAppointmentListInfo">
+					<p class="notiMainTxt">{{l.doctor_name}} <small>{{l.visit_type}} Visit</small></p>
+					<p class="notiLocation">#{{l.doctor_unique_id}}</p>
+					<p class="notiLocation">{{l.clinic_location}}</p>
+					<p class="notiLocation">Appointment Time : {{l.appointment_datetime}}</p>
+					<p class="notiSubTxt">{{l.appointment_status}}</p>
+					<p class="notiSubTxt" *ngIf="labActiveAppointmentListInfo.patientTurn">
+						<span float-left>Turn No.is {{labActiveAppointmentListInfo.patientTurn}}</span>
+						<span float-right>{{labActiveAppointmentListInfo.timeLeft}}</span>
+					</p>
+					<div>
+						<button ion-button *ngIf="l.appointment_status == 'Pending' || l.appointment_status == 'Rescheduled'" (click)="cancelLabAppointmentByPatient(l.id)">Cancel Appointment</button>
+						<button ion-button *ngIf="l.appointment_status == 'Pending' || l.appointment_status == 'Rescheduled'" color="dark" (click)="rescheduleAppointmentForLab(l.id,l.labId)">Reschedule Appointment</button>
+						<button ion-button *ngIf="l.appointment_status == 'Completed'" color="dark" (click)="viewLabPrescription(l.id)">View Report</button>
+					</div>
+				</ion-item>  
+			</ion-list>
+		</div>
+	</div>
+</ion-content>

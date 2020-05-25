@@ -1,0 +1,15 @@
+page-active-appointment {
+	ion-segment {
+		background:#fff;
+	}
+	ion-toolbar {
+		.toolbar-background {
+			background:#fff;
+		}
+		&.stickyTb {
+			padding-top:0;
+			padding-bottom:0;
+			min-height:4.2rem;
+		}
+	}
+}

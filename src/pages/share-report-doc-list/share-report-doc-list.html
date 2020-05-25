@@ -1,0 +1,54 @@
+<!--
+  Generated template for the ShareReportDocListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Share list</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<ion-card *ngIf="doctorsList?.length == 0">
+		<ion-card-content>
+			No Report Found for this Appointment
+		</ion-card-content>
+	</ion-card>	
+	<form [formGroup]="shareToDocs" (ngSubmit)="shareLabReportsToDoctors(shareToDocs)" novalidate>
+		<ion-list *ngIf="doctorsList?.length > 0">
+			<ion-item *ngFor="let d of doctorsList">
+				<ion-label>
+				<!-- <ion-checkbox [(ngModel)]="doctorId" formControlName="doctorId" value="d" ></ion-checkbox> -->
+				<input type="checkbox"
+                   name="doctorId"
+				    formControlName="doctorId" 
+                   value="{{d.id}}"
+                   [checked]="cbChecked.indexOf(d.id) >= 0"
+                   (change)="updateCheckedOptions(d.id, $event)"/>
+				   Dr. {{d.doctor_name}}</ion-label>
+			</ion-item>
+			<!-- <ion-item>
+				<ion-label>Dr.Kevin Nash</ion-label>
+				<ion-checkbox ></ion-checkbox>
+			</ion-item>
+			<ion-item>
+				<ion-label>Dr.Steave Piterson</ion-label>
+				<ion-checkbox ></ion-checkbox>
+			</ion-item>
+			<ion-item>
+				<ion-label>Dr.Alen Simon</ion-label>
+				<ion-checkbox ></ion-checkbox>
+			</ion-item> -->
+		</ion-list>
+		<div padding text-center>
+		<button ion-button icon-left color="dark" >
+			Submit
+		  </button>
+		</div>
+	</form>
+</ion-content>

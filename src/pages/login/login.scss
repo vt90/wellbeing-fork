@@ -1,0 +1,42 @@
+page-login {
+  .button-group.grid {
+    padding: 0;
+    .row {
+      margin-left: -8px;
+      margin-right: -8px;
+      .col {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+  }
+}
+.loginScreen {
+  //padding: 0 25px;
+  .appcolor {
+    text-decoration: underline;
+    margin: 15px 0 0 0;
+    display: block;
+  }
+  ion-item.item {
+    .item-inner {
+      padding-right: 0;
+    }
+    padding-left: 0;
+  }
+  .title1 {
+    padding-top: 30px;
+  }
+}
+.extraLogin {
+  padding: 25px 0;
+  p.appcolor {
+    margin-top: 5px;
+    color: $appColor;
+    font-size: 1.2em;
+  }
+  
+  
+  
+  
+}

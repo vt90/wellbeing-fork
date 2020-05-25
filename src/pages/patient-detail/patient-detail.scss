@@ -1,0 +1,26 @@
+page-patient-detail {
+	ion-navbar {
+		ion-buttons {
+			button.bar-button {
+				background:#fff;
+				color:$appColor;
+				&:hover {
+					color:$appColor !important;
+				}
+			}
+		}
+	}
+p.notiLocation {
+		white-space:normal;
+	}
+	table {
+		margin-bottom:8px;
+		tr {
+			td,th {
+				border:1px solid #eee;
+				font-size:13px;
+				padding:8px;
+			}		
+		}
+	}
+}

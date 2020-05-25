@@ -1,0 +1,109 @@
+<!--
+  Generated template for the DoctorDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Dr.{{doctor_name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="docDetail">
+  <ion-list class="listGrp">
+    <ion-item>
+		<ion-thumbnail  item-start>
+			<!-- <ion-img width="80" height="80" src="{{doctor_image}}" class="round"></ion-img> -->
+			<img [src]="doctor_image" *ngIf="doctor_image" width="80" height="80" class="round" style="border-radius:50px"/>
+		</ion-thumbnail>
+      <!--<ion-avatar item-start>
+        <img src="assets/imgs/img_avatar1.png">
+      </ion-avatar>-->
+      <p class="notiMainTxt">Dr. {{doctor_name}}</p>
+      <p class="notiSubTxt"><span *ngIf="visit!='Home'"  >{{doctor_clinic_name}}</span>({{visit}} Visit)</p>
+      <button ion-button color="secondary" (click)="bookAppointment(doctor_id, clinic_id)">Book Appointment</button>
+	  <p>Available On -</p>
+	  <p>{{clinicSchedule}}</p>
+    </ion-item>
+    <ion-item>
+      <h4 class="title1">About</h4>
+      <p><strong>{{doctor_specializations}} </strong></p>
+      <p>{{doctor_about}}</p>
+    </ion-item>
+    <ion-item>
+		<h4 class="title1">Services</h4>
+		<ul class="docServicesList">
+			 <p>{{doctor_sub_specializations}} </p>
+			<!-- <li *ngFor="let i of doctor_sub_specializations"><p>- {{i.sub_specialization_name}}</p></li> -->
+			<!--<li><p>- Crowns and Bridges Fixing</p></li>
+			<li><p>- Artificial Teeth</p></li>
+			<li><p>- Cast Partial Denture</p></li>
+			<li><p>- Conservative Dentistry</p></li>
+			<li><p>- Cosmetic/ Aesthetic Dentistry</p></li>
+			<li><p>- Complete/Partial Dentures Fixing</p></li>
+			<li><p>- Impaction / Impacted Tooth Extraction</p></li>
+			<li><p>- Endo Surgery Or Apicoectomy</p></li>
+			<li><p>- Endosurgery</p></li>
+			<li><p>- Tooth Extraction</p></li>
+			<li><p>- Fixed Partial Denture (FPD)</p></li>-->
+		</ul>
+    </ion-item>
+    <ion-item *ngIf="clinic_image?.length > 0 && visit!='Home'">
+      <ion-slides class="image-slider" slidesPerView="4">
+        <ion-slide *ngFor="let img of clinic_image">
+			<img src="{{img.clinicImagePath}}" height="80" width="80" class="thumb-img" imageViewer />
+        </ion-slide>
+      </ion-slides>
+    </ion-item>
+    <ion-item *ngIf="visit!='Home'">
+		<h4 class="title1">Address</h4>
+		<p class="appcolor">{{doctor_clinic_name}}</p>
+		<p>{{clinic_addresses}}</p>
+		<span *ngIf="maplink">
+		<a href="{{maplink}}"><img src="assets/imgs/map-thumb.jpg" width="100%"></a>
+		<a href="{{maplink}}">Locate Me</a>
+		</span>
+		<!-- http://maps.google.com/maps?q=19.186308,72.835516 -->
+		<!-- <iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=40.7127837,-74.0059413&amp;key=YOUR_API_KEY"></iframe> -->
+		<!-- <iframe src="http://maps.google.com/maps?q=35.856737, 10.606619&z=15&output=embed" width="260" height="170" frameborder="0" style="border:0">
+		</iframe> -->
+		<!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12934.738336481932!2d10.606619!3d35.856737!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDUxJzI0LjMiTiAxMMKwMzYnMjMuOCJF!5e0!3m2!1sen!2sus!4v1526887865410" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> -->
+    </ion-item>
+	<ion-item *ngIf="visit=='Home'">
+		<h4 class="title1">Home Visit Locations</h4>
+		<!-- <p>{{clinic_addresses}}</p> -->
+		<p>
+		<ion-badge item-end *ngFor="let clinic of clinic_addresses" >{{clinic.location}}</ion-badge>
+		</p>
+    </ion-item>
+    <ion-item>
+		<h4 class="title1">Contact Number</h4>
+		<p>{{doctor_mobile_no}}</p>
+    </ion-item>
+    <ion-item>
+		<h4 class="title1">Email Id</h4>
+		<p>{{doctor_email}}</p>
+    </ion-item>
+	<ion-item *ngIf="doctor_other_clinics?.length > 0">
+		<h4 class="title1">Other Clinics</h4>
+		<!-- <ion-badge color="dark" *ngFor="let j of doctor_other_clinics" (click)="showClinicDetails(j)">{{j.clinic_name}}</ion-badge> -->
+		
+		<ion-list class="extraList"  *ngFor="let j of doctor_other_clinics" (click)="showClinicDetails(j)">
+		  <button ion-item >
+			<h4>{{j.clinic_name}}({{j.visit_type}} Visit)</h4>
+			<p>{{j.other_clinic_address}}</p>
+		  </button>  
+		</ion-list>
+		
+		<!--<ion-badge color="dark">Santacruz</ion-badge>
+		<ion-badge color="dark">Andheri</ion-badge>
+		<ion-badge color="dark">Mahim</ion-badge>
+		<ion-badge color="dark">Borivali</ion-badge>-->	  
+    </ion-item>
+	
+  </ion-list>
+</ion-content>

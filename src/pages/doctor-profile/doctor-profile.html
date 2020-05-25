@@ -1,0 +1,139 @@
+<!--
+  Generated template for the DoctorProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+	<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Profile</ion-title>	
+	<!-- <ion-buttons end>
+      <button ion-button icon-only class="disable-hover bar-button bar-button-md bar-button-default bar-button-default-md">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons> -->
+	
+	<ion-buttons end>
+      <button ion-button icon-only (click)="openDocumentPage()">
+        <ion-icon name="attach"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<ion-grid>
+	  <ion-row>
+		<ion-col col-4>
+			<div class="proImg1">
+				<div class="userImgContainer">
+					<img [src]="base64Image" *ngIf="base64Image" width="110" height="110" />
+				</div>
+				<button ion-button round color="primary" (click)="openPicOption()">
+					<ion-icon name="create"></ion-icon>
+				</button>
+			</div>
+		</ion-col>
+	  </ion-row>
+	</ion-grid>
+<form [formGroup]="profilePage" (ngSubmit)="updateProfile(profilePage)" novalidate>
+	<!-- <ion-grid>
+		<ion-row>		
+			<ion-col col-12>
+				<ion-list>
+				  <ion-item>
+					<ion-label stacked>Full Name</ion-label>
+					<ion-input type="text"  [(ngModel)]="fullName" formControlName="fullName"  ></ion-input>
+				  </ion-item>
+				  <ion-item>
+					<ion-label stacked>Mobile Number</ion-label>
+					<ion-input disabled type="tel" [(ngModel)]="mobileNo" formControlName="mobileNo" minlength="10" maxlength="15"  ></ion-input>
+				  </ion-item>
+				</ion-list>
+			</ion-col>
+		</ion-row>
+	</ion-grid> -->
+	<div class="mainContent" >
+		<ion-list>
+			<ion-item>
+				<ion-label stacked>Full Name</ion-label>
+				<ion-input type="text"  [(ngModel)]="fullName" formControlName="fullName"  ></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Mobile Number</ion-label>
+				<ion-input disabled type="tel" [(ngModel)]="mobileNo" formControlName="mobileNo" minlength="10" maxlength="15"  ></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Email Id</ion-label>
+				<ion-input disabled type="email" [(ngModel)]="emailId" formControlName="emailId" ></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Enter your Password</ion-label>
+				<ion-input type="password" [(ngModel)]="passwordUser" formControlName="passwordUser" ></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Registration ID</ion-label>
+				<ion-input   type="text" [(ngModel)]="registerId" formControlName="registerId" ></ion-input>
+			</ion-item>
+		
+			<ion-item>
+				<ion-label stacked>Specializations</ion-label>
+				<ion-select [(ngModel)]="doctorSpecializationIds" formControlName="doctorSpecializationIds" (ngModelChange)="changeSubSpecializationsByMultipleSpecialization(doctorSpecializationIds)" multiple="true">
+					<ion-option value="{{i.id}}" *ngFor="let i of doctorSpecializations">{{i.specialization_name}}</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Select Category</ion-label>
+				<ion-select [(ngModel)]="doctorSubSpecializationIds" formControlName="doctorSubSpecializationIds" multiple="true">
+					<ion-option *ngFor="let j of doctorSubSpecializations" value="{{j.id}}">{{j.sub_specialization_name}}</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>About the Doctor</ion-label>
+				<ion-textarea type="text"  [(ngModel)]="aboutDoctor" formControlName="aboutDoctor"  ></ion-textarea>
+			</ion-item>
+			<!-- <ion-item>
+				<ion-label stacked>State</ion-label>
+				<ion-select formControlName="stateId" [(ngModel)]="state_id" (ngModelChange)="changeState(state_id)">
+					<ion-option *ngFor="let s of states" value="{{s.id}}">{{s.state_name}}</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>City</ion-label>
+				<ion-select formControlName="cityId" [(ngModel)]="city_id" (ngModelChange)="changeCity(city_id)">
+					<ion-option *ngFor="let c of cities" value="{{c.id}}">{{c.city_name}}</ion-option>
+				</ion-select>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Location</ion-label>
+				<ion-select formControlName="locationId" [(ngModel)]="location_id" (ngModelChange)="changeLocation(location_id)">
+					<ion-option *ngFor="let l of locations" value="{{l.id}}">{{l.location}}</ion-option>
+					<ion-option value="Other">Other</ion-option>
+				</ion-select>
+			</ion-item>			
+			<ion-item *ngIf="test">
+				<ion-label floating>Enter Location</ion-label>
+				<ion-input type="text" [(ngModel)]="other_location" formControlName="other_location"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label stacked>Address</ion-label>
+				<ion-textarea [(ngModel)]="address"  formControlName="address" ></ion-textarea>
+			</ion-item> -->
+			<!-- <ion-item>
+				<ion-label stacked>Google Map Link</ion-label>
+				<ion-textarea type="text" [(ngModel)]="maplink" formControlName="maplink"  ></ion-textarea>
+			</ion-item> -->
+		<button ion-button full>Submit</button>
+		</ion-list>
+	</div>
+</form>
+	<!-- <button ion-button full icon-start text-center color="dark" (click)="openDocumentPage()" >
+			<ion-icon name="attach"></ion-icon> Upload Required Documents
+	</button> -->
+</ion-content>

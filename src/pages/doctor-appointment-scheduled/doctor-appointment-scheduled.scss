@@ -1,0 +1,22 @@
+page-doctor-appointment-scheduled {
+	.FullTble {
+		tr {
+			td:last-child {
+				text-align:right;
+			}
+			td {
+				padding:8px 0;
+			}
+		}
+	}
+	ion-card-header {
+		background-color: #f6f0f0;
+		padding:8px 16px !important;
+	}
+	ion-card {
+		button {
+			padding:0 !important;
+			height:auto !important;
+		}
+	}
+}

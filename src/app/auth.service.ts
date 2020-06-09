@@ -18,7 +18,6 @@ import {FirebaseBackend} from './auth/firebase-backend';
  * Authentication Service for the Ionic App.
  * Supports both firebase and nodeJS as backend implementations
  *
- * @class AuthService
  */
 @Injectable({
   providedIn: 'root'
@@ -78,11 +77,11 @@ export class AuthService implements OnDestroy {
   constructor(private httpClient: HttpClient,
               private router: Router) {
     if (environment.firebase) {
-      this._backend = new FirebaseBackend(httpClient)
+      this._backend = new FirebaseBackend(httpClient);
     } else {
       // todo: implement NodeJS backend
-      console.log('Not implemented: NodeJS Backend')
-      throwError(new ReferenceError('NodeJS Backend not yet implemented'))
+      console.log('Not implemented: NodeJS Backend');
+      throwError(new ReferenceError('NodeJS Backend not yet implemented'));
     }
   }
 
@@ -93,16 +92,14 @@ export class AuthService implements OnDestroy {
     }
   }
 
-  login(email: string, password: string): Observable<User> {
-    return this._backend.login(email, password).pipe(tap(user => {
+  login(email: string, password: string, role: string): Observable<User> {
+    return this._backend.login(email, password, role).pipe(tap(user => {
       this.setUser(user);
     }));
   }
 
-  signup(email: string, password: string): Observable<User> {
-    return this._backend.signup(email, password).pipe(tap(user => {
-      this.setUser(user);
-    }));
+  signup(email: string, password: string, role: string): Observable<string> {
+    return this._backend.signup(email, password, role);
   }
 
   logout(): void {
@@ -123,6 +120,7 @@ export class AuthService implements OnDestroy {
             storageData.id,
             storageData.refreshToken,
             storageData.token,
+            storageData.role,
             new Date(storageData.tokenExpiration)
           );
           if (newUser.tokenDuration <= 0) {
@@ -159,5 +157,8 @@ export class AuthService implements OnDestroy {
     this.autoLogout(newUser.tokenDuration);
   }
 
+  passwordReset(email: string) {
+    return this._backend.passwordReset(email);
+  }
 }
 

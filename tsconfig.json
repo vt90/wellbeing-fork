@@ -18,6 +18,12 @@
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "exclude": [
+      "src/pages/**",
+      "src/providers/**",
+      "src/validators/**",
+      "src/app/*.original.*"
+    ]
   }
 }

@@ -31,6 +31,8 @@ platforms/android/CordovaLib/build
 platforms/
 plugins/
 resources/
+src/environments/environment.ts
+src/environments/environment.prod.ts
 #plugins/android.json
 # plugins/ios.json
 www/

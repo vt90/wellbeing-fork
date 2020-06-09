@@ -1,8 +1,5 @@
 {
-  "name": "medical",
-  "app_id": "",
-  "type": "ionic-angular",
-  "integrations": {
-    "cordova": {}
-  }
+  "name": "ionic-firebase-auth-template",
+  "integrations": {},
+  "type": "angular"
 }

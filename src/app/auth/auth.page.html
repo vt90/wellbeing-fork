@@ -1,16 +1,40 @@
 <ion-header>
-  <ion-toolbar color="secondary">
-    <ion-title>{{ isLogin ? 'Login' : 'Signup' }}</ion-title>
-  </ion-toolbar>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+        <ion-toolbar color="{{isLogin ? 'primary' : 'secondary'}}">
+          <ion-title class="ion-text-center">WellBeing {{ isLogin ? 'Login' : 'Registration' }}</ion-title>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-header>
 
 <ion-content>
-  <!--  By default, in angular, we would wrap the whole grid with a <form> </form> element-->
-  <!--  So we can do the same in ionic, but we use the ion-input etc. They just wrap the regular ones. -->
   <form #loginform="ngForm" (ngSubmit)="onSubmit(loginform)">
     <ion-grid>
       <ion-row>
-        <ion-col size-sm="6" offset-sm="3">
+        <ion-col size-md="6" offset-md="3" class="ion-no-padding">
+          <ion-item lines="none">
+            <div class="loginRole">
+              <div class="loginRoleLabel">{{isLogin ? 'Login ' : 'Register '}}as</div>
+              <ion-segment value="patient" (ionChange)="onChangeRole($event.detail)">
+                <ion-segment-button value="patient">
+                  <ion-label>Patient</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="doctor">
+                  <ion-label>Doctor</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="provider">
+                  <ion-label>Provider</ion-label>
+                </ion-segment-button>
+              </ion-segment>
+            </div>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-md="6" offset-md="3">
           <ion-list>
             <ion-item>
               <ion-label position="floating">E-Mail</ion-label>
@@ -43,34 +67,34 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size-sm="6" offset-sm="3">
+        <ion-col size-md="6" offset-md="3">
           <ion-button
                   type="button"
                   color="primary"
                   fill="clear"
                   expand="block"
                   (click)="onSwitchAuthMode()">
-            Switch to {{ isLogin ? 'signup' : 'login' }}
+            {{ isLogin ? 'To Registration' : 'Back to Login' }}
           </ion-button>
           <ion-button
                   type="submit"
-                  color="primary"
+                  color="{{isLogin ? 'primary' : 'secondary'}}"
                   expand="block"
                   (click)="onLogin()"
                   [disabled]="!loginform.valid">
-            {{ isLogin ? 'Login' : 'Signup' }}
+            {{ isLogin ? 'Login' : 'Register' }}
+          </ion-button>
+          <ion-button
+                  *ngIf="wrongPassword && isLogin"
+                  type="button"
+                  color="danger"
+                  expand="block"
+                  fill="outline"
+                  (click)="resetPassword(loginform.value.email)">
+            Reset Password
           </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
   </form>
-  <!--  We can use a spinner, see below as in lesson 143 -->
-  <!--  <div class="ion-text-center">-->
-  <!--  <ion-spinner color="primary" *ngIf="isLoading"></ion-spinner>-->
-  <!--  <ion-button color="primary" (click)="onLogin()" *ngIf="!isLoading">-->
-  <!--    Login-->
-  <!--  </ion-button>-->
-  <!--  </div>-->
-
-  <!--  Or we can use a loadingcontrolloer-->
 </ion-content>

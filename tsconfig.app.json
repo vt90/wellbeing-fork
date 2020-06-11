@@ -17,6 +17,7 @@
     "src/pages/**/*.ts",
     "src/providers/*",
     "src/validators/*",
-    "src/app/*.original.ts"
+    "src/app/*.original.ts",
+    "src/environments/*.template.ts"
   ]
 }

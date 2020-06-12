@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +7,22 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  userRole:any;
+  
+  constructor(private authService: AuthService) {
+      this.getUserRole();
 
-  constructor() {}
+  }
+  
+  getUserRole(){
+    if(this.authService.user.token!=null){
+      this.userRole=this.authService.user.role;
+    }
+    
+  
+
+
+  }
+
 
 }

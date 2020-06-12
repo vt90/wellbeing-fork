@@ -6,7 +6,6 @@ import {NgForm} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {BackendError} from './auth-backend';
 
-
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.page.html',
@@ -31,13 +30,15 @@ export class AuthPage implements OnInit {
   constructor(private authService: AuthService,
               private router: Router,
               private loadingCtrl: LoadingController,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController
+              ) {
   }
 
   ngOnInit() {
   }
 
   onLogin() {
+
   }
 
   onSubmit(loginform: NgForm) {
@@ -71,6 +72,9 @@ export class AuthPage implements OnInit {
 
   onSwitchAuthMode() {
     this.isLogin = !this.isLogin;
+    if(!this.isLogin && this.role=='doctor'){
+      this.router.navigateByUrl('doctor-register');
+    }
   }
 
   private showAlert(error) {

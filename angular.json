@@ -128,7 +128,11 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**", "**/src/pages/**", "**/src/providers/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "**/src/pages/**",
+              "**/src/providers/**"
+            ]
           }
         },
         "e2e": {
@@ -174,7 +178,8 @@
     }
   },
   "cli": {
-    "defaultCollection": "@ionic/angular-toolkit"
+    "defaultCollection": "@ionic/angular-toolkit",
+    "analytics": "c51379e7-daaf-49da-8632-fe60e80b2f69"
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

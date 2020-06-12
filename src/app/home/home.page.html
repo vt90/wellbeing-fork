@@ -4,11 +4,76 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      MyApp
+      WellBeing
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <h1 class="ion-padding">Here comes your content</h1>
+ <!-- <h1 class="ion-padding">Here comes your content {{userRole}}</h1>-->
+  <div *ngIf = "userRole == 'doctor'">
+		<!-- <ion-label>Doctor Dashboard</ion-label> -->
+		<h5>Hello Dr. {{userName}},</h5>
+		<h4 class="text-capitalize">{{clinicName}}</h4>
+		<ion-card padding>
+			<div class="activeTurn">{{turnCount}}</div>
+			<ion-label text-center>Current Turn Active</ion-label>
+			<div text-center><button ion-button small (click)="updateAppointmentTurn()">Update</button></div>
+		</ion-card>
+		<ion-grid class="dashboard">
+			<ion-row>
+				<ion-col col-6>
+					<div class="insetBlock redBlock" (click)="docCurrentAppointment()">
+						<img src="assets/imgs/icon-book-appointment.png">
+						<h4>Current Appointments</h4>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="insetBlock" (click)="docProfile()">
+						<img src="assets/imgs/icon-search-labs.png">
+						<h4>Profile Details</h4>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="insetBlock" (click)="scheduleList()">
+						<img src="assets/imgs/icon-appointment-schedules.png">
+						<h4>Appointment Schedules</h4>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="insetBlock" (click)="assistantList()">
+						<img src="assets/imgs/icon-create-assistant.png">
+						<h4>Manage Assistant</h4>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="insetBlock" (click)="openShareDocReports()">
+						<img src="assets/imgs/icon-shared-reports.png">
+						<h4>Shared Reports</h4>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="insetBlock" (click)="docIsOnLeave()">
+						<img src="assets/imgs/icon-doc-leave-new.png">
+						<h4>Doctor is on leave</h4>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="insetBlock" (click)="regPatient()">
+						<img src="assets/imgs/icon-reg-patient.png">
+						<h4>Register a Patient</h4>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="insetBlock" (click)="docAddAppointment()">
+						<img src="assets/imgs/icon-add-appointment.png">
+						<h4>Add an Appointment</h4>
+					</div>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+		
+		
+	</div>
+	
 </ion-content>

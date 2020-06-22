@@ -49,7 +49,7 @@ export class DoctorRegisterPage implements OnInit {
    get confirmpass(){ return this.doctorRegForm.get('confirmpass');}
    get registrationID(){ return this.doctorRegForm.get('registrationID');}
    get hospitalName(){ return this.doctorRegForm.get('hospitalName');}
-  //  get specialization(){ return this.doctorRegForm.get('specialization');}
+   get specialization(){ return this.doctorRegForm.get('specialization');}
   //  get specializationId(){ return this.doctorRegForm.get('specializationId');}
    get terms(){ return this.doctorRegForm.get('terms');}
 
@@ -69,27 +69,11 @@ export class DoctorRegisterPage implements OnInit {
     }
   }
 
-  // doctorreg = new FormGroup({
-  //   doctorfullName:new FormControl('',Validators.required),
-  //   doctorMobileNo: new FormControl('',  [Validators.required,Validators.pattern('[7-9]{1}[0-9]{9}|[0-9]{11,15}')]),
-  //   email: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]),
-  //   doctorPassword:new FormControl('',Validators.required),
-  //   doctorconfirmPassword:new FormControl('',Validators.required),
-  //   termsConditions:new FormControl('',Validators.required),
-  //   });
-
-  // registerDoctor(value){
-  //   this.allServices.addUser(value)
-  //   .then( res => {
-  //     let toast = this.toastCtrl.create({
-  //       message: 'User was created successfully',
-  //       duration: 3000
-  //     });
-  //     // toast.present();
-  //     // this.resetFields();
-  //   }, err => {
-  //     console.log(err)
-  //   })
-  // }
-
+  checkpswd = function(user:HTMLInputElement) {
+    // alert(user['password'])
+    // alert(user['confirmpass'])
+    if(user['password'] != user['confirmpass']){
+     alert('password wrong');
+   }
+  }
 }

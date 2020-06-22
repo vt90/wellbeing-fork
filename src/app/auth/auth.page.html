@@ -73,7 +73,7 @@
                   color="primary"
                   fill="clear"
                   expand="block"
-                  (click)="onSwitchAuthMode()">
+                  (click)="onSwitchAuthMode()" routerLink="/doctor-register" routerDirection="root">
             {{ isLogin ? 'To Registration' : 'Back to Login' }}
           </ion-button>
           <ion-button

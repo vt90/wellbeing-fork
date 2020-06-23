@@ -73,7 +73,8 @@ export class AuthPage implements OnInit {
   onSwitchAuthMode() {
     this.isLogin = !this.isLogin;
     if(!this.isLogin && this.role=='doctor'){
-      this.router.navigateByUrl('doctor-register');
+      // this.router.navigateByUrl('/doctor-register');
+      this.router.navigate(['/doctor-register'])
     }
   }
 

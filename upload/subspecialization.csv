@@ -1,0 +1,43 @@
+id,specialization_id,sub_specialization_name
+1,1,Sergery
+2,2,General Surgeon
+3,2,Oncosurgeon
+4,2,Neurosurgeon
+5,2,Paediatric surgeon
+6,2,Plastic surgeon
+7,2,Bariatric surgeon
+8,2,Transplant surgeon
+9,19,General Physician
+10,19,Dermatologist
+11,19,Diabetologist
+12,19,Chest Physician
+13,19,Paediatrician
+14,19,Rheumatologist
+15,19,Oncologist
+16,19,Nephrologist
+17,19,Pathologist
+18,19,Endocrinologist
+19,19,Neurologist
+20,19,Cosmetologist
+21,19,Cardiologist
+22,19,Gastroenterologist
+23,20,General Surgeon
+24,20,Gynaecologist
+25,20,ENT Specialist
+26,20,Ophthalmologist
+27,20,Urologist
+28,20,Oncosurgeon
+29,20,Neurosurgeon
+30,20,Paediatric surgeon
+31,20,Plastic surgeon
+32,20,Bariatric surgeon
+33,20,Thoracic surgeon
+34,20,CVTS surgeon
+35,20,GI Surgeon
+36,20,GI surgeon
+37,20,Hepatobiliary surgeon
+38,20,Transplant surgeon
+39,19,Sikin Specialist
+40,19,Skin Specialist
+41,19,Homeopathy 
+42,19,Ayurveda

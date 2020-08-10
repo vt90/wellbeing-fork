@@ -2,22 +2,9 @@ import {AuthBackend, BackendError} from './auth-backend';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {switchMap, tap} from 'rxjs/operators';
-import {User} from './user.model';
+import {User} from '../model/user.model';
 import {Observable, of} from 'rxjs';
 
-// export class Doctorfb {
-//   // $key: string;
-//   fullname: string;
-//   mobile: number
-//   email: any;
-//   password: any;
-//   confirmpass: any;
-//   registrationID: any
-//   hospitalName: any;
-//   Specialization: any;
-//   SpecializationId: any
-//   terms: any;
-// }
 
 interface FirebaseLoginResponse {
   kind: string;

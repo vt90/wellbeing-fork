@@ -1,5 +1,4 @@
 export class Doctor {
-    // $key: string;
     fullname: string;
     mobile: number
     email: any;
@@ -8,6 +7,6 @@ export class Doctor {
     registrationID: any
     hospitalName: any;
     specialization: any;
-    // SpecializationId: any;
+    SpecializationId: any;
     terms: boolean;
 }

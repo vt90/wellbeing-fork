@@ -5,14 +5,14 @@
 
 import {Injectable, OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../environments/environment';
+import {environment} from '../../environments/environment';
 import {BehaviorSubject, from, Observable, throwError} from 'rxjs';
 import {Plugins} from '@capacitor/core';
 import {map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {User} from './auth/user.model';
-import {AuthBackend} from './auth/auth-backend';
-import {FirebaseBackend} from './auth/firebase-backend';
+import {User} from './../model/user.model';
+import {AuthBackend} from './auth-backend';
+import {FirebaseBackend} from './firebase-backend';
 
 /**
  * Authentication Service for the Ionic App.

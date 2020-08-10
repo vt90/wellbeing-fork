@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../auth.service';
+import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {AlertController, LoadingController} from '@ionic/angular';
 import {NgForm} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
-import {BackendError} from './auth-backend';
+import {BackendError} from '../services/auth-backend';
 
 @Component({
   selector: 'app-auth',

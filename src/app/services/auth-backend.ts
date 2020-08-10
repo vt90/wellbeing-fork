@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs';
-import {User} from './user.model';
+import {User} from './../model/user.model';
 
 export interface AuthBackend {
   login: (email: string, password: string, role: string) => Observable<User>;

@@ -12,6 +12,11 @@ const routes: Routes = [
     path: 'doctor',
     loadChildren: () => import('./../doctor/doctor.module').then( m => m.DoctorPageModule),
     canLoad: [AuthGuard]
+  },
+  {
+    path: 'patient',
+    loadChildren: () => import('./../patient/patient.module').then( m => m.PatientPageModule),
+    canLoad: [AuthGuard]
   }
 ];
 

@@ -39,19 +39,19 @@ interface UserData {
 
 export class FirebaseBackend implements AuthBackend {
   private _endpoint = 'https://identitytoolkit.googleapis.com/v1/accounts:';
-  //private _db = 'https://auth-template-4d292.firebaseio.com/';
-  private readonly _db:string;
+  // private _db = 'https://auth-template-4d292.firebaseio.com/';
+  private readonly _db: string;
   private readonly _key: string;
-  private readonly _pID:string;
+  private readonly _pID: string;
 
 
 
   constructor(private httpClient: HttpClient) {
     this._key = `?key=${environment.firebaseApiKey}`;
-    this._pID=`${environment.firebaseProjectId}`;
-    this._db ='https://'+this._pID+'.firebaseio.com/';
+    this._pID = `${environment.firebaseProjectId}`;
+    this._db = 'https://' + this._pID + '.firebaseio.com/';
   }
- 
+
   private static createUserFromFirebaseResponse(data: FirebaseLoginResponse, role: string) {
     return new User(data.localId,
       data.refreshToken,

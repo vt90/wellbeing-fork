@@ -1,10 +1,10 @@
 export class Doctor {
     fullname: string;
-    mobile: number
+    mobile: number;
     email: any;
     password: any;
     confirmpass: any;
-    registrationID: any
+    registrationNo: any;
     hospitalName: any;
     specialization: any;
     SpecializationId: any;

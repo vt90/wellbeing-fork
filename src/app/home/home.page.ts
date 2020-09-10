@@ -16,8 +16,8 @@ export class HomePage {
     getUserRole() {
         if (this.authService.user.token != null) {
             this.userRole = this.authService.user.role;
-            console.log(this.authService.user);
-            console.log(this.userRole);
+            /*console.log(this.authService.user);
+            console.log(this.userRole);*/
         }
     }
 }

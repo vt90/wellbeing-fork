@@ -9,13 +9,12 @@ const routes: Routes = [
     component: HomePage,
   },
   {
-    path: 'doctor',
-    loadChildren: () => import('./../doctor/doctor.module').then( m => m.DoctorPageModule),
-    canLoad: [AuthGuard]
+    path: 'home',
+    component: HomePage,
   },
   {
-    path: 'patient',
-    loadChildren: () => import('./../patient/patient.module').then( m => m.PatientPageModule),
+    path: 'doctor',
+    loadChildren: () => import('./../doctor/doctor.module').then( m => m.DoctorPageModule),
     canLoad: [AuthGuard]
   }
 ];

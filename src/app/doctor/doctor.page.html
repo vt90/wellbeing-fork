@@ -1,17 +1,17 @@
 <ion-header>
-	<ion-grid>
-		<ion-row>
-		  <ion-col size-md="6" offset-md="3">
-			<ion-title  class="ion-text-center">Doctor Dashboard</ion-title>
-		  </ion-col>
-		</ion-row>
-	</ion-grid>
-  </ion-header>
-
-
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+			WellBeing
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
 
 <ion-content>
-	<ion-item>
+	<h1 class="ion-padding">Here comes your content {{ role }}</h1>
+	<!--<ion-item>
 		<ion-label position="floating">Registration no</ion-label>
 		<ion-input
 				type="text"
@@ -20,13 +20,8 @@
 				required>
 		</ion-input>
 		<ion-button (click)="onValidate()"> validate </ion-button>
-	</ion-item>
-
+	</ion-item>-->
 </ion-content>
-
-
-
-
 
 
 

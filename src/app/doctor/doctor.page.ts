@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import {RegnoVerificationService} from '../services/regno-verification.service';
-
+import {Component, Input} from '@angular/core';
+import {RegnoVerificationService} from '../services/doctor/regno-verification.service';
 
 @Component({
   selector: 'app-doctor',
@@ -8,8 +7,8 @@ import {RegnoVerificationService} from '../services/regno-verification.service';
   styleUrls: ['./doctor.page.scss'],
 })
 export class DoctorPage {
+    @Input('role') role;
     rNo: string;
-
 
     constructor(private rNoService: RegnoVerificationService) {
     }
@@ -23,6 +22,4 @@ export class DoctorPage {
             (err) => {console.log( 'No response' + err); },
         );
     }
-
-
 }

@@ -5,8 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { DoctorPage } from '../doctor/doctor.page';
-import {PatientPageModule} from '../patient/patient.module';
-
 
 @NgModule({
   imports: [
@@ -14,7 +12,6 @@ import {PatientPageModule} from '../patient/patient.module';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    PatientPageModule
   ],
   declarations: [HomePage, DoctorPage]
 })

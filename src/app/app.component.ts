@@ -12,13 +12,13 @@ import {Capacitor, Plugins} from '@capacitor/core';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  userRole: string;
+
   constructor(
     private platform: Platform,
     // private splashScreen: SplashScreen,
     // private statusBar: StatusBar,
-    private authService: AuthService,
-    private router: Router
+    //private authService: AuthService,
+    //private router: Router
   ) {
     this.initializeApp();
   }
@@ -33,8 +33,8 @@ export class AppComponent {
     });
   }
 
-  onLogout() {
+  /*onLogout() {
     this.router.navigateByUrl('/auth');
     this.authService.logout();
-  }
+  }*/
 }

@@ -9,15 +9,20 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import {PatientModule} from './patient/patient.module';
+import {DoctorModule} from './doctor/doctor.module';
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, 
-    IonicModule.forRoot(), 
-    AppRoutingModule, 
-    HttpClientModule,
+  imports: [
+      BrowserModule,
+      PatientModule,
+      DoctorModule,
+      IonicModule.forRoot(),
+      AppRoutingModule,
+      HttpClientModule,
    ],
 
   providers: [  

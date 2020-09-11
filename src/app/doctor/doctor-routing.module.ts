@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {HomePage} from '../home/home.page';
-import {DoctorPage} from './doctor.page';
+import {AuthGuard} from '../auth/auth.guard';
 
 const routes: Routes = [
     {
-      path: 'appointment',
-      loadChildren: () => import('./appointment/appointment.module').then( m => m.AppointmentPageModule)
+        path: 'appointment',
+        loadChildren: () => import('./appointment/appointment.module').then( m => m.AppointmentPageModule),
+        canLoad: [AuthGuard]
     },
     {
-      path: 'profile',
-      loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+        path: 'profile',
+        loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
+        canLoad: [AuthGuard]
     },
     {
-      path: 'patients',
-      loadChildren: () => import('./patients/patients.module').then( m => m.PatientsPageModule)
+        path: 'patients',
+        loadChildren: () => import('./patients/patients.module').then( m => m.PatientsPageModule),
+        canLoad: [AuthGuard]
     }
 ];
 
@@ -22,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DoctorPageRoutingModule {}
+export class DoctorRoutingModule {}

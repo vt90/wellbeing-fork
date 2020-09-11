@@ -1,5 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {RegnoVerificationService} from '../services/doctor/regno-verification.service';
+import {AuthService} from '../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-doctor',
@@ -7,10 +9,11 @@ import {RegnoVerificationService} from '../services/doctor/regno-verification.se
   styleUrls: ['./doctor.page.scss'],
 })
 export class DoctorPage {
-    @Input('role') role;
     rNo: string;
 
-    constructor(private rNoService: RegnoVerificationService) {
+    constructor(private rNoService: RegnoVerificationService,
+                private authService: AuthService,
+                private router: Router) {
     }
 
     onValidate() {  // Written here for demo purpose
@@ -21,5 +24,10 @@ export class DoctorPage {
                },
             (err) => {console.log( 'No response' + err); },
         );
+    }
+
+    onLogout() {
+        this.router.navigateByUrl('/auth');
+        this.authService.logout();
     }
 }

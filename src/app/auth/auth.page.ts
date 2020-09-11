@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../services/auth.service';
-import {Router} from '@angular/router';
-import {AlertController, LoadingController} from '@ionic/angular';
-import {NgForm} from '@angular/forms';
-import {HttpErrorResponse} from '@angular/common/http';
-import {BackendError} from '../services/auth-backend';
+import { Component } from '@angular/core';
+import { AuthService} from '../services/auth.service';
+import { Router } from '@angular/router';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { NgForm } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { BackendError } from '../services/auth-backend';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.page.html',
   styleUrls: ['./auth.page.scss'],
 })
-export class AuthPage implements OnInit {
+export class AuthPage {
   isLoading = false;
   isLogin = true;
   wrongPassword = false;
@@ -34,9 +34,6 @@ export class AuthPage implements OnInit {
               ) {
   }
 
-  ngOnInit() {
-  }
-
   onLogin() {
 
   }
@@ -54,8 +51,10 @@ export class AuthPage implements OnInit {
       .then(el => {
         el.present();
         if (this.isLogin) {
-          this.authService.login(email, password, this.role).subscribe(() => {
-            this.router.navigateByUrl('/home');
+          this.authService.login(email, password, this.role).subscribe((user) => {
+            //this.router.navigateByUrl('/home');
+            if(user.role === 'patient'){this.router.navigateByUrl('patient');}
+            if(user.role === 'doctor'){this.router.navigateByUrl('doctor');}
             this.isLoading = false;
             loginform.resetForm();
           }, (error) => { this.showAlert(error); });

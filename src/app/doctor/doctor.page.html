@@ -1,3 +1,4 @@
+
 <ion-header>
 	<ion-toolbar>
 		<ion-buttons slot="start">
@@ -9,9 +10,9 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-content>
+<!--<ion-content>
 	<h1 class="ion-padding">Here comes your content {{ role }}</h1>
-	<!--<ion-item>
+	&lt;!&ndash;<ion-item>
 		<ion-label position="floating">Registration no</ion-label>
 		<ion-input
 				type="text"
@@ -20,9 +21,59 @@
 				required>
 		</ion-input>
 		<ion-button (click)="onValidate()"> validate </ion-button>
-	</ion-item>-->
+	</ion-item>&ndash;&gt;
 </ion-content>
-
+-->
+<ion-app>
+	<ion-menu side="start" menuId="m1" contentId="main-doctor">
+		<ion-header>
+			<ion-toolbar>
+				<ion-title>WellBeing</ion-title>
+			</ion-toolbar>
+		</ion-header>
+		<ion-content>
+			<ion-list>
+				<ion-menu-toggle>
+					<ion-item lines="none" routerLink="/home" button>
+						<ion-icon name="business" slot="start"></ion-icon>
+						<ion-label>Home</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item lines="none" routerLink="/appointment" button>
+						<ion-icon name="business" slot="start"></ion-icon>
+						<ion-label>Appointment</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item lines="none" routerLink="/profile" button>
+						<ion-icon name="business" slot="start"></ion-icon>
+						<ion-label>Profile</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item lines="none" routerLink="/assistant" button>
+						<ion-icon name="business" slot="start"></ion-icon>
+						<ion-label>Assistant</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item lines="none" routerLink="/patients" button>
+						<ion-icon name="business" slot="start"></ion-icon>
+						<ion-label>Patients</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item lines="none" (click) ="onLogout()" button>
+						<ion-icon name="exit" slot="start"></ion-icon>
+						<ion-label>Logout</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+			</ion-list>
+		</ion-content>
+	</ion-menu>
+	<ion-router-outlet id="main-doctor"></ion-router-outlet>
+</ion-app>
 
 
 

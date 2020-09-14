@@ -1,8 +1,9 @@
+<!--
 <ion-app>
   <ion-menu side="start" menuId="m1" contentId="main">
     <ion-header>
       <ion-toolbar>
-        <ion-title>MyApp</ion-title>
+        <ion-title>WellBeing</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -14,7 +15,31 @@
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none" (click)="onLogout()" button>
+          <ion-item lines="none" routerLink="/appointment" button>
+            <ion-icon name="business" slot="start"></ion-icon>
+            <ion-label>Appointment</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/profile" button>
+            <ion-icon name="business" slot="start"></ion-icon>
+            <ion-label>Profile</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/assistant" button>
+            <ion-icon name="business" slot="start"></ion-icon>
+            <ion-label>Assistant</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/patients" button>
+            <ion-icon name="business" slot="start"></ion-icon>
+            <ion-label>Patients</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" (click) ="onLogout()" button>
             <ion-icon name="exit" slot="start"></ion-icon>
             <ion-label>Logout</ion-label>
           </ion-item>
@@ -24,3 +49,5 @@
   </ion-menu>
   <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>
+-->
+<ion-router-outlet></ion-router-outlet>

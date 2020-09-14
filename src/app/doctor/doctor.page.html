@@ -1,205 +1,82 @@
+
 <ion-header>
-	<ion-grid>
-		<ion-row>
-		  <ion-col size-md="6" offset-md="3">
-			<ion-title  class="ion-text-center">Doctor Dashboard</ion-title>
-		  </ion-col>
-		</ion-row>
-	</ion-grid>
-  </ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-title>
+			WellBeing
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
 
-
-
-<ion-content>
-	
-		<!-- <ion-label>Doctor Dashboard</ion-label> -->
-		<h5>Hello Dr. {{userName}},</h5>
-		<h4 class="text-capitalize">{{clinicName}}</h4>
-		<ion-card padding>
-			<div class="activeTurn">{{turnCount}}</div>
-			<ion-label text-center>Current Turn Active</ion-label>
-			<div text-center><button ion-button small (click)="updateAppointmentTurn()">Update</button></div>
-		</ion-card>
-		<ion-grid class="dashboard">
-			<ion-row>
-				<ion-col col-6>
-					<div class="insetBlock redBlock" (click)="docCurrentAppointment()">
-						<img src="assets/imgs/icon-book-appointment.png">
-						<h4>Current Appointments</h4>
-					</div>
-				</ion-col>
-				<ion-col col-6>
-					<div class="insetBlock" (click)="docProfile()">
-						<img src="assets/imgs/icon-search-labs.png">
-						<h4>Profile Details</h4>
-					</div>
-				</ion-col>
-				<ion-col col-6>
-					<div class="insetBlock" (click)="scheduleList()">
-						<img src="assets/imgs/icon-appointment-schedules.png">
-						<h4>Appointment Schedules</h4>
-					</div>
-				</ion-col>
-				<ion-col col-6>
-					<div class="insetBlock" (click)="assistantList()">
-						<img src="assets/imgs/icon-create-assistant.png">
-						<h4>Manage Assistant</h4>
-					</div>
-				</ion-col>
-				<ion-col col-6>
-					<div class="insetBlock" (click)="openShareDocReports()">
-						<img src="assets/imgs/icon-shared-reports.png">
-						<h4>Shared Reports</h4>
-					</div>
-				</ion-col>
-				<ion-col col-6>
-					<div class="insetBlock" (click)="docIsOnLeave()">
-						<img src="assets/imgs/icon-doc-leave-new.png">
-						<h4>Doctor is on leave</h4>
-					</div>
-				</ion-col>
-				<ion-col col-6>
-					<div class="insetBlock" (click)="regPatient()">
-						<img src="assets/imgs/icon-reg-patient.png">
-						<h4>Register a Patient</h4>
-					</div>
-				</ion-col>
-				<ion-col col-6>
-					<div class="insetBlock" (click)="docAddAppointment()">
-						<img src="assets/imgs/icon-add-appointment.png">
-						<h4>Add an Appointment</h4>
-					</div>
-				</ion-col>
-			</ion-row>
-		</ion-grid>
-		
-		
-
+<!--<ion-content>
+	<h1 class="ion-padding">Here comes your content {{ role }}</h1>
+	&lt;!&ndash;<ion-item>
+		<ion-label position="floating">Registration no</ion-label>
+		<ion-input
+				type="text"
+				[(ngModel)] ="rNo"
+				name="rNo"
+				required>
+		</ion-input>
+		<ion-button (click)="onValidate()"> validate </ion-button>
+	</ion-item>&ndash;&gt;
 </ion-content>
+-->
+
+<ion-app>
+	<ion-menu side="start" menuId="m1" contentId="main-doctor">
+		<ion-header>
+			<ion-toolbar>
+				<ion-title>WellBeing</ion-title>
+			</ion-toolbar>
+		</ion-header>
+		<ion-content>
+			<ion-list>
+				<ion-menu-toggle>
+					<ion-item lines="none" routerLink="/doctor" button>
+						<ion-icon name="business" slot="start"></ion-icon>
+						<ion-label>Home</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item lines="none" routerLink="/appointment" button>
+						<ion-icon name="business" slot="start"></ion-icon>
+						<ion-label>Appointment</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item lines="none" routerLink="/profile" button>
+						<ion-icon name="business" slot="start"></ion-icon>
+						<ion-label>Profile</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item lines="none" routerLink="/assistant" button>
+						<ion-icon name="business" slot="start"></ion-icon>
+						<ion-label>Assistant</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item lines="none" routerLink="/patients" button>
+						<ion-icon name="business" slot="start"></ion-icon>
+						<ion-label>Patients</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+				<ion-menu-toggle>
+					<ion-item lines="none" (click)="onLogout()" button>
+						<ion-icon name="exit" slot="start"></ion-icon>
+						<ion-label>Logout</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+			</ion-list>
+		</ion-content>
+	</ion-menu>
+	<ion-router-outlet id="main-doctor"></ion-router-outlet>
+</ion-app>
 
 
 
 
-
-
-
-
-
-
-<!-- 
-<ion-header>
-	<ion-grid>
-		<ion-row>
-		  <ion-col size-md="6" offset-md="3">
-			<ion-toolbar color="primary">
-				<ion-title  class="ion-text-center">Doctor Registration</ion-title>
-			  </ion-toolbar>
-		  </ion-col>
-		</ion-row>
-	</ion-grid>
-  </ion-header>
-
-
-
-<ion-content>
-<form >
-<ion-grid>
-	<ion-row>
-	  <ion-col size-md="6" offset-md="3">
-		<ion-item>
-			<ion-label position='floating'>Full Name</ion-label>
-			<ion-input type="text" ></ion-input>
-		</ion-item>
-	  </ion-col>
-	</ion-row>
-	<ion-row>
-		<ion-col size-md="6" offset-md="3">
-			<ion-item>
-				<ion-label position='floating'>Mobile Number</ion-label>
-				<ion-input type="tel" minlength="10" maxlength="15" ></ion-input>
-			</ion-item>
-		</ion-col>
-	  </ion-row>
-	  <ion-row>
-		<ion-col size-md="6" offset-md="3">
-			<ion-item>
-				<ion-label position='floating'>Email Id</ion-label>
-				<ion-input type="email" ></ion-input>
-			</ion-item>
-		</ion-col>
-	  </ion-row>
-	  <ion-row>
-		<ion-col size-md="6" offset-md="3">
-			<ion-item>
-				<ion-label position='floating'>Password</ion-label>
-				<ion-input type="password" ></ion-input>
-			</ion-item>
-		</ion-col>
-	  </ion-row>	  
-	  <ion-row>
-		<ion-col size-md="6" offset-md="3">
-			<ion-item>
-				<ion-label position='floating'>Confirm Password</ion-label>
-				<ion-input type="password" ></ion-input>
-			</ion-item>
-		</ion-col>
-	  </ion-row>
-	  <ion-row>
-		<ion-col size-md="6" offset-md="3">
-			<ion-item>
-				<ion-label position='floating'>Registration ID</ion-label>
-				<ion-input type="text" value="" ></ion-input>
-			</ion-item>
-		</ion-col>
-	  </ion-row>
-	  <ion-row>
-		<ion-col size-md="6" offset-md="3">
-			<ion-item>
-				<ion-label position='floating'>Clinic / Hospital Name</ion-label>
-				<ion-input type="text" value="" ></ion-input>
-			</ion-item>
-		</ion-col>
-	  </ion-row>
-	  <ion-row>
-		<ion-col size-md="6" offset-md="3">
-			<ion-item>
-				<ion-label floating>Specialization</ion-label>
-				<ion-select placeholder="Select Here" multiple="true">
-					<ion-select-option value="">Specialization1</ion-select-option>
-					<ion-select-option value="">Specialization1</ion-select-option>
-					<ion-select-option value="">Specialization1</ion-select-option>
-					<ion-select-option value="Other">Other</ion-select-option>
-				</ion-select>
-			</ion-item>
-		</ion-col>
-	  </ion-row>
-	  <ion-row>
-		<ion-col size-md="6" offset-md="3">
-			<ion-item>
-				<ion-label floating>Specialization ID</ion-label>
-				<ion-select placeholder="Select Here" multiple="true">
-					<ion-select-option value="">Specialization1</ion-select-option>
-					<ion-select-option value="">Specialization1</ion-select-option>
-					<ion-select-option value="">Specialization1</ion-select-option>
-					<ion-select-option value="Other">Other</ion-select-option>
-				</ion-select>
-			</ion-item>
-		</ion-col>
-	  </ion-row>
-	  <ion-row>
-		<ion-col size-md="6" offset-md="3">
-			<ion-item>
-				<ion-label>Terms and conditions apply</ion-label>
-				<ion-checkbox slot="start"></ion-checkbox>
-			</ion-item>
-		</ion-col>
-	  </ion-row>
-	  <ion-row>
-		<ion-col size-md="6" offset-md="3">
-			<ion-button type="submit" expand="block">Submit</ion-button>
-		</ion-col>
-	  </ion-row>
-</ion-grid>
-</form>
-</ion-content> -->
 

@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
-import { DoctorPageRoutingModule } from './doctor-routing.module';
-
-import { DoctorPage } from './doctor.page';
+import {DoctorRoutingModule} from './doctor-routing.module';
 
 @NgModule({
   imports: [
@@ -14,8 +10,7 @@ import { DoctorPage } from './doctor.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    DoctorPageRoutingModule
+    DoctorRoutingModule
   ],
-  declarations: [DoctorPage]
 })
-export class DoctorPageModule {}
+export class DoctorModule {}

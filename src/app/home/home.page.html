@@ -1,15 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      WellBeing
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<!-- Here will be a more check for respective role to complete profile if profile is incomplete after signup -->
+<!--<app-doctor *ngIf ="userRole === 'doctor'"></app-doctor>
+<app-patient *ngIf ="userRole === 'patient'"></app-patient>-->
 
-<ion-content>
-<h1 class="ion-padding">Here comes your content {{userRole}}</h1>
- <app-doctor *ngIf = "userRole === 'doctor'"></app-doctor>
-</ion-content>

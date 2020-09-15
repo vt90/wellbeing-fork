@@ -1,9 +1,110 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>appointment</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<ion-grid>
+  <ion-row>
+    <ion-col size="3">
+      left side of page
+    </ion-col>
+    <ion-col size="9">
+      <ion-row>
+        <ion-label class="pageHeader">Appointment</ion-label>
+      </ion-row>
 
+      <ion-row>
+          <ion-col>
+            <ion-searchbar class="search" placeholder="Search appointments"></ion-searchbar>
+          </ion-col>
+        <ion-col>
+          <a url="#">Add New Appointment</a>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="filterBar">
+        <ion-col size="6">
+          <ion-icon name="filter-outline"></ion-icon>
+          <ion-label>FILTERS</ion-label>
+        </ion-col>
+        <ion-col size="6">
+          <ion-toolbar>
+            <ion-segment (ionChange)="filterChanged($event)">
+              <ion-segment-button value="day">
+                <ion-label name="day">Day</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="week">
+                <ion-label name="week">Week</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="month">
+                <ion-label name="month">Month</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="year">
+                <ion-label name="year">Year</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+          </ion-toolbar>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6">
+          <ion-calendar>
+          </ion-calendar>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card>
+            <ion-row>
+              <ion-col>Date:15/02/2020</ion-col>
+              <ion-col>Time: 03:00PM</ion-col>
+            </ion-row>
+              <ion-row><ion-col>Name: xyz</ion-col> </ion-row>
+              <ion-row><ion-col>Appointment Type: Follow up</ion-col> </ion-row>
+              <ion-row> <ion-col>Age:21</ion-col></ion-row>
+            <ion-row>
+              <ion-col><ion-button>Confirm</ion-button></ion-col>
+              <ion-col><ion-button>Cancel</ion-button></ion-col>
+              <ion-col><ion-button>Complete</ion-button></ion-col>
+            </ion-row>
+          </ion-card>
+
+          <ion-card>
+            <ion-row>
+              <ion-col>Date:15/02/2020</ion-col>
+              <ion-col>Time: 03:00PM</ion-col>
+            </ion-row>
+            <ion-row><ion-col>Name: xyz</ion-col> </ion-row>
+            <ion-row><ion-col>Appointment Type: Follow up</ion-col> </ion-row>
+            <ion-row> <ion-col>Age:21</ion-col></ion-row>
+            <ion-row>
+              <ion-col><ion-button>Confirm</ion-button></ion-col>
+              <ion-col><ion-button>Cancel</ion-button></ion-col>
+              <ion-col><ion-button>Complete</ion-button></ion-col>
+            </ion-row>
+          </ion-card>
+
+          <ion-card>
+            <ion-row>
+              <ion-col>Date:15/02/2020</ion-col>
+              <ion-col>Time: 03:00PM</ion-col>
+            </ion-row>
+            <ion-row><ion-col>Name: xyz</ion-col> </ion-row>
+            <ion-row><ion-col>Appointment Type: Follow up</ion-col> </ion-row>
+            <ion-row> <ion-col>Age:21</ion-col></ion-row>
+            <ion-row>
+              <ion-col><ion-button>Confirm</ion-button></ion-col>
+              <ion-col><ion-button>Cancel</ion-button></ion-col>
+              <ion-col><ion-button>Complete</ion-button></ion-col>
+            </ion-row>
+          </ion-card>
+
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-grid>
 </ion-content>

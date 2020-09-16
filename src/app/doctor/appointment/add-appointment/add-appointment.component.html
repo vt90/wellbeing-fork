@@ -1,5 +1,6 @@
 
 <ion-content>
+    <form #form="ngForm" (ngSubmit)="bookAppointment(form)">
     <ion-grid>
         <ion-row >
 
@@ -7,24 +8,80 @@
                 <div class="ion-text-center">
                     <ion-header>Appointment for registered patient</ion-header>
                 </div>
+            </ion-col>
+
+            <ion-col class="ion-no-padding" size-md="6" offset-md="3">
                 <ion-item>
                     <ion-label>Appointment For</ion-label>
-                    <ion-input placeholder="enter patient id or patient's email id"></ion-input>
+                    <ion-input
+                            ngModel
+                            name="emailId"
+                            #idCtrl="ngModel"
+                            required
+                            (keyup.enter)="bookAppointment(form)"
+                            placeholder="enter patient id or patient's email id">
+                    </ion-input>
                 </ion-item>
+                <ion-item *ngIf="!idCtrl.valid && idCtrl.touched" lines="none">
+                    <ion-label color="danger">
+                        please enter valid id or email!
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+
+            <ion-col class="ion-no-padding" size-md="6" offset-md="3">
                 <ion-item>
                     <ion-label>Date</ion-label>
-                    <ion-datetime displayFormat="MM/DD/YYYY" min="2020-09-14" max="2025-12-31" placeholder="Select Date"></ion-datetime>
+                    <ion-datetime
+                            ngModel
+                            name="date"
+                            #dateCtrl="ngModel"
+                            required
+                            displayFormat="MM/DD/YYYY"
+                            min="2020-09-15"
+                            max="2025-12-31"
+                            placeholder="Select Date">
+                    </ion-datetime>
                 </ion-item>
+                <ion-item *ngIf="!dateCtrl.valid && dateCtrl.touched" lines="none">
+                    <ion-label color="danger">
+                        please select date!
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+
+            <ion-col class="ion-no-padding" size-md="6" offset-md="3">
                 <ion-item>
                     <ion-label>Time slot</ion-label>
-                    <ion-datetime displayFormat="h:mm A" minuteValues="0,15,30,45" placeholder="Select Time slot"></ion-datetime>
+                    <ion-datetime
+                            ngModel
+                            name="time"
+                            #timeCtrl="ngModel"
+                            required
+                            displayFormat="h:mm A"
+                            minuteValues="0,15,30,45"
+                            placeholder="Select Time slot">
+                    </ion-datetime>
                 </ion-item>
+                <ion-item *ngIf="!timeCtrl.valid && timeCtrl.touched" lines="none">
+                    <ion-label color="danger">
+                        please select time slot!
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+
+            <ion-col class="ion-no-padding" size-md="6" offset-md="3">
                 <div class="ion-text-center">
-                    <ion-button>Book Appointment</ion-button>
+                    <ion-button
+                            type="submit"
+                            [disabled]="!form.valid">
+                        Book Appointment
+                    </ion-button>
                     <ion-button routerLink="/appointment">Back</ion-button>
                 </div>
             </ion-col>
 
         </ion-row>
-    </ion-grid>
+     </ion-grid>
+    </form>
 </ion-content>

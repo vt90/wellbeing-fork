@@ -1,0 +1,30 @@
+
+<ion-content>
+    <ion-grid>
+        <ion-row >
+
+            <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+                <div class="ion-text-center">
+                    <ion-header>Appointment for registered patient</ion-header>
+                </div>
+                <ion-item>
+                    <ion-label>Appointment For</ion-label>
+                    <ion-input placeholder="enter patient id or patient's email id"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Date</ion-label>
+                    <ion-datetime displayFormat="MM/DD/YYYY" min="2020-09-14" max="2025-12-31" placeholder="Select Date"></ion-datetime>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Time slot</ion-label>
+                    <ion-datetime displayFormat="h:mm A" minuteValues="0,15,30,45" placeholder="Select Time slot"></ion-datetime>
+                </ion-item>
+                <div class="ion-text-center">
+                    <ion-button>Book Appointment</ion-button>
+                    <ion-button routerLink="/appointment">Back</ion-button>
+                </div>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+</ion-content>

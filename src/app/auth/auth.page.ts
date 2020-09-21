@@ -37,6 +37,7 @@ export class AuthPage {
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
               private translate: TranslateService) {
+    console.log(this.translate.currentLang, this.translate.instant('AUTHERR.EmailNotFoundHeader'));
   }
 
   onLogin(loginForm: NgForm) {

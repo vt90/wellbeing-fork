@@ -4,7 +4,6 @@
  */
 
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFireDatabase} from '@angular/fire/database';
@@ -31,7 +30,6 @@ export class AuthService {
 
   constructor(private auth: AngularFireAuth,
               private adb: AngularFireDatabase,
-              private httpClient: HttpClient,
               private router: Router,
               private storage: Storage) {
     this._backend = new FirebaseBackend(auth, adb);

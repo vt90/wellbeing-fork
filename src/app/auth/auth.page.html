@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content>
-  <form #loginform="ngForm" (ngSubmit)="onSubmit(loginform)">
+  <form #loginform="ngForm" (ngSubmit)="isLogin ? onLogin(loginform) : onRegister(loginform)">
     <ion-grid>
       <ion-row>
         <ion-col size-md="6" offset-md="3" class="ion-no-padding">
@@ -25,8 +25,8 @@
                 <ion-segment-button value="doctor">
                   <ion-label>Doctor</ion-label>
                 </ion-segment-button>
-                <ion-segment-button value="provider">
-                  <ion-label>Provider</ion-label>
+                <ion-segment-button value="assistant">
+                  <ion-label>Assistant</ion-label>
                 </ion-segment-button>
               </ion-segment>
             </div>
@@ -58,7 +58,7 @@
                       required
                       minlength="8"
                       #passCtrl="ngModel"
-                      (keyup.enter)="onSubmit(loginform)"></ion-input>
+                      (keyup.enter)="isLogin ? onLogin(loginform) : onRegister(loginform)"></ion-input>
             </ion-item>
             <ion-item *ngIf="!passCtrl.valid && passCtrl.touched" lines="none">
               <ion-label color="danger">Should be at least 8 characters long!</ion-label>
@@ -73,14 +73,13 @@
                   color="primary"
                   fill="clear"
                   expand="block"
-                  (click)="onSwitchAuthMode()" routerLink="/doctor-register" routerDirection="root">
+                  (click)="onSwitchAuthMode()">
             {{ isLogin ? 'To Registration' : 'Back to Login' }}
           </ion-button>
           <ion-button
                   type="submit"
                   color="{{isLogin ? 'primary' : 'secondary'}}"
                   expand="block"
-                  (click)="onLogin()"
                   [disabled]="!loginform.valid">
             {{ isLogin ? 'Login' : 'Register' }}
           </ion-button>

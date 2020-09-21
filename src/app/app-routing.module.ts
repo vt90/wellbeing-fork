@@ -8,7 +8,6 @@ import {DoctorPage} from './doctor/doctor.page';
 import {PatientPage} from './patient/patient.page';
 
 const routes: Routes = [
-  /* { path: '', redirectTo: 'home', pathMatch: 'full' },*/
   {
     path: '',
     component: AuthPage,

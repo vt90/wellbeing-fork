@@ -1,12 +1,17 @@
-export class Doctor {
-    fullname: string;
-    mobile: number;
-    email: any;
-    password: any;
-    confirmpass: any;
-    registrationNo: any;
-    hospitalName: any;
-    specialization: any;
-    SpecializationId: any;
-    terms: boolean;
+import {BaseUser} from './base-user';
+import {Address} from './address';
+import {DocDetail} from './doc-detail';
+
+
+export class Doctor implements BaseUser {
+    id: string;
+    email: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    dateOfBirth: number;
+    registrationID: string;
+    verified: boolean;
+    address: Address;
+    details: DocDetail;
 }

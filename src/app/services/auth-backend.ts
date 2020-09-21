@@ -1,11 +1,4 @@
-import {Observable} from 'rxjs';
-import {User} from './../model/user.model';
-
-export interface AuthBackend {
-  login: (email: string, password: string, role: string) => Observable<User>;
-  signup: (email: string, password: string, role: string) => Observable<string>;
-  passwordReset: (email: string) => Observable<any>;
-}
+import {User} from '../model/user.model';
 
 export class BackendError implements Error {
   readonly name = 'BackendError';
@@ -14,5 +7,14 @@ export class BackendError implements Error {
   constructor(message, error = null) {
     this.message = message;
     this.error = error;
+  }
+}
+
+export class SuperadminBreak implements Error {
+  readonly name = 'SuperadminBreak';
+  readonly message: string;
+  readonly user: User;
+  constructor(user = null) {
+    this.user = user;
   }
 }

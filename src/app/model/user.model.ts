@@ -1,25 +1,47 @@
+import * as firebase from 'firebase';
+
+export type Role = 'doctor' | 'patient' | 'assistant';
+
 export class User {
   constructor(public id: string,
-              public refreshToken: string,
-              public token: string,
+              public emailVerified: boolean,
+              public email: string,
               public role: string,
-              private _tokenExpiration: Date) {}
+              public managerID: string,
+              public isActive: boolean,
+              public isSuperadmin: boolean) {}
 
-  get isValid() {
-    return this._tokenExpiration && this.tokenDuration > 0;
+  public static fromDB(user: firebase.User) {
+    return new User(
+      user.uid,
+      user.emailVerified,
+      user.email,
+      '',
+      null,
+      true,
+      false
+    );
+  }
+
+  public static fromDBAndStorage(user: firebase.User, storageString: string) {
+    const storageData = JSON.parse(storageString);
+    return new User(
+      user.uid,
+      user.emailVerified,
+      user.email,
+      storageData.role,
+      storageData.managerID,
+      storageData.isActive,
+      false
+    );
   }
 
   toStorageString() {
     return JSON.stringify( {
-      id: this.id,
-      refreshToken: this.refreshToken,
-      token: this.token,
       role: this.role,
-      tokenExpiration: this._tokenExpiration.toISOString()
+      managerID: this.managerID,
+      isActive: this.isActive
     });
   }
 
-  get tokenDuration() {
-    return (this._tokenExpiration.getTime() - Date.now());
-  }
 }

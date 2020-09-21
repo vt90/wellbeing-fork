@@ -1,157 +1,124 @@
-import {AuthBackend, BackendError} from './auth-backend';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {switchMap, tap} from 'rxjs/operators';
+import {BackendError, SuperadminBreak} from './auth-backend';
 import {User} from '../model/user.model';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFireDatabase} from '@angular/fire/database';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 
+export class FirebaseBackend {
+  private db: firebase.database.Database;
 
-interface FirebaseLoginResponse {
-  kind: string;
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-  registered?: boolean;
-}
-
-interface FirebaseEmailResponse {
-  email: string;
-}
-
-interface FirebaseLookupResponseUsers {
-  localId: string;
-  email: string;
-  emailVerified: boolean;
-  displayName?: string;
-}
-
-interface FirebaseLookupResponse {
-  kind: string;
-  users: FirebaseLookupResponseUsers[];
-}
-
-interface UserData {
-  userId: string;
-  role: string;
-}
-
-export class FirebaseBackend implements AuthBackend {
-  private _endpoint = 'https://identitytoolkit.googleapis.com/v1/accounts:';
-  // private _db = 'https://auth-template-4d292.firebaseio.com/';
-  private readonly _db: string;
-  private readonly _key: string;
-  private readonly _pID: string;
-
-
-
-  constructor(private httpClient: HttpClient) {
-    this._key = `?key=${environment.firebaseApiKey}`;
-    this._pID = `${environment.firebaseProjectId}`;
-    this._db = 'https://' + this._pID + '.firebaseio.com/';
+  constructor(private auth: AngularFireAuth,
+              private adb: AngularFireDatabase) {
+    this.db = adb.database;
+    this.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then();
   }
 
-  private static createUserFromFirebaseResponse(data: FirebaseLoginResponse, role: string) {
-    return new User(data.localId,
-      data.refreshToken,
-      data.idToken,
-      role,
-      new Date(Date.now() + (+data.expiresIn) * 1000));
+  public get user(): Observable<any> {
+    return this.auth.user;
   }
 
   /**
    * Login Sequence:
    *
-   * 1. Call the authentication endpoint for logging in with email
-   * 2. This returns the user data if successful. Use that to look up whether that user has verified his email
-   * 3. If not, throw an error. If yes, retrieve the user from the the database, where the roles are stored.
-   * 4. Check that the requested login role is available. If not, throw an error that there is a role mismatch.
+   * 1. Do login via email (can be extended to google, facebook in the future)
+   * 2. If the does not exist, the pw is wrong or user's mail is not verified yet, throw an error
+   * 3. Depending on the user type, retrieve the detailed data for the user (Patient or Doctor or Assistant)
+   * 4. Return the detailed information on success, error otherwise
+   * 5. If this is a first-time login (some data does not exist yet), the user is marked as such
    *
    */
-  login(email: string, password: string, role: string) {
-    let user: User = null;
-    return this.httpClient
-      .post<FirebaseLoginResponse>(`${this._endpoint}signInWithPassword${this._key}`,
-        {email, password, returnSecureToken: true})
-      .pipe(
-        switchMap<FirebaseLoginResponse, Observable<FirebaseLookupResponse>>(
-          (loginData) => {
-            user = FirebaseBackend.createUserFromFirebaseResponse(loginData, role);
-            return this.httpClient
-              .post<FirebaseLookupResponse>(`${this._endpoint}lookup${this._key}`,
-                {idToken: loginData.idToken});
-          }),
-        switchMap(responseData => {
-          if (!responseData.users[0].emailVerified) {
-            throw new BackendError('Email is not verified', {
-              email: responseData.users[0].email,
-              error: 'EMAIL_UNVERIFIED'
-            });
+  login(email: string, password: string) {
+    let user: User;
+    return this.auth.signInWithEmailAndPassword(email, password)
+      .catch(error => {
+        console.log(error);
+        // this will actually give us most error handling. like wrong pw, etc
+        throw new BackendError(error.message, {email, error: error.code});
+      })
+      .then(userCred => {
+        user = User.fromDB(userCred.user);
+        if (!user.emailVerified) {
+          throw new BackendError('Email is not verified', {email, error: 'EMAIL_UNVERIFIED'});
+        }
+        return this.db.ref(`users/${user.id}`).once('value');
+      })
+      .then(dataSnap => {
+        const dbUser = dataSnap.val();
+        user.role = dbUser.hasOwnProperty('role') ? dbUser.role : '';
+        if (user.role === 'assistant') {
+          user.managerID = dbUser.hasOwnProperty('managerID') ? dbUser.mangerID : null;
+          user.isActive = dbUser.hasOwnProperty('isActive') ? dbUser.isActive : null;
+          if (!user.isActive) {
+            throw new BackendError('User is not activated', {email: user.email, error: 'USER_DEACTIVATED', doctor: user.managerID});
           }
-          return this.httpClient
-            .get<{ [key: string]: UserData }>(`${this._db}user.json?orderBy="userId"&equalTo="${user.id}"&auth=${user.token}`);
-        }),
-        switchMap( dbResult => {
-          console.log(dbResult);
-          const roles = [];
-          for (const key in dbResult) {
-            if (dbResult.hasOwnProperty(key)) {
-              roles.push(dbResult[key].role);
-            }
-          }
-          if ( !(roles.includes(user.role)) ) {
-            throw new BackendError('User has no role', {roles, requested: user.role, error: 'ROLE_MISMATCH'});
-          }
-          return of(user);
-        })
-      );
+        }
+        user.isSuperadmin = dbUser.hasOwnProperty('isSuperadmin') ? dbUser.isSuperadmin : false;
+        if (user.isSuperadmin) {
+          // only way to break out of the pipe stream: throw.
+          console.log('isSuperadmin');
+          throw new SuperadminBreak(user);
+        }
+        return user;
+      });
   }
 
   /**
-   * Signup sequence:
+   * Signup sequence for PATIENT and DOCTOR using email/pw, later google fb possible:
    *
-   * 1. Call the sign up endpoint of firebase authentication
-   * 2. This returns the user data
-   * 3. Call the email verification endpoint, sending a verification email
-   * 4. Then call the database endpoint to store the role of the user as well in the db
-   * 5. At the end an error is thrown so that the user goes and verifies his email. Log in will not work without it.
+   * 1. Create a new user using email/pw (google/fb can come later)
+   * 2. Send a verification mail.
+   * 3. Then call the database endpoint to store the role of the user as well in the db
+   * 4. At the end an error is thrown so that the user goes and verifies his email. Log in will not work without it.
    */
-  signup(email: string, password: string, role: string) {
-    let user: User;
-    return this.httpClient
-      .post<FirebaseLoginResponse>(`${this._endpoint}signUp${this._key}`,
-        {email, password, returnSecureToken: true})
-      .pipe(
-        switchMap(responseData => {
-          user = FirebaseBackend.createUserFromFirebaseResponse(responseData, role);
-          // send email verification
-          return this.httpClient
-            .post(`${this._endpoint}sendOobCode${this._key}`,
-              {requestType: 'VERIFY_EMAIL', idToken: responseData.idToken});
-        }),
-        switchMap<FirebaseEmailResponse, Observable<any>>(response => {
-          // this response contains the email of the user on success, but we do not need that
-          console.log(response);
-          // now store the freshly created user in the database.
-          return this.httpClient.post(`${this._db}user.json?auth=${user.token}`,
-            {userId: user.id, role: user.role});
-        }),
-        tap(() => {
-          // we ignore the response, which is the successfully stored document.
-          // we need the user to log in now. We only allow log in if the email has been verified.
-          // the errors of the httpClient are handled by the caller.
-          throw new BackendError('Registration Initiated', {error: 'LOGIN_AFTER_SIGNUP'});
-        })
-      );
+
+  signupPatient(email: string, password: string) {
+    return this.signup(email, password, 'patient');
   }
 
-  passwordReset(email: string) {
-    return this.httpClient.post(`${this._endpoint}sendOobCode${this._key}`,
-      {requestType: 'PASSWORD_RESET', email}).pipe(
-        tap( () => {
-          throw new BackendError('Password Reset Mail Sent', {error: 'PASSWORD_RESET'});
-        })
-    );
+  signupDoctor(email: string, password: string) {
+    return this.signup(email, password, 'doctor');
   }
+
+  private signup(email: string, password: string, role: string) {
+    let user: User;
+    return this.auth.createUserWithEmailAndPassword(email, password)
+      .then(userCred => {
+        user = User.fromDB(userCred.user);
+        return this.auth.currentUser;
+      })
+      .then(u => {
+        return u.sendEmailVerification();
+      })
+      .then(() => {
+        return this.db.ref(`users/${user.id}`).set({role});
+      })
+      .then(() => {
+        throw new BackendError('Signup Initiated', {error: 'LOGIN_AFTER_SIGNUP'});
+      })
+      .catch(err => {
+        if (err instanceof BackendError) {
+          throw err;
+        } else {
+          console.log(err);
+          throw new BackendError('Error from firebase', {error: err.code});
+        }
+      });
+  }
+
+  public passwordReset(email: string) {
+    this.auth.sendPasswordResetEmail(email)
+      .then(() => {
+        console.log('reset mail sent for', email);
+      })
+      .catch(err => {
+        console.log('error on pw reset', err);
+      });
+  }
+
+  logout(): void {
+    this.auth.signOut().then();
+  }
+
 }

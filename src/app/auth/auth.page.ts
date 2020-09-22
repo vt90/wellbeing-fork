@@ -36,7 +36,8 @@ export class AuthPage {
               private router: Router,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
-              private translate: TranslateService) {
+              private translate: TranslateService
+  ) {
     console.log(this.translate.currentLang, this.translate.instant('AUTHERR.EmailNotFoundHeader'));
   }
 

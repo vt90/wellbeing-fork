@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { DoctorPage } from '../doctor/doctor.page';
-import {PatientModule} from '../patient/patient.module';
+import {LangselectComponent} from '../langselect/langselect.component';
 
 @NgModule({
     imports: [
@@ -13,11 +13,11 @@ import {PatientModule} from '../patient/patient.module';
         FormsModule,
         IonicModule,
         HomePageRoutingModule,
-        PatientModule,
     ],
     exports: [
-        DoctorPage
+        DoctorPage,
+      LangselectComponent
     ],
-    declarations: [HomePage, DoctorPage]
+    declarations: [HomePage, DoctorPage, LangselectComponent]
 })
 export class HomePageModule {}

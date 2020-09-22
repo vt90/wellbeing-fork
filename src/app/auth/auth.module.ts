@@ -8,17 +8,15 @@ import { AuthPageRoutingModule } from './auth-routing.module';
 
 import { AuthPage } from './auth.page';
 import {HomePageModule} from '../home/home.module';
-import {PatientModule} from '../patient/patient.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        IonicModule,
-        AuthPageRoutingModule,
-        HomePageModule,
-        PatientModule
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    AuthPageRoutingModule,
+    HomePageModule
+  ],
   declarations: [AuthPage]
 })
 export class AuthPageModule {}

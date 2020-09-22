@@ -1,22 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {AuthGuard} from '../auth/auth.guard';
 
 const routes: Routes = [
     {
         path: 'appointment',
-        loadChildren: () => import('./appointment/appointment.module').then( m => m.AppointmentPageModule),
-        canLoad: [AuthGuard]
+        loadChildren: () => import('./appointment/appointment.module').then( m => m.AppointmentPageModule)
     },
     {
         path: 'profile',
-        loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
-        canLoad: [AuthGuard]
+        loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
     },
     {
         path: 'patients',
-        loadChildren: () => import('./patients/patients.module').then( m => m.PatientsPageModule),
-        canLoad: [AuthGuard]
+        loadChildren: () => import('./patients/patients.module').then( m => m.PatientsPageModule)
     }
 ];
 

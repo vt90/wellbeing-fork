@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {RegnoVerificationService} from '../services/doctor/regno-verification.service';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 })
 export class DoctorPage {
     rNo: string;
+  role: string;
 
     constructor(private rNoService: RegnoVerificationService,
                 private authService: AuthService,

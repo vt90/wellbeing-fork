@@ -1,5 +1,7 @@
+import { AppointmentService } from './../../../services/doctor/appointment.service';
 import { Component } from '@angular/core';
 import {NgForm} from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-appointment',
@@ -8,7 +10,8 @@ import {NgForm} from '@angular/forms';
 })
 export class AddAppointmentComponent {
 
-  constructor() { }
+  constructor(private modalCtrl: ModalController,
+              private appointmentService: AppointmentService) { }
 
   bookAppointment(form: NgForm){
     if(!form.valid){
@@ -17,9 +20,24 @@ export class AddAppointmentComponent {
     const id = form.value.emailId;
     const date = form.value.date;
     const timeSlot = form.value.time;
-    console.log(id+" "+date+" "+timeSlot);
+    const clinic = form.value.clinic;
+    const type = form.value.type;
 
+    console.log(id+" "+date+" "+timeSlot);
+    console.log(clinic+" "+type);
+    const appointment = {
+      dateTime: date+timeSlot,
+      patientId: id,
+      confirmed: "no",
+      clinic: clinic,
+      type: type
+    };
+
+    this.appointmentService.add(appointment);
   }
 
+  onDismiss() {
+    this.modalCtrl.dismiss();
+  }
 
 }

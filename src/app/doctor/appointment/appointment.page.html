@@ -27,9 +27,6 @@
           <ion-col>
             <ion-searchbar class="search" placeholder="Search appointments"></ion-searchbar>
           </ion-col>
-        <ion-col>
-          <a routerLink="/add-appointment">Add New Appointment</a>
-        </ion-col>
       </ion-row>
 
       <ion-row class="filterBar">
@@ -63,6 +60,8 @@
           </ion-calendar>
         </ion-col>
         <ion-col size="6">
+          <ion-button (click)="addNewAppointment()">Add New Appointment</ion-button>
+          
           <ion-card>
             <ion-row>
               <ion-col>Date:15/02/2020</ion-col>

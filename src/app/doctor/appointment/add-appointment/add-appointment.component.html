@@ -6,8 +6,24 @@
 
             <ion-col class="ion-no-padding" size-md="6" offset-md="3">
                 <div class="ion-text-center">
-                    <ion-header>Appointment for registered patient</ion-header>
+                    <ion-header>Add Appointment </ion-header>
                 </div>
+            </ion-col>
+
+            <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+                <ion-item>
+                    <ion-label>Clinic</ion-label>
+                    <ion-select 
+                        ngModel
+                        name="clinic"
+                        #clinicCtrl="ngModel"
+                        cancelText="Cancel"
+                        okText="OK"
+                        placeholder="Select Clinic">
+                      <ion-select-option value="clinic1">Clinic 1</ion-select-option>
+                      <ion-select-option value="clinic2">Clinic 2</ion-select-option>
+                    </ion-select>
+                  </ion-item>
             </ion-col>
 
             <ion-col class="ion-no-padding" size-md="6" offset-md="3">
@@ -19,7 +35,7 @@
                             #idCtrl="ngModel"
                             required
                             (keyup.enter)="bookAppointment(form)"
-                            placeholder="enter patient id or patient's email id">
+                            placeholder="patient id / email id">
                     </ion-input>
                 </ion-item>
                 <ion-item *ngIf="!idCtrl.valid && idCtrl.touched" lines="none">
@@ -71,13 +87,36 @@
             </ion-col>
 
             <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+                <ion-list>
+                    <ion-radio-group
+                        ngModel
+                        name="type"
+                        #typeCtrl="ngModel"
+                        value="new">
+                        <ion-list-header>
+                            <ion-label>Appointment Type</ion-label>
+                        </ion-list-header>
+                   
+                        <ion-item>
+                            <ion-label>New</ion-label>
+                            <ion-radio slot="start" value="new"></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Follow up</ion-label>
+                            <ion-radio slot="start" value="followup"></ion-radio>
+                        </ion-item>
+                    </ion-radio-group>
+                 </ion-list>
+            </ion-col>
+
+            <ion-col class="ion-no-padding" size-md="6" offset-md="3">
                 <div class="ion-text-center">
                     <ion-button
                             type="submit"
                             [disabled]="!form.valid">
                         Book Appointment
                     </ion-button>
-                    <ion-button routerLink="/appointment">Back</ion-button>
+                    <ion-button (click)="onDismiss()">Back</ion-button>
                 </div>
             </ion-col>
 

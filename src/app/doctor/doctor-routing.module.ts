@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {AddAppointmentComponent} from './appointment/add-appointment/add-appointment.component';
 
 const routes: Routes = [
     {
         path: 'appointment',
         loadChildren: () => import('./appointment/appointment.module').then( m => m.AppointmentPageModule)
+    },
+    {
+        path: 'add-appointment',
+        component: AddAppointmentComponent,
     },
     {
         path: 'profile',

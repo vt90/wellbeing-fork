@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {environment} from '../environments/environment';
 import {IonicStorageModule} from '@ionic/storage';
 import {HttpClientModule} from '@angular/common/http';
+import {CalendarModule} from 'ion2-calendar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +29,8 @@ import {HttpClientModule} from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule,
     IonicStorageModule.forRoot(),
-    I18nModule
+    I18nModule,
+    CalendarModule
   ],
   providers: [
     StatusBar,

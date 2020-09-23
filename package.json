@@ -31,6 +31,8 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "angularfire2": "^5.4.2",
     "firebase": "^7.15.2",
+    "ion2-calendar": "^3.0.0-rc.0",
+    "moment": "^2.28.0",
     "ngx-translate-cache": "^9.0.2",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",

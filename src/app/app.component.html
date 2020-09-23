@@ -9,32 +9,32 @@
     <ion-content>
       <ion-list>
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/home" button>
-            <ion-icon name="business" slot="start"></ion-icon>
+          <ion-item lines="none" [routerLink]="isPatient ? '/patient' : '/doctor'" button>
+            <ion-icon name="home" slot="start"></ion-icon>
             <ion-label>Home</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/appointment" button>
-            <ion-icon name="business" slot="start"></ion-icon>
+        <ion-menu-toggle *ngIf="isDoctor || isAssistant">
+          <ion-item lines="none" routerLink="/doctor/appointment" button>
+            <ion-icon name="calendar" slot="start"></ion-icon>
             <ion-label>Appointment</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/profile" button>
-            <ion-icon name="business" slot="start"></ion-icon>
+        <ion-menu-toggle *ngIf="isDoctor || isAssistant">
+          <ion-item lines="none" routerLink="/doctor/profile" button>
+            <ion-icon name="cog" slot="start"></ion-icon>
             <ion-label>Profile</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/assistant" button>
-            <ion-icon name="business" slot="start"></ion-icon>
+        <ion-menu-toggle *ngIf="isDoctor">
+          <ion-item lines="none" routerLink="/doctor/assistant" button>
+            <ion-icon name="person-add" slot="start"></ion-icon>
             <ion-label>Assistant</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/patients" button>
-            <ion-icon name="business" slot="start"></ion-icon>
+        <ion-menu-toggle *ngIf="isDoctor || isAssistant">
+          <ion-item lines="none" routerLink="/doctor/patients" button>
+            <ion-icon name="medkit" slot="start"></ion-icon>
             <ion-label>Patients</ion-label>
           </ion-item>
         </ion-menu-toggle>

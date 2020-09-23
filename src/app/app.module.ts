@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import {PatientModule} from './patient/patient.module';
 import {DoctorModule} from './doctor/doctor.module';
+import {CalendarModule} from 'ion2-calendar';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {DoctorModule} from './doctor/doctor.module';
       IonicModule.forRoot(),
       AppRoutingModule,
       HttpClientModule,
+      CalendarModule
    ],
 
   providers: [  

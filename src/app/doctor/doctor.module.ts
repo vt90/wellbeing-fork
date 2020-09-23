@@ -16,4 +16,4 @@ import {AddAppointmentComponent} from './appointment/add-appointment/add-appoint
     DoctorRoutingModule
   ],
 })
-export class DoctorModule {}
+export class DoctorPageModule {}

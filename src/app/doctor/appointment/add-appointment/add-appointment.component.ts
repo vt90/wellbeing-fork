@@ -17,19 +17,22 @@ export class AddAppointmentComponent {
     if(!form.valid){
       return
     }
-    const id = form.value.emailId;
-    const date = form.value.date;
-    const timeSlot = form.value.time;
+    const name = form.value.name;
+    const date = this.timestamp(form.value.date);
+    const timeSlot =this.timestamp(form.value.time);
     const clinic = form.value.clinic;
     const type = form.value.type;
+    const birthDate = this.timestamp(form.value.dob);
 
-    console.log(id+" "+date+" "+timeSlot);
-    console.log(clinic+" "+type);
-    
+    console.log(name+" "+date+" "+timeSlot);
+    console.log(clinic+" "+type+" "+birthDate);
+
     const appointment = {
-      dateTime: date+timeSlot,
-      patientId: id,
-      confirmed: "no",
+      date: date,
+      time: timeSlot,
+      name: name,
+      confirmed: false,
+      dateOfBirth: birthDate,
       clinic: clinic,
       type: type
     };
@@ -39,6 +42,11 @@ export class AddAppointmentComponent {
 
   onDismiss() {
     this.modalCtrl.dismiss();
+  }
+
+  private timestamp(d: string){
+    const date = new Date(d);
+    return Date.UTC( date.getUTCFullYear(),date.getUTCMonth(),date.getUTCDay());
   }
 
 }

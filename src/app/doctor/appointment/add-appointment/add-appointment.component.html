@@ -28,26 +28,48 @@
 
             <ion-col class="ion-no-padding" size-md="6" offset-md="3">
                 <ion-item>
-                    <ion-label>Appointment For</ion-label>
+                    <ion-label>Name</ion-label>
                     <ion-input
                             ngModel
-                            name="emailId"
-                            #idCtrl="ngModel"
+                            name="name"
+                            #nameCtrl="ngModel"
                             required
                             (keyup.enter)="bookAppointment(form)"
-                            placeholder="patient id / email id">
+                            placeholder="Patient Name">
                     </ion-input>
                 </ion-item>
-                <ion-item *ngIf="!idCtrl.valid && idCtrl.touched" lines="none">
+                <ion-item *ngIf="!nameCtrl.valid && nameCtrl.touched" lines="none">
                     <ion-label color="danger">
                         please enter valid id or email!
                     </ion-label>
                 </ion-item>
             </ion-col>
 
+          
+
             <ion-col class="ion-no-padding" size-md="6" offset-md="3">
                 <ion-item>
-                    <ion-label>Date</ion-label>
+                    <ion-label>Date of Birth</ion-label>
+                    <ion-datetime
+                            ngModel
+                            name="dob"
+                            #dobCtrl="ngModel"
+                            required
+                            min="1980-01-01"
+                            max="2020-12-31"
+                            displayFormat="MM/DD/YYYY"
+                            placeholder="Patient's Birthdate">
+                    </ion-datetime>
+                </ion-item>
+                <ion-item *ngIf="!dobCtrl.valid && dobCtrl.touched" lines="none">
+                    <ion-label color="danger">
+                        please enter date of birth!
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+                <ion-item>
+                    <ion-label>Apppointment Date</ion-label>
                     <ion-datetime
                             ngModel
                             name="date"

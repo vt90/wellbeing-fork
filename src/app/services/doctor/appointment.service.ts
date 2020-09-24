@@ -16,11 +16,13 @@ constructor(db: AngularFireDatabase) {
 add(appointment:Appointment){
   this.appintments$.push({
    
-    type : appointment.type,
-    dateTime :appointment.dateTime,
-    confirmed : appointment.confirmed,
-    patientId: appointment.patientId,
-    clinic : appointment.clinic,
+    type: appointment.type,
+    date: appointment.date,
+    time: appointment.time,
+    confirmed: appointment.confirmed,
+    name: appointment.name,
+    clinic: appointment.clinic,
+    dateOfBirth: appointment.dateOfBirth,
 
   });
 }

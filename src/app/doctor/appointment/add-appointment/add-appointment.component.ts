@@ -25,6 +25,7 @@ export class AddAppointmentComponent {
 
     console.log(id+" "+date+" "+timeSlot);
     console.log(clinic+" "+type);
+    
     const appointment = {
       dateTime: date+timeSlot,
       patientId: id,

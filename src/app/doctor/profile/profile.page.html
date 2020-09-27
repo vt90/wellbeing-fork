@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-title>Complete Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content style="margin-top: 20%;"> 
+  <ion-grid>
+    <ion-row>
+      <ion-col><ion-badge [attr.color]="[window1 ? 'primary':'light']">1</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[window2 ? 'primary':'light']">2</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[window3 ? 'primary':'light']">3</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[window4 ? 'primary':'light']">4</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[window5 ? 'primary':'light']">5</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[window6 ? 'primary':'light']">6</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[window7 ? 'primary':'light']">7</ion-badge></ion-col>
+    </ion-row>
+   </ion-grid>
 
-</ion-content>
+  
+  <basic-info *ngIf="window1"></basic-info>
+  <practise-info *ngIf="window2"></practise-info>
+  <availability *ngIf="window3"></availability>
+  <fee-structure *ngIf="window4"></fee-structure>
+  <clinic-details *ngIf="window5"></clinic-details>
+  <assistant-details *ngIf="window6"></assistant-details>
+  <terms-and-conditions *ngIf="window7"></terms-and-conditions>
+
+</ion-content> 

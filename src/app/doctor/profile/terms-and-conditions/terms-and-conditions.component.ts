@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'terms-and-conditions',
@@ -6,9 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./terms-and-conditions.component.scss'],
 })
 export class TermsAndConditionsComponent {
-  
+  @Output() step: EventEmitter<number> = new EventEmitter<number>();
+
   constructor() { }
 
-  nect() {}
+  next() {
+    this.step.emit(7);
+  }
+
+  prev() {
+    this.step.emit(5);
+  }
 
 }

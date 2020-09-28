@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 
 @Component({
@@ -7,11 +7,12 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
   styleUrls: ['./basic-info.component.scss'],
 })
 export class BasicInfoComponent {
-  @Output() flags:EventEmitter<boolean[]> = new EventEmitter<boolean[]>();
- 
-  constructor(){}
+  @Output() step: EventEmitter<number> = new EventEmitter<number>();
 
-  next(){
-    this.flags.emit([false,true,false,false,false,false,false]);
+  constructor() {
+  }
+
+  next() {
+    this.step.emit(1);
   }
 }

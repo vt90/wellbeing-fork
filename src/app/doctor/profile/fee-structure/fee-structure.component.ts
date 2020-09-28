@@ -6,14 +6,16 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./fee-structure.component.scss'],
 })
 export class FeeStructureComponent  {
-  @Output() flags:EventEmitter<boolean[]> = new EventEmitter<boolean[]>();
-  
+  @Output() step: EventEmitter<number> = new EventEmitter<number>();
+
   constructor() { }
 
   next(){
-    this.flags.emit([false,false,false,false,true,false,false]);
-    console.log("Clinic  window should display");
+    this.step.emit(4);
+    console.log('Clinic  window should display');
    }
- 
 
+  prev() {
+    this.step.emit(2);
+  }
 }

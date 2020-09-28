@@ -6,12 +6,15 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./practise-info.component.scss'],
 })
 export class PractiseInfoComponent {
-  @Output() flags:EventEmitter<boolean[]> = new EventEmitter<boolean[]>();
+  @Output() step: EventEmitter<number> = new EventEmitter<number>();
   constructor() { }
 
   next(){
-    this.flags.emit([false,false,true,false,false,false,false]);
-    console.log("Availability window should display");
+    this.step.emit(2);
+    console.log('Availability window should display');
    }
 
+  prev() {
+    this.step.emit(0);
+  }
 }

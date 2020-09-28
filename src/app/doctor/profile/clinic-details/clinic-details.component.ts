@@ -1,18 +1,22 @@
-import { Component, EventEmitter,  Output } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'clinic-details',
   templateUrl: './clinic-details.component.html',
   styleUrls: ['./clinic-details.component.scss'],
 })
-export class ClinicDetailsComponent  {
-  @Output() flags:EventEmitter<boolean[]> = new EventEmitter<boolean[]>();
-  
-  constructor() { }
+export class ClinicDetailsComponent {
+  @Output() step: EventEmitter<number> = new EventEmitter<number>();
 
-  next(){
-    this.flags.emit([false,false,false,false,false,true,false]);
-   console.log("Assistant  window should display");
-   }
+  constructor() {
+  }
 
+  next() {
+    this.step.emit(5);
+    console.log('Assistant  window should display');
+  }
+
+  prev() {
+    this.step.emit(3);
+  }
 }

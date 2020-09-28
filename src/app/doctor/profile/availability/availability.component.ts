@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'availability',
@@ -6,13 +6,17 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./availability.component.scss'],
 })
 export class AvailabilityComponent {
-  @Output() flags:EventEmitter<boolean[]> = new EventEmitter<boolean[]>();
+  @Output() step: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor() { }
+  constructor() {
+  }
 
-  next(){
-    this.flags.emit([false,false,false,true,false,false,false]);
-    console.log("Fee structure window should display");
-   }
+  next() {
+    this.step.emit(3);
+    console.log('Fee structure window should display');
+  }
 
+  prev() {
+    this.step.emit(1);
+  }
 }

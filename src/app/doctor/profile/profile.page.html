@@ -7,25 +7,24 @@
 <ion-content style="margin-top: 20%;"> 
   <ion-grid>
     <ion-row>
-      <ion-col><ion-badge [attr.color]="[window1 ? 'primary':'light']">1</ion-badge></ion-col>
-      <ion-col><ion-badge [attr.color]="[window2 ? 'primary':'light']">2</ion-badge></ion-col>
-      <ion-col><ion-badge [attr.color]="[window3 ? 'primary':'light']">3</ion-badge></ion-col>
-      <ion-col><ion-badge [attr.color]="[window4 ? 'primary':'light']">4</ion-badge></ion-col>
-      <ion-col><ion-badge [attr.color]="[window5 ? 'primary':'light']">5</ion-badge></ion-col>
-      <ion-col><ion-badge [attr.color]="[window6 ? 'primary':'light']">6</ion-badge></ion-col>
-      <ion-col><ion-badge [attr.color]="[window7 ? 'primary':'light']">7</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[step === 0 ? 'primary':'light']">1</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[step === 1 ? 'primary':'light']">2</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[step === 2 ? 'primary':'light']">3</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[step === 3 ? 'primary':'light']">4</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[step === 4 ? 'primary':'light']">5</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[step === 5 ? 'primary':'light']">6</ion-badge></ion-col>
+      <ion-col><ion-badge [attr.color]="[step === 6 ? 'primary':'light']">7</ion-badge></ion-col>
     </ion-row>
    
    </ion-grid>
 
 
-  <basic-info  (flags)="setFlags($event)" *ngIf="window1"></basic-info>
-  <practise-info (flags)="setFlags($event)" *ngIf="window2"></practise-info>
-  <availability (flags)="setFlags($event)" *ngIf="window3"></availability>
-  <fee-structure (flags)="setFlags($event)" *ngIf="window4"></fee-structure>
-  <clinic-details (flags)="setFlags($event)" *ngIf="window5"></clinic-details>
-  <assistant-details (flags)="setFlags($event)" *ngIf="window6"></assistant-details>
-  <terms-and-conditions (flags)="setFlags($event)" *ngIf="window7"></terms-and-conditions>
+  <basic-info  (step)="step = $event" *ngIf="step === 0"></basic-info>
+  <practise-info (step)="step = $event" *ngIf="step === 1"></practise-info>
+  <availability (step)="step = $event" *ngIf="step === 2"></availability>
+  <fee-structure (step)="step = $event" *ngIf="step === 3"></fee-structure>
+  <clinic-details (step)="step = $event" *ngIf="step === 4"></clinic-details>
+  <assistant-details (step)="step = $event" *ngIf="step === 5"></assistant-details>
+  <terms-and-conditions (step)="$event > 6 ? continue() : step = $event" *ngIf="step === 6"></terms-and-conditions>
 
-  
 </ion-content> 

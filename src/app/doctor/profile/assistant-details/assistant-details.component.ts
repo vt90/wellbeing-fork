@@ -6,13 +6,16 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./assistant-details.component.scss'],
 })
 export class AssistantDetailsComponent {
-  @Output() flags:EventEmitter<boolean[]> = new EventEmitter<boolean[]>();
-  
+  @Output() step: EventEmitter<number> = new EventEmitter<number>();
+
   constructor() { }
 
   next(){
-    this.flags.emit([false,false,false,false,false,false,true]);
-    console.log("terms and condition window should display");
+    this.step.emit(6);
+    console.log('terms and condition window should display');
    }
 
+  prev() {
+    this.step.emit(4);
+  }
 }

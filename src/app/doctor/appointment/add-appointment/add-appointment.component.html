@@ -6,32 +6,70 @@
 
             <ion-col class="ion-no-padding" size-md="6" offset-md="3">
                 <div class="ion-text-center">
-                    <ion-header>Appointment for registered patient</ion-header>
+                    <ion-header>Add Appointment </ion-header>
                 </div>
             </ion-col>
 
             <ion-col class="ion-no-padding" size-md="6" offset-md="3">
                 <ion-item>
-                    <ion-label>Appointment For</ion-label>
+                    <ion-label>Clinic</ion-label>
+                    <ion-select 
+                        ngModel
+                        name="clinic"
+                        #clinicCtrl="ngModel"
+                        cancelText="Cancel"
+                        okText="OK"
+                        placeholder="Select Clinic">
+                      <ion-select-option value="clinic1">Clinic 1</ion-select-option>
+                      <ion-select-option value="clinic2">Clinic 2</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+            </ion-col>
+
+            <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+                <ion-item>
+                    <ion-label>Name</ion-label>
                     <ion-input
                             ngModel
-                            name="emailId"
-                            #idCtrl="ngModel"
+                            name="name"
+                            #nameCtrl="ngModel"
                             required
                             (keyup.enter)="bookAppointment(form)"
-                            placeholder="enter patient id or patient's email id">
+                            placeholder="Patient Name">
                     </ion-input>
                 </ion-item>
-                <ion-item *ngIf="!idCtrl.valid && idCtrl.touched" lines="none">
+                <ion-item *ngIf="!nameCtrl.valid && nameCtrl.touched" lines="none">
                     <ion-label color="danger">
                         please enter valid id or email!
                     </ion-label>
                 </ion-item>
             </ion-col>
 
+          
+
             <ion-col class="ion-no-padding" size-md="6" offset-md="3">
                 <ion-item>
-                    <ion-label>Date</ion-label>
+                    <ion-label>Date of Birth</ion-label>
+                    <ion-datetime
+                            ngModel
+                            name="dob"
+                            #dobCtrl="ngModel"
+                            required
+                            min="1980-01-01"
+                            max="2020-12-31"
+                            displayFormat="MM/DD/YYYY"
+                            placeholder="Patient's Birthdate">
+                    </ion-datetime>
+                </ion-item>
+                <ion-item *ngIf="!dobCtrl.valid && dobCtrl.touched" lines="none">
+                    <ion-label color="danger">
+                        please enter date of birth!
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+                <ion-item>
+                    <ion-label>Apppointment Date</ion-label>
                     <ion-datetime
                             ngModel
                             name="date"
@@ -71,13 +109,36 @@
             </ion-col>
 
             <ion-col class="ion-no-padding" size-md="6" offset-md="3">
+                <ion-list>
+                    <ion-radio-group
+                        ngModel
+                        name="type"
+                        #typeCtrl="ngModel"
+                        value="new">
+                        <ion-list-header>
+                            <ion-label>Appointment Type</ion-label>
+                        </ion-list-header>
+                   
+                        <ion-item>
+                            <ion-label>New</ion-label>
+                            <ion-radio slot="start" value="new"></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Follow up</ion-label>
+                            <ion-radio slot="start" value="followup"></ion-radio>
+                        </ion-item>
+                    </ion-radio-group>
+                 </ion-list>
+            </ion-col>
+
+            <ion-col class="ion-no-padding" size-md="6" offset-md="3">
                 <div class="ion-text-center">
                     <ion-button
                             type="submit"
                             [disabled]="!form.valid">
                         Book Appointment
                     </ion-button>
-                    <ion-button routerLink="/appointment">Back</ion-button>
+                    <ion-button (click)="onDismiss()">Back</ion-button>
                 </div>
             </ion-col>
 

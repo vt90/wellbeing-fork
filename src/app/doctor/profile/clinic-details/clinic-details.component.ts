@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { WindowService } from '../window.service';
+import { Component, EventEmitter,  Output } from '@angular/core';
 
 @Component({
   selector: 'clinic-details',
@@ -7,12 +6,13 @@ import { WindowService } from '../window.service';
   styleUrls: ['./clinic-details.component.scss'],
 })
 export class ClinicDetailsComponent  {
+  @Output() flags:EventEmitter<boolean[]> = new EventEmitter<boolean[]>();
   
-  constructor(private windowService: WindowService) { }
+  constructor() { }
 
   next(){
-    this.windowService.setWindowFlags(false,false,false,false,false,true,false);
-    console.log("Assistant  window should display");
+    this.flags.emit([false,false,false,false,false,true,false]);
+   console.log("Assistant  window should display");
    }
 
 }

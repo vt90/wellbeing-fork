@@ -15,15 +15,17 @@
       <ion-col><ion-badge [attr.color]="[window6 ? 'primary':'light']">6</ion-badge></ion-col>
       <ion-col><ion-badge [attr.color]="[window7 ? 'primary':'light']">7</ion-badge></ion-col>
     </ion-row>
+   
    </ion-grid>
 
-  
-  <basic-info *ngIf="window1"></basic-info>
-  <practise-info *ngIf="window2"></practise-info>
-  <availability *ngIf="window3"></availability>
-  <fee-structure *ngIf="window4"></fee-structure>
-  <clinic-details *ngIf="window5"></clinic-details>
-  <assistant-details *ngIf="window6"></assistant-details>
-  <terms-and-conditions *ngIf="window7"></terms-and-conditions>
 
+  <basic-info  (flags)="setFlags($event)" *ngIf="window1"></basic-info>
+  <practise-info (flags)="setFlags($event)" *ngIf="window2"></practise-info>
+  <availability (flags)="setFlags($event)" *ngIf="window3"></availability>
+  <fee-structure (flags)="setFlags($event)" *ngIf="window4"></fee-structure>
+  <clinic-details (flags)="setFlags($event)" *ngIf="window5"></clinic-details>
+  <assistant-details (flags)="setFlags($event)" *ngIf="window6"></assistant-details>
+  <terms-and-conditions (flags)="setFlags($event)" *ngIf="window7"></terms-and-conditions>
+
+  
 </ion-content> 

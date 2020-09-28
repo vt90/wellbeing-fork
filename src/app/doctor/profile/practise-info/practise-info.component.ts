@@ -1,5 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { WindowService } from '../window.service';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'practise-info',
@@ -7,11 +6,11 @@ import { WindowService } from '../window.service';
   styleUrls: ['./practise-info.component.scss'],
 })
 export class PractiseInfoComponent {
- 
-  constructor(private windowService: WindowService) { }
+  @Output() flags:EventEmitter<boolean[]> = new EventEmitter<boolean[]>();
+  constructor() { }
 
   next(){
-    this.windowService.setWindowFlags(false,false,true,false,false,false,false);
+    this.flags.emit([false,false,true,false,false,false,false]);
     console.log("Availability window should display");
    }
 

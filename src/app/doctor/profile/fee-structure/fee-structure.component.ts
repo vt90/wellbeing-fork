@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { WindowService } from '../window.service';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'fee-structure',
@@ -7,11 +6,12 @@ import { WindowService } from '../window.service';
   styleUrls: ['./fee-structure.component.scss'],
 })
 export class FeeStructureComponent  {
+  @Output() flags:EventEmitter<boolean[]> = new EventEmitter<boolean[]>();
   
-  constructor(private windowService: WindowService) { }
+  constructor() { }
 
   next(){
-    this.windowService.setWindowFlags(false,false,false,false,true,false,false);
+    this.flags.emit([false,false,false,false,true,false,false]);
     console.log("Clinic  window should display");
    }
  

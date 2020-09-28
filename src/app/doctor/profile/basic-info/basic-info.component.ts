@@ -1,6 +1,5 @@
-import { Router } from '@angular/router';
-import { WindowService } from './../window.service';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
+
 
 @Component({
   selector: 'basic-info',
@@ -8,12 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./basic-info.component.scss'],
 })
 export class BasicInfoComponent {
-
-  constructor(private windowService: WindowService) { }
+  @Output() flags:EventEmitter<boolean[]> = new EventEmitter<boolean[]>();
+ 
+  constructor(){}
 
   next(){
-   this.windowService.setWindowFlags(false,true,false,false,false,false,false);
-   console.log("practise info should display");
+    this.flags.emit([false,true,false,false,false,false,false]);
   }
-  
 }

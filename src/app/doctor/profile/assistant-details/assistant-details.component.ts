@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { WindowService } from '../window.service';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'assistant-details',
@@ -7,11 +6,12 @@ import { WindowService } from '../window.service';
   styleUrls: ['./assistant-details.component.scss'],
 })
 export class AssistantDetailsComponent {
-
-  constructor(private windowService: WindowService) { }
+  @Output() flags:EventEmitter<boolean[]> = new EventEmitter<boolean[]>();
+  
+  constructor() { }
 
   next(){
-    this.windowService.setWindowFlags(false,false,false,false,false,false,true);
+    this.flags.emit([false,false,false,false,false,false,true]);
     console.log("terms and condition window should display");
    }
 

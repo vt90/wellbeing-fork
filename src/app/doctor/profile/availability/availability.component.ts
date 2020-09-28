@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { WindowService } from '../window.service';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'availability',
@@ -7,11 +6,12 @@ import { WindowService } from '../window.service';
   styleUrls: ['./availability.component.scss'],
 })
 export class AvailabilityComponent {
+  @Output() flags:EventEmitter<boolean[]> = new EventEmitter<boolean[]>();
 
-  constructor(private windowService: WindowService) { }
+  constructor() { }
 
   next(){
-    this.windowService.setWindowFlags(false,false,false,true,false,false,false);
+    this.flags.emit([false,false,false,true,false,false,false]);
     console.log("Fee structure window should display");
    }
 

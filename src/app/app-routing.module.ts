@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {redirectUnauthorizedTo, canActivate} from '@angular/fire/auth-guard';
+import { ProfilePageRoutingModule } from './doctor/profile/profile-routing.module';
 
 export const redirectUnauthorizedToLogin = () => {
   return redirectUnauthorizedTo(['/', 'auth']);
@@ -38,6 +39,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, useHash: true })
   ],
-  exports: [RouterModule]
+  exports: [RouterModule,ProfilePageRoutingModule]
 })
 export class AppRoutingModule { }

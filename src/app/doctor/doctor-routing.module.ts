@@ -17,7 +17,7 @@ const routes: Routes = [
         component: AddAppointmentComponent,
     },
     {
-        path: 'profile',
+        path: 'onboarding',
         loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
     },
     {

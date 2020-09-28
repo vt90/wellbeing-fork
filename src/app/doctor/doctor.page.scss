@@ -80,5 +80,17 @@
     }
   
   
-  
+.quick-info, .to-do-class, .appointment{
+  display: flex;
+}
+
+.notice{
+  background-color: #dfedd6;
+  margin: 12px;
+}
+
+.notice h3{
+  font-size: 14px;
+  padding: 8px;
+}
   

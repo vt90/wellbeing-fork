@@ -24,3 +24,11 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@import "~bootstrap/dist/css/bootstrap.css";
+
+h1{
+    color: #1d506d;
+    font-size: 22px;
+    text-transform: capitalize;
+}

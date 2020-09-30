@@ -14,11 +14,76 @@
 </ion-header>
 
 <ion-content>
-	<h1 class="ion-padding">HOME {{ role }}</h1>
+	<h1 class="ion-padding">{{ role }} Dashboard</h1>
+	<div class="alert alert-primary" role="alert">
+		A simple primary alert—check it out!
+	  </div>
+<ion-row class="quick-info">
+	<ion-card>
+		<ion-row>
+		  <ion-col>10</ion-col>
+		</ion-row>
+		<ion-row><ion-col>Total Patient</ion-col> </ion-row>
+	  </ion-card>
+
+	  <ion-card>
+		<ion-row>
+		  <ion-col>10</ion-col>
+		</ion-row>
+		<ion-row><ion-col>Today Appointment</ion-col> </ion-row>
+	  </ion-card>
+
+	  <ion-card>
+		<ion-row>
+		  <ion-col>10</ion-col>
+		</ion-row>
+		<ion-row><ion-col>New Appointment</ion-col> </ion-row>
+	  </ion-card>
+</ion-row>
+<ion-row class="alert alert-success">
+	<b>Notice : </b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+</ion-row>
+
+<ion-row class="to-do-class">
+	<ion-card>
+		<ion-row>
+		  <ion-col>Next Patient</ion-col>
+		  <ion-col>-></ion-col>
+		</ion-row>
+		<ion-row><ion-col>Swqa</ion-col> </ion-row>
+		<ion-row><ion-col>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec</ion-col> </ion-row>
+		<ion-row> <ion-col>View History</ion-col></ion-row>
+	  </ion-card>
+	  <ion-card>
+		<ion-row>
+		  <ion-col>To Do List</ion-col>
+		</ion-row>
+		<ion-row><ion-col>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec</ion-col> </ion-row>
+		<ion-row> <ion-col>-- Swqa</ion-col></ion-row>
+	  </ion-card>
+</ion-row>
+
+<ion-row class="appointment">
+	<h1>Check Appointment</h1>
+	<ion-col size="6">
+		<ion-calendar>
+		</ion-calendar>
+	</ion-col>
+	<ion-col size="6">
+		<ion-card>
+			<ion-row>
+			  <ion-col>Name</ion-col>
+			  <ion-col>Agenda</ion-col>
+			</ion-row>
+			<ion-row><ion-col>Swqa</ion-col><ion-col>Agenda</ion-col> </ion-row>
+			<ion-row><ion-col>Swqa</ion-col><ion-col>Agenda</ion-col> </ion-row>
+			<ion-row><ion-col>Swqa</ion-col><ion-col>Agenda</ion-col> </ion-row>
+		  </ion-card>
+	</ion-col>
+</ion-row>
+<ion-row class="history">
+<h1>History</h1>
+</ion-row>
 </ion-content>
-
-
-
-
 
 

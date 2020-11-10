@@ -1,45 +1,79 @@
-### Onboarding flow
-1. User must be register as Dcotor role
+# Onboarding flow
 
-2. onboarding flow page should display when user (doctor) freshly signed in. 
+## Initial stage to land on onboarding page or complete profile page.
+        1. user register himself as a doctor in application.
+        2. after registration, user should verify email (the linksent on respective email id). 
+        3. after successful email verification,user able to see onboarding screen flow. 
 
-3. basic info tab (No optional field)
-        profilepic - file input(if user not uploading pic,our default profile pic always there).
-        registration id -varchar- input
-        full Name- string- input
-        date if birth- date - caledar selection
-        gender-string - radio button
-        contact number - number - input
-       
-4. practise info tab (No optional field)
-        specialization -string - dropdwon
-        sub specialization- string -dropdown
-        Note: inout field to add specialization and subspecilization respective;y,
-              if not listed in dropdown  
-        years of pracise - number - input
-        upload document- checkbox- file input 
-        
-5. clinic/Hospital details tab (optional- can add later)
-        clinic Name- string - input 
-        Address- multiline string - input
-        available period of time :
-                    checkboxes for weekday from Monday to Sunday (mulitiple selection possible).
-                    timeslot of availability of thoes days - timeformat - input 
-                    allocated time per patient- checkboxex (15 min,20 min,30 min, 40 min, 50 min, 60 min) - radio buttons
-        Fee structure : (optional - can add later)
-            consultation fee - number - input
-            follow up fee - number - input
-       
-6. Assitant Details tab:
-        full Name - string - input 
-        email - string - email input
-        contact number - number - input
-        gender - string - radio button
-        
-7. Terms and condition tab:(No optional)
-        terms and condition details description point wise (non editable)
-        checkbox to accept terms and condition by the user - it must be select by respective user.
+## User journey on onboarding screen flow.
 
+        1. Basic Information
 
-NO need to add NEXT,BACK and SKIP button 
+        | Field          | Field Type    | Optional |
+        | -------------  |:-------------:| --------:|
+        | Profile pic    | file input    | yes      |
+        | Registration id| string        | yes      |
+        | full name      | string        | No       |
+        | birthDate      | date          | No       |
+        | gender         | radio buttons | No       |
+        | contact number | number        | No       |    
+             
+        * User should enter above details and click the 'Next button'
+        * System validates the entered information and naviagate to next screen on success. 
+
+        2. Practise Information
+
+        | Field             | Field Type    | Optional |
+        | ----------------  |:-------------:| --------:|
+        | specialization    | dropdown      | No       |
+        | sub-specialization| dropdwon      | No       |
+        | Years of Practise | number        | No       |
+        | upload documnet   | file input    | No       |
+
+        * on this screen, user can add specialization and subspecialization only if     user's specialization and subspecialization not listed in existing list. 
+        * System validates the entered information and naviagate to next screen on success. 
+
+        3. clinic/Hospital details
+
+        | Field                   | Field Type    | Optional |
+        | ---------------------   |:-------------:| --------:|
+        | clinic name             | string        | yes      |
+        | Address                 | string        | yes      |
+        | availability on days    | checkboxes    | yes      |
+        | availability of time    | checkboxes    | yes      |
+        | time per Patient        | checkboxes    | yes      |
+        | consultation fee        | number        | yes      |
+        | followup fee            | number        | yes      |
+
+        * address will be multiline string including area pincode
+        * combined clinic details, availability of user at the clinic day and time wise,and fee structure in a single screen, named ** clinic/hospital details **.
+        * This screen will be optional for user while completing onboarding flow, but user wants to list his clinic in patient search, user has to put all details mentioned above, now or later.
+        * System validates the entered information and naviagate to next screen on success. 
+        * user can skip this screen and directly land on next screen.  
+
+        4. Assistant details
+  
+        | Field             | Field Type    | Optional |
+        | --------------    |:-------------:| --------:|
+        | Full name         | string        | yes      |
+        | email             | string        | yes      |
+        | contact number    | number        | yes      |
+        | gender            | radio buttons | yes      |
+
+        * probably user able to add assistant details now or later.
+        * on submitting assistant details by user, assistant get the email to register himself as assistant in the application. 
+        * System validates the entered information and naviagate to next screen on success. 
+
+        5. Terms and condition
+        * detailed description of terms and condtion should mentioned on screen 
+        * checkbox should be there to accept the terms and condition by the user. 
+        * by default, checkbox will be deselected 
+
+## Exception Handling 
+         
+        1. scenario: Any mandatory field is blank.
+           Expected: Error message “<field name> is a required field. Please enter a valid input.” is displayed. 
+        2. Entered value is not in the proper format.
+           Expected: Error message “The value entered in <field name> has incorrect format. Please correct the entered value“ is displayed.
+
 

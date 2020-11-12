@@ -11,11 +11,11 @@ export class AssistantDetailsComponent {
   constructor() { }
 
   next(){
-    this.step.emit(6);
+    this.step.emit(4);
     console.log('terms and condition window should display');
    }
 
   prev() {
-    this.step.emit(4);
+    this.step.emit(2);
   }
 }

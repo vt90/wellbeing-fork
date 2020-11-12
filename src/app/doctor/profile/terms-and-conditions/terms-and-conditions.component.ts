@@ -11,11 +11,11 @@ export class TermsAndConditionsComponent {
   constructor() { }
 
   next() {
-    this.step.emit(7);
+    this.step.emit(5);
   }
 
   prev() {
-    this.step.emit(5);
+    this.step.emit(3);
   }
 
 }

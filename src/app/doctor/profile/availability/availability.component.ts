@@ -7,6 +7,10 @@ import {Component, EventEmitter, Output} from '@angular/core';
 })
 export class AvailabilityComponent {
   @Output() step: EventEmitter<number> = new EventEmitter<number>();
+  showClinic = true;
+  showAvail = false;
+  showFee = false;
+  clinicSetup = false;
 
   constructor() {
   }

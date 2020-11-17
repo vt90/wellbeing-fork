@@ -73,5 +73,5 @@
          
 1. scenario: Any mandatory field is blank.
 Expected: Error message “<field name> is a required field. Please enter a valid input.” is displayed. 
-2. Entered value is not in the proper format.
+2. scenario: Entered value is not in the proper format.
 Expected: Error message “The value entered in <field name> has incorrect format. Please correct the entered value“ is displayed.

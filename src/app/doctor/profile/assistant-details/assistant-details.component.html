@@ -19,7 +19,7 @@
         <ion-item>
           <ion-label position="floating">Email</ion-label>
           <ion-input
-                  type="rNo"
+                  type="email"
                   ngModel
                   name="rNo"
                   required
@@ -40,15 +40,11 @@
           </ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Gender</ion-label>
-          <ion-input
-                  type="rNo"
-                  ngModel
-                  name="rNo"
-                  required
-                  rNo
-                  #rNoCtrl="ngModel">
-          </ion-input>
+          <ion-label>Gender</ion-label>
+          <ion-select placeholder="gender">
+            <ion-select-option value="m">Male</ion-select-option>
+            <ion-select-option value="f">Female</ion-select-option>
+          </ion-select>
         </ion-item>
 
         

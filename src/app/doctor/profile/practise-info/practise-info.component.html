@@ -4,16 +4,18 @@
       <ion-col size-md="6" offset-md="3" class="block-border">
         <ion-title class="ion-text-center">Practise Information</ion-title>
 
-        
-        
-        
-
         <ion-item>
           <ion-label position="floating">Specialization</ion-label>
           <ion-select>
             <ion-select-option value="specialization 1">Specialization 1</ion-select-option>
             <ion-select-option value="specialization 2">Specialization 2</ion-select-option>
           </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">No specialization listed? add here</ion-label>
+          <ion-input type="rNo" ngModel name="rNo" required rNo #rNoCtrl="ngModel">
+          </ion-input>
         </ion-item>
 
         <ion-item>
@@ -25,41 +27,36 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Experience in Years</ion-label>
-          <ion-input
-                  type="rNo"
-                  ngModel
-                  name="rNo"
-                  required
-                  rNo
-                  #rNoCtrl="ngModel">
+          <ion-label position="floating">No sub-specialization listed? add here</ion-label>
+          <ion-input type="rNo" ngModel name="rNo" required rNo #rNoCtrl="ngModel">
           </ion-input>
         </ion-item>
 
-        <ion-label position="floating">Upload Certificates</ion-label>
-
         <ion-item>
-         
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label>Degree Certificate</ion-label>
-                <ion-checkbox slot="start" checked="false"></ion-checkbox>
-                <input type="file"  id="file-input" accept="image/png, image/jpeg">
-              </ion-item>
-            </ion-col>
-          </ion-row>
-         
+          <ion-label position="floating">Experience in Years</ion-label>
+          <ion-input type="rNo" ngModel name="rNo" required rNo #rNoCtrl="ngModel">
+          </ion-input>
         </ion-item>
-          
-      
 
-        
+        <ion-row>
+          <ion-col size-md="6">
+            <ion-item>
+              <ion-label>Degree Certificate</ion-label>
+              <ion-checkbox slot="start" checked="false"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+          <ion-col size-md="6">
+            <ion-item>
+              <input type="file" id="file-input" accept="image/png, image/jpeg">
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
       </ion-col>
     </ion-row>
     <div class="btn-container">
       <ion-button (click)="prev()">back</ion-button>
       <ion-button (click)="next()">next</ion-button>
-  </div>
+    </div>
   </ion-grid>
 </ion-content>

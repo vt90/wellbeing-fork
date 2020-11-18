@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule ,FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ProfilePageRoutingModule } from './profile-routing.module';
@@ -18,6 +18,7 @@ import { FeeStructureComponent } from './fee-structure/fee-structure.component';
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     FormsModule,
     IonicModule,
     ProfilePageRoutingModule,

@@ -5,37 +5,34 @@
         <ion-title class="ion-text-center">Assistant Details</ion-title>
              
         <ion-item>
-          <ion-label position="floating">Name </ion-label>
-          <ion-input
-                  type="rNo"
-                  ngModel
-                  name="rNo"
-                  required
-                  rNo
-                  #rNoCtrl="ngModel">
+          <ion-label>Full Name</ion-label>
+          <ion-input type="text" ngModel name="fName" required fname placeholder="FirstName MiddleName LastName"
+            #fNameCtrl="ngModel">
           </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Email</ion-label>
+          <ion-label>Email</ion-label>
           <ion-input
                   type="email"
                   ngModel
                   name="rNo"
                   required
                   rNo
+                  placeholder="xyz@domain.com"
                   #rNoCtrl="ngModel">
           </ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Contact Number</ion-label>
+          <ion-label>Contact Number</ion-label>
           <ion-input
                   type="rNo"
                   ngModel
                   name="rNo"
                   required
                   rNo
+                  placeholder="Mobile Number"
                   #rNoCtrl="ngModel">
           </ion-input>
         </ion-item>

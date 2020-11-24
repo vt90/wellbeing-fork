@@ -13,7 +13,7 @@ constructor(db: AngularFireDatabase) {
   this.appintments$ = db.list('/appointments');
 }
 
-add(appointment:Appointment){
+/* add(appointment:Appointment){
   this.appintments$.push({
    
     type: appointment.type,
@@ -25,5 +25,5 @@ add(appointment:Appointment){
     dateOfBirth: appointment.dateOfBirth,
 
   });
-}
+} */
 }

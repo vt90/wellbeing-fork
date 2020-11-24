@@ -1,7 +1,8 @@
-import { Doctor, Basic } from './../../../model/doctor.model';
+import { Address } from './../../../model/address';
+import { Doctor} from './../../../model/doctor.model';
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'basic-info',
@@ -15,17 +16,23 @@ export class BasicInfoComponent implements OnInit {
   fullName: string;
   birthDate: string;
   gender: string;
-  cCode: number;
   contactNo: number;
   doctor: Doctor;
-  private basic: Basic;
   basicForm: FormGroup;
 
   constructor(private storage: Storage,
               public formBuilder: FormBuilder) {
-    this.storage.get('basic').then((obj)=>{
-      console.log(obj);
+    this.storage.get('basic').then((doc)=>{
+      if(doc){
+        console.log(doc);
+        this.regNo = doc.registrationId;
+        this.fullName = doc.fullName;
+        this.gender = doc.gender;
+        this.contactNo = doc.address.mobile;
+        this.birthDate =doc.dateOfBirth;
+      }
     });
+  
   }
 
   ngOnInit(){
@@ -38,20 +45,26 @@ export class BasicInfoComponent implements OnInit {
         fName: ['', [Validators.required]],
         dob: ['', [Validators.required]],
         gender: ['', [Validators.required]],
-        code: ['', [Validators.required, Validators.maxLength(2)]],
-        phone:['', [Validators.required, Validators.maxLength(10)]]
+        phone:['', [Validators.required,Validators.minLength(10)]]
       })
   }
 
   next() {
-    this.step.emit(1);
-    this.basic = new Basic();
-    this.basic.fullName = this.fullName;
-    this.basic.dateOfBirth = this.birthDate;
-    this.basic.registrationId = this.regNo;
-    this.basic.gender = this.gender;
-    this.basic.cCode = this.cCode;
-    this.basic.contact = this.contactNo;
-    this.storage.set('basic',this.basic);
+    this.step.emit(1); 
+    this.doctor = new Doctor;
+    this.doctor.address = new Address;   
+    this.doctor.fullName = this.fullName;
+    this.doctor.dateOfBirth = this.birthDate;
+    this.doctor.registrationId = this.regNo;
+    this.doctor.gender = this.gender;
+    this.doctor.address.mobile =  this.contactNo;
+    this.storage.set('basic',this.doctor);
+  }
+
+  get phone(){
+    return this.basicForm.get('phone');
+  }
+  get name(){
+    return this.basicForm.get('fName');
   }
 }

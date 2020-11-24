@@ -1,12 +1,9 @@
 export class Address {
-  company: string;
-  street: string;
-  extension: string;
-  landmark: string;
+  addressLine1: string;
+  addressLine2: string;
   zipcode: string;
   city: string;
   state: string;
   country: string;
-  telephone: string;
-  mobile: string;
+  mobile: number;
 }

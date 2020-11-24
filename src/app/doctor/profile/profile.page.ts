@@ -6,13 +6,10 @@ import {Component} from '@angular/core';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage {
-  step = 0;
+  
 
   constructor() {
   }
 
-  continue() {
-    // todo: navigate to next page
-    console.log('done, next');
-  }
+  
 }

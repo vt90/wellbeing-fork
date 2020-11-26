@@ -1,6 +1,6 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, EventEmitter, Output } from '@angular/core';
-import {Specialization} from './../../../app-constants';
+import {Specialization} from '../../../app-constants';
 import { Storage } from '@ionic/storage';
 import { Details, Doctor } from 'src/app/model/doctor.model';
 
@@ -15,7 +15,7 @@ export class PractiseInfoComponent {
   subSpecializations = [];
 
   specialization: string;
-  subspecialization: string;
+  subSpecialization: string;
   newSubSpecialization: string;
   newSpecialization: string;
   experience: number;
@@ -34,7 +34,7 @@ export class PractiseInfoComponent {
       if(doc){
         console.log(doc);
         this.specialization = doc.details.specialization;
-        this.subspecialization = doc.details.subspecialization;
+        this.subSpecialization = doc.details.subspecialization;
         this.experience = doc.details.experience;
       }
     });
@@ -57,9 +57,9 @@ export class PractiseInfoComponent {
     this.doctor = new Doctor;
     this.doctor.details = new Details
     this.doctor.details.specialization = this.specialization;
-    this.doctor.details.subspecialization = this.subspecialization;
+    this.doctor.details.subspecialization = this.subSpecialization;
     this.doctor.details.experience = this.experience;
-    this.storage.set('practise',this.doctor);
+    this.storage.set('practise', this.doctor).then(r =>console.log(r));
   }
 
   prev() {

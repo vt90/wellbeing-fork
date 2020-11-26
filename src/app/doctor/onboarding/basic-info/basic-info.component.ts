@@ -1,5 +1,5 @@
-import { Address } from './../../../model/address';
-import { Doctor} from './../../../model/doctor.model';
+import { Address } from '../../../model/address';
+import { Doctor} from '../../../model/doctor.model';
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -58,7 +58,7 @@ export class BasicInfoComponent implements OnInit {
     this.doctor.registrationId = this.regNo;
     this.doctor.gender = this.gender;
     this.doctor.address.mobile =  this.contactNo;
-    this.storage.set('basic',this.doctor);
+    this.storage.set('basic', this.doctor).then(r => console.log(r));
   }
 
   get phone(){

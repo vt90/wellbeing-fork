@@ -1,0 +1,14 @@
+{
+  "name": "upload",
+  "version": "1.0.0",
+  "description": "The csv files need to have an 'id' field. The uploadCSV script takes two arguments and you can specify  whether to perform a log in or not (depending on your firebase authorization rules.)",
+  "main": "import.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^8.1.1"
+  }
+}

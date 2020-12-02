@@ -11,7 +11,7 @@
           <ion-label><strong>Specializations</strong></ion-label>
           <ion-select formControlName="spec"
                       [(ngModel)]="specialization"
-                      (ionChange)="onSpecChange()" 
+                      (ionChange)="onSpecChange(specialization)"
                       placeholder="specialization">
             <ion-select-option *ngFor="let s of specializations" [value]="s">
               {{s}}

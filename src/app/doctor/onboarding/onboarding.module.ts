@@ -13,6 +13,7 @@ import { AvailabilityComponent } from './availability/availability.component';
 
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { PractiseInfoComponent } from './practise-info/practise-info.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { PractiseInfoComponent } from './practise-info/practise-info.component';
                  AssistantDetailsComponent,
                  AvailabilityComponent,
                  PractiseInfoComponent,
-                 TermsAndConditionsComponent]
+                 TermsAndConditionsComponent],
+    providers: [DatePipe],
 })
 export class OnboardingPageModule {}

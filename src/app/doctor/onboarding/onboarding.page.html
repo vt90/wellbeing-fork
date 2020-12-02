@@ -24,8 +24,6 @@
   <basic-info  (step)="step = $event" *ngIf="step === 0"></basic-info>
   <practise-info (step)="step = $event" *ngIf="step === 1"></practise-info>
   <availability (step)="step = $event" *ngIf="step === 2"></availability>
-  <!-- <fee-structure (step)="step = $event" *ngIf="step === 3"></fee-structure>
-  <clinic-details (step)="step = $event" *ngIf="step === 4"></clinic-details> -->
   <assistant-details (step)="step = $event" *ngIf="step === 3"></assistant-details>
   <terms-and-conditions (step)="$event > 5 ? continue() : step = $event" *ngIf="step === 4"></terms-and-conditions>
 

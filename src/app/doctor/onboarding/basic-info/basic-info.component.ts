@@ -1,6 +1,5 @@
-import { Address } from '../../../model/address';
 import { Doctor} from '../../../model/doctor.model';
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import {Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
@@ -24,7 +23,6 @@ export class BasicInfoComponent implements OnInit {
               public formBuilder: FormBuilder) {
     this.storage.get('basic').then((doc)=>{
       if(doc){
-        console.log(doc);
         this.regNo = doc.registrationId;
         this.fullName = doc.fullName;
         this.gender = doc.gender;
@@ -32,7 +30,6 @@ export class BasicInfoComponent implements OnInit {
         this.birthDate =doc.dateOfBirth;
       }
     });
-  
   }
 
   ngOnInit(){
@@ -52,7 +49,6 @@ export class BasicInfoComponent implements OnInit {
   next() {
     this.step.emit(1); 
     this.doctor = new Doctor;
-    this.doctor.address = new Address;   
     this.doctor.fullName = this.fullName;
     this.doctor.dateOfBirth = this.birthDate;
     this.doctor.registrationId = this.regNo;

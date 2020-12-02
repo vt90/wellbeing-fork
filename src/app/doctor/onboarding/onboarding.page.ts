@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./onboarding.page.scss'],
 })
 export class OnboardingPage {
-
   step = 0;
 
   constructor() {

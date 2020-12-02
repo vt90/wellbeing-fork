@@ -1,3 +1,4 @@
+import {Address} from './address.interface';
 class Patient{
     patientId: string;
     email: string;

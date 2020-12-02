@@ -29,49 +29,59 @@
 
               <ion-item>
                 <ion-label><strong>Clinic Name</strong> </ion-label>
-                <ion-input type="rNo" placeholder="Clinic or Hospital Name"ngModel name="rNo" required rNo #rNoCtrl="ngModel">
+                <ion-input type="text"
+                           placeholder="Clinic or Hospital Name"
+                           [(ngModel)]="clinicName">
                 </ion-input>
               </ion-item>
 
               <ion-item>
                 <ion-label><strong>Address line 1</strong></ion-label>
-                <ion-input type="rNo" ngModel name="rNo" required rNo placeholder="address line 1" #rNoCtrl="ngModel">
+                <ion-input type="text"
+                           placeholder="address line 1"
+                           [(ngModel)]="addressLine1">
                 </ion-input>
               </ion-item>
 
               <ion-item>
                 <ion-label><strong>Address line 2</strong></ion-label>
-                <ion-input type="rNo" ngModel name="rNo" required rNo placeholder="address line 2" #rNoCtrl="ngModel">
+                <ion-input type="text"
+                           placeholder="address line 2"
+                           [(ngModel)]="addressLine2">
                 </ion-input>
               </ion-item>
 
               <ion-item>
                 <ion-label><strong>City</strong></ion-label>
-                <ion-input type="rNo" ngModel name="rNo" required rNo placeholder="City" #rNoCtrl="ngModel">
+                <ion-input type="text"
+                           placeholder="City"
+                           [(ngModel)]="city">
                 </ion-input>
               </ion-item>
 
               <ion-item>
                 <ion-label><strong>State/Provience/Region</strong></ion-label>
-                <ion-input type="rNo" ngModel name="rNo" required rNo placeholder="State" #rNoCtrl="ngModel">
+                <ion-input type="text"
+                           placeholder="State"
+                           [(ngModel)]="state">
                 </ion-input>
               </ion-item>
 
               <ion-item>
                 <ion-label><strong>Zip/Postal code</strong></ion-label>
-                <ion-input type="rNo" ngModel name="rNo" required rNo placeholder="Zip Code" #rNoCtrl="ngModel">
+                <ion-input type="number"
+                           placeholder="Zip Code"
+                           [(ngModel)]="pin">
                 </ion-input>
               </ion-item>
 
               <ion-item>
                 <ion-label><strong>Country</strong></ion-label>
-                <ion-select placeholder="Country">
-                  <ion-select-option value="country1">Country1</ion-select-option>
-                  <ion-select-option value="country2">Country2</ion-select-option>
-                </ion-select>
+                <ion-input type="text"
+                           placeholder="Country"
+                           [(ngModel)]="country">
+                </ion-input>
               </ion-item>
-
-
 
             </ion-col>
           </ion-row>
@@ -91,76 +101,45 @@
               <ion-item>
                 <ion-label><strong>Days</strong></ion-label>
               </ion-item>
-              <ion-label>Monday
-                <ion-checkbox slot="end" checked="false"></ion-checkbox>
+              <ion-label *ngFor="let d of days">{{d.val}}
+                <ion-checkbox slot="end" [(ngModel)]="d.isChecked"></ion-checkbox>
               </ion-label>
-
-              <ion-label>Tuesday
-                <ion-checkbox slot="end" checked="false"></ion-checkbox>
-              </ion-label>
-
-
-              <ion-label>Wednesday
-                <ion-checkbox slot="end" checked="false"></ion-checkbox>
-              </ion-label>
-
-              <ion-label>Thursday
-                <ion-checkbox slot="end" checked="false"></ion-checkbox>
-              </ion-label>
-
-              <ion-label>friday
-                <ion-checkbox slot="end" checked="false"></ion-checkbox>
-              </ion-label>
-
-              <ion-label>Saturday
-                <ion-checkbox slot="end" checked="false"></ion-checkbox>
-              </ion-label>
-
-              <ion-label>Sunday
-                <ion-checkbox slot="end" checked="false"></ion-checkbox>
-              </ion-label>
-
 
               <ion-item>
                 <ion-label><strong>Slot per Patient</strong></ion-label>
               </ion-item>
-              <ion-label>15 mins
-                <ion-checkbox slot="end" checked="false"></ion-checkbox>
+              <ion-label *ngFor="let s of slots" >{{s.val}} mins
+                <ion-checkbox slot="end" [(ngModel)]="s.isChecked" (click)="timeSlotSelection(s.val)"></ion-checkbox>
               </ion-label>
 
-              <ion-label>30 mins
-                <ion-checkbox slot="end" checked="false"></ion-checkbox>
-              </ion-label>
-
-              <ion-label>45 mins
-                <ion-checkbox slot="end" checked="false"></ion-checkbox>
-              </ion-label>
-
-              <ion-label>1 hour
-                <ion-checkbox slot="end" checked="false"></ion-checkbox>
-              </ion-label>
 
               <ion-item>
                 <ion-label><strong>Shift Timing</strong></ion-label>
               </ion-item>
               <ion-item>
                 <ion-label><strong>From</strong></ion-label>
-                <ion-datetime displayFormat="h a" placeholder="from"></ion-datetime>
+                <ion-datetime displayFormat="h a"
+                              placeholder="from"
+                              [(ngModel)]="fromTime">
+                </ion-datetime>
                 <ion-label><strong>To</strong></ion-label>
-                <ion-datetime displayFormat="h a" placeholder="to"></ion-datetime>
+                <ion-datetime displayFormat="h a"
+                              placeholder="to"
+                              [(ngModel)]="toTime">
+                </ion-datetime>
               </ion-item>
-              <ion-item><ion-button>Add Schedule</ion-button></ion-item>
-                <ion-label><strong>Added Schedules</strong></ion-label>
+              <ion-item><ion-button (click)="addSchedule()">Add Schedule</ion-button></ion-item>
+                <ion-label *ngIf="schedules.length!== 0"><strong>Added Schedules</strong></ion-label>
                 <ion-item>
-                  <ion-row>
+                  <ion-row *ngFor="let sc of schedules; let i = index">
                     <ion-col>
-                      Monday, Tuesday
+                     {{sc.availableDays}}
                     </ion-col>
                     <ion-col>
-                      11am to 2pm
+                      {{sc.fromTime  }} To {{ sc.toTime}}
                     </ion-col>
                     <ion-col>
-                      <ion-icon name="remove-circle-sharp"></ion-icon>
+                      <ion-icon name="remove-circle-sharp" (click)="schedules.splice(i,1)"></ion-icon>
                     </ion-col>
                   </ion-row>
               </ion-item>

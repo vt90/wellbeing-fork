@@ -1,3 +1,5 @@
+import {Address} from './address.interface';
+
 class Assistant{
     assistantId: string;
     firstName: string;

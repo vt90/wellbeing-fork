@@ -23,7 +23,7 @@
         </ion-item>
         <ion-item>
           <ion-label>Accept Terms and Conditions</ion-label>
-          <ion-checkbox slot="start" checked="false"></ion-checkbox>
+          <ion-checkbox slot="start" (click)="isChecked = !isChecked"></ion-checkbox>
         </ion-item>
 
 
@@ -33,7 +33,7 @@
     </ion-row>
     <div class="btn-container">
       <ion-button (click)="prev()">Back</ion-button>
-      <ion-button>Save</ion-button>
+      <ion-button [disabled]="!isChecked">Save</ion-button>
   </div>
   </ion-grid>
 </ion-content>

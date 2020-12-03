@@ -129,7 +129,7 @@
                 </ion-datetime>
               </ion-item>
               <ion-item><ion-button (click)="addSchedule()">Add Schedule</ion-button></ion-item>
-                <ion-label *ngIf="schedules.length!== 0"><strong>Added Schedules</strong></ion-label>
+                <ion-label *ngIf="schedules.length!== 0"><strong>Added Schedule</strong></ion-label>
                 <ion-item>
                   <ion-row *ngFor="let sc of schedules; let i = index">
                     <ion-col>
@@ -159,13 +159,17 @@
             <ion-col class="subBlocks">
               <ion-item>
                 <ion-label><strong>Consultation Fee</strong> </ion-label>
-                <ion-input type="rNo" placeholder="Consultation Fee" ngModel name="rNo" required rNo #rNoCtrl="ngModel">
+                <ion-input type="number"
+                           placeholder="Consultation Fee"
+                           [(ngModel)]="cFee">
                 </ion-input>
               </ion-item>
 
               <ion-item>
                 <ion-label><strong>Follow up Fee</strong></ion-label>
-                <ion-input type="rNo" placeholder="Follow up fee" ngModel name="rNo" required rNo #rNoCtrl="ngModel">
+                <ion-input type="number"
+                           placeholder="Follow up fee"
+                           [(ngModel)]="fFee">
                 </ion-input>
               </ion-item>
             </ion-col>

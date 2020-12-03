@@ -29,6 +29,11 @@ export class PractiseInfoComponent implements OnInit{
                private storage: Storage,
                private doctorService: DoctorService,
                private translate: TranslateService) {
+    this.specializationsObject = this.doctorService.specs;
+    this.specificationsOptions(this.doctorService.specs);
+  }
+
+  ngOnInit(){
     this.storage.get('practise').then((doc)=>{
       if(doc){
         this.specialization = doc.details.specialization;
@@ -36,12 +41,7 @@ export class PractiseInfoComponent implements OnInit{
         this.experience = doc.details.experience;
       }
     });
-  }
-
-  ngOnInit(){
     this.validatePractiseForm();
-    this.specificationsOptions(this.doctorService.specs);
-    this.specializationsObject = this.doctorService.specs;
   }
 
   validatePractiseForm(){

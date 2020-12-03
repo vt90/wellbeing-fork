@@ -21,18 +21,18 @@ export class BasicInfoComponent implements OnInit {
 
   constructor(private storage: Storage,
               public formBuilder: FormBuilder) {
+  }
+
+  ngOnInit(){
     this.storage.get('basic').then((doc)=>{
       if(doc){
         this.regNo = doc.registrationId;
         this.fullName = doc.fullName;
         this.gender = doc.gender;
-        this.contactNo = doc.address.mobile;
+        this.contactNo = doc.mobile;
         this.birthDate =doc.dateOfBirth;
       }
     });
-  }
-
-  ngOnInit(){
     this.validateBasicForm();
   }
 
@@ -53,7 +53,7 @@ export class BasicInfoComponent implements OnInit {
     this.doctor.dateOfBirth = this.birthDate;
     this.doctor.registrationId = this.regNo;
     this.doctor.gender = this.gender;
-    this.doctor.address.mobile =  this.contactNo;
+    this.doctor.mobile =  this.contactNo;
     this.storage.set('basic', this.doctor).then(r => console.log(r));
   }
 

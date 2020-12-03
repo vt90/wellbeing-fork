@@ -7,6 +7,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 })
 export class TermsAndConditionsComponent {
   @Output() step: EventEmitter<number> = new EventEmitter<number>();
+  isChecked: boolean;
 
   constructor() { }
 

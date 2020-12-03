@@ -1,11 +1,10 @@
 import {Address} from './address.interface';
 
-class Assistant{
+export class Assistant{
     assistantId: string;
-    firstName: string;
-    middleName: string;
-    lastName: string;
+    fullname: string;
     email: string;
+    contact: number;
     address: Address;
     education: string;
     profilePic: string;

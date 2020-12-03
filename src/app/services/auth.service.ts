@@ -106,5 +106,9 @@ export class AuthService {
   passwordReset(email: string) {
     return this._backend.passwordReset(email);
   }
+
+  signupAssistant(email: string) {
+    return this._backend.signUpAssistant(email);
+  }
 }
 

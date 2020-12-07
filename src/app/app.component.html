@@ -26,12 +26,12 @@
             <ion-label>Appointment</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle *ngIf="isDoctor || isAssistant">
+        <!--<ion-menu-toggle *ngIf="isDoctor || isAssistant">
           <ion-item lines="none" routerLink="/doctor/onboarding" button>
             <ion-icon name="cog" slot="start"></ion-icon>
             <ion-label>Onboarding</ion-label>
           </ion-item>
-        </ion-menu-toggle>
+        </ion-menu-toggle>-->
         <ion-menu-toggle *ngIf="isDoctor">
           <ion-item lines="none" routerLink="/doctor/assistant" button>
             <ion-icon name="person-add" slot="start"></ion-icon>

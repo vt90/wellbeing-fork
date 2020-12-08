@@ -1,4 +1,6 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {OnboardingService} from '../onboarding-service';
 
 @Component({
   selector: 'terms-and-conditions',
@@ -6,17 +8,15 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./terms-and-conditions.component.scss'],
 })
 export class TermsAndConditionsComponent {
-  @Output() step: EventEmitter<number> = new EventEmitter<number>();
   isChecked: boolean;
 
-  constructor() { }
-
-  next() {
-    this.step.emit(5);
+  constructor(private router: Router,
+              public onboardingService: OnboardingService) {
+    this.isChecked = this.onboardingService.onboardingDetails.termAndCondition.accepted;
   }
 
   prev() {
-    this.step.emit(3);
+    this.router.navigate(['doctor/onboarding/assistant']);
   }
 
 }

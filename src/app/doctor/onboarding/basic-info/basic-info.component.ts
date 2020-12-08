@@ -1,7 +1,6 @@
-import { Doctor} from '../../../model/doctor.model';
-import {Component, EventEmitter, Output, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {OnboardingService} from '../onboarding-service';
 
 @Component({
   selector: 'basic-info',
@@ -10,57 +9,27 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 })
 
 export class BasicInfoComponent implements OnInit {
-  @Output() step: EventEmitter<number> = new EventEmitter<number>();
-  regNo: string;
-  fullName: string;
-  birthDate: string;
-  gender: string;
-  contactNo: number;
-  doctor: Doctor;
-  basicForm: FormGroup;
+  basicInformation: any;
+  submitted = false;
 
-  constructor(private storage: Storage,
-              public formBuilder: FormBuilder) {
+  constructor(private router: Router,
+              public onboardingService: OnboardingService) {
   }
 
-  ngOnInit(){
-    this.storage.get('basic').then((doc)=>{
-      if(doc){
-        this.regNo = doc.registrationId;
-        this.fullName = doc.fullName;
-        this.gender = doc.gender;
-        this.contactNo = doc.mobile;
-        this.birthDate =doc.dateOfBirth;
-      }
-    });
-    this.validateBasicForm();
-  }
-
-  validateBasicForm(){
-      this.basicForm = this.formBuilder.group({
-        rNo: ['', []],
-        fName: ['', [Validators.required]],
-        dob: ['', [Validators.required]],
-        gender: ['', [Validators.required]],
-        phone:['', [Validators.required,Validators.minLength(10)]]
-      })
+  ngOnInit() {
+    this.basicInformation = this.onboardingService.getOnboadringDetails().basicInformation;
   }
 
   next() {
-    this.step.emit(1); 
-    this.doctor = new Doctor;
-    this.doctor.fullName = this.fullName;
-    this.doctor.dateOfBirth = this.birthDate;
-    this.doctor.registrationId = this.regNo;
-    this.doctor.gender = this.gender;
-    this.doctor.mobile =  this.contactNo;
-    this.storage.set('basic', this.doctor).then(r => console.log(r));
-  }
-
-  get phone(){
-    return this.basicForm.get('phone');
-  }
-  get name(){
-    return this.basicForm.get('fName');
+    /*if (this.basicInformation.firstName && this.basicInformation.lastName
+      && this.basicInformation.middleName && this.basicInformation.birthDate
+      && this.basicInformation.regNo &&  this.basicInformation.gender
+      && this.basicInformation.contactNo ) {
+      this.onboardingService.onboardingDetails.basicInformation = this.basicInformation;
+      this.router.navigate(['doctor/onboarding/practise']);
+      return;
+    }*/
+    this.router.navigate(['doctor/onboarding/practise']);
+    this.submitted = true;
   }
 }

@@ -1,30 +1,12 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Complete Profile</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Complete Profile</ion-title>
+    </ion-toolbar>
 </ion-header>
-
-<ion-content style="margin-top: 20%;--background: #f5f5f5;"> 
-  <ion-grid class="text-center page-indicator" style="--background: #f5f5f5;">
-    <ion-row>
-      <ion-col><ion-badge [attr.color]="[step === 0 ? 'primary':'medium']">1</ion-badge></ion-col>
-      <ion-col><hr></ion-col>
-      <ion-col><ion-badge [attr.color]="[step === 1 ? 'primary':'medium']">2</ion-badge></ion-col>
-      <ion-col><hr></ion-col>
-      <ion-col><ion-badge [attr.color]="[step === 2 ? 'primary':'medium']">3</ion-badge></ion-col>
-      <ion-col><hr></ion-col>
-      <ion-col><ion-badge [attr.color]="[step === 3 ? 'primary':'medium']">4</ion-badge></ion-col>
-      <ion-col><hr></ion-col>
-      <ion-col><ion-badge [attr.color]="[step === 4 ? 'primary':'medium']">5</ion-badge></ion-col>
-    </ion-row>
-   
-   </ion-grid>
-
-
-  <basic-info  (step)="step = $event" *ngIf="step === 0"></basic-info>
-  <practise-info (step)="step = $event" *ngIf="step === 1"></practise-info>
-  <availability (step)="step = $event" *ngIf="step === 2"></availability>
-  <assistant-details (step)="step = $event" *ngIf="step === 3"></assistant-details>
-  <terms-and-conditions (step)="$event > 5 ? continue() : step = $event" *ngIf="step === 4"></terms-and-conditions>
-
-</ion-content> 
+<ion-content>
+    <div class="card" style="padding-top: 30px">
+        <p-toast></p-toast>
+        <p-steps [model]="steps" [readonly]="true"></p-steps>
+    </div>
+    <router-outlet></router-outlet>
+</ion-content>

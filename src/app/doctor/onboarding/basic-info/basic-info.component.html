@@ -1,73 +1,56 @@
 <ion-content>
-  <form [formGroup]="basicForm" (ngSubmit)="next()">
-  <ion-grid>
-    <ion-row>
-      <ion-col size-md="6" offset-md="3" class="block-border">
-        <ion-title class="ion-text-center"><strong>Basic Information</strong></ion-title>
+    <ion-grid>
+        <ion-row>
+            <ion-col size-md="6" offset-md="3" class="block-border">
+                <ion-title class="ion-text-center"><strong>Basic Information</strong></ion-title>
 
-        <ion-item>
-          <ion-label><strong>Registration Number</strong></ion-label>
-          <ion-input type="text" formControlName="rNo"     
-                     placeholder="Registartion Number" 
-                     [(ngModel)]="regNo">
-          </ion-input>
-        </ion-item>
+                <ion-item>
+                    <ion-label><strong>Registration Number</strong></ion-label>
+                    <ion-input type="text" formControlName="rNo"
+                               placeholder="Registartion Number"
+                               [(ngModel)]="basicInformation.regNo">
+                    </ion-input>
+                </ion-item>
 
-        <ion-item>
-          <ion-label><strong>Full Name</strong></ion-label>
-          <ion-input type="text" formControlName="fName"  
-                     placeholder="FirstName MiddleName LastName"
-                     [(ngModel)]="fullName">
-          </ion-input>
-        </ion-item>
-        <div *ngIf="name.invalid && (name.dirty || name.touched)"
-              class="alert alert-danger">
-              <div *ngIf="name.errors.required">
-              Full Name is required.
-            </div>
+                <ion-item>
+                    <ion-label><strong>Full Name</strong></ion-label>
+                    <ion-input type="text" formControlName="fName"
+                               placeholder="FirstName MiddleName LastName"
+                               [(ngModel)]="basicInformation.fullname">
+                    </ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label><strong>Date of Birth</strong></ion-label>
+                    <ion-datetime formControlName="dob"
+                                  displayFormat="MMMM DD, YYYY"
+                                  [(ngModel)]="basicInformation.birthDate"
+                                  placeholder="Birth Date">
+                    </ion-datetime>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label><strong>Gender </strong></ion-label>
+                    <ion-select formControlName="gender"
+                                [(ngModel)]="basicInformation.gender"
+                                placeholder="Gender">
+                        <ion-select-option value="m">Male</ion-select-option>
+                        <ion-select-option value="f">Female</ion-select-option>
+                    </ion-select>
+                </ion-item>
+
+
+                <ion-item>
+                    <ion-label><strong>Contact Number</strong></ion-label>
+                    <ion-input type="number" formControlName="phone"
+                               placeholder="Mobile Number"
+                               [(ngModel)]="basicInformation.contactNumber">
+                    </ion-input>
+                </ion-item>
+
+            </ion-col>
+        </ion-row>
+        <div class="col text-center">
+            <ion-button type="submit" (click)="next()">next</ion-button>
         </div>
-
-        <ion-item>
-          <ion-label><strong>Date of Birth</strong></ion-label>
-          <ion-datetime formControlName="dob"  
-                        displayFormat="MMMM DD, YYYY"
-                        [(ngModel)]="birthDate" 
-                        placeholder="Birth Date">
-          </ion-datetime>
-        </ion-item>
-
-        <ion-item>
-          <ion-label><strong>Gender </strong></ion-label>
-          <ion-select formControlName="gender"
-                      [(ngModel)]="gender" 
-                      placeholder="Gender">
-            <ion-select-option value="m">Male</ion-select-option>
-            <ion-select-option value="f">Female</ion-select-option>
-          </ion-select>
-        </ion-item>
-
-
-        <ion-item>
-          <ion-label><strong>Contact Number</strong></ion-label>
-          <ion-input type="number" formControlName="phone"  
-                     placeholder="Mobile Number"
-                     [(ngModel)]="contactNo">
-          </ion-input>
-        </ion-item>
-        <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
-              class="alert alert-danger">
-              <div *ngIf="phone.errors.required">
-                Contact number is required.
-              </div>
-        </div>
-
-
-
-      </ion-col>
-    </ion-row>
-    <div class="col text-center">
-      <ion-button type="submit"  [disabled]="!basicForm.valid">next</ion-button>
-    </div>
-  </ion-grid>
-  </form>
+    </ion-grid>
 </ion-content>

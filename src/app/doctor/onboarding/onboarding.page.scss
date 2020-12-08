@@ -11,3 +11,11 @@ ion-col hr{
     margin-top: 28%;
     border-top: 2px solid #0000001a;
 }
+
+:host ::ng-deep b {
+    display: block
+}
+
+:host ::ng-deep .p-card-body {
+    padding: 2rem;
+}

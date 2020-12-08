@@ -6,16 +6,16 @@ import { Injectable } from '@angular/core';
 })
 export class AppointmentService {
 
-appintments$: AngularFireList<any> ;
+appointments$: AngularFireList<any> ;
 
-  
-constructor(db: AngularFireDatabase) {     
-  this.appintments$ = db.list('/appointments');
+
+constructor(db: AngularFireDatabase) {
+  this.appointments$ = db.list('/appointments');
 }
 
-/* add(appointment:Appointment){
-  this.appintments$.push({
-   
+ add(appointment: Appointment){
+  this.appointments$.push({
+
     type: appointment.type,
     date: appointment.date,
     time: appointment.time,
@@ -25,5 +25,5 @@ constructor(db: AngularFireDatabase) {
     dateOfBirth: appointment.dateOfBirth,
 
   });
-} */
+}
 }

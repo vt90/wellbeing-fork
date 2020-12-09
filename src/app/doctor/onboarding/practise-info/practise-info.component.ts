@@ -23,12 +23,12 @@ export class PractiseInfoComponent implements OnInit {
               private translate: TranslateService,
               private router: Router,
               public onboardingService: OnboardingService) {
+    this.specializationsObject = this.doctorService.specs;
+    this.specificationsOptions(this.doctorService.specs);
   }
 
   ngOnInit() {
     this.practiseInformation = this.onboardingService.onboardingDetails.practiseInformation;
-    this.specializationsObject = this.doctorService.specs;
-    this.specificationsOptions(this.doctorService.specs);
   }
 
   next() {
@@ -41,7 +41,7 @@ export class PractiseInfoComponent implements OnInit {
   }
 
   onSpecChange(s: string) {
-    const subSpecs = [];
+    var subSpecs = [];
     for (const key in this.specializationsObject) {
       if (this.specializationsObject.hasOwnProperty(key)) {
         if (this.specializationsObject[key].subspecializations &&
@@ -56,7 +56,7 @@ export class PractiseInfoComponent implements OnInit {
   }
 
   specificationsOptions(s: any) {
-    const specs = [];
+    var specs = [];
     for (const key in s) {
       if (s.hasOwnProperty(key)) {
         specs.push(s[key]['name_' + this.translate.currentLang]);

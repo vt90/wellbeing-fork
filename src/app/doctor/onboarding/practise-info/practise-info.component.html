@@ -8,8 +8,7 @@
 
                 <ion-item>
                     <ion-label><strong>Specializations</strong></ion-label>
-                    <ion-select formControlName="spec"
-                                [(ngModel)]="practiseInformation.specialization"
+                    <ion-select [(ngModel)]="practiseInformation.specialization"
                                 (ionChange)="onSpecChange(specialization)"
                                 placeholder="specialization">
                         <ion-select-option *ngFor="let s of specializations" [value]="s">
@@ -21,7 +20,6 @@
                 <ion-item>
                     <ion-label><strong> No specialization listed?</strong></ion-label>
                     <ion-input type="text"
-                               formControlName="newSpec"
                                [(ngModel)]="newSpecialization"
                                placeholder="add here">
                     </ion-input>
@@ -30,7 +28,6 @@
                 <ion-item>
                     <ion-label><strong> Sub Specialization </strong></ion-label>
                     <ion-select [(ngModel)]="practiseInformation.subSpecialization"
-                                formControlName="subSpec"
                                 placeholder="sub specialization">
                         <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
                             {{sub}}
@@ -41,7 +38,6 @@
                 <ion-item>
                     <ion-label><strong>No sub-specialization listed? </strong></ion-label>
                     <ion-input type="text"
-                               formControlName="newSubSpec"
                                [(ngModel)]="newSubSpecialization"
                                placeholder="add here">
                     </ion-input>
@@ -51,7 +47,6 @@
                     <ion-label><strong>Experience In Years </strong></ion-label>
                     <ion-input placeholder="Experience In years"
                                type="number"
-                               formControlName="experience"
                                [(ngModel)]="practiseInformation.experience">
                     </ion-input>
                 </ion-item>
@@ -61,7 +56,6 @@
                         <ion-item>
                             <ion-label><strong> Degree Certificate</strong></ion-label>
                             <ion-checkbox slot="start"
-                                          formControlName="certificate"
                                           [(ngModel)]="certificateCHK">
                             </ion-checkbox>
                         </ion-item>
@@ -71,7 +65,6 @@
                             <input type="file"
                                    id="file-input"
                                    accept="image/*"
-                                   formControlName="certificateImage"
                                    [(ngModel)]="certificateImage">
                         </ion-item>
                     </ion-col>

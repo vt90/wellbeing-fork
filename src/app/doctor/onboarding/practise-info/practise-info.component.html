@@ -1,0 +1,85 @@
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size-md="6" offset-md="3" class="block-border">
+                <ion-title class="ion-text-center">
+                    <strong>Practise Information </strong>
+                </ion-title>
+
+                <ion-item>
+                    <ion-label><strong>Specializations</strong></ion-label>
+                    <ion-select [(ngModel)]="practiseInformation.specialization"
+                                (ionChange)="onSpecChange(specialization)"
+                                placeholder="specialization">
+                        <ion-select-option *ngFor="let s of specializations" [value]="s">
+                            {{s}}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label><strong> No specialization listed?</strong></ion-label>
+                    <ion-input type="text"
+                               [(ngModel)]="newSpecialization"
+                               placeholder="add here">
+                    </ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label><strong> Sub Specialization </strong></ion-label>
+                    <ion-select [(ngModel)]="practiseInformation.subSpecialization"
+                                placeholder="sub specialization">
+                        <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
+                            {{sub}}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label><strong>No sub-specialization listed? </strong></ion-label>
+                    <ion-input type="text"
+                               [(ngModel)]="newSubSpecialization"
+                               placeholder="add here">
+                    </ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label><strong>Experience In Years </strong></ion-label>
+                    <ion-input placeholder="Experience In years"
+                               type="number"
+                               [(ngModel)]="practiseInformation.experience">
+                    </ion-input>
+                </ion-item>
+
+                <ion-row>
+                    <ion-col size-md="6">
+                        <ion-item>
+                            <ion-label><strong> Degree Certificate</strong></ion-label>
+                            <ion-checkbox slot="start"
+                                          [(ngModel)]="certificateCHK">
+                            </ion-checkbox>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size-md="6">
+                        <ion-item>
+                            <input type="file"
+                                   id="file-input"
+                                   accept="image/*"
+                                   [(ngModel)]="certificateImage">
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+
+            </ion-col>
+        </ion-row>
+        <div class="btn-container">
+            <ion-button (click)="prev()">back</ion-button>
+            <ion-button type="submit"
+                        (click)="next()">
+                next
+            </ion-button>
+        </div>
+    </ion-grid>
+</ion-content>
+
+

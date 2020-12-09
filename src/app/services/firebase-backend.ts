@@ -121,4 +121,30 @@ export class FirebaseBackend {
     this.auth.signOut().then();
   }
 
+  signUpAssistant(email: string){
+    let user: User;
+    return this.auth.createUserWithEmailAndPassword(email, "Abcdefg2")
+        .then(userCred => {
+          user = User.fromDB(userCred.user);
+          return this.auth.currentUser;
+        })
+        .then(u => {
+          return u.sendEmailVerification();
+        })
+        .then(() => {
+          return this.db.ref(`users/${user.id}`).set({role:'assistant'});
+        })
+        .then(() => {
+          throw new BackendError('Signup Initiated', {error: 'LOGIN_AFTER_SIGNUP'});
+        })
+        .catch(err => {
+          if (err instanceof BackendError) {
+            throw err;
+          } else {
+            console.log(err);
+            throw new BackendError('Error from firebase', {error: err.code});
+          }
+        });
+  }
+
 }

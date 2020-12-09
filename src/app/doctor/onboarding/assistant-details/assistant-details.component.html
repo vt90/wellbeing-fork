@@ -1,0 +1,47 @@
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size-md="6" offset-md="3" class="block-border">
+                <ion-title class="ion-text-center">Assistant Details</ion-title>
+
+                <ion-item>
+                    <ion-label>Full Name</ion-label>
+                    <ion-input type="text"
+                               placeholder="FirstName MiddleName LastName"
+                               [(ngModel)]="assistantDetails.name">
+                    </ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>Email</ion-label>
+                    <ion-input
+                            type="email"
+                            placeholder="xyz@domain.com"
+                            [(ngModel)]="assistantDetails.email">
+                    </ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label>Contact Number</ion-label>
+                    <ion-input
+                            type="number"
+                            placeholder="Mobile Number"
+                            [(ngModel)]="assistantDetails.contactNumber">
+                    </ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Gender</ion-label>
+                    <ion-select [(ngModel)]="assistantDetails.gender"
+                                placeholder="gender">
+                        <ion-select-option value="m">Male</ion-select-option>
+                        <ion-select-option value="f">Female</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <div class="btn-container">
+            <ion-button (click)="prev()">Back</ion-button>
+            <ion-button (click)="next()">Next</ion-button>
+        </div>
+    </ion-grid>
+</ion-content>

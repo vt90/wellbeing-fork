@@ -8,7 +8,6 @@ export class AppointmentService {
 
   appointments$: AngularFireList<any>;
 
-
   constructor(db: AngularFireDatabase) {
     this.appointments$ = db.list('/appointments');
   }
@@ -23,7 +22,6 @@ export class AppointmentService {
       name: appointment.name,
       clinic: appointment.clinic,
       dateOfBirth: appointment.dateOfBirth,
-
     });
   }
 }

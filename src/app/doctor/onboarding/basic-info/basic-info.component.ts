@@ -29,7 +29,7 @@ export class BasicInfoComponent implements OnInit {
       this.router.navigate(['doctor/onboarding/practise']);
       return;
     }*/
-    this.router.navigate(['doctor/onboarding/practise']);
+    this.router.navigate(['/doctor/onboarding/practise']);
     this.submitted = true;
   }
 }

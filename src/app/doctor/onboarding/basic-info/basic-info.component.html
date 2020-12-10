@@ -6,7 +6,7 @@
 
                 <ion-item>
                     <ion-label><strong>Registration Number</strong></ion-label>
-                    <ion-input type="text" formControlName="rNo"
+                    <ion-input type="text"
                                placeholder="Registartion Number"
                                [(ngModel)]="basicInformation.regNo">
                     </ion-input>
@@ -14,14 +14,14 @@
 
                 <ion-item>
                     <ion-label><strong>Full Name</strong></ion-label>
-                    <ion-input type="text" formControlName="fName"
+                    <ion-input type="text"
                                placeholder="FirstName MiddleName LastName"
                                [(ngModel)]="basicInformation.fullname">
                     </ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label><strong>Date of Birth</strong></ion-label>
-                    <ion-datetime formControlName="dob"
+                    <ion-datetime
                                   displayFormat="MMMM DD, YYYY"
                                   [(ngModel)]="basicInformation.birthDate"
                                   placeholder="Birth Date">
@@ -30,7 +30,7 @@
 
                 <ion-item>
                     <ion-label><strong>Gender </strong></ion-label>
-                    <ion-select formControlName="gender"
+                    <ion-select
                                 [(ngModel)]="basicInformation.gender"
                                 placeholder="Gender">
                         <ion-select-option value="m">Male</ion-select-option>
@@ -41,7 +41,7 @@
 
                 <ion-item>
                     <ion-label><strong>Contact Number</strong></ion-label>
-                    <ion-input type="number" formControlName="phone"
+                    <ion-input type="number"
                                placeholder="Mobile Number"
                                [(ngModel)]="basicInformation.contactNumber">
                     </ion-input>
@@ -50,7 +50,7 @@
             </ion-col>
         </ion-row>
         <div class="col text-center">
-            <ion-button type="submit" (click)="next()">next</ion-button>
+            <ion-button (click)="next()">next</ion-button>
         </div>
     </ion-grid>
 </ion-content>

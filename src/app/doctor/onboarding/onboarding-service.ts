@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class OnboardingService {
 
   onboardingDetails = {
@@ -16,6 +18,7 @@ export class OnboardingService {
       specialization: '',
       subSpecialization: '',
       experience: '',
+      certificateImage: ''
     },
     availabilityDetails: {
       clinicName: '',

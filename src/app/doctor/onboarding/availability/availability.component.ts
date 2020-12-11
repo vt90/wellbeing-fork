@@ -6,7 +6,7 @@ import {OnboardingService} from '../onboarding-service';
 
 
 @Component({
-  selector: 'availability',
+  selector: 'app-availability',
   templateUrl: './availability.component.html',
   styleUrls: ['./availability.component.scss'],
 })

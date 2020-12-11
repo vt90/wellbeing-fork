@@ -19,11 +19,11 @@ export class OnboardingPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.steps = [
-      {label: 'Step 1'},
-      {label: 'Step 2'},
-      {label: 'Step 3'},
-      {label: 'Step 4'},
-      {label: 'Step 5'}
+      {label: 'Step 1', routerLink: '/doctor/onboarding/basic'},
+      {label: 'Step 2', routerLink: '/doctor/onboarding/practise'},
+      {label: 'Step 3', routerLink: '/doctor/onboarding/availability'},
+      {label: 'Step 4', routerLink: '/doctor/onboarding/assistant'},
+      {label: 'Step 5', routerLink: '/doctor/onboarding/termsConditions'}
     ];
     this.subscription = this.onboardingService.stepsComplete$.subscribe((basicInformation) => {
       this.messageService.add({

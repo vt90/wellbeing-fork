@@ -4,7 +4,7 @@ import {OnboardingService} from '../onboarding-service';
 import {NgForm} from '@angular/forms';
 
 @Component({
-  selector: 'basic-info',
+  selector: 'app-basic-info',
   templateUrl: './basic-info.component.html',
   styleUrls: ['./basic-info.component.scss'],
 })

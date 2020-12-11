@@ -5,8 +5,7 @@
 </ion-header>
 <ion-content>
     <div class="card" style="padding-top: 30px">
-        <p-toast></p-toast>
-        <p-steps [(activeIndex)]="activeIndex" [model]="steps" [readonly]="true"></p-steps>
+        <p-steps [model]="steps" [readonly]="true"></p-steps>
     </div>
     <router-outlet></router-outlet>
 </ion-content>

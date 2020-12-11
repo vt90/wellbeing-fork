@@ -6,7 +6,7 @@ import {OnboardingService} from '../onboarding-service';
 import {NgForm} from '@angular/forms';
 
 @Component({
-  selector: `practise-info`,
+  selector: `app-practise-info`,
   templateUrl: './practise-info.component.html',
   styleUrls: ['./practise-info.component.scss'],
 })

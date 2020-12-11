@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {OnboardingService} from '../onboarding-service';
 
 @Component({
-  selector: 'assistant-details',
+  selector: 'app-assistant-details',
   templateUrl: './assistant-details.component.html',
   styleUrls: ['./assistant-details.component.scss'],
 })

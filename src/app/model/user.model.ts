@@ -11,7 +11,7 @@ export class User {
               public isActive: boolean,
               public isSuperadmin: boolean) {}
 
-  public static fromDB(user: firebase.User) {
+  public static fromDB(user: firebase.default.User) {
     return new User(
       user.uid,
       user.emailVerified,
@@ -23,7 +23,7 @@ export class User {
     );
   }
 
-  public static fromDBAndStorage(user: firebase.User, storageString: string) {
+  public static fromDBAndStorage(user: firebase.default.User, storageString: string) {
     const storageData = JSON.parse(storageString);
     return new User(
       user.uid,

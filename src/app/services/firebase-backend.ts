@@ -7,12 +7,12 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 
 export class FirebaseBackend {
-  private db: firebase.database.Database;
+  private db: firebase.default.database.Database;
 
   constructor(private auth: AngularFireAuth,
               private adb: AngularFireDatabase) {
     this.db = adb.database;
-    this.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then();
+    this.auth.setPersistence(firebase.default.auth.Auth.Persistence.LOCAL).then();
   }
 
   public get user(): Observable<any> {

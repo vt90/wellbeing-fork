@@ -61,3 +61,24 @@ ion-content{
 .nav-link{
     color:white;
 }
+
+@media(min-width:450px){
+    .menu-tab{display: none;}
+}
+
+
+@media(min-width:450px){
+    .menu{display: none;}
+}
+
+.menu{
+    width: 50%;
+    float: right;
+}
+.menu a{
+    font-size: 18px;
+    color:white;
+}
+ion-toolbar{
+    --background: #048bc1 !important;
+}

@@ -24,11 +24,6 @@ export class BasicInfoComponent implements OnInit {
     if (!basicForm.valid) {
       return;
     }
-    this.basicInformation.regNo = basicForm.value.rNo;
-    this.basicInformation.fullName = basicForm.value.fullName;
-    this.basicInformation.birthDate = basicForm.value.dob;
-    this.basicInformation.gender = basicForm.value.gender;
-    this.basicInformation.contactNumber = basicForm.value.contact;
     this.router.navigate(['doctor/onboarding/practise']);
   }
 }

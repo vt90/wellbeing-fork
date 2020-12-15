@@ -36,14 +36,15 @@ export class AvailabilityComponent implements OnInit {
   constructor(private datePipe: DatePipe,
               private router: Router,
               public onboardingService: OnboardingService) {
-    this.schedules = [];
   }
 
   ngOnInit() {
     this.availabilityDetails = this.onboardingService.onboardingDetails.availabilityDetails;
+    this.schedules ? this.schedules = this.availabilityDetails.schedules : this.schedules = [];
   }
 
   next() {
+    this.availabilityDetails.schedules = this.schedules;
     this.router.navigate(['doctor/onboarding/assistant']);
   }
 

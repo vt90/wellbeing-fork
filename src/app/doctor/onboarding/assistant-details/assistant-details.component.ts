@@ -25,7 +25,7 @@ export class AssistantDetailsComponent implements OnInit {
   next() {
     /*if (this.email !== '') {
       this.authService.signupAssistant(this.email).then(r => console.log(r));
-    }*/
+    }*/ // to send the verified email of assistant role on email.
     this.router.navigate(['doctor/onboarding/termsConditions']);
   }
 

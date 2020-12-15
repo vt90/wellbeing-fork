@@ -35,10 +35,6 @@ export class PractiseInfoComponent implements OnInit {
     if (!practiseForm.valid){
       return;
     }
-    this.practiseInformation.specialization = practiseForm.value.spec;
-    this.practiseInformation.subSpecialization = practiseForm.value.subspec;
-    this.practiseInformation.experience = practiseForm.value.exp;
-    this.practiseInformation.certificateImage = practiseForm.value.cert;
     this.router.navigate(['doctor/onboarding/availability']);
   }
 

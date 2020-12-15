@@ -9,14 +9,17 @@ import {OnboardingService} from '../onboarding-service';
 })
 export class TermsAndConditionsComponent {
   isChecked: boolean;
+  termsAndConditions: any;
 
   constructor(private router: Router,
               public onboardingService: OnboardingService) {
-    this.isChecked = this.onboardingService.onboardingDetails.termAndCondition.accepted;
+    this.termsAndConditions = this.onboardingService.onboardingDetails.termAndCondition;
   }
 
   prev() {
     this.router.navigate(['doctor/onboarding/assistant']);
   }
-
+  save(){
+    this.onboardingService.setOnboardingDetails(this.onboardingService.onboardingDetails);
+  }
 }

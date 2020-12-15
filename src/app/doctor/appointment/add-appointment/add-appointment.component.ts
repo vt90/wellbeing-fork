@@ -14,13 +14,13 @@ export class AddAppointmentComponent {
               private appointmentService: AppointmentService) { }
 
   bookAppointment(form: NgForm){
-    if(!form.valid){
-      return
+    if (!form.valid){
+      return;
     }
     const name = form.value.name;
     const date = this.timestamp(form.value.date);
     this.date(date);
-    const timeSlot =this.timestamp(form.value.time);
+    const timeSlot = this.timestamp(form.value.time);
     this.time(timeSlot);
     const clinic = form.value.clinic;
     const type = form.value.type;

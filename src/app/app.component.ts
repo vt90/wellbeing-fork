@@ -30,10 +30,14 @@ export class AppComponent {
         this.role = u.role;
         if (u.role === 'patient') {
           this.isPatient = true;
+          this.isDoctor = false;
         } else if (u.role === 'doctor') {
           this.isDoctor = true;
+          this.isPatient = false;
         } else if (u.role === 'assistant') {
           this.isAssistant = true;
+          this.isDoctor = false;
+          this.isPatient = false;
         }
       }
     });
@@ -47,7 +51,7 @@ export class AppComponent {
   }
 
   onLogout() {
-    this.router.navigateByUrl('/auth');
+    this.router.navigateByUrl('/home');
     this.authService.logout();
   }
 }

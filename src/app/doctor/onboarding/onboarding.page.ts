@@ -9,9 +9,9 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./onboarding.page.scss'],
 })
 export class OnboardingPage implements OnInit, OnDestroy {
-  step = 0;
   steps: MenuItem[];
   subscription: Subscription;
+  activeIndex = 0;
 
   constructor(public onboardingService: OnboardingService,
               public messageService: MessageService) {
@@ -19,11 +19,11 @@ export class OnboardingPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.steps = [
-      {label: 'Step 1', routerLink: 'basic'},
-      {label: 'Step 2', routerLink: 'practise'},
-      {label: 'Step 3', routerLink: 'availability'},
-      {label: 'Step 4', routerLink: 'assistant'},
-      {label: 'Step 5', routerLink: 'termsConditions'}
+      {label: 'Step 1', routerLink: '/doctor/onboarding/basic'},
+      {label: 'Step 2', routerLink: '/doctor/onboarding/practise'},
+      {label: 'Step 3', routerLink: '/doctor/onboarding/availability'},
+      {label: 'Step 4', routerLink: '/doctor/onboarding/assistant'},
+      {label: 'Step 5', routerLink: '/doctor/onboarding/termsConditions'}
     ];
     this.subscription = this.onboardingService.stepsComplete$.subscribe((basicInformation) => {
       this.messageService.add({

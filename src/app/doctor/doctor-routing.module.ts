@@ -1,4 +1,3 @@
-import { OnboardingPage } from './onboarding/onboarding.page';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AddAppointmentComponent} from './appointment/add-appointment/add-appointment.component';

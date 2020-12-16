@@ -1,11 +1,14 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
+  <ion-toolbar class="menu-container">
+    <ion-buttons slot="start" class="menu-tab">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
-      Appointments
-    </ion-title>
+    <nav class="navbar" class="menu">
+      <a class="navbar-brand" href="#">Home</a>
+      <a class="navbar-brand" href="#">Features</a>
+      <a class="navbar-brand" href="#">Services</a>
+      <a class="navbar-brand" href="#">About</a>
+    </nav>
     <ion-buttons class="lang-buttons ion-hide-md-down" slot="primary">
       <app-langselect></app-langselect>
     </ion-buttons>
@@ -15,10 +18,29 @@
 <ion-content>
 <ion-grid>
   <ion-row>
-    <ion-col size="3">
-      left side of page
-    </ion-col>
-    <ion-col size="9">
+    <ion-col size="2" class="vertical-menu">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Appointment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Patient</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">To do list</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="#">Assistant</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="#">Profile</a>
+          </li>
+        </ul>
+      </ion-col>
+    <ion-col size="10">
       <ion-row>
         <ion-label class="pageHeader">Appointment</ion-label>
       </ion-row>

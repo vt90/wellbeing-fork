@@ -52,3 +52,33 @@ ion-content{
     padding: 40px;
     background: white;
 }
+
+// Vertical Menu
+.vertical-menu{
+   background-color: #1d506d;
+}
+
+.nav-link{
+    color:white;
+}
+
+@media(min-width:450px){
+    .menu-tab{display: none;}
+}
+
+
+@media(min-width:450px){
+    .menu{display: none;}
+}
+
+.menu{
+    width: 50%;
+    float: right;
+}
+.menu a{
+    font-size: 18px;
+    color:white;
+}
+ion-toolbar{
+    --background: #048bc1 !important;
+}

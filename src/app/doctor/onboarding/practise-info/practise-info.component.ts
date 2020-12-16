@@ -3,9 +3,10 @@ import {DoctorService} from '../../../services/doctor/doctor.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Router} from '@angular/router';
 import {OnboardingService} from '../onboarding-service';
+import {NgForm} from '@angular/forms';
 
 @Component({
-  selector: `practise-info`,
+  selector: `app-practise-info`,
   templateUrl: './practise-info.component.html',
   styleUrls: ['./practise-info.component.scss'],
 })
@@ -15,7 +16,6 @@ export class PractiseInfoComponent implements OnInit {
   subSpecializations: string[];
   newSubSpecialization: string;
   newSpecialization: string;
-  certificateCHK = true;
   certificateImage: string;
   specializationsObject: any;
 
@@ -31,8 +31,10 @@ export class PractiseInfoComponent implements OnInit {
     this.practiseInformation = this.onboardingService.onboardingDetails.practiseInformation;
   }
 
-  next() {
-    this.onboardingService.onboardingDetails.practiseInformation = this.practiseInformation;
+  next(practiseForm: NgForm) {
+    if (!practiseForm.valid){
+      return;
+    }
     this.router.navigate(['doctor/onboarding/availability']);
   }
 
@@ -64,5 +66,4 @@ export class PractiseInfoComponent implements OnInit {
     }
     this.specializations = specs;
   }
-
 }

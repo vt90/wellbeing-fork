@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {OnboardingService} from '../onboarding-service';
+import {NgForm} from '@angular/forms';
 
 @Component({
-  selector: 'basic-info',
+  selector: 'app-basic-info',
   templateUrl: './basic-info.component.html',
   styleUrls: ['./basic-info.component.scss'],
 })
 
 export class BasicInfoComponent implements OnInit {
   basicInformation: any;
-  submitted = false;
 
   constructor(private router: Router,
               public onboardingService: OnboardingService) {
@@ -20,16 +20,10 @@ export class BasicInfoComponent implements OnInit {
     this.basicInformation = this.onboardingService.getOnboadringDetails().basicInformation;
   }
 
-  next() {
-    /*if (this.basicInformation.firstName && this.basicInformation.lastName
-      && this.basicInformation.middleName && this.basicInformation.birthDate
-      && this.basicInformation.regNo &&  this.basicInformation.gender
-      && this.basicInformation.contactNo ) {
-      this.onboardingService.onboardingDetails.basicInformation = this.basicInformation;
-      this.router.navigate(['doctor/onboarding/practise']);
+  next(basicForm: NgForm) {
+    if (!basicForm.valid) {
       return;
-    }*/
+    }
     this.router.navigate(['doctor/onboarding/practise']);
-    this.submitted = true;
   }
 }

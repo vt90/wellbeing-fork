@@ -1,7 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
+import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import {Router} from '@angular/router';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class OnboardingService {
 
   onboardingDetails = {
@@ -16,6 +20,7 @@ export class OnboardingService {
       specialization: '',
       subSpecialization: '',
       experience: '',
+      certificateImage: ''
     },
     availabilityDetails: {
       clinicName: '',
@@ -25,7 +30,7 @@ export class OnboardingService {
       state: '',
       zip: '',
       country: '',
-      schedule: '',
+      schedule: null,
       consultationFee: '',
       followupFee: '',
     },
@@ -42,13 +47,22 @@ export class OnboardingService {
 
   private stepsComplete = new Subject<any>();
   stepsComplete$ = this.stepsComplete.asObservable();
+  doctor$: AngularFireList<any>;
+
+  constructor(db: AngularFireDatabase,
+              private router: Router) {
+    this.doctor$ = db.list('/doctors');
+  }
 
   getOnboadringDetails() {
     return this.onboardingDetails;
   }
 
   setOnboardingDetails(onboardingDetails) {
+    console.log(onboardingDetails);
     this.onboardingDetails = onboardingDetails;
+    this.doctor$.push(this.onboardingDetails);
+    this.router.navigate(['doctor']);
   }
 
   complete() {

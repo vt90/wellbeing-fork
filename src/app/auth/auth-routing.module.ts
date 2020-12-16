@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: AuthPage
   }
-];
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

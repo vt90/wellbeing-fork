@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {redirectUnauthorizedTo, canActivate} from '@angular/fire/auth-guard';
-import { ProfilePageRoutingModule } from './doctor/profile/profile-routing.module';
 
 export const redirectUnauthorizedToLogin = () => {
   return redirectUnauthorizedTo(['/', 'auth']);

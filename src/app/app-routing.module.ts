@@ -1,11 +1,10 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {redirectUnauthorizedTo, canActivate} from '@angular/fire/auth-guard';
 
 export const redirectUnauthorizedToLogin = () => {
   return redirectUnauthorizedTo(['/', 'auth']);
 };
-
 
 const routes: Routes = [
   {
@@ -15,29 +14,30 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
     /*...canActivate(redirectUnauthorizedToLogin)*/
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthPageModule)
   },
   {
     path: 'patient',
-    loadChildren: () => import('./patient/patient.module').then( m => m.PatientPageModule),
+    loadChildren: () => import('./patient/patient.module').then(m => m.PatientPageModule),
     ...canActivate(redirectUnauthorizedToLogin)
   },
   {
     path: 'doctor',
-    loadChildren: () => import('./doctor/doctor.module').then( m => m.DoctorPageModule),
+    loadChildren: () => import('./doctor/doctor.module').then(m => m.DoctorPageModule),
     ...canActivate(redirectUnauthorizedToLogin)
   },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, useHash: true })
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules, useHash: true})
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

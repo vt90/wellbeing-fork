@@ -1,37 +1,32 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {MenuItem, MessageService} from 'primeng/api';
-import {OnboardingService} from './patient-onboarding-service';
+import {Component, OnInit} from '@angular/core';
+import {Patient} from '../../model/patient.model';
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 
 @Component({
   selector: 'app-onboarding',
   templateUrl: './onboarding.page.html',
   styleUrls: ['./onboarding.page.scss'],
 })
-export class OnboardingPage implements OnInit, OnDestroy {
-  steps: MenuItem[];
-  subscription: Subscription;
+export class OnboardingPage implements OnInit {
+  patient: Patient = null;
+  patient$: AngularFireList<any>;
 
-  constructor(public onboardingService: OnboardingService,
-              public messageService: MessageService) { }
+  constructor(private router: Router,
+              db: AngularFireDatabase) {
+    this.patient$ = db.list('/patients');
+  }
 
   ngOnInit() {
-    this.steps = [
-      {label: 'Step 1', routerLink: '/patient/onboarding/basic'},
-      {label: 'Step 2', routerLink: '/patient/onboarding/practise'},
-      {label: 'Step 3', routerLink: '/patient/onboarding/termsConditions'}
-    ];
-    this.subscription = this.onboardingService.stepsComplete$.subscribe((basicInformation) => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Process completed',
-        detail: 'Dear, ' + basicInformation.fullName + ' onboarding process completed.'
-      });
-    });
+    this.patient = new Patient();
   }
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+
+  next(basicForm: NgForm) {
+    if (!basicForm.valid) {
+      return;
     }
+    this.patient$.push(this.patient);
+    this.router.navigate(['patient']);
   }
 }

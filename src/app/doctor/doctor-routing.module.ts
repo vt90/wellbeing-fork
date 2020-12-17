@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'appointment',
-    loadChildren: () => import('./../doctor/appointment/appointment.module').then(m => m.AppointmentPageModule)
+    loadChildren: () => import('./appointment/appointment.module').then(m => m.AppointmentPageModule)
   },
   {
     path: 'add-appointment',
@@ -18,29 +18,28 @@ const routes: Routes = [
   },
   {
     path: 'onboarding',
-    loadChildren: () => import('./../doctor/onboarding/onboarding.module').then(m => m.OnboardingPageModule)
+    loadChildren: () => import('./onboarding/onboarding.module').then(m => m.OnboardingPageModule)
   },
   {
     path: 'patients',
-    loadChildren: () => import('./../doctor/patients/patients.module').then(m => m.PatientsPageModule)
+    loadChildren: () => import('./patients/patients.module').then(m => m.PatientsPageModule)
   },
   {
     path: 'profile',
-    loadChildren: () => import('./../doctor/profile/profile.module').then(m => m.ProfilePageModule)
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
     path: 'assistant',
-    loadChildren: () => import('./../doctor/assistant/assistant.module').then( m => m.AssistantPageModule)
+    loadChildren: () => import('./assistant/assistant.module').then( m => m.AssistantPageModule)
   },
   {
     path: 'clinic',
-    loadChildren: () => import('./../doctor/clinic/clinic.module').then( m => m.ClinicPageModule)
+    loadChildren: () => import('./clinic/clinic.module').then( m => m.ClinicPageModule)
   },
   {
     path: 'todo',
-    loadChildren: () => import('./../doctor/todo/todo.module').then( m => m.TodoPageModule)
+    loadChildren: () => import('./todo/todo.module').then( m => m.TodoPageModule)
   },
-
 ];
 
 @NgModule({

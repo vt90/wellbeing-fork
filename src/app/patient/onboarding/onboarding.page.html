@@ -5,8 +5,145 @@
 </ion-header>
 
 <ion-content>
-  <div class="card" style="padding-top: 30px">
-    <p-steps [model]="steps" [readonly]="true"></p-steps>
-  </div>
-  <router-outlet></router-outlet>
+  <form #basicForm="ngForm" (ngSubmit)="next(basicForm)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-md="6" offset-md="3" class="block-border">
+          <ion-title class="ion-text-center"><strong>Basic Information</strong></ion-title>
+          <ion-item>
+            <ion-label><strong>Full Name</strong></ion-label>
+            <ion-input type="text"
+                       ngModel
+                       name="fullName"
+                       required
+                       fullName
+                       placeholder="FirstName MiddleName LastName"
+                       #nameCtrl="ngModel"
+                       [(ngModel)]="patient.fullName">
+            </ion-input>
+          </ion-item>
+          <ion-item *ngIf="!nameCtrl.valid && nameCtrl.touched " lines="none">
+            <ion-label color="danger"> Full Name required</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Contact Number</strong></ion-label>
+            <ion-input type="number"
+                       ngModel
+                       name="contact"
+                       required
+                       contact
+                       placeholder="Mobile Number"
+                       [(ngModel)]="patient.contactNumber"
+                       #contactCtrl="ngModel">
+            </ion-input>
+          </ion-item>
+          <ion-item *ngIf="!contactCtrl.valid && contactCtrl.touched " lines="none">
+            <ion-label color="danger"> Contact Number required</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Email</strong></ion-label>
+            <ion-input
+                    type="email"
+                    ngModel
+                    name="emailID"
+                    required
+                    emailID
+                    placeholder="xyz@domain.com"
+                    [(ngModel)]="patient.email"
+                    #emailCtrl="ngModel">
+            </ion-input>
+          </ion-item>
+          <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched " lines="none">
+            <ion-label color="danger"> Email required</ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-label><strong>Gender </strong></ion-label>
+            <ion-select ngModel
+                        name="gender"
+                        gender
+                        [(ngModel)]="patient.gender"
+                        placeholder="Gender">
+              <ion-select-option value="m">Male</ion-select-option>
+              <ion-select-option value="f">Female</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label style="text-align: center;"><strong>Address</strong></ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Address line 1</strong></ion-label>
+            <ion-input type="text"
+                       name="address1"
+                       placeholder="address line 1"
+                       [(ngModel)]="patient.addressLine1">
+            </ion-input>
+          </ion-item>
+
+
+          <ion-item>
+            <ion-label><strong>Address line 2</strong></ion-label>
+            <ion-input type="text"
+                       name="address2"
+                       placeholder="address line 2"
+                       [(ngModel)]="patient.addressLine2">
+            </ion-input>
+          </ion-item>
+
+
+          <ion-item>
+            <ion-label><strong>City</strong></ion-label>
+            <ion-input type="text"
+                       name="city"
+                       placeholder="City"
+                       [(ngModel)]="patient.city">
+            </ion-input>
+          </ion-item>
+
+
+          <ion-item>
+            <ion-label><strong>State/Provience/Region</strong></ion-label>
+            <ion-input type="text"
+                       placeholder="State"
+                       name="state"
+                       [(ngModel)]="patient.state">
+            </ion-input>
+          </ion-item>
+
+
+          <ion-item>
+            <ion-label><strong>Zip/Postal code</strong></ion-label>
+            <ion-input type="number"
+                       placeholder="Zip Code"
+                       name="code"
+                       [(ngModel)]="patient.zipcode">
+            </ion-input>
+          </ion-item>
+
+
+          <ion-item>
+            <ion-label><strong>Country</strong></ion-label>
+            <ion-input type="text"
+                       placeholder="Country"
+                       name="country"
+                       [(ngModel)]="patient.country">
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <a routerLink="termsConditions">Terms and Conditions</a>
+            <ion-checkbox slot="start"
+                          name="terms"
+                          required
+                          [(ngModel)]="patient.termsConditions">
+            </ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <div class="col text-center">
+        <ion-button type="submit" [disabled]="!basicForm.valid || !patient.termsConditions">Save</ion-button>
+      </div>
+    </ion-grid>
+  </form>
 </ion-content>

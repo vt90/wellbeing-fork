@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import {ModalController} from '@ionic/angular';
 
 @Component({
   selector: 'app-terms-and-conditions',
@@ -8,10 +9,11 @@ import {Router} from '@angular/router';
 })
 export class TermsAndConditionsComponent {
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private modalCtrl: ModalController) {
   }
 
-  prev() {
-    this.router.navigate(['patient/onboarding']);
+  close() {
+    this.modalCtrl.dismiss();
   }
 }

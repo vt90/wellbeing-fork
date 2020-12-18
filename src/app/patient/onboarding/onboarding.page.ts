@@ -3,6 +3,9 @@ import {Patient} from '../../model/patient.model';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import {ModalController} from '@ionic/angular';
+import {AddAppointmentComponent} from '../../doctor/appointment/add-appointment/add-appointment.component';
+import {TermsAndConditionsComponent} from './terms-and-conditions/terms-and-conditions.component';
 
 @Component({
   selector: 'app-onboarding',
@@ -14,7 +17,8 @@ export class OnboardingPage implements OnInit {
   patient$: AngularFireList<any>;
 
   constructor(private router: Router,
-              db: AngularFireDatabase) {
+              db: AngularFireDatabase,
+              private modalCtrl: ModalController) {
     this.patient$ = db.list('/patients');
   }
 
@@ -28,5 +32,14 @@ export class OnboardingPage implements OnInit {
     }
     this.patient$.push(this.patient);
     this.router.navigate(['patient']);
+  }
+
+  showTermsAndConditions(){
+    this.modalCtrl.create({
+      component: TermsAndConditionsComponent,
+    }).then(modalElement => {
+      modalElement.present();
+      return modalElement.onDidDismiss();
+    });
   }
 }

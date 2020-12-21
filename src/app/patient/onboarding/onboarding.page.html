@@ -10,42 +10,49 @@
             <ion-row>
                 <ion-col size-md="6" offset-md="3" class="block-border">
                     <ion-title class="ion-text-center"><strong>Basic Information</strong></ion-title>
+
                     <ion-item>
-                        <ion-label><strong>Full Name</strong></ion-label>
-                        <ion-input type="text"
-                                   ngModel
-                                   name="fName"
-                                   required
-                                   pattern="[a-zA-Z ]*"
-                                   placeholder="FirstName"
-                                   #fnameCtrl="ngModel"
-                                   [(ngModel)]="patient.fName">
-                        </ion-input>
-                        <ion-input type="text"
-                                   ngModel
-                                   name="mName"
-                                   required
-                                   pattern="[a-zA-Z ]*"
-                                   placeholder="MiddleName"
-                                   #mnameCtrl="ngModel"
-                                   [(ngModel)]="patient.mName">
-                        </ion-input>
-                        <ion-input type="text"
-                                   ngModel
-                                   name="lName"
-                                   required
-                                   pattern="[a-zA-Z ]*"
-                                   placeholder="LastName"
-                                   #lnameCtrl="ngModel"
-                                   [(ngModel)]="patient.lName">
-                        </ion-input>
+                        <ion-item>
+                            <ion-label position="floating"><strong>FirstName</strong></ion-label>
+                            <ion-input type="text"
+                                       ngModel
+                                       name="fName"
+                                       required
+                                       pattern="[a-zA-Z ]*"
+                                       #fnameCtrl="ngModel"
+                                       [(ngModel)]="patient.fName">
+                            </ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating"><strong>MiddleName</strong></ion-label>
+                            <ion-input type="text"
+                                       ngModel
+                                       name="mName"
+                                       required
+                                       pattern="[a-zA-Z ]*"
+                                       #mnameCtrl="ngModel"
+                                       [(ngModel)]="patient.mName">
+                            </ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating"><strong>Last Name</strong></ion-label>
+                            <ion-input type="text"
+                                       ngModel
+                                       name="lName"
+                                       required
+                                       pattern="[a-zA-Z ]*"
+                                       #lnameCtrl="ngModel"
+                                       [(ngModel)]="patient.lName">
+                            </ion-input>
+                        </ion-item>
                     </ion-item>
+
                     <ion-item *ngIf="fnameCtrl.invalid && (fnameCtrl.touched || fnameCtrl.dirty)" lines="none">
                         <ion-item *ngIf="fnameCtrl.errors.required">
                             <ion-label color="danger"> first name required</ion-label>
                         </ion-item>
                         <ion-item *ngIf="fnameCtrl.hasError('pattern')">
-                            <ion-label color="danger"> first name is invalid </ion-label>
+                            <ion-label color="danger"> first name is invalid</ion-label>
                         </ion-item>
                     </ion-item>
                     <ion-item *ngIf="mnameCtrl.invalid && (mnameCtrl.touched || mnameCtrl.dirty)" lines="none">
@@ -53,7 +60,7 @@
                             <ion-label color="danger"> middle name required</ion-label>
                         </ion-item>
                         <ion-item *ngIf="mnameCtrl.hasError('pattern')">
-                            <ion-label color="danger"> middle name is invalid </ion-label>
+                            <ion-label color="danger"> middle name is invalid</ion-label>
                         </ion-item>
                     </ion-item>
                     <ion-item *ngIf="lnameCtrl.invalid && (lnameCtrl.touched || lnameCtrl.dirty)" lines="none">
@@ -61,18 +68,17 @@
                             <ion-label color="danger"> last name required</ion-label>
                         </ion-item>
                         <ion-item *ngIf="lnameCtrl.hasError('pattern')">
-                            <ion-label color="danger"> last name is invalid </ion-label>
+                            <ion-label color="danger"> last name is invalid</ion-label>
                         </ion-item>
                     </ion-item>
 
                     <ion-item>
-                        <ion-label><strong>Contact Number</strong></ion-label>
+                        <ion-label position="floating"><strong>Contact Number</strong></ion-label>
                         <ion-input type="tel"
                                    ngModel
                                    name="contact"
                                    required
                                    pattern="^\d{10}$"
-                                   placeholder="Mobile Number"
                                    [(ngModel)]="patient.contactNumber"
                                    #contactCtrl="ngModel">
                         </ion-input>
@@ -82,18 +88,17 @@
                             <ion-label color="danger"> Contact Number required</ion-label>
                         </ion-item>
                         <ion-item *ngIf="contactCtrl.hasError('pattern')">
-                            <ion-label color="danger"> Number is invalid</ion-label>
+                            <ion-label color="danger">Contact Number is invalid</ion-label>
                         </ion-item>
                     </ion-item>
                     <ion-item>
-                        <ion-label><strong>Email</strong></ion-label>
+                        <ion-label position="floating"><strong>Email</strong></ion-label>
                         <ion-input
                                 type="email"
                                 ngModel
                                 name="emailID"
                                 required
                                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                                placeholder="xyz@domain.com"
                                 [(ngModel)]="patient.email"
                                 #emailCtrl="ngModel">
                         </ion-input>
@@ -103,16 +108,15 @@
                             <ion-label color="danger"> Email required</ion-label>
                         </ion-item>
                         <ion-item *ngIf="emailCtrl.hasError('pattern')">
-                            <ion-label color="danger">email is Invalid </ion-label>
+                            <ion-label color="danger">email is Invalid</ion-label>
                         </ion-item>
                     </ion-item>
 
                     <ion-item>
-                        <ion-label><strong>Gender </strong></ion-label>
+                        <ion-label position="floating"><strong>Gender </strong></ion-label>
                         <ion-select ngModel
                                     name="gender"
-                                    [(ngModel)]="patient.gender"
-                                    placeholder="Gender">
+                                    [(ngModel)]="patient.gender">
                             <ion-select-option value="m">Male</ion-select-option>
                             <ion-select-option value="f">Female</ion-select-option>
                         </ion-select>
@@ -122,39 +126,35 @@
                         <ion-label style="text-align: center;"><strong>Address</strong></ion-label>
                     </ion-item>
                     <ion-item>
-                        <ion-label><strong>Address line 1</strong></ion-label>
+                        <ion-label position="floating"><strong>Address line 1</strong></ion-label>
                         <ion-input type="text"
                                    name="address1"
-                                   placeholder="address line 1"
                                    [(ngModel)]="patient.addressLine1">
                         </ion-input>
                     </ion-item>
 
 
                     <ion-item>
-                        <ion-label><strong>Address line 2</strong></ion-label>
+                        <ion-label position="floating"><strong>Address line 2</strong></ion-label>
                         <ion-input type="text"
                                    name="address2"
-                                   placeholder="address line 2"
                                    [(ngModel)]="patient.addressLine2">
                         </ion-input>
                     </ion-item>
 
 
                     <ion-item>
-                        <ion-label><strong>City</strong></ion-label>
+                        <ion-label position="floating"><strong>City</strong></ion-label>
                         <ion-input type="text"
                                    name="city"
-                                   placeholder="City"
                                    [(ngModel)]="patient.city">
                         </ion-input>
                     </ion-item>
 
 
                     <ion-item>
-                        <ion-label><strong>State/Provience/Region</strong></ion-label>
+                        <ion-label position="floating"><strong>State/Provience/Region</strong></ion-label>
                         <ion-input type="text"
-                                   placeholder="State"
                                    name="state"
                                    [(ngModel)]="patient.state">
                         </ion-input>
@@ -162,9 +162,8 @@
 
 
                     <ion-item>
-                        <ion-label><strong>Zip/Postal code</strong></ion-label>
+                        <ion-label position="floating"><strong>Zip/Postal code</strong></ion-label>
                         <ion-input type="number"
-                                   placeholder="Zip Code"
                                    name="code"
                                    [(ngModel)]="patient.zipcode">
                         </ion-input>
@@ -172,9 +171,8 @@
 
 
                     <ion-item>
-                        <ion-label><strong>Country</strong></ion-label>
+                        <ion-label position="floating"><strong>Country</strong></ion-label>
                         <ion-input type="text"
-                                   placeholder="Country"
                                    name="country"
                                    [(ngModel)]="patient.country">
                         </ion-input>

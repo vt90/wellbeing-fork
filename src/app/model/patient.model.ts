@@ -3,7 +3,9 @@ import {Address} from './address.interface';
 export class Patient implements Address{
     patientId: string;
     email: string;
-    fullName: string;
+    fName: string;
+    mName: string;
+    lName: string;
     contactNumber: number;
     dateOfBirth: string;
     gender: string;

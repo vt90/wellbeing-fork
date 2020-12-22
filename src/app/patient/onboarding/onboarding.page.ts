@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Patient} from '../../model/patient.model';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
-import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import {ModalController} from '@ionic/angular';
-import {AddAppointmentComponent} from '../../doctor/appointment/add-appointment/add-appointment.component';
+
 import {TermsAndConditionsComponent} from './terms-and-conditions/terms-and-conditions.component';
+import {PatientService} from '../../services/patient/patient.service';
 
 @Component({
   selector: 'app-onboarding',
@@ -14,12 +14,11 @@ import {TermsAndConditionsComponent} from './terms-and-conditions/terms-and-cond
 })
 export class OnboardingPage implements OnInit {
   patient: Patient = null;
-  patient$: AngularFireList<any>;
+
 
   constructor(private router: Router,
-              db: AngularFireDatabase,
+              private patientService: PatientService,
               private modalCtrl: ModalController) {
-    this.patient$ = db.list('/patients');
   }
 
   ngOnInit() {
@@ -30,7 +29,7 @@ export class OnboardingPage implements OnInit {
     if (!basicForm.valid) {
       return;
     }
-    this.patient$.push(this.patient);
+    this.patientService.addPatient(this.patient);
     this.router.navigate(['patient']);
   }
 

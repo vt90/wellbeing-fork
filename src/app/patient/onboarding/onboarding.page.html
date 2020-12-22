@@ -13,7 +13,7 @@
 
                     <ion-item>
                         <ion-item>
-                            <ion-label position="floating"><strong>FirstName</strong></ion-label>
+                            <ion-label position="floating"><strong>First Name</strong></ion-label>
                             <ion-input type="text"
                                        ngModel
                                        name="fName"
@@ -23,8 +23,8 @@
                                        [(ngModel)]="patient.fName">
                             </ion-input>
                         </ion-item>
-                        <ion-item>
-                            <ion-label position="floating"><strong>MiddleName</strong></ion-label>
+                        <!--<ion-item>
+                            <ion-label position="floating"><strong>Middle Name</strong></ion-label>
                             <ion-input type="text"
                                        ngModel
                                        name="mName"
@@ -33,7 +33,7 @@
                                        #mnameCtrl="ngModel"
                                        [(ngModel)]="patient.mName">
                             </ion-input>
-                        </ion-item>
+                        </ion-item>-->
                         <ion-item>
                             <ion-label position="floating"><strong>Last Name</strong></ion-label>
                             <ion-input type="text"
@@ -55,14 +55,14 @@
                             <ion-label color="danger"> first name is invalid</ion-label>
                         </ion-item>
                     </ion-item>
-                    <ion-item *ngIf="mnameCtrl.invalid && (mnameCtrl.touched || mnameCtrl.dirty)" lines="none">
+                    <!--<ion-item *ngIf="mnameCtrl.invalid && (mnameCtrl.touched || mnameCtrl.dirty)" lines="none">
                         <ion-item *ngIf="mnameCtrl.errors.required">
                             <ion-label color="danger"> middle name required</ion-label>
                         </ion-item>
                         <ion-item *ngIf="mnameCtrl.hasError('pattern')">
                             <ion-label color="danger"> middle name is invalid</ion-label>
                         </ion-item>
-                    </ion-item>
+                    </ion-item>-->
                     <ion-item *ngIf="lnameCtrl.invalid && (lnameCtrl.touched || lnameCtrl.dirty)" lines="none">
                         <ion-item *ngIf="lnameCtrl.errors.required">
                             <ion-label color="danger"> last name required</ion-label>

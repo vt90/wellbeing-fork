@@ -6,6 +6,7 @@ import {NgForm} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {BackendError, SuperadminBreak} from '../services/auth-backend';
 import {TranslateService} from '@ngx-translate/core';
+import {PatientService} from '../services/patient/patient.service';
 
 @Component({
   selector: 'app-auth',
@@ -36,7 +37,8 @@ export class AuthPage {
               private router: Router,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
-              private translate: TranslateService
+              private translate: TranslateService,
+              private patientService: PatientService
   ) {
     console.log(this.translate.currentLang, this.translate.instant('AUTHERR.EmailNotFoundHeader'));
   }
@@ -55,12 +57,13 @@ export class AuthPage {
       .then(el => {
         el.present().then();
         this.authService.login(email, password).then((user) => {
-          if (user.role === 'patient') {
+          this.manageProfile(user.role, user.id);
+          /*if (user.role === 'patient') {
             this.router.navigateByUrl('patient');
           }
           if (user.role === 'doctor' || user.role === 'assistant') {
             this.router.navigateByUrl('doctor');
-          }
+          }*/
           this.loginSuccess(loginForm);
         })
           .catch(error => {
@@ -202,5 +205,22 @@ export class AuthPage {
 
   resetPassword(email: string) {
     this.authService.passwordReset(email);
+  }
+
+  private manageProfile(role: string, userid: string){
+    if (role === 'patient') {
+      this.patientService.getPatientById(userid).then(
+        patient => {
+          if (patient === null) {
+            this.router.navigate(['patient/onboarding', userid]);
+          }
+          else{
+            this.router.navigate(['patient', userid]);
+          }
+        });
+    }
+    if (role === 'doctor' || role === 'assistant') {
+      this.router.navigateByUrl('doctor');
+    }
   }
 }

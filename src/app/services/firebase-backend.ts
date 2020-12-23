@@ -123,7 +123,7 @@ export class FirebaseBackend {
 
   signUpAssistant(email: string){
     let user: User;
-    return this.auth.createUserWithEmailAndPassword(email, "Abcdefg2")
+    return this.auth.createUserWithEmailAndPassword(email, 'Abcdefg2')
         .then(userCred => {
           user = User.fromDB(userCred.user);
           return this.auth.currentUser;
@@ -132,7 +132,7 @@ export class FirebaseBackend {
           return u.sendEmailVerification();
         })
         .then(() => {
-          return this.db.ref(`users/${user.id}`).set({role:'assistant'});
+          return this.db.ref(`users/${user.id}`).set({role: 'assistant'});
         })
         .then(() => {
           throw new BackendError('Signup Initiated', {error: 'LOGIN_AFTER_SIGNUP'});

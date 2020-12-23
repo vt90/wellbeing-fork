@@ -31,6 +31,11 @@ const routes: Routes = [
     loadChildren: () => import('./doctor/doctor.module').then(m => m.DoctorPageModule),
     ...canActivate(redirectUnauthorizedToLogin)
   },
+  {
+    path: 'patient/:id',
+    loadChildren: () => import('./patient/patient.module').then(m => m.PatientPageModule),
+    ...canActivate(redirectUnauthorizedToLogin)
+  },
 ];
 
 @NgModule({

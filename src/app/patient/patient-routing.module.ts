@@ -6,7 +6,8 @@ const routes: Routes = [
   {
     path: '',
     component: PatientPage
-  },  {
+  },
+  {
     path: 'appointment',
     loadChildren: () => import('./appointment/appointment.module').then( m => m.AppointmentPageModule)
   },
@@ -23,7 +24,7 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
-    path: 'onboarding',
+    path: 'onboarding/:id',
     loadChildren: () => import('./onboarding/onboarding.module').then( m => m.OnboardingPageModule)
   }
 

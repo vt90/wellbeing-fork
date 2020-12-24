@@ -20,6 +20,26 @@
       </ion-col>
       <ion-col size="10">
         <ion-title> Welcome {{ patient ? patient.fName : 'user'}},</ion-title>
+        <ion-row>
+          <ion-col size="5">
+            <ion-label><strong> Search Doctor Here </strong></ion-label>
+            <ion-select name = "subspec"
+                        placeholder="specialization">
+              <ion-select-option *ngFor="let s of specializations" [value]="s">
+                {{s}}
+              </ion-select-option>
+            </ion-select>
+            <ion-select name = "subspec"
+                        placeholder="sub-specialization">
+              <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
+                {{sub}}
+              </ion-select-option>
+            </ion-select>
+          </ion-col>
+          <ion-col size="5">
+
+          </ion-col>
+        </ion-row>
       </ion-col>
     </ion-row>
   </ion-grid>

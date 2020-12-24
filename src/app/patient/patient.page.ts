@@ -3,6 +3,7 @@ import {AuthService} from '../services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PatientService} from '../services/patient/patient.service';
 import {Patient} from '../model/patient.model';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-patient',
@@ -11,11 +12,17 @@ import {Patient} from '../model/patient.model';
 })
 export class PatientPage implements OnInit{
   patient: Patient;
+  specializationsObject: any;
+  specializations: string[];
+  subSpecializations: string[];
 
   constructor(private authService: AuthService,
               private router: Router,
               private patientService: PatientService,
-              private _Activatedroute: ActivatedRoute) {
+              private _Activatedroute: ActivatedRoute,
+              private translate: TranslateService) {
+    this.specializationsObject = this.patientService.specs;
+    this.specificationsOptions(this.specializationsObject);
   }
 
   onLogout() {
@@ -28,5 +35,15 @@ export class PatientPage implements OnInit{
     this.patientService.getPatientById(id).then(patient => {
       this.patient = patient;
     });
+  }
+
+  specificationsOptions(s: any) {
+    var specs = [];
+    for (const key in s) {
+      if (s.hasOwnProperty(key)) {
+        specs.push(s[key]['name_' + this.translate.currentLang]);
+      }
+    }
+    this.specializations = specs;
   }
 }

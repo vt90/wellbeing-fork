@@ -24,7 +24,7 @@ export class PractiseInfoComponent implements OnInit {
               private router: Router,
               public onboardingService: OnboardingService) {
     this.specializationsObject = this.doctorService.specs;
-    this.specificationsOptions(this.doctorService.specs);
+    this.specificationsOptions(this.specializationsObject);
   }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class PractiseInfoComponent implements OnInit {
   }
 
   onSpecChange(s: string) {
-    var subSpecs = [];
+    let subSpecs = [];
     for (const key in this.specializationsObject) {
       if (this.specializationsObject.hasOwnProperty(key)) {
         if (this.specializationsObject[key].subspecializations &&

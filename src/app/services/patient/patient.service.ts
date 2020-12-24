@@ -8,9 +8,15 @@ import * as firebase from 'firebase/app';
 })
 export class PatientService {
   private db: firebase.database.Database;
+  specs = [];
 
   constructor(private adb: AngularFireDatabase) {
     this.db = adb.database;
+    const specializationRef = this.db.ref('/specializations');
+    specializationRef.on('value', (snapshot) => {
+      console.log(snapshot.val());
+      this.specs  = snapshot.val();
+    });
   }
 
   addPatient(patient: Patient, patientId: string){

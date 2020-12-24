@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { PatientRoutingModule } from './patient-routing.module';
 
-
 @NgModule({
   imports: [
     CommonModule,

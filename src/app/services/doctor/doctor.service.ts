@@ -10,8 +10,8 @@ export class DoctorService {
   specs = [];
 
   constructor() {
-    const specializationRef= this.db.ref('/specializations');
-    specializationRef.on('value',(snapshot)=>{
+    const specializationRef = this.db.ref('/specializations');
+    specializationRef.on('value', (snapshot) => {
       this.specs  = snapshot.val();
     });
   }

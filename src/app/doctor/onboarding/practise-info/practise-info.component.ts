@@ -46,13 +46,13 @@ export class PractiseInfoComponent implements OnInit {
   }
 
   onSpecChange(s: string) {
-    let subSpecs: string[] = [];
+    const subSpecs: string[] = [];
     for (const key in this.specializationsFromDB) {
       if (this.specializationsFromDB.hasOwnProperty(key)) {
         if (this.specializationsFromDB[key].subspecializations &&
           s === this.specializationsFromDB[key]['name_' + this.translate.currentLang]) {
-          this.specializationsFromDB[key].subspecializations.forEach(s => {
-            subSpecs.push(s['name_' + this.translate.currentLang]);
+          this.specializationsFromDB[key].subspecializations.forEach(sub => {
+            subSpecs.push(sub['name_' + this.translate.currentLang]);
           });
         }
       }

@@ -6,7 +6,6 @@ import {Patient} from '../model/patient.model';
 import {TranslateService} from '@ngx-translate/core';
 import {Doctor} from '../model/doctor.model';
 import {ModalController} from '@ionic/angular';
-import {TermsAndConditionsComponent} from './onboarding/terms-and-conditions/terms-and-conditions.component';
 import {DoctorDetailsComponent} from './doctor-details/doctor-details.component';
 
 @Component({
@@ -26,7 +25,7 @@ export class PatientPage implements OnInit{
   constructor(private authService: AuthService,
               private router: Router,
               private patientService: PatientService,
-              private _Activatedroute: ActivatedRoute,
+              private _activatedRoute: ActivatedRoute,
               private translate: TranslateService,
               private modalCtrl: ModalController) {
   }
@@ -37,7 +36,7 @@ export class PatientPage implements OnInit{
   }
 
   ngOnInit() {
-    const id = this._Activatedroute.snapshot.paramMap.get('id');
+    const id = this._activatedRoute.snapshot.paramMap.get('id');
     this.patientService.getPatientById(id).then(patient => {
       console.log(patient);
       this.patient = patient;
@@ -46,7 +45,7 @@ export class PatientPage implements OnInit{
       this.specializationsFromDB = specs;
       this.specificationsOptions(specs);
     });
-    this.patientService.retrieveDoctor().then(docs => {
+    this.patientService.retrieveDoctors().then(docs => {
       this.doctors = docs;
     });
   }
@@ -67,8 +66,8 @@ export class PatientPage implements OnInit{
       if (this.specializationsFromDB.hasOwnProperty(key)) {
         if (this.specializationsFromDB[key].subspecializations &&
           s === this.specializationsFromDB[key]['name_' + this.translate.currentLang]) {
-          this.specializationsFromDB[key].subspecializations.forEach(s => {
-            subSpecs.push(s['name_' + this.translate.currentLang]);
+          this.specializationsFromDB[key].subspecializations.forEach(sub => {
+            subSpecs.push(sub['name_' + this.translate.currentLang]);
           });
         }
       }

@@ -40,13 +40,17 @@
                     </ion-col>
                     <ion-col size="5">
                         <ion-label *ngIf="specialization"><strong> {{specialization}} doctors</strong></ion-label>
-                        <ul>
-                            <li *ngFor="let d of searchedDoctors" (click)="showAppointmentDetails(d)">
-                                 Doctor Name: {{ d.fName }} {{ d.lName}}<br>
-                                 Specialization: {{d.specialization}}<br>
-                                ************************************************
-                            </li>
-                        </ul>
+                        <ion-chip *ngFor="let d of searchedDoctors" (click)="showAppointmentDetails(d)">
+                            <ion-avatar>
+                                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                            </ion-avatar>
+                            <ion-item>
+                                <ion-label><strong>Name: </strong> Dr. {{ d.fName }} {{ d.lName}}</ion-label>
+                            </ion-item>
+                            <ion-item>
+                            <ion-label><strong>Specialization:</strong> {{d.specialization}}</ion-label>
+                            </ion-item>
+                        </ion-chip>
                     </ion-col>
                 </ion-row>
             </ion-col>

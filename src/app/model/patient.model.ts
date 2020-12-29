@@ -4,7 +4,6 @@ export class Patient implements Address{
     patientId: string;
     email: string;
     fName: string;
-    mName: string;
     lName: string;
     contactNumber: number;
     dateOfBirth: string;
@@ -21,4 +20,5 @@ export class Patient implements Address{
     state: string;
     zipcode: number;
     termsConditions: boolean;
+    profilePic: any;
 }

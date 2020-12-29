@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {PatientService} from '../services/patient/patient.service';
 import {Patient} from '../model/patient.model';
 import {TranslateService} from '@ngx-translate/core';
@@ -25,7 +25,6 @@ export class PatientPage implements OnInit{
   constructor(private authService: AuthService,
               private router: Router,
               private patientService: PatientService,
-              private _activatedRoute: ActivatedRoute,
               private translate: TranslateService,
               private modalCtrl: ModalController) {
   }
@@ -36,7 +35,7 @@ export class PatientPage implements OnInit{
   }
 
   ngOnInit() {
-    const id = this._activatedRoute.snapshot.paramMap.get('id');
+    const id = this.authService.userID;
     this.patientService.getPatientById(id).then(patient => {
       console.log(patient);
       this.patient = patient;
@@ -98,4 +97,9 @@ export class PatientPage implements OnInit{
       return modalElement.onDidDismiss();
     });
   }
+
+  doctorAppointmentSlots(startTime: string, endTime: string, interval: string){
+    const timeslots = [startTime];
+  }
+
 }

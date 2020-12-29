@@ -69,6 +69,10 @@ export class AuthService {
     return this._user.getValue().id;
   }
 
+  get emailId(): string{
+    return  this._user.getValue().email;
+  }
+
   login(email: string, password: string): Promise<User> {
     return this._backend.login(email, password).then(u => {
       this.setUser(u);

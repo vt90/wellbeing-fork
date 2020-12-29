@@ -57,13 +57,7 @@ export class AuthPage {
       .then(el => {
         el.present().then();
         this.authService.login(email, password).then((user) => {
-          this.manageProfile(user.role, user.id);
-          /*if (user.role === 'patient') {
-            this.router.navigateByUrl('patient');
-          }
-          if (user.role === 'doctor' || user.role === 'assistant') {
-            this.router.navigateByUrl('doctor');
-          }*/
+          this.manageNavigation(user.role, user.id);
           this.loginSuccess(loginForm);
         })
           .catch(error => {
@@ -207,15 +201,15 @@ export class AuthPage {
     this.authService.passwordReset(email);
   }
 
-  private manageProfile(role: string, userid: string){
+  private manageNavigation(role: string, userid: string){
     if (role === 'patient') {
       this.patientService.getPatientById(userid).then(
         patient => {
           if (patient === null) {
-            this.router.navigate(['patient/onboarding', userid]);
+            this.router.navigate(['patient/onboarding']);
           }
           else{
-            this.router.navigate(['patient', userid]);
+            this.router.navigate(['patient']);
           }
         });
     }

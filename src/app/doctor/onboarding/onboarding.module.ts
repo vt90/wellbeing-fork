@@ -20,6 +20,7 @@ import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {OnboardingService} from './onboarding-service';
+import {DoctorService} from '../../services/doctor/doctor.service';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import {OnboardingService} from './onboarding-service';
     AvailabilityComponent,
     PractiseInfoComponent,
     TermsAndConditionsComponent],
-  providers: [DatePipe, MessageService, OnboardingService],
+  providers: [DatePipe, MessageService, OnboardingService, DoctorService],
 })
 export class OnboardingPageModule {
 }

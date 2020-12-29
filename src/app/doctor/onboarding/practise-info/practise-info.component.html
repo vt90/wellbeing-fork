@@ -12,9 +12,8 @@
                     <ion-select ngModel
                                 name = "spec"
                                 required
-                                spec
-                                [(ngModel)]="practiseInformation.specialization"
-                                (ionChange)="onSpecChange(practiseInformation.specialization)"
+                                [(ngModel)]="doctor.specialization"
+                                (ionChange)="onSpecChange(doctor.specialization)"
                                 placeholder="specialization">
                         <ion-select-option *ngFor="let s of specializations" [value]="s">
                             {{s}}
@@ -27,7 +26,6 @@
                     <ion-input type="text"
                                ngModel
                                name = "newSpec"
-                               newSpec
                                [(ngModel)]="newSpecialization"
                                placeholder="add here">
                     </ion-input>
@@ -37,9 +35,7 @@
                     <ion-label><strong> Sub Specialization </strong></ion-label>
                     <ion-select ngModel
                                 name = "subspec"
-                                required
-                                subspec
-                                [(ngModel)]="practiseInformation.subSpecialization"
+                                [(ngModel)]="doctor.subspecialization"
                                 placeholder="sub-specialization">
                         <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
                             {{sub}}
@@ -63,10 +59,9 @@
                     <ion-input ngModel
                                name = "exp"
                                required
-                               exp
                                placeholder="Experience In years"
                                type="number"
-                               [(ngModel)]="practiseInformation.experience"
+                               [(ngModel)]="doctor.experience"
                                #expCtrl="ngModel">
                     </ion-input>
                 </ion-item>
@@ -88,8 +83,7 @@
                                    ngModel
                                    name = "cert"
                                    required
-                                   cert
-                                   [(ngModel)]="certificateImage">
+                                   [(ngModel)]="doctor.documents">
                         </ion-item>
                     </ion-col>
                 </ion-row>

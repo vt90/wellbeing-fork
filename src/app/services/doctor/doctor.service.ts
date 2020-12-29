@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
+import {AngularFireDatabase} from '@angular/fire/database';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DoctorService {
-  db = firebase.database();
-  specs = [];
+  private db: firebase.database.Database;
 
-  constructor() {
-    const specializationRef = this.db.ref('/specializations');
-    specializationRef.on('value', (snapshot) => {
-      this.specs  = snapshot.val();
+  constructor(private adb: AngularFireDatabase) {
+    this.db = adb.database;
+  }
+
+  retrieveSpecializations() {
+    let specs: string[];
+    return this.db.ref('/specializations/').once('value').then(snapshot => {
+      specs = snapshot.val();
+      return specs;
     });
   }
 }

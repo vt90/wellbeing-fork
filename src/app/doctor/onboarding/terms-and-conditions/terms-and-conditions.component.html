@@ -23,7 +23,7 @@
                 </ion-item>
                 <ion-item>
                     <ion-label>Accept Terms and Conditions</ion-label>
-                    <ion-checkbox slot="start" [(ngModel)]="termsAndConditions.accepted"></ion-checkbox>
+                    <ion-checkbox slot="start" [(ngModel)]="doctor.termsAndConditions"></ion-checkbox>
                 </ion-item>
 
 
@@ -32,7 +32,7 @@
         </ion-row>
         <div class="btn-container">
             <ion-button (click)="prev()">Back</ion-button>
-            <ion-button [disabled]="!termsAndConditions.accepted" (click)="save()">Save</ion-button>
+            <ion-button [disabled]="!doctor.termsAndConditions" (click)="save()">Save</ion-button>
         </div>
     </ion-grid>
 </ion-content>

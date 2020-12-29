@@ -7,8 +7,12 @@
                 <ion-item>
                     <ion-label>Full Name</ion-label>
                     <ion-input type="text"
-                               placeholder="FirstName MiddleName LastName"
-                               [(ngModel)]="assistantDetails.name">
+                               placeholder="FirstName"
+                               [(ngModel)]="assistant.fName">
+                    </ion-input>
+                    <ion-input type="text"
+                               placeholder="LastName"
+                               [(ngModel)]="assistant.lName">
                     </ion-input>
                 </ion-item>
 
@@ -17,7 +21,7 @@
                     <ion-input
                             type="email"
                             placeholder="xyz@domain.com"
-                            [(ngModel)]="assistantDetails.email">
+                            [(ngModel)]="assistant.email">
                     </ion-input>
                 </ion-item>
 
@@ -26,12 +30,12 @@
                     <ion-input
                             type="number"
                             placeholder="Mobile Number"
-                            [(ngModel)]="assistantDetails.contactNumber">
+                            [(ngModel)]="assistant.contact">
                     </ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label>Gender</ion-label>
-                    <ion-select [(ngModel)]="assistantDetails.gender"
+                    <ion-select [(ngModel)]="assistant.gender"
                                 placeholder="gender">
                         <ion-select-option value="m">Male</ion-select-option>
                         <ion-select-option value="f">Female</ion-select-option>

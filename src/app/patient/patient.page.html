@@ -1,46 +1,55 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      WellBeing
-    </ion-title>
-    <ion-buttons class="lang-buttons ion-hide-md-down" slot="primary">
-      <app-langselect></app-langselect>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            WellBeing
+        </ion-title>
+        <ion-buttons class="lang-buttons ion-hide-md-down" slot="primary">
+            <app-langselect></app-langselect>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="2" class="vertical-menu">
-          Left side navigation
-      </ion-col>
-      <ion-col size="10">
-        <ion-title> Welcome {{ patient ? patient.fName : 'user'}},</ion-title>
+    <ion-grid>
         <ion-row>
-          <ion-col size="5">
-            <ion-label><strong> Search Doctor Here </strong></ion-label>
-            <ion-select name = "subspec"
-                        placeholder="specialization">
-              <ion-select-option *ngFor="let s of specializations" [value]="s">
-                {{s}}
-              </ion-select-option>
-            </ion-select>
-            <ion-select name = "subspec"
-                        placeholder="sub-specialization">
-              <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
-                {{sub}}
-              </ion-select-option>
-            </ion-select>
-          </ion-col>
-          <ion-col size="5">
-
-          </ion-col>
+            <ion-col size="2" class="vertical-menu">
+                Left side navigation
+            </ion-col>
+            <ion-col size="10" *ngIf="patient">
+                <ion-title> Welcome {{ patient.fName}},</ion-title>
+                <ion-row>
+                    <ion-col size="5">
+                        <ion-label><strong> Search Doctor Here </strong></ion-label>
+                        <ion-select name="spec"
+                                    (ionChange)="onSpecChange(specialization)"
+                                    [(ngModel)]="specialization"
+                                    placeholder="specialization">
+                            <ion-select-option *ngFor="let s of specializations" [value]="s">
+                                {{s}}
+                            </ion-select-option>
+                        </ion-select>
+                        <ion-select name="subspec"
+                                    placeholder="sub-specialization">
+                            <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
+                                {{sub}}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-col>
+                    <ion-col size="5">
+                        <ion-label *ngIf="specialization"><strong> {{specialization}} doctors</strong></ion-label>
+                        <ul>
+                            <li *ngFor="let d of searchedDoctors" (click)="showAppointmentDetails(d)">
+                                 Doctor Name: {{ d.fName }} {{ d.lName}}<br>
+                                 Specialization: {{d.specialization}}<br>
+                                ************************************************
+                            </li>
+                        </ul>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
         </ion-row>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    </ion-grid>
 </ion-content>

@@ -1,0 +1,55 @@
+<ion-content>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>{{doc.fName }} {{doc.lName }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+            <ion-item>
+                <ion-label>
+                    Address : {{doc.clinic.name}}<br>
+                    ABS sdff sadsdasd,<br>
+                    312356
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    Fee :
+                    consultation Fee: {{ doc.clinic[0].fee.cFee}}<br>
+                    Follow up Fee: {{ doc.clinic[0].fee.fFee}}
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-tabs>
+                    <ion-tab-bar slot="bottom">
+                        <ion-tab-button tab="Monday">
+                            <ion-label>Monday</ion-label>
+                        </ion-tab-button>
+                        <ion-tab-button tab="Tuesday">
+                            <ion-label>Tuesday</ion-label>
+                        </ion-tab-button>
+                        <ion-tab-button tab="Wednesday">
+                            <ion-label>Wednesday</ion-label>
+                        </ion-tab-button>
+                        <ion-tab-button tab="Thursday">
+                            <ion-label>Thursday</ion-label>
+                        </ion-tab-button>
+                        <ion-tab-button tab="Friday">
+                            <ion-label>Friday</ion-label>
+                        </ion-tab-button>
+                        <ion-tab-button tab="Saturday">
+                            <ion-label>Saturday</ion-label>
+                        </ion-tab-button>
+                        <ion-tab-button tab="Sunday">
+                            <ion-label>Sunday</ion-label>
+                        </ion-tab-button>
+                    </ion-tab-bar>
+                </ion-tabs>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-button (click)="close()">Close</ion-button>
+</ion-content>
+

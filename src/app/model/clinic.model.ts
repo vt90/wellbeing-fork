@@ -1,10 +1,19 @@
 import {Address} from './address.interface';
-import {Schedule} from '../doctor/onboarding/availability/schedule';
+// import {Schedule} from '../doctor/onboarding/availability/schedule';
 
-
+export class Schedule{
+    availableDays: string[];
+    fromTime: string;
+    toTime: string;
+    slotPerPatient: number;
+}
+export class Fee{
+    cFee: number;
+    fFee: number;
+}
 export class Clinic implements Address{
     clinicId: string;
-    clinicname: string;
+    name: string;
     doctors: string[];
     addressLine1: string;
     addressLine2: string;
@@ -13,5 +22,6 @@ export class Clinic implements Address{
     mobile: number;
     state: string;
     zipcode: number;
-    schedules: Schedule[];
+    schedules: Schedule[] = [];
+    fee: Fee;
 }

@@ -4,6 +4,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PatientService} from '../services/patient/patient.service';
 import {Patient} from '../model/patient.model';
 import {TranslateService} from '@ngx-translate/core';
+import {Doctor} from '../model/doctor.model';
+import {ModalController} from '@ionic/angular';
+import {TermsAndConditionsComponent} from './onboarding/terms-and-conditions/terms-and-conditions.component';
+import {DoctorDetailsComponent} from './doctor-details/doctor-details.component';
 
 @Component({
   selector: 'app-patient',
@@ -12,17 +16,19 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class PatientPage implements OnInit{
   patient: Patient;
-  specializationsObject: any;
   specializations: string[];
   subSpecializations: string[];
+  doctors: Doctor[];
+  specialization: string;
+  specializationsFromDB: any;
+  searchedDoctors: Doctor[];
 
   constructor(private authService: AuthService,
               private router: Router,
               private patientService: PatientService,
               private _Activatedroute: ActivatedRoute,
-              private translate: TranslateService) {
-    this.specializationsObject = this.patientService.specs;
-    this.specificationsOptions(this.specializationsObject);
+              private translate: TranslateService,
+              private modalCtrl: ModalController) {
   }
 
   onLogout() {
@@ -30,20 +36,67 @@ export class PatientPage implements OnInit{
     this.authService.logout();
   }
 
-  ngOnInit(){
+  ngOnInit() {
     const id = this._Activatedroute.snapshot.paramMap.get('id');
     this.patientService.getPatientById(id).then(patient => {
+      console.log(patient);
       this.patient = patient;
+    });
+    this.patientService.retrieveSpecializations().then(specs => {
+      this.specializationsFromDB = specs;
+      this.specificationsOptions(specs);
+    });
+    this.patientService.retrieveDoctor().then(docs => {
+      this.doctors = docs;
     });
   }
 
-  specificationsOptions(s: any) {
-    var specs = [];
+  specificationsOptions(s: string[]) {
+    const specs: string[] = [];
     for (const key in s) {
       if (s.hasOwnProperty(key)) {
         specs.push(s[key]['name_' + this.translate.currentLang]);
       }
     }
     this.specializations = specs;
+  }
+
+  onSpecChange(s: string) {
+    const subSpecs: string[] = [];
+    for (const key in this.specializationsFromDB) {
+      if (this.specializationsFromDB.hasOwnProperty(key)) {
+        if (this.specializationsFromDB[key].subspecializations &&
+          s === this.specializationsFromDB[key]['name_' + this.translate.currentLang]) {
+          this.specializationsFromDB[key].subspecializations.forEach(s => {
+            subSpecs.push(s['name_' + this.translate.currentLang]);
+          });
+        }
+      }
+    }
+    this.subSpecializations = subSpecs;
+    this.searchDoctors();
+  }
+
+  searchDoctors(){
+    const docs = [];
+    console.log(this.doctors);
+    for (const key in this.doctors) {
+      if (this.doctors.hasOwnProperty(key)) {
+        if (this.doctors[key].specialization === this.specialization){
+          docs.push(this.doctors[key]);
+        }
+      }
+    }
+    this.searchedDoctors = docs;
+  }
+
+  showAppointmentDetails(d: Doctor){
+    this.modalCtrl.create({
+      component: DoctorDetailsComponent,
+      componentProps: {doc: d}
+    }).then(modalElement => {
+      modalElement.present();
+      return modalElement.onDidDismiss();
+    });
   }
 }

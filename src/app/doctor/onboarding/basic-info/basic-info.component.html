@@ -12,7 +12,7 @@
                                name = "rNo"
                                rNo
                                placeholder="Registartion Number"
-                               [(ngModel)]="basicInformation.regNo">
+                               [(ngModel)]="doctor.registrationId">
                     </ion-input>
                 </ion-item>
 
@@ -20,18 +20,27 @@
                     <ion-label><strong>Full Name</strong></ion-label>
                     <ion-input type="text"
                                ngModel
-                               name = "fullName"
+                               name = "fName"
                                required
-                               fullName
-                               placeholder="FirstName MiddleName LastName"
+                               placeholder="FirstName"
                                #nameCtrl="ngModel"
-                               [(ngModel)]="basicInformation.fullname">
+                               [(ngModel)]="doctor.fName">
+                    </ion-input>
+                    <ion-input type="text"
+                               ngModel
+                               name = "lName"
+                               required
+                               placeholder="LastName"
+                               #lnameCtrl="ngModel"
+                               [(ngModel)]="doctor.lName">
                     </ion-input>
                 </ion-item>
                 <ion-item *ngIf="!nameCtrl.valid && nameCtrl.touched " lines="none">
-                    <ion-label color="danger"> Full Name required </ion-label>
+                    <ion-label color="danger"> First Name required </ion-label>
                 </ion-item>
-
+                <ion-item *ngIf="!lnameCtrl.valid && lnameCtrl.touched " lines="none">
+                    <ion-label color="danger"> Last Name required </ion-label>
+                </ion-item>
                 <ion-item>
                     <ion-label><strong>Date of Birth</strong></ion-label>
                     <ion-datetime displayFormat="MMMM DD, YYYY"
@@ -39,7 +48,7 @@
                                   name = "dob"
                                   required
                                   dob
-                                  [(ngModel)]="basicInformation.birthDate"
+                                  [(ngModel)]="doctor.dateOfBirth"
                                   placeholder="Birth Date">
                     </ion-datetime>
                 </ion-item>
@@ -49,7 +58,7 @@
                                 name = "gender"
                                 required
                                 gender
-                                [(ngModel)]="basicInformation.gender"
+                                [(ngModel)]="doctor.gender"
                                 placeholder="Gender">
                         <ion-select-option value="m">Male</ion-select-option>
                         <ion-select-option value="f">Female</ion-select-option>
@@ -65,7 +74,7 @@
                                required
                                contact
                                placeholder="Mobile Number"
-                               [(ngModel)]="basicInformation.contactNumber"
+                               [(ngModel)]="doctor.mobile"
                                #contactCtrl="ngModel">
                     </ion-input>
                 </ion-item>

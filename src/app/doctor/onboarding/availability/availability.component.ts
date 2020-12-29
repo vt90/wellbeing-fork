@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Schedule} from './schedule';
+
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
 import {OnboardingService} from '../onboarding-service';
+import {Clinic, Schedule} from '../../../model/clinic.model';
+import {Doctor} from '../../../model/doctor.model';
 
 
 @Component({
@@ -17,8 +19,8 @@ export class AvailabilityComponent implements OnInit {
   clinicSetup = false;
   fromTime: string;
   toTime: string;
-  schedules: Schedule[];
-  availabilityDetails: any;
+  doctor: Doctor;
+  clinic: Clinic;
 
   days = [{val: 'Monday', isChecked: false},
     {val: 'Tuesday', isChecked: false},
@@ -36,15 +38,15 @@ export class AvailabilityComponent implements OnInit {
   constructor(private datePipe: DatePipe,
               private router: Router,
               public onboardingService: OnboardingService) {
+    this.clinic = new  Clinic();
   }
 
   ngOnInit() {
-    this.availabilityDetails = this.onboardingService.onboardingDetails.availabilityDetails;
-    this.schedules ? this.schedules = this.availabilityDetails.schedules : this.schedules = [];
+    this.doctor = this.onboardingService.getOnboadringDetails();
   }
 
   next() {
-    this.availabilityDetails.schedules = this.schedules;
+    if (this.clinic){this.doctor.clinics.push(this.clinic); }
     this.router.navigate(['doctor/onboarding/assistant']);
   }
 
@@ -68,9 +70,9 @@ export class AvailabilityComponent implements OnInit {
         schedule.slotPerPatient = value.val;
       }
     });
-    schedule.fromTime = this.datePipe.transform(this.fromTime, 'h a');
-    schedule.toTime = this.datePipe.transform(this.toTime, 'h a');
-    this.schedules.push(schedule);
+    schedule.fromTime = this.datePipe.transform(this.fromTime, 'HH:mm');
+    schedule.toTime = this.datePipe.transform(this.toTime, 'HH:mm');
+    this.clinic.schedules.push(schedule);
     this.clearSchedule();
   }
 

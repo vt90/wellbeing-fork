@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {OnboardingService} from '../onboarding-service';
 import {NgForm} from '@angular/forms';
+import {Doctor} from '../../../model/doctor.model';
 
 @Component({
   selector: 'app-basic-info',
@@ -10,14 +11,14 @@ import {NgForm} from '@angular/forms';
 })
 
 export class BasicInfoComponent implements OnInit {
-  basicInformation: any;
+  doctor: Doctor;
 
   constructor(private router: Router,
               public onboardingService: OnboardingService) {
   }
 
   ngOnInit() {
-    this.basicInformation = this.onboardingService.getOnboadringDetails().basicInformation;
+    this.doctor = this.onboardingService.getOnboadringDetails();
   }
 
   next(basicForm: NgForm) {

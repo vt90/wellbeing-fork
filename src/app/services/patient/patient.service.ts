@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
-import {AngularFireDatabase} from '@angular/fire/database';
+import {AngularFireDatabase } from '@angular/fire/database';
 import {Patient} from '../../model/patient.model';
 import * as firebase from 'firebase/app';
+import {Doctor} from '../../model/doctor.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientService {
   private db: firebase.database.Database;
-  specs = [];
 
   constructor(private adb: AngularFireDatabase) {
     this.db = adb.database;
-    const specializationRef = this.db.ref('/specializations');
-    specializationRef.on('value', (snapshot) => {
-      console.log(snapshot.val());
-      this.specs  = snapshot.val();
-    });
+  }
+
+  retrieveSpecializations(){
+    let specs: string[];
+    return this.db.ref('/specializations/').once('value').then(snapshot => {
+      specs = snapshot.val();
+      return specs;
+    }) ;
   }
 
   addPatient(patient: Patient, patientId: string){
@@ -35,6 +39,14 @@ export class PatientService {
       (snapshot) => {
         patient = snapshot.val();
         return patient;
+    });
+  }
+
+  retrieveDoctor(){
+    let doctor: Doctor[];
+    return this.db.ref('/fakeDoctors/').once('value').then(snapshot => {
+        doctor = snapshot.val();
+        return doctor;
     });
   }
 }

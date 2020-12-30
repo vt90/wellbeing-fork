@@ -7,7 +7,6 @@ import {ModalController} from '@ionic/angular';
 import {TermsAndConditionsComponent} from './terms-and-conditions/terms-and-conditions.component';
 import {PatientService} from '../../services/patient/patient.service';
 import {AuthService} from '../../services/auth.service';
-import {User} from '../../model/user.model';
 
 @Component({
   selector: 'app-onboarding',

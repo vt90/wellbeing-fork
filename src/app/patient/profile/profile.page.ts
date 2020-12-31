@@ -3,6 +3,7 @@ import {AuthService} from '../../services/auth.service';
 import {PatientService} from '../../services/patient/patient.service';
 import {Patient} from '../../model/patient.model';
 import {NgForm} from '@angular/forms';
+import {AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -11,13 +12,15 @@ import {NgForm} from '@angular/forms';
 })
 export class ProfilePage implements OnInit {
   patient: Patient = null;
+  userId: string;
 
   constructor(private authService: AuthService,
-              private patientService: PatientService) { }
+              private patientService: PatientService,
+              public alertCtrl: AlertController) { }
 
   ngOnInit() {
-    const id = this.authService.userID;
-    this.patientService.getPatientById(id).then(patient => {
+    this.userId = this.authService.userID;
+    this.patientService.getPatientById(this.userId).then(patient => {
       console.log(patient);
       this.patient = patient;
     });
@@ -37,6 +40,15 @@ export class ProfilePage implements OnInit {
     if (!profileForm.valid) {
       return;
     }
+    this.patientService.addPatient(this.patient, this.userId);
+    this.showAlert();
+  }
+
+  async showAlert(){
+    return this.alertCtrl.create({
+      message: 'Profile updated sucessfully',
+      buttons: ['OK']
+    }).then((alert) => alert.present());
   }
 
 }

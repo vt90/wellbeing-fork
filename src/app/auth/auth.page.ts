@@ -114,7 +114,7 @@ export class AuthPage {
     this.isLogin = !this.isLogin;
   }
 
-  private showAlert(error) {
+  private  async showAlert(error) {
     console.log(error, typeof error);
     let errorMessage: string;
     let email: string;

@@ -121,7 +121,7 @@ export class FirebaseBackend {
     this.auth.signOut().then();
   }
 
-  signUpAssistant(email: string){
+  async signUpAssistant(email: string){
     let user: User;
     return this.auth.createUserWithEmailAndPassword(email, 'Abcdefg2')
         .then(userCred => {

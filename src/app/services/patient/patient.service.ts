@@ -15,7 +15,7 @@ export class PatientService {
     this.db = adb.database;
   }
 
-  retrieveSpecializations(){
+  async retrieveSpecializations(){
     let specs: string[];
     return this.db.ref('/specializations/').once('value').then(snapshot => {
       specs = snapshot.val();
@@ -33,7 +33,7 @@ export class PatientService {
     }).then(() => console.log());
   }
 
-  getPatientById(patientId: string) {
+  async getPatientById(patientId: string) {
     let patient: Patient;
     return this.db.ref('/patients/' + patientId).once('value').then(
       (snapshot) => {
@@ -42,7 +42,7 @@ export class PatientService {
     });
   }
 
-  retrieveDoctors(){
+  async retrieveDoctors(){
     let doctor: Doctor[];
     return this.db.ref('/demoDoctors/').once('value').then(snapshot => {
         doctor = snapshot.val();

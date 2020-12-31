@@ -13,6 +13,7 @@ import {AlertController} from '@ionic/angular';
 export class ProfilePage implements OnInit {
   patient: Patient = null;
   userId: string;
+  changePassword: boolean;
 
   constructor(private authService: AuthService,
               private patientService: PatientService,

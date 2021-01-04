@@ -28,6 +28,18 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
   },
+  {
+    path: 'assistant',
+    loadChildren: () => import('./assistant/assistant.module').then( m => m.AssistantPageModule)
+  },
+  {
+    path: 'clinic',
+    loadChildren: () => import('./clinic/clinic.module').then( m => m.ClinicPageModule)
+  },
+  {
+    path: 'todo',
+    loadChildren: () => import('./todo/todo.module').then( m => m.TodoPageModule)
+  },
 ];
 
 @NgModule({

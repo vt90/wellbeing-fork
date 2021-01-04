@@ -15,8 +15,11 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col>
-        PATIENT PAGE
+      <ion-col size="2" class="vertical-menu">
+          Left side navigation
+      </ion-col>
+      <ion-col size="10">
+        <ion-title> Welcome {{ patient ? patient.fName : 'user'}},</ion-title>
       </ion-col>
     </ion-row>
   </ion-grid>

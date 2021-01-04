@@ -1,6 +1,6 @@
-import { AddAppointmentComponent } from './add-appointment/add-appointment.component';
-import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import {AddAppointmentComponent} from './add-appointment/add-appointment.component';
+import {Component} from '@angular/core';
+import {ModalController} from '@ionic/angular';
 
 @Component({
   selector: 'app-appointment',
@@ -9,22 +9,23 @@ import { ModalController } from '@ionic/angular';
 })
 export class AppointmentPage {
 
-  constructor( private modalCtrl: ModalController) { }
+  constructor(private modalCtrl: ModalController) {
+  }
 
 
-  filterChanged(event){
+  filterChanged(event) {
 
   }
 
-  addNewAppointment(){
+  addNewAppointment() {
     this.modalCtrl.create({
       component: AddAppointmentComponent,
-     }).then(modalElement => {
+    }).then(modalElement => {
       modalElement.present();
       return modalElement.onDidDismiss();
     }).then(resultData => {
       console.log(resultData.data);
     });
   }
-  
+
 }

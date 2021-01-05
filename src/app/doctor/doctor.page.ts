@@ -1,48 +1,27 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {RegnoVerificationService} from '../services/doctor/regno-verification.service';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
-import {Subscription} from 'rxjs';
+import {DoctorService} from '../services/doctor/doctor.service';
+import {Doctor} from '../model/doctor.model';
 
 @Component({
   selector: 'app-doctor',
   templateUrl: './doctor.page.html',
   styleUrls: ['./doctor.page.scss'],
 })
-export class DoctorPage implements OnInit, OnDestroy {
-  rNo: string;
-  role: string;
-  sub: Subscription;
+export class DoctorPage implements OnInit {
+  doctor: Doctor;
 
-  constructor(private rNoService: RegnoVerificationService,
-              private authService: AuthService,
-              private router: Router) {
+  constructor(private authService: AuthService,
+              private router: Router,
+              private doctorService: DoctorService) {
   }
 
   ngOnInit() {
-    this.sub = this.authService.user.subscribe(u => {
-      if (u) {
-        this.role = u.role;
-      }
+    const id = this.authService.userID;
+    this.doctorService.getDoctorById(id).then(doctor => {
+      this.doctor = doctor;
     });
-  }
-
-  ngOnDestroy() {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
-  }
-
-  onValidate() {  // Written here for demo purpose
-    this.rNoService.getDoctorDetails(this.rNo).subscribe(
-      (response) => {
-        console.log(response);
-        JSON.stringify(response);
-      },
-      (err) => {
-        console.log('No response' + err);
-      },
-    );
   }
 
   onLogout() {

@@ -4,7 +4,6 @@ import {PatientService} from '../../services/patient/patient.service';
 import {Patient} from '../../model/patient.model';
 import {NgForm} from '@angular/forms';
 import {AlertController} from '@ionic/angular';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +17,6 @@ export class ProfilePage implements OnInit {
 
   constructor(private authService: AuthService,
               private patientService: PatientService,
-              private router: Router,
               public alertCtrl: AlertController) { }
 
   ngOnInit() {

@@ -7,6 +7,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {BackendError, SuperadminBreak} from '../services/auth-backend';
 import {TranslateService} from '@ngx-translate/core';
 import {PatientService} from '../services/patient/patient.service';
+import {DoctorService} from "../services/doctor/doctor.service";
 
 @Component({
   selector: 'app-auth',
@@ -38,7 +39,8 @@ export class AuthPage {
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
               private translate: TranslateService,
-              private patientService: PatientService
+              private patientService: PatientService,
+              private doctorService: DoctorService
   ) {
     console.log(this.translate.currentLang, this.translate.instant('AUTHERR.EmailNotFoundHeader'));
   }
@@ -213,8 +215,16 @@ export class AuthPage {
           }
         });
     }
-    if (role === 'doctor' || role === 'assistant') {
-      this.router.navigateByUrl('doctor');
+    if (role === 'doctor') {
+      this.doctorService.getDoctorById(userid).then(
+        doctor => {
+          if (doctor === null){
+            this.router.navigate(['doctor/onboarding']);
+          }
+          else{
+            this.router.navigate(['doctor']);
+          }
+        });
     }
   }
 }

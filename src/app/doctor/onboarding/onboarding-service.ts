@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import {AngularFireDatabase} from '@angular/fire/database';
 import {Router} from '@angular/router';
 import {Doctor} from '../../model/doctor.model';
+import {DoctorService} from '../../services/doctor/doctor.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,22 +13,20 @@ export class OnboardingService {
   doctor: Doctor = null;
   private stepsComplete = new Subject<any>();
   stepsComplete$ = this.stepsComplete.asObservable();
-  doctor$: AngularFireList<any>;
 
   constructor(db: AngularFireDatabase,
-              private router: Router) {
+              private router: Router,
+              private doctorService: DoctorService) {
     this.doctor = new Doctor();
-    this.doctor$ = db.list('/doctors');
   }
 
   getOnboadringDetails() {
     return this.doctor;
   }
 
-  setOnboardingDetails(d: Doctor) {
-    console.log(d);
+  setOnboardingDetails(d: Doctor, doctorId: string) {
     this.doctor = d;
-    this.doctor$.push(this.doctor);
+    this.doctorService.addDoctor(this.doctor, doctorId);
     this.router.navigate(['doctor']);
   }
 

@@ -67,7 +67,31 @@ export class ProfilePage implements OnInit {
         }).then((alert) => {
             alert.present();
             return alert.onDidDismiss();
-        }).then(() => this.authService.logout());
+        });
+    });
+  }
+
+  removeProfilePic(){
+    this.alertCtrl.create({
+      message: 'Do you want to remove Profile Pic?',
+      buttons: [
+        {
+          text: 'Yes',
+          role: 'cancel',
+          handler: () => {
+              this.patient.profilePic = null;
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+            console.log('no change in profile pic');
+          }
+        }
+      ]
+    }).then((alert) => {
+      alert.present();
+      return alert.onDidDismiss();
     });
   }
 }

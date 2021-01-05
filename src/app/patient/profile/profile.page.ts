@@ -70,5 +70,4 @@ export class ProfilePage implements OnInit {
         }).then(() => this.authService.logout());
     });
   }
-
 }

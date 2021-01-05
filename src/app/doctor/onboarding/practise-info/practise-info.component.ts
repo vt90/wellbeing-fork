@@ -4,6 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {Router} from '@angular/router';
 import {OnboardingService} from '../onboarding-service';
 import {NgForm} from '@angular/forms';
+import {Doctor} from '../../../model/doctor.model';
 
 @Component({
   selector: `app-practise-info`,
@@ -11,28 +12,30 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./practise-info.component.scss'],
 })
 export class PractiseInfoComponent implements OnInit {
-  practiseInformation: any;
   specializations: string[];
   subSpecializations: string[];
   newSubSpecialization: string;
   newSpecialization: string;
-  certificateImage: string;
-  specializationsObject: any;
+  specializationsFromDB: any;
+  doctor: Doctor;
 
   constructor(private doctorService: DoctorService,
               private translate: TranslateService,
               private router: Router,
               public onboardingService: OnboardingService) {
-    this.specializationsObject = this.doctorService.specs;
-    this.specificationsOptions(this.doctorService.specs);
+    this.doctorService.retrieveSpecializations().then(specs => {
+      this.specializationsFromDB = specs;
+      this.specificationsOptions(specs);
+      console.log(this.specializations);
+    });
   }
 
   ngOnInit() {
-    this.practiseInformation = this.onboardingService.onboardingDetails.practiseInformation;
+    this.doctor = this.onboardingService.getOnboadringDetails();
   }
 
   next(practiseForm: NgForm) {
-    if (!practiseForm.valid){
+    if (!practiseForm.valid) {
       return;
     }
     this.router.navigate(['doctor/onboarding/availability']);
@@ -43,22 +46,22 @@ export class PractiseInfoComponent implements OnInit {
   }
 
   onSpecChange(s: string) {
-    var subSpecs = [];
-    for (const key in this.specializationsObject) {
-      if (this.specializationsObject.hasOwnProperty(key)) {
-        if (this.specializationsObject[key].subspecializations &&
-          s === this.specializationsObject[key]['name_' + this.translate.currentLang]) {
-          for (let i = 0; i < this.specializationsObject[key].subspecializations.length; i++) {
-            subSpecs.push(this.specializationsObject[key].subspecializations[i]['name_' + this.translate.currentLang]);
-          }
+    const subSpecs: string[] = [];
+    for (const key in this.specializationsFromDB) {
+      if (this.specializationsFromDB.hasOwnProperty(key)) {
+        if (this.specializationsFromDB[key].subspecializations &&
+          s === this.specializationsFromDB[key]['name_' + this.translate.currentLang]) {
+          this.specializationsFromDB[key].subspecializations.forEach(sub => {
+            subSpecs.push(sub['name_' + this.translate.currentLang]);
+          });
         }
       }
     }
     this.subSpecializations = subSpecs;
   }
 
-  specificationsOptions(s: any) {
-    var specs = [];
+  specificationsOptions(s: string[]) {
+    let specs = [];
     for (const key in s) {
       if (s.hasOwnProperty(key)) {
         specs.push(s[key]['name_' + this.translate.currentLang]);

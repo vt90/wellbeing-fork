@@ -121,7 +121,7 @@ export class FirebaseBackend {
     this.auth.signOut().then();
   }
 
-  signUpAssistant(email: string){
+  async signUpAssistant(email: string){
     let user: User;
     return this.auth.createUserWithEmailAndPassword(email, 'Abcdefg2')
         .then(userCred => {
@@ -147,4 +147,12 @@ export class FirebaseBackend {
         });
   }
 
+  async changePassword(email: string, newPassword: string) {
+    try {
+       console.log('password reset notification sent for', email);
+       return await firebase.auth().currentUser.updatePassword(newPassword);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

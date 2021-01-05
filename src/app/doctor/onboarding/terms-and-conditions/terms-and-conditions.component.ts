@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {OnboardingService} from '../onboarding-service';
+import {Doctor} from '../../../model/doctor.model';
 
 @Component({
   selector: 'app-terms-and-conditions',
@@ -9,17 +10,17 @@ import {OnboardingService} from '../onboarding-service';
 })
 export class TermsAndConditionsComponent {
   isChecked: boolean;
-  termsAndConditions: any;
+  doctor: Doctor;
 
   constructor(private router: Router,
               public onboardingService: OnboardingService) {
-    this.termsAndConditions = this.onboardingService.onboardingDetails.termAndCondition;
+    this.doctor = this.onboardingService.getOnboadringDetails();
   }
 
   prev() {
     this.router.navigate(['doctor/onboarding/assistant']);
   }
   save(){
-    this.onboardingService.setOnboardingDetails(this.onboardingService.onboardingDetails);
+    this.onboardingService.setOnboardingDetails(this.onboardingService.doctor);
   }
 }

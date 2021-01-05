@@ -69,7 +69,11 @@ export class AuthService {
     return this._user.getValue().id;
   }
 
-  login(email: string, password: string): Promise<User> {
+  get emailId(): string{
+    return  this._user.getValue().email;
+  }
+
+  async login(email: string, password: string): Promise<User> {
     return this._backend.login(email, password).then(u => {
       this.setUser(u);
       return u;
@@ -109,6 +113,10 @@ export class AuthService {
 
   signupAssistant(email: string) {
     return this._backend.signUpAssistant(email);
+  }
+
+  changePassword(email: string, newPwd: string){
+    return this._backend.changePassword(email, newPwd);
   }
 }
 

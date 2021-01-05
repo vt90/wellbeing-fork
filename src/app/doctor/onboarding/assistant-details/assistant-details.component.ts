@@ -3,6 +3,8 @@ import {Storage} from '@ionic/storage';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {OnboardingService} from '../onboarding-service';
+import {Doctor} from '../../../model/doctor.model';
+import {Assistant} from '../../../model/assistant.model';
 
 @Component({
   selector: 'app-assistant-details',
@@ -10,7 +12,8 @@ import {OnboardingService} from '../onboarding-service';
   styleUrls: ['./assistant-details.component.scss'],
 })
 export class AssistantDetailsComponent implements OnInit {
-  assistantDetails: any;
+  doctor: Doctor;
+  assistant: Assistant;
 
   constructor(private storage: Storage,
               private authService: AuthService,
@@ -19,13 +22,15 @@ export class AssistantDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.assistantDetails = this.onboardingService.onboardingDetails.assistantDetails;
+    this.assistant = new Assistant();
+    this.doctor = this.onboardingService.getOnboadringDetails();
   }
 
   next() {
     /*if (this.email !== '') {
       this.authService.signupAssistant(this.email).then(r => console.log(r));
     }*/ // to send the verified email of assistant role on email.
+    if (this.assistant){this.doctor.assistants.push(this.assistant); }
     this.router.navigate(['doctor/onboarding/termsConditions']);
   }
 

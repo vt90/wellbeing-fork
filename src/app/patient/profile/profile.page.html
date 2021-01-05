@@ -1,9 +1,258 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            WellBeing
+        </ion-title>
+        <ion-buttons class="lang-buttons ion-hide-md-down" slot="primary">
+            <app-langselect></app-langselect>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <form #profileForm="ngForm" (ngSubmit)="save(profileForm)">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="2" class="vertical-menu">
+                    Left side navigation
+                </ion-col>
+                <ion-col size="10" *ngIf="patient">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-avatar style="width: 200px;height: 200px;" slot="start">
+                                        <label class="hoverable" for="fileInput">
+                                            <img [src]="patient.profilePic ? patient.profilePic: './assets/icon/profile.jpg'" alt="profile">
+                                            <div class="hover-text">Change Profile Pic</div>
+                                            <div class="background"></div>
+                                        </label>
+                                    </ion-avatar>
+                                    <input id="fileInput" type="file" (change)="onProfilePicChange($event)">
+                                    <div class="col text-left">
+                                        <ion-label>{{patient.fName }} {{patient.lName}}</ion-label>
+                                        <ion-label  style="text-decoration: underline;color: blue;font-size: small"  (click)="changePassword = true"> change your password here</ion-label>
+                                        <ion-label *ngIf="patient.profilePic" style="text-decoration: underline;color: blue;font-size: small" (click)="removeProfilePic()">remove profile picture</ion-label>
+                                        <label *ngIf="!patient.profilePic" style="text-decoration: underline;color: blue;font-size: small" for="fileInputLink">Upload profile Picture</label>
+                                        <input id="fileInputLink" type="file" (change)="onProfilePicChange($event)">
+                                    </div>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <form #pwdForm="ngForm" (ngSubmit)="newPassword(pwdForm)">
+                        <ion-row>
+                            <ion-col *ngIf="changePassword" size-md="6" offset-md="3">
+                                <ion-item>
+                                    <ion-label position="stacked">Current Password</ion-label>
+                                    <ion-input
+                                            type="password"
+                                            ngModel
+                                            name="cPass"
+                                            required
+                                            #cpassCtrl="ngModel">
+                                    </ion-input>
+                                </ion-item>
+                                <ion-item *ngIf="cpassCtrl.invalid && (cpassCtrl.touched || cpassCtrl.dirty)"
+                                          lines="none">
+                                    <ion-item *ngIf="cpassCtrl.errors.required">
+                                        <ion-label color="danger"> current password required</ion-label>
+                                    </ion-item>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked">New Password</ion-label>
+                                    <ion-input
+                                            type="password"
+                                            ngModel
+                                            name="nPass"
+                                            required
+                                            minlength="8"
+                                            #npassCtrl="ngModel">
+                                    </ion-input>
+                                </ion-item>
+                                <ion-item *ngIf="npassCtrl.invalid && (npassCtrl.touched || npassCtrl.dirty)"
+                                          lines="none">
+                                    <ion-item *ngIf="npassCtrl.errors.required">
+                                        <ion-label color="danger"> New password required</ion-label>
+                                    </ion-item>
+                                    <ion-item *ngIf="npassCtrl.errors.minlength">
+                                        <ion-label color="danger"> 8 characters mininum</ion-label>
+                                    </ion-item>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked">Confirm Password</ion-label>
+                                    <ion-input
+                                            type="password"
+                                            ngModel
+                                            name="coPass"
+                                            required
+                                            minlength="8"
+                                            #copassCtrl="ngModel">
+                                    </ion-input>
+                                </ion-item>
+                                <ion-item *ngIf="copassCtrl.invalid && (copassCtrl.touched || copassCtrl.dirty)"
+                                          lines="none">
+                                    <ion-item *ngIf="copassCtrl.errors.required">
+                                        <ion-label color="danger"> current password required</ion-label>
+                                    </ion-item>
+                                </ion-item>
+                                <ion-item *ngIf="copassCtrl.valid && npassCtrl.value !== copassCtrl.value">
+                                    <ion-label color="danger"> Passwords do not match.</ion-label>
+                                </ion-item>
+                                <div class="col text-center">
+                                    <ion-button  type="submit" [disabled]="pwdForm.invalid || npassCtrl.value !== copassCtrl.value">Save</ion-button>
+                                    <ion-button (click)="changePassword = false">cancel</ion-button>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        </form>
+                        <ion-row>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="stacked"><strong>First Name</strong>
+                                        <ion-input type="text" ngModel name="fName" required pattern="[a-zA-Z ]*"
+                                                   #fnameCtrl="ngModel" [(ngModel)]="patient.fName">
+                                        </ion-input>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item *ngIf="fnameCtrl.invalid && (fnameCtrl.touched || fnameCtrl.dirty)"
+                                          lines="none">
+                                    <ion-item *ngIf="fnameCtrl.errors.required">
+                                        <ion-label color="danger"> first name required,cannot be empty</ion-label>
+                                    </ion-item>
+                                    <ion-item *ngIf="fnameCtrl.hasError('pattern')">
+                                        <ion-label color="danger"> first name is invalid</ion-label>
+                                    </ion-item>
+                                </ion-item>
 
+                                <ion-item>
+                                    <ion-label position="stacked"><strong> Date Of Birth</strong> <br>
+                                        <label><input class="birthDate" type="date" name="bDate"></label>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked"><strong>Contact Number</strong>
+                                        <ion-input type="number" name="contact" ngModel required pattern="^\d{10}$"
+                                                   #contactCtrl="ngModel" [(ngModel)]="patient.contactNumber">
+                                        </ion-input>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item *ngIf="contactCtrl.invalid && (contactCtrl.touched || contactCtrl.dirty)"
+                                          lines="none">
+                                    <ion-item *ngIf="contactCtrl.errors.required">
+                                        <ion-label color="danger"> Contact Number required</ion-label>
+                                    </ion-item>
+                                    <ion-item *ngIf="contactCtrl.hasError('pattern')">
+                                        <ion-label color="danger">Contact Number is invalid</ion-label>
+                                    </ion-item>
+                                </ion-item>
+                            </ion-col>
+
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="stacked"><strong>Last Name</strong>
+                                        <ion-input type="text" ngModel name="lName" required pattern="[a-zA-Z ]*"
+                                                   #lnameCtrl="ngModel" [(ngModel)]="patient.lName">
+                                        </ion-input>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item *ngIf="lnameCtrl.invalid && (lnameCtrl.touched || lnameCtrl.dirty)"
+                                          lines="none">
+                                    <ion-item *ngIf="lnameCtrl.errors.required">
+                                        <ion-label color="danger"> Last name required,cannot be empty</ion-label>
+                                    </ion-item>
+                                    <ion-item *ngIf="lnameCtrl.hasError('pattern')">
+                                        <ion-label color="danger"> Last name is invalid</ion-label>
+                                    </ion-item>
+                                </ion-item>
+
+                                <ion-item>
+                                    <ion-label position="stacked"><strong>Email Address</strong>
+                                        <ion-input type="email" ngModel name="emailID" required
+                                                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                                   [(ngModel)]="patient.email"
+                                                   #emailCtrl="ngModel">
+                                        </ion-input>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item *ngIf="emailCtrl.invalid && (emailCtrl.touched || emailCtrl.dirty)"
+                                          lines="none">
+                                    <ion-item *ngIf="emailCtrl.errors.required">
+                                        <ion-label color="danger"> Email required</ion-label>
+                                    </ion-item>
+                                    <ion-item *ngIf="emailCtrl.hasError('pattern')">
+                                        <ion-label color="danger">email is Invalid</ion-label>
+                                    </ion-item>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="stacked"><strong>Address line 1</strong>
+                                        <ion-input type="text" name="address1" [(ngModel)]="patient.addressLine1">
+                                        </ion-input>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked"><strong>City</strong>
+                                        <ion-input type="text" name="city" [(ngModel)]="patient.city" ngModel
+                                                   pattern="[a-zA-Z ]*" #cityCtrl="ngModel">
+                                        </ion-input>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item *ngIf="cityCtrl.hasError('pattern')">
+                                    <ion-label color="danger">enter valid input</ion-label>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked"><strong>Country</strong>
+                                        <ion-input type="text" name="country" [(ngModel)]="patient.country" ngModel
+                                                   pattern="[a-zA-Z ]*" #countryCtrl="ngModel">
+                                        </ion-input>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item *ngIf="countryCtrl.hasError('pattern')">
+                                    <ion-label color="danger">enter valid input</ion-label>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="stacked"><strong>Address line 2</strong>
+                                        <ion-input type="text" name="address2" [(ngModel)]="patient.addressLine2">
+                                        </ion-input>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked"><strong>State/Provience/Region</strong>
+                                        <ion-input type="text" name="state" [(ngModel)]="patient.state" ngModel
+                                                   pattern="[a-zA-Z ]*" #stateCtrl="ngModel">
+                                        </ion-input>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item *ngIf="stateCtrl.hasError('pattern')">
+                                    <ion-label color="danger">enter valid input</ion-label>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked"><strong>Zip/Postal code</strong>
+                                        <ion-input type="number" name="code" [(ngModel)]="patient.zipcode" ngModel
+                                                   pattern="[0-9]{6}" #zipCtrl="ngModel">
+                                        </ion-input>
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item *ngIf="zipCtrl.hasError('pattern')">
+                                    <ion-label color="danger">enter 6 digit zip code</ion-label>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <div class="col text-center">
+                            <ion-button type="submit" [disabled]="profileForm.invalid">Save</ion-button>
+                        </div>
+                    </ion-grid>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
 </ion-content>

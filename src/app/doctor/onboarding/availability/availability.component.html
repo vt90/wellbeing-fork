@@ -33,7 +33,7 @@
                                 <ion-label><strong>Clinic Name</strong></ion-label>
                                 <ion-input type="text"
                                            placeholder="Clinic or Hospital Name"
-                                           [(ngModel)]="availabilityDetails.clinicname">
+                                           [(ngModel)]="clinic.name">
                                 </ion-input>
                             </ion-item>
 
@@ -41,7 +41,7 @@
                                 <ion-label><strong>Address line 1</strong></ion-label>
                                 <ion-input type="text"
                                            placeholder="address line 1"
-                                           [(ngModel)]="availabilityDetails.clinicAddress1">
+                                           [(ngModel)]="clinic.addressLine1">
                                 </ion-input>
                             </ion-item>
 
@@ -49,7 +49,7 @@
                                 <ion-label><strong>Address line 2</strong></ion-label>
                                 <ion-input type="text"
                                            placeholder="address line 2"
-                                           [(ngModel)]="availabilityDetails.clinicAddress2">
+                                           [(ngModel)]="clinic.addressLine2">
                                 </ion-input>
                             </ion-item>
 
@@ -57,7 +57,7 @@
                                 <ion-label><strong>City</strong></ion-label>
                                 <ion-input type="text"
                                            placeholder="City"
-                                           [(ngModel)]="availabilityDetails.city">
+                                           [(ngModel)]="clinic.city">
                                 </ion-input>
                             </ion-item>
 
@@ -65,7 +65,7 @@
                                 <ion-label><strong>State/Provience/Region</strong></ion-label>
                                 <ion-input type="text"
                                            placeholder="State"
-                                           [(ngModel)]="availabilityDetails.state">
+                                           [(ngModel)]="clinic.state">
                                 </ion-input>
                             </ion-item>
 
@@ -73,7 +73,7 @@
                                 <ion-label><strong>Zip/Postal code</strong></ion-label>
                                 <ion-input type="number"
                                            placeholder="Zip Code"
-                                           [(ngModel)]="availabilityDetails.zip">
+                                           [(ngModel)]="clinic.zipcode">
                                 </ion-input>
                             </ion-item>
 
@@ -81,7 +81,7 @@
                                 <ion-label><strong>Country</strong></ion-label>
                                 <ion-input type="text"
                                            placeholder="Country"
-                                           [(ngModel)]="availabilityDetails.country">
+                                           [(ngModel)]="clinic.country">
                                 </ion-input>
                             </ion-item>
 
@@ -122,12 +122,12 @@
                             </ion-item>
                             <ion-item>
                                 <ion-label><strong>From</strong></ion-label>
-                                <ion-datetime displayFormat="h a"
+                                <ion-datetime displayFormat="HH:mm"
                                               placeholder="from"
                                               [(ngModel)]="fromTime">
                                 </ion-datetime>
                                 <ion-label><strong>To</strong></ion-label>
-                                <ion-datetime displayFormat="h a"
+                                <ion-datetime displayFormat="HH:mm"
                                               placeholder="to"
                                               [(ngModel)]="toTime">
                                 </ion-datetime>
@@ -135,9 +135,9 @@
                             <ion-item>
                                 <ion-button (click)="addSchedule()">Add Schedule</ion-button>
                             </ion-item>
-                            <ion-label *ngIf="schedules"><strong>Added Schedule</strong></ion-label>
+                            <ion-label *ngIf="clinic.schedules"><strong>Added Schedule</strong></ion-label>
                             <ion-item>
-                                <ion-row *ngFor="let sc of schedules; let i = index">
+                                <ion-row *ngFor="let sc of clinic.schedules; let i = index">
                                     <ion-col>
                                         {{sc.availableDays}}
                                     </ion-col>
@@ -145,7 +145,7 @@
                                         {{sc.fromTime  }} To {{ sc.toTime}}
                                     </ion-col>
                                     <ion-col>
-                                        <ion-icon name="remove-circle-sharp" (click)="schedules.splice(i,1)"></ion-icon>
+                                        <ion-icon name="remove-circle-sharp" (click)="clinic.schedules.splice(i,1)"></ion-icon>
                                     </ion-col>
                                 </ion-row>
                             </ion-item>
@@ -167,7 +167,7 @@
                                 <ion-label><strong>Consultation Fee</strong></ion-label>
                                 <ion-input type="number"
                                            placeholder="Consultation Fee"
-                                           [(ngModel)]="availabilityDetails.consultationFee">
+                                           [(ngModel)]="clinic.fee.cFee">
                                 </ion-input>
                             </ion-item>
 
@@ -175,7 +175,7 @@
                                 <ion-label><strong>Follow up Fee</strong></ion-label>
                                 <ion-input type="number"
                                            placeholder="Follow up fee"
-                                           [(ngModel)]="availabilityDetails.followupFee">
+                                           [(ngModel)]="clinic.fee.fFee">
                                 </ion-input>
                             </ion-item>
                         </ion-col>

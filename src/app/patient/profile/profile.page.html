@@ -33,7 +33,7 @@
                                     </ion-avatar>
                                     <input id="fileInput" type="file" (change)="onProfilePicChange($event)">
                                     <div class="col text-left">
-                                        <ion-label> {{patient.fName}} {{ patient.lName}}</ion-label>
+                                        <ion-label>{{patient.fName }} {{patient.lName}}</ion-label>
                                         <ion-label  style="text-decoration: underline;color: blue;font-size: small"  (click)="changePassword = true"> change your password here</ion-label>
                                         <ion-label *ngIf="patient.profilePic" style="text-decoration: underline;color: blue;font-size: small" (click)="patient.profilePic=null">remove profile picture</ion-label>
                                         <label *ngIf="!patient.profilePic" style="text-decoration: underline;color: blue;font-size: small" for="fileInputLink">Upload profile Picture</label>

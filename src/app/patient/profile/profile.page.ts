@@ -4,6 +4,7 @@ import {PatientService} from '../../services/patient/patient.service';
 import {Patient} from '../../model/patient.model';
 import {NgForm} from '@angular/forms';
 import {AlertController} from '@ionic/angular';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +18,7 @@ export class ProfilePage implements OnInit {
 
   constructor(private authService: AuthService,
               private patientService: PatientService,
+              private router: Router,
               public alertCtrl: AlertController) { }
 
   ngOnInit() {
@@ -47,9 +49,26 @@ export class ProfilePage implements OnInit {
 
   async showAlert(){
     return this.alertCtrl.create({
-      message: 'Profile updated sucessfully',
+      message: 'Profile updated successfully',
       buttons: ['OK']
     }).then((alert) => alert.present());
+  }
+
+  newPassword(pwdForm: NgForm){
+    if (pwdForm.invalid){
+      return;
+    }
+    const newPwd = pwdForm.value.nPass;
+    this.authService.changePassword(this.patient.email, newPwd).then((r) => {
+        console.log(r);
+        this.alertCtrl.create({
+            message: 'Password updated successfully,please login again',
+            buttons: ['OK']
+        }).then((alert) => {
+            alert.present();
+            return alert.onDidDismiss();
+        }).then(() => this.authService.logout());
+    });
   }
 
 }

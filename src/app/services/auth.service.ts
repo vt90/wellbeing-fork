@@ -114,5 +114,9 @@ export class AuthService {
   signupAssistant(email: string) {
     return this._backend.signUpAssistant(email);
   }
+
+  changePassword(email: string, newPwd: string){
+    return this._backend.changePassword(email, newPwd);
+  }
 }
 

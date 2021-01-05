@@ -147,4 +147,12 @@ export class FirebaseBackend {
         });
   }
 
+  async changePassword(email: string, newPassword: string) {
+    try {
+       console.log('password reset notification sent for', email);
+       return await firebase.auth().currentUser.updatePassword(newPassword);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

@@ -17,18 +17,7 @@
             Left Navigation
         </ion-col>
         <ion-col size="10">
-            <ion-row>
-                <ion-col class="ion-float-left"><ion-title>Clinic/ Hospital Details</ion-title></ion-col>
-                <ion-col (click)="addClinic()" class="ion-float-right" style="text-decoration: underline;color:blue">+ Add clinic / hospital details</ion-col>
-            </ion-row>
-            <ion-row *ngIf="clinics">
-                <ion-col><ion-title>Name</ion-title></ion-col>
-                <ion-col><ion-title>Address</ion-title></ion-col>
-            </ion-row>
-            <ion-row *ngFor="let c of clinics; index as i ">
-                <ion-col>{{c.name}}</ion-col>
-                <ion-col>{{c.addressLine1 }},{{c.city}}</ion-col>
-            </ion-row>
+
         </ion-col>
     </ion-row>
 </ion-content>

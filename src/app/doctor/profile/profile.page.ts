@@ -4,7 +4,6 @@ import {AuthService} from '../../services/auth.service';
 import {DoctorService} from '../../services/doctor/doctor.service';
 import {Clinic} from '../../model/clinic.model';
 import {ModalController} from '@ionic/angular';
-import {AddClinicComponent} from '../add-clinic/add-clinic.component';
 
 @Component({
   selector: 'app-profile',
@@ -17,8 +16,7 @@ export class ProfilePage implements OnInit{
   clinics: Clinic[];
 
   constructor(private authService: AuthService,
-              private doctorService: DoctorService,
-              private modalCtrl: ModalController) {}
+              private doctorService: DoctorService) {}
 
   ngOnInit() {
     this.userId = this.authService.userID;
@@ -28,13 +26,13 @@ export class ProfilePage implements OnInit{
     });
   }
 
-  addClinic(){
+  /*addClinic(){
     this.modalCtrl.create({
       component: AddClinicComponent,
     }).then(modalElement => {
       modalElement.present();
       return modalElement.onDidDismiss();
     });
-  }
+  }*/
 
 }

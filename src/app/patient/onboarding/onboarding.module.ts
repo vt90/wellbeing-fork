@@ -14,7 +14,6 @@ import {TermsAndConditionsComponent} from './terms-and-conditions/terms-and-cond
     OnboardingPageRoutingModule,
   ],
   declarations: [OnboardingPage, TermsAndConditionsComponent],
-
   providers: [DatePipe],
 })
 export class OnboardingPageModule {

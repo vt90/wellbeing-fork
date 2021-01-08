@@ -9,7 +9,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "dev-install": "scp -i \"wellbeing0.pem\" -r www/* ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com:~/wellbeing-dev-www/"
   },
   "private": true,
   "dependencies": {
@@ -32,7 +33,7 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "angularfire2": "^5.4.2",
     "bootstrap": "^4.5.2",
-    "firebase": "^7.15.2",
+    "firebase": "^7.21.1",
     "ion2-calendar": "^3.0.0-rc.0",
     "ionic-angular": "^3.9.10",
     "jquery": "^3.5.1",

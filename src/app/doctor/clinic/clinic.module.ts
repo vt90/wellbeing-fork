@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule, DatePipe} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { ClinicPageRoutingModule } from './clinic-routing.module';
+import {ClinicPageRoutingModule} from './clinic-routing.module';
 
-import { ClinicPage } from './clinic.page';
-import {HomePageModule} from "../../home/home.module";
+import {ClinicPage} from './clinic.page';
+import {HomePageModule} from '../../home/home.module';
 
 @NgModule({
     imports: [
@@ -17,6 +17,8 @@ import {HomePageModule} from "../../home/home.module";
         ClinicPageRoutingModule,
         HomePageModule
     ],
-  declarations: [ClinicPage]
+    declarations: [ClinicPage],
+    providers: [DatePipe]
 })
-export class ClinicPageModule {}
+export class ClinicPageModule {
+}

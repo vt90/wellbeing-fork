@@ -23,5 +23,5 @@ export class Clinic implements Address{
     state: string;
     zipcode: number;
     schedules: Schedule[] = [];
-    fee: Fee;
+    fee: Fee = new Fee();
 }

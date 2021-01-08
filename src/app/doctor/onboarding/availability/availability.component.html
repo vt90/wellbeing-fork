@@ -62,7 +62,7 @@
                             </ion-item>
 
                             <ion-item>
-                                <ion-label><strong>State/Provience/Region</strong></ion-label>
+                                <ion-label><strong>State/Province/Region</strong></ion-label>
                                 <ion-input type="text"
                                            placeholder="State"
                                            [(ngModel)]="clinic.state">
@@ -88,7 +88,7 @@
                         </ion-col>
                     </ion-row>
 
-                    <!--AVAILIBILITY BLOCK-->
+                    <!--AVAILABILITY BLOCK-->
                     <ion-row>
                         <ion-col class="subBlocks">
                             <ion-label color="primary"><strong>Availability</strong></ion-label>
@@ -124,11 +124,13 @@
                                 <ion-label><strong>From</strong></ion-label>
                                 <ion-datetime displayFormat="HH:mm"
                                               placeholder="from"
+                                              minuteValues="0,15,30,45"
                                               [(ngModel)]="fromTime">
                                 </ion-datetime>
                                 <ion-label><strong>To</strong></ion-label>
                                 <ion-datetime displayFormat="HH:mm"
                                               placeholder="to"
+                                              minuteValues="0,15,30,45"
                                               [(ngModel)]="toTime">
                                 </ion-datetime>
                             </ion-item>
@@ -145,7 +147,8 @@
                                         {{sc.fromTime  }} To {{ sc.toTime}}
                                     </ion-col>
                                     <ion-col>
-                                        <ion-icon name="remove-circle-sharp" (click)="clinic.schedules.splice(i,1)"></ion-icon>
+                                        <ion-icon name="remove-circle-sharp"
+                                                  (click)="clinic.schedules.splice(i,1)"></ion-icon>
                                     </ion-col>
                                 </ion-row>
                             </ion-item>

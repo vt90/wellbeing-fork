@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import {AngularFireDatabase} from '@angular/fire/database';
-import {Patient} from "../../model/patient.model";
-import {Doctor} from "../../model/doctor.model";
+import {Patient} from '../../model/patient.model';
+import {Doctor} from '../../model/doctor.model';
+import {Clinic} from '../../model/clinic.model';
 
 
 @Injectable({
@@ -40,5 +41,18 @@ export class DoctorService {
           doctor = snapshot.val();
           return doctor;
         });
+  }
+
+  async updateClinicData(clinic: Clinic, doctorId: string) {
+    let clinics: Clinic[];
+    const clinicRef = this.db.ref('/doctors/' + doctorId + '/clinics/');
+    const snapshot = await clinicRef.once('value');
+    clinics = snapshot.val();
+    if (clinics == null) {
+      clinics = [];
+    }
+    clinics.push(clinic);
+    await clinicRef.set(clinics);
+    return clinics;
   }
 }

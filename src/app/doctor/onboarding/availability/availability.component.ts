@@ -58,7 +58,7 @@ export class AvailabilityComponent implements OnInit {
     if (this.days.length === 0 || this.slots.length === 0 || this.fromTime === '' || this.toTime === '') {
       return;
     }
-    let schedule = new Schedule();
+    const schedule = new Schedule();
     schedule.availableDays = [];
     this.days.forEach((value) => {
       if (value.isChecked) {

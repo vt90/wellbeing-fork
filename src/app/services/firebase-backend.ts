@@ -1,4 +1,4 @@
-import {BackendError, SuperadminBreak} from './auth-backend';
+import {BackendError} from './auth-backend';
 import {User} from '../model/user.model';
 import {Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
@@ -39,26 +39,18 @@ export class FirebaseBackend {
       })
       .then(userCred => {
         user = User.fromDB(userCred.user);
+        return userCred.user.getIdTokenResult();
+      })
+      .then(token => {
+        if (token.claims.patient) {
+          user.role = 'patient';
+        } else if (token.claims.doctor) {
+          user.role = 'doctor';
+        } else if (token.claims.assistant) {
+          user.role = 'assistant';
+        }
         if (!user.emailVerified) {
           throw new BackendError('Email is not verified', {email, error: 'EMAIL_UNVERIFIED'});
-        }
-        return this.db.ref(`users/${user.id}`).once('value');
-      })
-      .then(dataSnap => {
-        const dbUser = dataSnap.val();
-        user.role = dbUser.hasOwnProperty('role') ? dbUser.role : '';
-        if (user.role === 'assistant') {
-          user.managerID = dbUser.hasOwnProperty('managerID') ? dbUser.mangerID : null;
-          user.isActive = dbUser.hasOwnProperty('isActive') ? dbUser.isActive : null;
-          if (!user.isActive) {
-            throw new BackendError('User is not activated', {email: user.email, error: 'USER_DEACTIVATED', doctor: user.managerID});
-          }
-        }
-        user.isSuperadmin = dbUser.hasOwnProperty('isSuperadmin') ? dbUser.isSuperadmin : false;
-        if (user.isSuperadmin) {
-          // only way to break out of the pipe stream: throw.
-          console.log('isSuperadmin');
-          throw new SuperadminBreak(user);
         }
         return user;
       });
@@ -79,6 +71,55 @@ export class FirebaseBackend {
 
   signupDoctor(email: string, password: string) {
     return this.signup(email, password, 'doctor');
+  }
+
+  public passwordReset(email: string) {
+    this.auth.sendPasswordResetEmail(email)
+      .then(() => {
+        console.log('reset mail sent for', email);
+      })
+      .catch(err => {
+        console.log('error on pw reset', err);
+      });
+  }
+
+  logout(): void {
+    this.auth.signOut().then();
+  }
+
+  async signUpAssistant(email: string) {
+    let user: User;
+    return this.auth.createUserWithEmailAndPassword(email, 'Abcdefg2')
+      .then(userCred => {
+        user = User.fromDB(userCred.user);
+        return this.auth.currentUser;
+      })
+      .then(u => {
+        return u.sendEmailVerification();
+      })
+      .then(() => {
+        return this.db.ref(`users/${user.id}`).set({role: 'assistant'});
+      })
+      .then(() => {
+        throw new BackendError('Signup Initiated', {error: 'LOGIN_AFTER_SIGNUP'});
+      })
+      .catch(err => {
+        if (err instanceof BackendError) {
+          throw err;
+        } else {
+          console.log(err);
+          throw new BackendError('Error from firebase', {error: err.code});
+        }
+      });
+  }
+
+  async changePassword(email: string, newPassword: string) {
+    try {
+      console.log('password reset notification sent for', email);
+      return await firebase.auth().currentUser.updatePassword(newPassword);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   private signup(email: string, password: string, role: string) {
@@ -105,54 +146,5 @@ export class FirebaseBackend {
           throw new BackendError('Error from firebase', {error: err.code});
         }
       });
-  }
-
-  public passwordReset(email: string) {
-    this.auth.sendPasswordResetEmail(email)
-      .then(() => {
-        console.log('reset mail sent for', email);
-      })
-      .catch(err => {
-        console.log('error on pw reset', err);
-      });
-  }
-
-  logout(): void {
-    this.auth.signOut().then();
-  }
-
-  async signUpAssistant(email: string){
-    let user: User;
-    return this.auth.createUserWithEmailAndPassword(email, 'Abcdefg2')
-        .then(userCred => {
-          user = User.fromDB(userCred.user);
-          return this.auth.currentUser;
-        })
-        .then(u => {
-          return u.sendEmailVerification();
-        })
-        .then(() => {
-          return this.db.ref(`users/${user.id}`).set({role: 'assistant'});
-        })
-        .then(() => {
-          throw new BackendError('Signup Initiated', {error: 'LOGIN_AFTER_SIGNUP'});
-        })
-        .catch(err => {
-          if (err instanceof BackendError) {
-            throw err;
-          } else {
-            console.log(err);
-            throw new BackendError('Error from firebase', {error: err.code});
-          }
-        });
-  }
-
-  async changePassword(email: string, newPassword: string) {
-    try {
-       console.log('password reset notification sent for', email);
-       return await firebase.auth().currentUser.updatePassword(newPassword);
-    } catch (error) {
-      console.log(error);
-    }
   }
 }

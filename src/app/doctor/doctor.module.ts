@@ -15,7 +15,7 @@ import {AddClinicComponent} from './add-clinic/add-clinic.component';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    DoctorRoutingModule
+    DoctorRoutingModule,
   ],
   exports: [DoctorPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

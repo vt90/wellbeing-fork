@@ -61,9 +61,9 @@ export class AuthService {
     return this._fbuser.getValue() !== null;
   }
 
-  get isSuperAdmin(): boolean {
+  /*get isSuperAdmin(): boolean {
     return this._user.getValue() ? this._user.getValue().isSuperadmin : false;
-  }
+  }*/
 
   get userID(): string {
     return this._user.getValue().id;

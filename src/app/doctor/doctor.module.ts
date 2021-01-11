@@ -7,7 +7,6 @@ import {AddAppointmentComponent} from './appointment/add-appointment/add-appoint
 import {DoctorPage} from './doctor.page';
 import {DoctorService} from '../services/doctor/doctor.service';
 import {AddClinicComponent} from './add-clinic/add-clinic.component';
-import {HomePageModule} from '../home/home.module';
 
 @NgModule({
   declarations: [AddAppointmentComponent, DoctorPage, AddClinicComponent],
@@ -17,7 +16,6 @@ import {HomePageModule} from '../home/home.module';
     ReactiveFormsModule,
     IonicModule,
     DoctorRoutingModule,
-    HomePageModule
   ],
   exports: [DoctorPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

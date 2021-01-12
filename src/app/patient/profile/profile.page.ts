@@ -42,7 +42,7 @@ export class ProfilePage implements OnInit {
       return;
     }
     this.patientService.addPatient(this.patient, this.userId);
-    this.showAlert();
+    this.showAlert().then(r => console.log(r));
   }
 
   async showAlert(){

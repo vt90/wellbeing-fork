@@ -15,7 +15,7 @@ import {DoctorService} from '../services/doctor/doctor.service';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    DoctorRoutingModule
+    DoctorRoutingModule,
   ],
   exports: [DoctorPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

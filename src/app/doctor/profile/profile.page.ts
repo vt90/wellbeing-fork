@@ -25,14 +25,4 @@ export class ProfilePage implements OnInit{
       this.clinics = doctor.clinics;
     });
   }
-
-  /*addClinic(){
-    this.modalCtrl.create({
-      component: AddClinicComponent,
-    }).then(modalElement => {
-      modalElement.present();
-      return modalElement.onDidDismiss();
-    });
-  }*/
-
 }

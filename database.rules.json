@@ -1,6 +1,31 @@
 {
   "rules": {
-    ".read": true,
-    ".write": true
+    ".read": false,
+    ".write": false,
+    "users": {
+      ".write": true
+    },
+    "patients": {
+      "$patientuid": {
+        ".read": "$patientuid === auth.uid",
+        ".write": "$patientuid === auth.uid"
+      }
+    },
+    "assistants": {
+      "$assistantuid": {
+        ".read": "$assistantuid === auth.uid",
+        ".write": "$assistantuid === auth.uid"
+      }
+    },
+    "doctors": {
+      "$docuid": {
+        ".read": "$docuid === auth.uid || root.child('assistants').child(auth.uid).child('doctor').hasChild($docuid)",
+        ".write": "$docuid === auth.uid"
+      }
+    },
+    "specializations": {
+      ".read": "auth != null",
+      ".write": "root.child('doctors').hasChild(auth.uid)"
+    }
   }
 }

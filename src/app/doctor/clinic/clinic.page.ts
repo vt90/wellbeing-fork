@@ -5,6 +5,7 @@ import {DoctorService} from '../../services/doctor/doctor.service';
 import {Doctor} from '../../model/doctor.model';
 import {DatePipe} from '@angular/common';
 import {NgForm} from '@angular/forms';
+import {AlertController} from '@ionic/angular';
 
 @Component({
     selector: 'app-clinic',
@@ -22,6 +23,8 @@ export class ClinicPage implements OnInit {
     fromTime: string;
     toTime: string;
     clinic: Clinic;
+    clinicList: Clinic[] = [];
+    editClinicData = false;
 
     days = [{val: 'Monday', isChecked: false},
         {val: 'Tuesday', isChecked: false},
@@ -37,7 +40,8 @@ export class ClinicPage implements OnInit {
 
     constructor(private authService: AuthService,
                 private doctorService: DoctorService,
-                private datePipe: DatePipe) {
+                private datePipe: DatePipe,
+                public alertCtrl: AlertController) {
         this.clinic = new Clinic();
     }
 
@@ -45,7 +49,17 @@ export class ClinicPage implements OnInit {
         this.userId = this.authService.userID;
         this.doctorService.getDoctorById(this.userId).then(doctor => {
             this.doctor = doctor;
-            this.clinics = doctor.clinics;
+            console.log(doctor.clinics);
+            if (doctor.clinics){
+                const c = [];
+                for (const key in doctor.clinics) {
+                    if (doctor.clinics.hasOwnProperty(key)) {
+                        doctor.clinics[key].clinicId = key;
+                        c.push(doctor.clinics[key]);
+                    }
+                }
+                this.clinics = c;
+            }
         });
     }
 
@@ -96,8 +110,60 @@ export class ClinicPage implements OnInit {
         if (clinicForm.invalid) {
             return;
         }
-        this.doctorService.updateClinicData(this.clinic, this.userId).then(clinics => {
+        if (!this.editClinicData) {
+            this.doctorService.addClinicData(this.clinic, this.userId).then(clinics => {
+                this.clinics = clinics;
+                clinicForm.resetForm();
+                this.clinicSetup = false;
+            });
+            this.alertCtrl.create({
+                message: 'Clinic Data saved successfully',
+                buttons: ['OK']
+            }).then((alert) => {
+                alert.present();
+                return alert.onDidDismiss();
+            });
+        }
+        else{
+          this.doctorService.updateClinicData(this.clinic, this.userId).then(clinics => {
+              this.clinics = clinics;
+              clinicForm.resetForm();
+              this.clinicSetup = false;
+          });
+          this.alertCtrl.create({
+                message: 'Clinic Data Updated successfully',
+                buttons: ['OK']
+            }).then((alert) => {
+                alert.present();
+                return alert.onDidDismiss();
+            });
+        }
+    }
+
+    newClinic(){
+        this.clinic = new Clinic();
+        this.clinicSetup = true;
+        this.editClinicData = false;
+    }
+
+    editClinic(c: Clinic) {
+        this.clinic = c;
+        this.clinicSetup = true;
+        this.editClinicData = true;
+    }
+
+    deleteClinic(clinicId: string) {
+        this.clinicSetup = false;
+        this.editClinicData = false;
+        this.doctorService.deleteClinicData(clinicId, this.userId).then(clinics => {
             this.clinics = clinics;
+        });
+        this.alertCtrl.create({
+            message: 'Clinic Data deleted successfully',
+            buttons: ['OK']
+        }).then((alert) => {
+            alert.present();
+            return alert.onDidDismiss();
         });
     }
 }

@@ -8,18 +8,17 @@ export class User {
               public email: string,
               public role: string,
               public managerID: string,
-              public isActive: boolean,
-              public isSuperadmin: boolean) {}
+              public isActive: boolean) {
+  }
 
   public static fromDB(user: firebase.User) {
     return new User(
       user.uid,
       user.emailVerified,
       user.email,
-      '',
       null,
-      true,
-      false
+      null,
+      true
     );
   }
 
@@ -31,13 +30,12 @@ export class User {
       user.email,
       storageData.role,
       storageData.managerID,
-      storageData.isActive,
-      false
+      storageData.isActive
     );
   }
 
   toStorageString() {
-    return JSON.stringify( {
+    return JSON.stringify({
       role: this.role,
       managerID: this.managerID,
       isActive: this.isActive

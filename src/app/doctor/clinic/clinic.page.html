@@ -69,11 +69,21 @@
                                            required
                                            name="cName"
                                            ngModel
+                                           pattern="[a-zA-Z ]*"
                                            placeholder="Clinic or Hospital Name"
-                                           [(ngModel)]="clinic.name">
+                                           [(ngModel)]="clinic.name"
+                                           #nameCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
-
+                            <ion-item *ngIf="nameCtrl.invalid && (nameCtrl.touched || nameCtrl.dirty)"
+                                      lines="none">
+                                <ion-item *ngIf="nameCtrl.errors.required">
+                                    <ion-label color="danger"> Clinic Name required</ion-label>
+                                </ion-item>
+                                <ion-item *ngIf="nameCtrl.hasError('pattern')">
+                                    <ion-label color="danger"> clinic name is invalid</ion-label>
+                                </ion-item>
+                            </ion-item>
                             <ion-item>
                                 <ion-label><strong>Address line 1</strong></ion-label>
                                 <ion-input type="text"
@@ -81,8 +91,15 @@
                                            required
                                            name="address1"
                                            placeholder="address line 1"
-                                           [(ngModel)]="clinic.addressLine1">
+                                           [(ngModel)]="clinic.addressLine1"
+                                           #address1Ctrl="ngModel">
                                 </ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="address1Ctrl.invalid && (address1Ctrl.touched || address1Ctrl.dirty)"
+                                      lines="none">
+                                <ion-item *ngIf="address1Ctrl.errors.required">
+                                    <ion-label color="danger">Address Line 1 required</ion-label>
+                                </ion-item>
                             </ion-item>
 
                             <ion-item>
@@ -92,8 +109,15 @@
                                            required
                                            name="address2"
                                            placeholder="address line 2"
-                                           [(ngModel)]="clinic.addressLine2">
+                                           [(ngModel)]="clinic.addressLine2"
+                                           #address2Ctrl="ngModel">
                                 </ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="address2Ctrl.invalid && (address2Ctrl.touched || address2Ctrl.dirty)"
+                                      lines="none">
+                                <ion-item *ngIf="address2Ctrl.errors.required">
+                                    <ion-label color="danger">Address Line 1 required</ion-label>
+                                </ion-item>
                             </ion-item>
 
                             <ion-item>
@@ -103,8 +127,19 @@
                                            required
                                            name="city"
                                            placeholder="City"
-                                           [(ngModel)]="clinic.city">
+                                           pattern="[a-zA-Z ]*"
+                                           [(ngModel)]="clinic.city"
+                                           #cityCtrl="ngModel">
                                 </ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="cityCtrl.invalid && (cityCtrl.touched || cityCtrl.dirty)"
+                                      lines="none">
+                                <ion-item *ngIf="cityCtrl.errors.required">
+                                    <ion-label color="danger"> city required</ion-label>
+                                </ion-item>
+                                <ion-item *ngIf="cityCtrl.hasError('pattern')">
+                                    <ion-label color="danger"> City is invalid</ion-label>
+                                </ion-item>
                             </ion-item>
 
                             <ion-item>
@@ -114,8 +149,19 @@
                                            required
                                            name="state"
                                            placeholder="State"
-                                           [(ngModel)]="clinic.state">
+                                           pattern="[a-zA-Z ]*"
+                                           [(ngModel)]="clinic.state"
+                                           #stateCtrl="ngModel">
                                 </ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="stateCtrl.invalid && (stateCtrl.touched || stateCtrl.dirty)"
+                                      lines="none">
+                                <ion-item *ngIf="stateCtrl.errors.required">
+                                    <ion-label color="danger"> State required</ion-label>
+                                </ion-item>
+                                <ion-item *ngIf="stateCtrl.hasError('pattern')">
+                                    <ion-label color="danger"> State is invalid</ion-label>
+                                </ion-item>
                             </ion-item>
 
                             <ion-item>
@@ -125,8 +171,12 @@
                                            ngModel
                                            required
                                            name="code"
-                                           [(ngModel)]="clinic.zipcode">
+                                           [(ngModel)]="clinic.zipcode"
+                                           pattern="[0-9]{6}" #zipCtrl="ngModel">
                                 </ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="zipCtrl.hasError('pattern')">
+                                <ion-label color="danger">enter 6 digit zip code</ion-label>
                             </ion-item>
 
                             <ion-item>
@@ -136,8 +186,19 @@
                                            ngModel
                                            required
                                            name="country"
-                                           [(ngModel)]="clinic.country">
+                                           pattern="[a-zA-Z ]*"
+                                           [(ngModel)]="clinic.country"
+                                           #countryCtrl="ngModel">
                                 </ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="countryCtrl.invalid && (countryCtrl.touched || countryCtrl.dirty)"
+                                      lines="none">
+                                <ion-item *ngIf="countryCtrl.errors.required">
+                                    <ion-label color="danger"> Country required</ion-label>
+                                </ion-item>
+                                <ion-item *ngIf="countryCtrl.hasError('pattern')">
+                                    <ion-label color="danger"> Country is invalid</ion-label>
+                                </ion-item>
                             </ion-item>
 
                         </ion-col>
@@ -160,17 +221,19 @@
                                 <ion-label><strong>Days</strong></ion-label>
                             </ion-item>
                             <ion-label *ngFor="let d of days">{{d.val}}
-                                <ion-checkbox slot="end" name="days" [(ngModel)]="d.isChecked"></ion-checkbox>
+                                <ion-checkbox slot="end" name="days" [(ngModel)]="d.isChecked">
+                                </ion-checkbox>
                             </ion-label>
+
 
                             <ion-item>
                                 <ion-label><strong>Slot per Patient</strong></ion-label>
                             </ion-item>
                             <ion-label *ngFor="let s of slots">{{s.val}} mins
                                 <ion-checkbox slot="end" name="slot" [(ngModel)]="s.isChecked"
-                                              (click)="timeSlotSelection(s.val)"></ion-checkbox>
+                                              (click)="timeSlotSelection(s.val)">
+                                </ion-checkbox>
                             </ion-label>
-
 
                             <ion-item>
                                 <ion-label><strong>Shift Timing</strong></ion-label>

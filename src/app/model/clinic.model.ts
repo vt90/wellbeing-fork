@@ -8,8 +8,8 @@ export class Schedule{
     slotPerPatient: number;
 }
 export class Fee{
-    cFee: number;
-    fFee: number;
+    cFee = 0;
+    fFee = 0;
 }
 export class Clinic implements Address{
     clinicId: string;

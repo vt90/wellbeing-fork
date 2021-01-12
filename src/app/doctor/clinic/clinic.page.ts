@@ -153,14 +153,34 @@ export class ClinicPage implements OnInit {
     }
 
     deleteClinic(clinicId: string) {
-        this.clinicSetup = false;
-        this.editClinicData = false;
-        this.doctorService.deleteClinicData(clinicId, this.userId).then(clinics => {
-            this.clinics = clinics;
-        });
         this.alertCtrl.create({
-            message: 'Clinic Data deleted successfully',
-            buttons: ['OK']
+            message: 'Do you want to delete this clinic data?',
+            buttons: [
+                {
+                    text: 'Yes',
+                    handler: () => {
+                        this.clinicSetup = false;
+                        this.editClinicData = false;
+                        this.doctorService.deleteClinicData(clinicId, this.userId).then(clinics => {
+                            this.clinics = clinics;
+                        });
+                        this.alertCtrl.create({
+                            message: 'Clinic Data deleted successfully',
+                            buttons: ['OK']
+                        }).then((alert) => {
+                            alert.present();
+                            return alert.onDidDismiss();
+                        });
+                    }
+                },
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('No clicked');
+                    }
+                }
+            ]
         }).then((alert) => {
             alert.present();
             return alert.onDidDismiss();

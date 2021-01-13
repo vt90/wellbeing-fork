@@ -50,9 +50,9 @@
             <form #clinicForm="ngForm" (ngSubmit)="save(clinicForm)">
                 <div *ngIf="clinicSetup">
                     <!--CLINIC BLOCK-->
-                    <ion-row>
+                    <ion-row style="background-color: #048bc1; font-size: larger">
                         <ion-col class="subBlocks">
-                            <ion-label color="primary"><strong> Clinic/Hospital Details </strong></ion-label>
+                            <ion-label><strong> Clinic/Hospital Details </strong></ion-label>
                             <ion-icon *ngIf="!showClinic" (click)="showClinic = true"
                                       name="add-circle-sharp"></ion-icon>
                             <ion-icon *ngIf="showClinic" (click)="showClinic = false"
@@ -69,7 +69,7 @@
                                            required
                                            name="cName"
                                            ngModel
-                                           pattern="[a-zA-Z0-9]*"
+                                           pattern="[a-zA-Z0-9 ]*"
                                            placeholder="Clinic or Hospital Name"
                                            [(ngModel)]="clinic.name"
                                            #nameCtrl="ngModel">
@@ -205,9 +205,9 @@
                     </ion-row>
 
                     <!--AVAILABILITY BLOCK-->
-                    <ion-row>
+                    <ion-row style="background-color: #048bc1; font-size: larger">
                         <ion-col class="subBlocks">
-                            <ion-label color="primary"><strong>Availability</strong></ion-label>
+                            <ion-label><strong>Availability</strong></ion-label>
                             <ion-icon *ngIf="!showAvail" (click)="showAvail = true" name="add-circle-sharp"></ion-icon>
                             <ion-icon *ngIf="showAvail" (click)="showAvail = false"
                                       name="remove-circle-sharp"></ion-icon>
@@ -257,16 +257,20 @@
                             <ion-item>
                                 <ion-button (click)="addSchedule()">Add Schedule</ion-button>
                             </ion-item>
-                            <ion-label *ngIf="clinic.schedules.length !== 0"><strong>Added Schedule</strong></ion-label>
-                            <ion-item>
-                                <ion-row *ngFor="let sc of clinic.schedules; let i = index">
-                                    <ion-col>
+                            <ion-item *ngIf="clinic.schedules.length !== 0">
+                                <ion-row style="width:100%">
+                                    <ion-label><strong>Added Schedule</strong></ion-label>
+                                </ion-row>
+                            </ion-item>
+                            <ion-item  *ngFor="let sc of clinic.schedules; let i = index">
+                                <ion-row style="background-color:#4c8dff;width:100%">
+                                    <ion-col size="6">
                                         {{sc.availableDays}}
                                     </ion-col>
-                                    <ion-col>
+                                    <ion-col size="3">
                                         {{sc.fromTime  }} To {{ sc.toTime}}
                                     </ion-col>
-                                    <ion-col>
+                                    <ion-col size="auto">
                                         <ion-icon name="remove-circle-sharp"
                                                   (click)="clinic.schedules.splice(i,1)"></ion-icon>
                                     </ion-col>
@@ -276,9 +280,9 @@
                     </ion-row>
 
                     <!--FEE BLOCK-->
-                    <ion-row>
+                    <ion-row style="background-color: #048bc1; font-size: larger">
                         <ion-col class="subBlocks">
-                            <ion-label color="primary"><strong>Fee Structure</strong></ion-label>
+                            <ion-label><strong>Fee Structure</strong></ion-label>
                             <ion-icon *ngIf="!showFee" (click)="showFee = true" name="add-circle-sharp"></ion-icon>
                             <ion-icon *ngIf="showFee" (click)="showFee = false" name="remove-circle-sharp"></ion-icon>
                         </ion-col>

@@ -12,7 +12,7 @@
                 <div *ngIf="!clinicSetup" class="btn-container">
                     <ion-button (click)="prev()">Back</ion-button>
                     <ion-button (click)="clinicSetup = true">Now</ion-button>
-                    <ion-button (click)="next()">Later</ion-button>
+                    <ion-button (click)="next(availabilityForm)">Later</ion-button>
                 </div>
 
                 <div *ngIf="clinicSetup">
@@ -186,16 +186,20 @@
                             <ion-item>
                                 <ion-button (click)="addSchedule()">Add Schedule</ion-button>
                             </ion-item>
-                            <ion-label *ngIf="clinic.schedules"><strong>Added Schedule</strong></ion-label>
-                            <ion-item>
-                                <ion-row *ngFor="let sc of clinic.schedules; let i = index">
-                                    <ion-col>
+                            <ion-item *ngIf="clinic.schedules.length !== 0">
+                                <ion-row style="width:100%">
+                                    <ion-label><strong>Added Schedule</strong></ion-label>
+                                </ion-row>
+                            </ion-item>
+                            <ion-item  *ngFor="let sc of clinic.schedules; let i = index">
+                                <ion-row style="background-color:#36abe0;width:100%">
+                                    <ion-col size="6">
                                         {{sc.availableDays}}
                                     </ion-col>
-                                    <ion-col>
+                                    <ion-col size="3">
                                         {{sc.fromTime  }} To {{ sc.toTime}}
                                     </ion-col>
-                                    <ion-col>
+                                    <ion-col size="3">
                                         <ion-icon name="remove-circle-sharp"
                                                   (click)="clinic.schedules.splice(i,1)"></ion-icon>
                                     </ion-col>

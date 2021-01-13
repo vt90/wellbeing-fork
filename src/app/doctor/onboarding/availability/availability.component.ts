@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {OnboardingService} from '../onboarding-service';
 import {Clinic, Schedule} from '../../../model/clinic.model';
 import {Doctor} from '../../../model/doctor.model';
+import {NgForm} from '@angular/forms';
 
 
 @Component({
@@ -45,7 +46,8 @@ export class AvailabilityComponent implements OnInit {
     this.doctor = this.onboardingService.getOnboadringDetails();
   }
 
-  next() {
+  next(availabilityForm: NgForm) {
+    if (availabilityForm.invalid){return; }
     if (this.clinic){this.doctor.clinics.push(this.clinic); }
     this.router.navigate(['doctor/onboarding/assistant']);
   }

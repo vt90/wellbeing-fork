@@ -1,91 +1,114 @@
 <ion-content>
     <form #basicForm="ngForm" (ngSubmit)="next(basicForm)">
-    <ion-grid>
-        <ion-row>
-            <ion-col size-md="6" offset-md="3" class="block-border">
-                <ion-title class="ion-text-center"><strong>Basic Information</strong></ion-title>
+        <ion-grid>
+            <ion-row>
+                <ion-col size-md="6" offset-md="3" class="block-border">
+                    <ion-title class="ion-text-center"><strong>Basic Information</strong></ion-title>
 
-                <ion-item>
-                    <ion-label><strong>Registration Number</strong></ion-label>
-                    <ion-input type="text"
-                               ngModel
-                               name = "rNo"
-                               rNo
-                               placeholder="Registartion Number"
-                               [(ngModel)]="doctor.registrationId">
-                    </ion-input>
-                </ion-item>
+                    <ion-item>
+                        <ion-label><strong>Registration Number</strong></ion-label>
+                        <ion-input type="text"
+                                   ngModel
+                                   name="rNo"
+                                   pattern="[a-zA-Z0-9]*"
+                                   placeholder="Registration Number"
+                                   [(ngModel)]="doctor.registrationId"
+                                   #eCtrl="ngModel">
+                        </ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="eCtrl.invalid && (eCtrl.touched || eCtrl.dirty)"
+                              lines="none">
+                        <ion-item *ngIf="eCtrl.hasError('pattern')">
+                            <ion-label color="danger"> registration number is invalid</ion-label>
+                        </ion-item>
+                    </ion-item>
 
-                <ion-item>
-                    <ion-label><strong>Full Name</strong></ion-label>
-                    <ion-input type="text"
-                               ngModel
-                               name = "fName"
-                               required
-                               placeholder="FirstName"
-                               #nameCtrl="ngModel"
-                               [(ngModel)]="doctor.fName">
-                    </ion-input>
-                    <ion-input type="text"
-                               ngModel
-                               name = "lName"
-                               required
-                               placeholder="LastName"
-                               #lnameCtrl="ngModel"
-                               [(ngModel)]="doctor.lName">
-                    </ion-input>
-                </ion-item>
-                <ion-item *ngIf="!nameCtrl.valid && nameCtrl.touched " lines="none">
-                    <ion-label color="danger"> First Name required </ion-label>
-                </ion-item>
-                <ion-item *ngIf="!lnameCtrl.valid && lnameCtrl.touched " lines="none">
-                    <ion-label color="danger"> Last Name required </ion-label>
-                </ion-item>
-                <ion-item>
-                    <ion-label><strong>Date of Birth</strong></ion-label>
-                    <ion-datetime displayFormat="MMMM DD, YYYY"
-                                  ngModel
-                                  name = "dob"
-                                  required
-                                  dob
-                                  [(ngModel)]="doctor.dateOfBirth"
-                                  placeholder="Birth Date">
-                    </ion-datetime>
-                </ion-item>
-                <ion-item>
-                    <ion-label><strong>Gender </strong></ion-label>
-                    <ion-select ngModel
-                                name = "gender"
-                                required
-                                gender
-                                [(ngModel)]="doctor.gender"
-                                placeholder="Gender">
-                        <ion-select-option value="m">Male</ion-select-option>
-                        <ion-select-option value="f">Female</ion-select-option>
-                    </ion-select>
-                </ion-item>
+                    <ion-item>
+                        <ion-label><strong>Full Name</strong></ion-label>
+                        <ion-input type="text"
+                                   ngModel
+                                   name="fName"
+                                   required
+                                   pattern="[a-zA-Z]*"
+                                   placeholder="FirstName"
+                                   #nameCtrl="ngModel"
+                                   [(ngModel)]="doctor.fName">
+                        </ion-input>
+                        <ion-input type="text"
+                                   ngModel
+                                   name="lName"
+                                   required
+                                   pattern="[a-zA-Z]*"
+                                   placeholder="LastName"
+                                   #lnameCtrl="ngModel"
+                                   [(ngModel)]="doctor.lName">
+                        </ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="nameCtrl.invalid && (nameCtrl.touched || nameCtrl.dirty)" lines="none">
+                        <ion-item *ngIf="nameCtrl.errors.required">
+                            <ion-label color="danger"> First name required</ion-label>
+                        </ion-item>
+                        <ion-item *ngIf="nameCtrl.hasError('pattern')">
+                            <ion-label color="danger"> First name is invalid</ion-label>
+                        </ion-item>
+                    </ion-item>
+                    <ion-item *ngIf="lnameCtrl.invalid && (lnameCtrl.touched || lnameCtrl.dirty)" lines="none">
+                        <ion-item *ngIf="lnameCtrl.errors.required">
+                            <ion-label color="danger"> Last name required</ion-label>
+                        </ion-item>
+                        <ion-item *ngIf="lnameCtrl.hasError('pattern')">
+                            <ion-label color="danger"> Last name is invalid</ion-label>
+                        </ion-item>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label><strong>Date of Birth</strong></ion-label>
+                        <ion-datetime displayFormat="MMMM DD, YYYY"
+                                      ngModel
+                                      name="dob"
+                                      required
+                                      [(ngModel)]="doctor.dateOfBirth"
+                                      placeholder="Birth Date">
+                        </ion-datetime>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label><strong>Gender </strong></ion-label>
+                        <ion-select ngModel
+                                    name="gender"
+                                    required
+                                    [(ngModel)]="doctor.gender"
+                                    placeholder="Gender">
+                            <ion-select-option value="m">Male</ion-select-option>
+                            <ion-select-option value="f">Female</ion-select-option>
+                        </ion-select>
+                    </ion-item>
 
 
-                <ion-item>
-                    <ion-label><strong>Contact Number</strong></ion-label>
-                    <ion-input type="number"
-                               ngModel
-                               name = "contact"
-                               required
-                               contact
-                               placeholder="Mobile Number"
-                               [(ngModel)]="doctor.mobile"
-                               #contactCtrl="ngModel">
-                    </ion-input>
-                </ion-item>
-                <ion-item *ngIf="!contactCtrl.valid && contactCtrl.touched " lines="none">
-                    <ion-label color="danger"> Contact Number required </ion-label>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-        <div class="col text-center">
-            <ion-button type="submit" [disabled]="!basicForm.valid">next</ion-button>
-        </div>
-    </ion-grid>
+                    <ion-item>
+                        <ion-label><strong>Contact Number</strong></ion-label>
+                        <ion-input type="number"
+                                   ngModel
+                                   name="contact"
+                                   required
+                                   placeholder="Mobile Number"
+                                   [(ngModel)]="doctor.mobile"
+                                   pattern="[0-9]{10}"
+                                   #contactCtrl="ngModel">
+                        </ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="contactCtrl.invalid && (contactCtrl.touched || contactCtrl.dirty)" lines="none">
+                        <ion-item *ngIf="contactCtrl.errors.required">
+                            <ion-label color="danger"> Contact number required</ion-label>
+                        </ion-item>
+                        <ion-item *ngIf="contactCtrl.hasError('pattern')">
+                            <ion-label color="danger"> Contact number is invalid</ion-label>
+                        </ion-item>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <div class="col text-center">
+                <ion-button type="submit" [disabled]="!basicForm.valid">next</ion-button>
+            </div>
+        </ion-grid>
     </form>
 </ion-content>

@@ -48,7 +48,9 @@ export class AvailabilityComponent implements OnInit {
 
   next(availabilityForm: NgForm) {
     if (availabilityForm.invalid){return; }
-    if (this.clinic){this.doctor.clinics.push(this.clinic); }
+    if (this.clinic){
+      this.onboardingService.setClinicData(this.clinic);
+    }
     this.router.navigate(['doctor/onboarding/assistant']);
   }
 

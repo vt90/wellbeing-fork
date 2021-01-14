@@ -78,4 +78,8 @@ export class ProfilePage implements OnInit{
       });
     });
   }
+
+  save(profileForm: NgForm){
+      if (profileForm.invalid){return; }
+  }
 }

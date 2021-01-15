@@ -4,7 +4,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {Router} from '@angular/router';
 import {Doctor} from '../../model/doctor.model';
 import {DoctorService} from '../../services/doctor/doctor.service';
-import {Clinic} from "../../model/clinic.model";
+import {Clinic} from '../../model/clinic.model';
 
 @Injectable({
   providedIn: 'root'

@@ -88,7 +88,7 @@ export class ProfilePage implements OnInit {
         }
       ]
     }).then((alert) => {
-      alert.present();
+      alert.present().then(r => console.log(r));
       return alert.onDidDismiss();
     });
   }

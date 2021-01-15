@@ -54,7 +54,7 @@
                                 <ion-row>
                                     <ion-col *ngIf="changePassword" size-md="6" offset-md="3">
                                         <ion-item>
-                                            <ion-label position="stacked">Current Password</ion-label>
+                                            <ion-label class="asterisk" position="stacked">Current Password</ion-label>
                                             <ion-input
                                                     type="password"
                                                     ngModel
@@ -70,7 +70,7 @@
                                             </ion-item>
                                         </ion-item>
                                         <ion-item>
-                                            <ion-label position="stacked">New Password</ion-label>
+                                            <ion-label class="asterisk" position="stacked">New Password</ion-label>
                                             <ion-input
                                                     type="password"
                                                     ngModel
@@ -90,7 +90,7 @@
                                             </ion-item>
                                         </ion-item>
                                         <ion-item>
-                                            <ion-label position="stacked">Confirm Password</ion-label>
+                                            <ion-label class="asterisk" position="stacked">Confirm Password</ion-label>
                                             <ion-input
                                                     type="password"
                                                     ngModel
@@ -126,11 +126,10 @@
                     <ion-row>
                         <ion-col>
                             <ion-item>
-                                <ion-label position="stacked"><strong>First Name</strong>
-                                    <ion-input type="text" ngModel name="fName" required pattern="[a-zA-Z ]*"
-                                               #fnameCtrl="ngModel" [(ngModel)]="doctor.fName">
-                                    </ion-input>
-                                </ion-label>
+                                <ion-label class="asterisk" position="stacked"><strong>First Name</strong></ion-label>
+                                <ion-input type="text" ngModel name="fName" required pattern="[a-zA-Z ]*"
+                                           #fnameCtrl="ngModel" [(ngModel)]="doctor.fName">
+                                </ion-input>
                             </ion-item>
                             <ion-item *ngIf="fnameCtrl.invalid && (fnameCtrl.touched || fnameCtrl.dirty)"
                                       lines="none">
@@ -148,11 +147,10 @@
                                 </ion-label>
                             </ion-item>
                             <ion-item>
-                                <ion-label position="stacked"><strong>Contact Number</strong>
-                                    <ion-input type="number" name="contact" ngModel required pattern="^\d{10}$"
-                                               #contactCtrl="ngModel" [(ngModel)]="doctor.mobile">
-                                    </ion-input>
-                                </ion-label>
+                                <ion-label class="asterisk" position="stacked"><strong>Contact Number</strong></ion-label>
+                                <ion-input type="number" name="contact" ngModel required pattern="^\d{10}$"
+                                           #contactCtrl="ngModel" [(ngModel)]="doctor.mobile">
+                                </ion-input>
                             </ion-item>
                             <ion-item *ngIf="contactCtrl.invalid && (contactCtrl.touched || contactCtrl.dirty)"
                                       lines="none">
@@ -167,11 +165,10 @@
 
                         <ion-col>
                             <ion-item>
-                                <ion-label position="stacked"><strong>Last Name</strong>
-                                    <ion-input type="text" ngModel name="lName" required pattern="[a-zA-Z ]*"
-                                               #lnameCtrl="ngModel" [(ngModel)]="doctor.lName">
-                                    </ion-input>
-                                </ion-label>
+                                <ion-label class="asterisk" position="stacked"><strong>Last Name</strong></ion-label>
+                                <ion-input type="text" ngModel name="lName" required pattern="[a-zA-Z ]*"
+                                           #lnameCtrl="ngModel" [(ngModel)]="doctor.lName">
+                                </ion-input>
                             </ion-item>
                             <ion-item *ngIf="lnameCtrl.invalid && (lnameCtrl.touched || lnameCtrl.dirty)"
                                       lines="none">
@@ -184,13 +181,12 @@
                             </ion-item>
 
                             <ion-item>
-                                <ion-label position="stacked"><strong>Email Address</strong>
-                                    <ion-input type="email" ngModel name="emailID" required
-                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                                               [(ngModel)]="doctor.email"
-                                               #emailCtrl="ngModel">
-                                    </ion-input>
-                                </ion-label>
+                                <ion-label class="asterisk" position="stacked"><strong>Email Address</strong></ion-label>
+                                <ion-input type="email" ngModel name="emailID" required
+                                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                           [(ngModel)]="doctor.email"
+                                           #emailCtrl="ngModel">
+                                </ion-input>
                             </ion-item>
                             <ion-item *ngIf="emailCtrl.invalid && (emailCtrl.touched || emailCtrl.dirty)"
                                       lines="none">
@@ -267,7 +263,38 @@
                     <!-- specialization Details Block -->
                     <ion-row>
                         <ion-col>
-
+                            <ion-item>
+                                <ion-label position="stacked"><strong>Specialization</strong>
+                                    <ion-input type="text" name="sp" [(ngModel)]="doctor.specialization"
+                                               readonly></ion-input>
+                                </ion-label>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="stacked"><strong>Experience In Specializations</strong>
+                                    <ion-input type="text" name="exp" [(ngModel)]="doctor.experience"
+                                               readonly></ion-input>
+                                </ion-label>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label position="stacked"><strong>Sub Specialization</strong>
+                                    <ion-input type="text" name="sub" [(ngModel)]="doctor.subspecialization"
+                                               readonly></ion-input>
+                                </ion-label>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="stacked"><strong>Upload Documents</strong></ion-label>
+                                <ion-item>
+                                    <input type="file"
+                                           id="file-input"
+                                           accept="image/*"
+                                           name="cert">
+                                </ion-item>
+                                <ion-item *ngIf="doctor.documents">
+                                    <ion-row>{{doctor.documents}}</ion-row>
+                                </ion-item>
+                            </ion-item>
                         </ion-col>
                     </ion-row>
                     <div class="col text-center">

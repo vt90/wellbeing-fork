@@ -13,20 +13,25 @@
 </ion-header>
 
 <ion-content>
-        <ion-grid>
-            <ion-row>
-                <ion-col size="2" class="vertical-menu">
-                    Left side navigation
-                </ion-col>
-                <ion-col size="10" *ngIf="patient">
-                    <ion-grid>
-                        <form #profileForm="ngForm" (ngSubmit)="save(profileForm)">
+    <ion-grid>
+        <ion-row>
+            <!-- LEFT SIDE BLOCK-->
+            <ion-col size="2" class="vertical-menu">
+                Left side navigation
+            </ion-col>
+
+            <!-- RIGHT SIDE BLOCK START-->
+            <ion-col size="10" *ngIf="patient">
+                <ion-grid>
+                    <form #profileForm="ngForm" (ngSubmit)="save(profileForm)">
+                        <!-- PROFILE PICTURE AND PASSWORD CHANGE BLOCK START-->
                         <ion-row>
                             <ion-col>
                                 <ion-item>
                                     <ion-avatar style="width: 200px;height: 200px;" slot="start">
                                         <label class="hoverable" for="fileInput">
-                                            <img [src]="patient.profilePic ? patient.profilePic: './assets/icon/profile.jpg'" alt="profile">
+                                            <img [src]="patient.profilePic ? patient.profilePic: './assets/icon/profile.jpg'"
+                                                 alt="profile">
                                             <div class="hover-text">Change Profile Pic</div>
                                             <div class="background"></div>
                                         </label>
@@ -34,9 +39,16 @@
                                     <input id="fileInput" type="file" (change)="onProfilePicChange($event)">
                                     <div class="col text-left">
                                         <ion-label>{{patient.fName }} {{patient.lName}}</ion-label>
-                                        <ion-label  style="text-decoration: underline;color: blue;font-size: small"  (click)="changePassword = true"> change your password here</ion-label>
-                                        <ion-label *ngIf="patient.profilePic" style="text-decoration: underline;color: blue;font-size: small" (click)="removeProfilePic()">remove profile picture</ion-label>
-                                        <label *ngIf="!patient.profilePic" style="text-decoration: underline;color: blue;font-size: small" for="fileInputLink">Upload profile Picture</label>
+                                        <ion-label style="text-decoration: underline;color: blue;font-size: small"
+                                                   (click)="changePassword = true"> change your password here
+                                        </ion-label>
+                                        <ion-label *ngIf="patient.profilePic"
+                                                   style="text-decoration: underline;color: blue;font-size: small"
+                                                   (click)="removeProfilePic()">remove profile picture
+                                        </ion-label>
+                                        <label *ngIf="!patient.profilePic"
+                                               style="text-decoration: underline;color: blue;font-size: small"
+                                               for="fileInputLink">Upload profile Picture</label>
                                         <input id="fileInputLink" type="file" (change)="onProfilePicChange($event)">
                                     </div>
                                 </ion-item>
@@ -55,8 +67,9 @@
                                                         #cpassCtrl="ngModel">
                                                 </ion-input>
                                             </ion-item>
-                                            <ion-item *ngIf="cpassCtrl.invalid && (cpassCtrl.touched || cpassCtrl.dirty)"
-                                                      lines="none">
+                                            <ion-item
+                                                    *ngIf="cpassCtrl.invalid && (cpassCtrl.touched || cpassCtrl.dirty)"
+                                                    lines="none">
                                                 <ion-item *ngIf="cpassCtrl.errors.required">
                                                     <ion-label color="danger"> current password required</ion-label>
                                                 </ion-item>
@@ -72,8 +85,9 @@
                                                         #npassCtrl="ngModel">
                                                 </ion-input>
                                             </ion-item>
-                                            <ion-item *ngIf="npassCtrl.invalid && (npassCtrl.touched || npassCtrl.dirty)"
-                                                      lines="none">
+                                            <ion-item
+                                                    *ngIf="npassCtrl.invalid && (npassCtrl.touched || npassCtrl.dirty)"
+                                                    lines="none">
                                                 <ion-item *ngIf="npassCtrl.errors.required">
                                                     <ion-label color="danger"> New password required</ion-label>
                                                 </ion-item>
@@ -92,8 +106,9 @@
                                                         #copassCtrl="ngModel">
                                                 </ion-input>
                                             </ion-item>
-                                            <ion-item *ngIf="copassCtrl.invalid && (copassCtrl.touched || copassCtrl.dirty)"
-                                                      lines="none">
+                                            <ion-item
+                                                    *ngIf="copassCtrl.invalid && (copassCtrl.touched || copassCtrl.dirty)"
+                                                    lines="none">
                                                 <ion-item *ngIf="copassCtrl.errors.required">
                                                     <ion-label color="danger"> current password required</ion-label>
                                                 </ion-item>
@@ -102,7 +117,10 @@
                                                 <ion-label color="danger"> Passwords do not match.</ion-label>
                                             </ion-item>
                                             <div class="col text-center">
-                                                <ion-button  type="submit" [disabled]="pwdForm.invalid || npassCtrl.value !== copassCtrl.value">Save</ion-button>
+                                                <ion-button type="submit"
+                                                            [disabled]="pwdForm.invalid || npassCtrl.value !== copassCtrl.value">
+                                                    Save
+                                                </ion-button>
                                                 <ion-button (click)="changePassword = false">cancel</ion-button>
                                             </div>
                                         </ion-col>
@@ -111,6 +129,7 @@
                             </ion-col>
                         </ion-row>
 
+                        <!-- BASIC DETAILS BLOCK-->
                         <ion-row>
                             <ion-col>
                                 <ion-item>
@@ -192,6 +211,7 @@
                             </ion-col>
                         </ion-row>
 
+                        <!-- ADDRESS DETAILS BLOCK-->
                         <ion-row>
                             <ion-col>
                                 <ion-item>
@@ -250,12 +270,13 @@
                                 </ion-item>
                             </ion-col>
                         </ion-row>
+
                         <div class="col text-center">
                             <ion-button type="submit" [disabled]="profileForm.invalid">Save</ion-button>
                         </div>
-                    </ion-grid>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </form>
+                    </form>
+                </ion-grid>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

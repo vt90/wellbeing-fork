@@ -28,7 +28,7 @@
                                name = "newSpec"
                                [(ngModel)]="newSpecialization"
                                placeholder="add here"
-                               pattern="[a-zA-Z]*" #sCtrl="ngModel">
+                               pattern="[a-zA-Z ]*" #sCtrl="ngModel">
                     </ion-input>
                 </ion-item>
                 <ion-item *ngIf="sCtrl.invalid && (sCtrl.touched || sCtrl.dirty)"
@@ -57,7 +57,7 @@
                                type="text"
                                [(ngModel)]="newSubSpecialization"
                                placeholder="add here"
-                               pattern="[a-zA-Z]*" #subCtrl="ngModel">
+                               pattern="[a-zA-Z ]*" #subCtrl="ngModel">
                     </ion-input>
                 </ion-item>
                 <ion-item *ngIf="subCtrl.invalid && (subCtrl.touched || subCtrl.dirty)"

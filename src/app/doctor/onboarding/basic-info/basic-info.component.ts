@@ -3,7 +3,8 @@ import {Router} from '@angular/router';
 import {OnboardingService} from '../onboarding-service';
 import {NgForm} from '@angular/forms';
 import {Doctor} from '../../../model/doctor.model';
-import {AuthService} from "../../../services/auth.service";
+import {AuthService} from '../../../services/auth.service';
+
 
 @Component({
   selector: 'app-basic-info',

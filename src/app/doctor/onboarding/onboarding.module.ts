@@ -22,7 +22,6 @@ import {MessageService} from 'primeng/api';
 import {OnboardingService} from './onboarding-service';
 import {DoctorService} from '../../services/doctor/doctor.service';
 
-
 @NgModule({
   imports: [
     CommonModule,

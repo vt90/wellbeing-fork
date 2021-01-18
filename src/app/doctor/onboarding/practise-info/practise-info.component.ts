@@ -18,20 +18,21 @@ export class PractiseInfoComponent implements OnInit {
   newSpecialization: string;
   specializationsFromDB: any;
   doctor: Doctor;
+  noSubspecData = true;
 
   constructor(private doctorService: DoctorService,
               private translate: TranslateService,
               private router: Router,
               public onboardingService: OnboardingService) {
-    this.doctorService.retrieveSpecializations().then(specs => {
-      this.specializationsFromDB = specs;
-      this.specificationsOptions(specs);
-      console.log(this.specializations);
-    });
   }
 
   ngOnInit() {
     this.doctor = this.onboardingService.getOnboadringDetails();
+    this.doctorService.retrieveSpecializations().then(specs => {
+      this.specializationsFromDB = specs;
+      this.specificationsOptions(specs);
+      this.onSpecChange(this.doctor.specialization);
+    });
   }
 
   next(practiseForm: NgForm) {
@@ -39,6 +40,7 @@ export class PractiseInfoComponent implements OnInit {
       return;
     }
     this.router.navigate(['doctor/onboarding/availability']);
+    this.onboardingService.setOnboardingData(this.doctor);
   }
 
   prev() {
@@ -58,6 +60,8 @@ export class PractiseInfoComponent implements OnInit {
       }
     }
     this.subSpecializations = subSpecs;
+    this.subSpecializations.length !== 0 ? this.noSubspecData = true :  this.noSubspecData = false;
+    console.log(this.subSpecializations);
   }
 
   specificationsOptions(s: string[]) {

@@ -29,5 +29,6 @@ export class BasicInfoComponent implements OnInit {
       return;
     }
     this.router.navigate(['doctor/onboarding/practise']);
+    this.onboardingService.setOnboardingData(this.doctor);
   }
 }

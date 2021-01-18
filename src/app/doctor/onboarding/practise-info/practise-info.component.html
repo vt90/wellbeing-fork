@@ -13,8 +13,11 @@
                                 name = "spec"
                                 required
                                 [(ngModel)]="doctor.specialization"
-                                (ionChange)="onSpecChange(doctor.specialization)"
+                                (ngModelChange)="onSpecChange(doctor.specialization); doctor.subspecialization = ''"
                                 placeholder="specialization">
+                        <ion-select-option *ngIf="doctor.specialization" [value]="doctor.specialization">
+                            {{doctor.specialization}}
+                        </ion-select-option>
                         <ion-select-option *ngFor="let s of specializations" [value]="s">
                             {{s}}
                         </ion-select-option>
@@ -38,12 +41,16 @@
                     </ion-item>
                 </ion-item>
 
-                <ion-item>
-                    <ion-label><strong> Sub Specialization </strong></ion-label>
+                <ion-item style="color: black!important;">
+                    <ion-label><strong> Sub Specialization</strong></ion-label>
                     <ion-select ngModel
                                 name = "subSpec"
+                                [disabled]="!noSubspecData"
                                 [(ngModel)]="doctor.subspecialization"
-                                placeholder="sub-specialization">
+                                [placeholder]="noSubspecData ? 'sub-specialization':'Not Applicable'">
+                        <ion-select-option *ngIf="doctor.subspecialization" [value]="doctor.subspecialization">
+                            {{doctor.subspecialization}}
+                        </ion-select-option>
                         <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
                             {{sub}}
                         </ion-select-option>
@@ -100,9 +107,10 @@
                                    id="file-input"
                                    accept="image/*"
                                    ngModel
-                                   name = "cert"
-                                   required
-                                   [(ngModel)]="doctor.documents">
+                                   name = "cert">
+                        </ion-item>
+                        <ion-item *ngIf="doctor.documents">
+                            <ion-row>{{doctor.documents}}</ion-row>
                         </ion-item>
                     </ion-col>
                 </ion-row>

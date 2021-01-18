@@ -11,7 +11,7 @@ import {Clinic} from '../../model/clinic.model';
 })
 export class OnboardingService {
 
-  doctor: Doctor = null;
+  doctor: Doctor = new Doctor();
   private stepsComplete = new Subject<any>();
   stepsComplete$ = this.stepsComplete.asObservable();
   clinic: Clinic = null;
@@ -19,7 +19,6 @@ export class OnboardingService {
   constructor(db: AngularFireDatabase,
               private router: Router,
               private doctorService: DoctorService) {
-    this.doctor = new Doctor();
   }
 
   getOnboadringDetails() {
@@ -39,5 +38,9 @@ export class OnboardingService {
 
   setClinicData(c: Clinic){
     this.clinic = c;
+  }
+  setOnboardingData(d: Doctor){
+    this.doctor = d;
+    console.log(this.doctor);
   }
 }

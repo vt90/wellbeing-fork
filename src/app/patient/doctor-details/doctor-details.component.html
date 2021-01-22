@@ -1,55 +1,69 @@
 <ion-content>
+    <form #appointmentForm="ngForm" (ngSubmit)="bookAppointment()">
+        <ion-title style="text-align: center;"><strong>Dr. {{doc.fName }} {{doc.lName }}</strong></ion-title>
 
-    <ion-card>
-        <ion-card-header>
-            <ion-card-title>{{doc.fName }} {{doc.lName }}</ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content>
-            <ion-item>
-                <ion-label>
-                    Address : {{doc.clinic.name}}<br>
-                    ABS sdff sadsdasd,<br>
-                    312356
+        <ion-card *ngFor="let c of clinics" style="background-color:#36abe0">
+            <ion-card-header>
+                <ion-card-title><strong>{{c.name}}</strong></ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-label style="color: black">
+                    <ion-card-title><strong>Clinic Address:</strong><br></ion-card-title>
+                    {{c.addressLine1}}<br>
+                    {{c.addressLine2}}<br>
+                    {{c.city}}, {{c.state}}, {{c.country}}<br>
+                    {{c.zipcode}}<br>
                 </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    Fee :
-                    consultation Fee: {{ doc.clinic[0].fee.cFee}}<br>
-                    Follow up Fee: {{ doc.clinic[0].fee.fFee}}
-                </ion-label>
-            </ion-item>
-            <!--<ion-item>
-                <ion-tabs>
-                    <ion-tab-bar slot="bottom">
-                        <ion-tab-button tab="Monday">
-                            <ion-label>Monday</ion-label>
-                        </ion-tab-button>
-                        <ion-tab-button tab="Tuesday">
-                            <ion-label>Tuesday</ion-label>
-                        </ion-tab-button>
-                        <ion-tab-button tab="Wednesday">
-                            <ion-label>Wednesday</ion-label>
-                        </ion-tab-button>
-                        <ion-tab-button tab="Thursday">
-                            <ion-label>Thursday</ion-label>
-                        </ion-tab-button>
-                        <ion-tab-button tab="Friday">
-                            <ion-label>Friday</ion-label>
-                        </ion-tab-button>
-                        <ion-tab-button tab="Saturday">
-                            <ion-label>Saturday</ion-label>
-                        </ion-tab-button>
-                        <ion-tab-button tab="Sunday">
-                            <ion-label>Sunday</ion-label>
-                        </ion-tab-button>
-                    </ion-tab-bar>
-                </ion-tabs>
-            </ion-item>-->
-        </ion-card-content>
-    </ion-card>
+                <ion-card-title><strong>Availability</strong><br></ion-card-title>
+                <ion-segment [value]="day">
+                    <ion-segment-button (click)="day = d;checkValidDate(c)" [value]="d"
+                                        *ngFor="let d of getKeys(timeslot.get(c.clinicId))">
+                        <ion-label><strong>{{d.slice(0, 3)}}</strong></ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+                <ion-row class="ion-justify-content-center">
+                    <ion-col size="6">
+                        <mat-form-field style="padding-top: 2%;text-align: center;">
+                            <label>
+                                <input style="color:black" matInput [matDatepicker]="picker" [min]="minDate"
+                                       [max]="maxDate"
+                                       name="aDate"
+                                       [placeholder]="day!==''?'Choose a date of '+day:'Choose a date'"
+                                       [disabled]="day===''" [(ngModel)]="appointmentDate"
+                                       (dateChange)="checkValidDate(c)" ngModel required>
+                            </label>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker touchUi="true" #picker [disabled]="day===''"></mat-datepicker>
+                            <label style="color: black">{{dateInvalidMessage}}</label>
+                        </mat-form-field>
+                    </ion-col>
+                    <ion-col size="6">
+                        <label style="color: black;padding-top: 2%">Select an Appointment type</label>
+                        <mat-radio-group [(ngModel)]="appointment.type" name="aType" class="example-radio-group"
+                                         aria-label="Select an Appointment type" ngModel
+                                         required>
+                            <mat-radio-button value="new">New</mat-radio-button>
+                            <mat-radio-button value="follow up">Follow up</mat-radio-button>
+                        </mat-radio-group>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="ion-justify-content-center" *ngIf="showAppointmentSlots">
+                    <ion-col size="3" *ngFor="let t of timeslot.get(c.clinicId).get(day)">
+                        <ion-button [class.selectedTimeSlot]="appointment.time===t" (click)="appointment.time=t;">
+                            <ion-label>{{t}}</ion-label>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
 
-    <ion-button (click)="close()">Close</ion-button>
+        <div class="btn-container">
+            <ion-button type="submit" [disabled]="appointmentForm.invalid || appointment.time===undefined">Book
+                Appointment
+            </ion-button>
+            <ion-button (click)="close()">Close</ion-button>
+        </div>
+    </form>
 </ion-content>
+
 

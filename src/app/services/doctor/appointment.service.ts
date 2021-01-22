@@ -1,27 +1,20 @@
-import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import {AngularFireDatabase} from '@angular/fire/database';
 import {Injectable} from '@angular/core';
+import {Appointment} from '../../model/appointment.model';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentService {
+  private db: firebase.database.Database;
 
-  appointments$: AngularFireList<any>;
-
-  constructor(db: AngularFireDatabase) {
-    this.appointments$ = db.list('/appointments');
+  constructor(private adb: AngularFireDatabase) {
+    this.db = adb.database;
   }
 
-  add(appointment: Appointment) {
-    this.appointments$.push({
-
-      type: appointment.type,
-      date: appointment.date,
-      time: appointment.time,
-      confirmed: appointment.confirmed,
-      name: appointment.name,
-      clinic: appointment.clinic,
-      dateOfBirth: appointment.dateOfBirth,
-    });
+  async addNewAppointment(appointment: Appointment): Promise<Appointment>{
+    const snapshot = await this.db.ref('/Appointments/').push(appointment).once('value');
+    return snapshot.val();
   }
 }

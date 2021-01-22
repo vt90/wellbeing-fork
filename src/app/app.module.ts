@@ -16,6 +16,7 @@ import {environment} from '../environments/environment';
 import {IonicStorageModule} from '@ionic/storage';
 import {HttpClientModule} from '@angular/common/http';
 import {CalendarModule} from 'ion2-calendar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +32,8 @@ import {CalendarModule} from 'ion2-calendar';
     HttpClientModule,
     IonicStorageModule.forRoot(),
     I18nModule,
-    CalendarModule
+    CalendarModule,
+    BrowserAnimationsModule
   ],
   providers: [
     StatusBar,

@@ -69,8 +69,8 @@ export class ProfilePage implements OnInit {
             return;
         }
         const newPwd = pwdForm.value.nPass;
-        this.authService.changePassword(this.doctor.email, newPwd).then((r) => {
-            console.log(r);
+        this.authService.changePassword(this.doctor.email, newPwd).then(() => {
+            console.log();
             this.alertCtrl.create({
                 message: 'Password updated successfully',
                 buttons: ['OK']

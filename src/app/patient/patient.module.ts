@@ -7,6 +7,12 @@ import {PatientPage} from './patient.page';
 import {PatientService} from '../services/patient/patient.service';
 import {HomePageModule} from '../home/home.module';
 import {DoctorDetailsComponent} from './doctor-details/doctor-details.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatRadioModule} from '@angular/material/radio';
+
 
 @NgModule({
   imports: [
@@ -14,7 +20,12 @@ import {DoctorDetailsComponent} from './doctor-details/doctor-details.component'
     IonicModule,
     PatientRoutingModule,
     CommonModule,
-    HomePageModule
+    HomePageModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule
   ],
   exports: [PatientPage],
   declarations: [PatientPage, DoctorDetailsComponent],

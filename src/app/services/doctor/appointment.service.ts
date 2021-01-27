@@ -17,4 +17,14 @@ export class AppointmentService {
     const snapshot = await this.db.ref('/Appointments/').push(appointment).once('value');
     return snapshot.val();
   }
+
+  updateAppointmentAvailability(cId: string, date: Date, timeslots: any[]){
+    console.log({date, timeslots});
+    this.db.ref('/Availability/' + cId + '/' + date).set(timeslots).then(r => r);
+  }
+  addAppointment(appointment: Appointment){
+    this.db.ref('/doctor-appointment/').push(appointment).once('value').then(() => {
+      this.db.ref('/patient-appointment/').push(appointment);
+    });
+  }
 }

@@ -15,7 +15,7 @@ export class DoctorDetailsComponent implements OnInit {
     @Input() doc: Doctor;
     @Input() pId: string;
     clinics: Clinic[];
-    timeslot: Map<string, Map<string, string[]>> = new  Map<string, Map<string, string[]>>();
+    timeslot: Map<string, Map<string, any[]>> = new Map<string, Map<string, any[]>>();
     day = '';
     minDate: Date;
     maxDate: Date;
@@ -65,7 +65,8 @@ export class DoctorDetailsComponent implements OnInit {
                 },
                 {
                     text: 'No',
-                    handler: () => {}
+                    handler: () => {
+                    }
                 }
             ]
         }).then((alert) => {
@@ -84,7 +85,7 @@ export class DoctorDetailsComponent implements OnInit {
         }
         while (startTime <= endTime) {
             // @ts-ignore
-            timeStops.push(new moment(startTime).format('HH:mm'));
+            timeStops.push({slot: new moment(startTime).format('HH:mm'), isBooked: false});
             startTime.add(s.slotPerPatient, 'minutes');
         }
         /* });*/
@@ -148,6 +149,8 @@ export class DoctorDetailsComponent implements OnInit {
     }
 
     bookAppointment() {
+        // tslint:disable-next-line:max-line-length
+        this.appointmentService.updateAppointmentAvailability(this.appointment.clinicId, this.appointment.date, this.timeslot.get(this.appointment.clinicId).get(this.day));
         this.appointmentService.addNewAppointment(this.appointment).then((appointment) => {
             console.log(appointment);
             this.alertCtrl.create({
@@ -161,4 +164,9 @@ export class DoctorDetailsComponent implements OnInit {
         });
     }
 
+    showMoreClinics(){
+        for ( let i = 1; i < this.clinics.length;i++){
+            this.clinicIndex = 1;
+        }
+    }
 }

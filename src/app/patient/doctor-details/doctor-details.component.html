@@ -2,22 +2,34 @@
     <form #appointmentForm="ngForm" (ngSubmit)="bookAppointment()">
         <ion-title style="text-align: center;"><strong>Dr. {{doc.fName }} {{doc.lName }}</strong></ion-title>
 
-        <ion-card *ngFor="let c of clinics" style="background-color:#36abe0">
+        <ion-card style="background-color:#36abe0">
             <ion-card-header>
-                <ion-card-title><strong>{{c.name}}</strong></ion-card-title>
+                <ion-row>
+                    <ion-col>
+                        <ion-card-title><strong>{{clinics[clinicIndex].name}}</strong></ion-card-title>
+                    </ion-col>
+                    <ion-col>
+                        <ion-label *ngIf="clinicIndex === 0 && clinics.length>1" (click)="showMoreClinics()"
+                                   style="text-decoration: underline">1 more clinic
+                        </ion-label>
+                        <ion-label *ngIf="clinicIndex!==0" (click)="clinicIndex = 0"
+                                   style="text-decoration: underline">{{clinics[0].name}}
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
             </ion-card-header>
             <ion-card-content>
                 <ion-label style="color: black">
                     <ion-card-title><strong>Clinic Address:</strong><br></ion-card-title>
-                    {{c.addressLine1}}<br>
-                    {{c.addressLine2}}<br>
-                    {{c.city}}, {{c.state}}, {{c.country}}<br>
-                    {{c.zipcode}}<br>
+                    {{clinics[clinicIndex].addressLine1}}<br>
+                    {{clinics[clinicIndex].addressLine2}}<br>
+                    {{clinics[clinicIndex].city}}, {{clinics[clinicIndex].state}}, {{clinics[clinicIndex].country}}<br>
+                    {{clinics[clinicIndex].zipcode}}<br>
                 </ion-label>
                 <ion-card-title><strong>Availability</strong><br></ion-card-title>
                 <ion-segment [value]="day">
-                    <ion-segment-button (click)="day = d;checkValidDate(c)" [value]="d"
-                                        *ngFor="let d of getKeys(timeslot.get(c.clinicId))">
+                    <ion-segment-button (click)="day = d;checkValidDate(clinics[clinicIndex])" [value]="d"
+                                        *ngFor="let d of getKeys(timeslot.get(clinics[clinicIndex].clinicId))">
                         <ion-label><strong>{{d.slice(0, 3)}}</strong></ion-label>
                     </ion-segment-button>
                 </ion-segment>
@@ -30,7 +42,7 @@
                                        name="aDate"
                                        [placeholder]="day!==''?'Choose a date of '+day:'Choose a date'"
                                        [disabled]="day===''" [(ngModel)]="appointmentDate"
-                                       (dateChange)="checkValidDate(c)" ngModel required>
+                                       (dateChange)="checkValidDate(clinics[clinicIndex])" ngModel required>
                             </label>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker touchUi="true" #picker [disabled]="day===''"></mat-datepicker>
@@ -48,9 +60,11 @@
                     </ion-col>
                 </ion-row>
                 <ion-row class="ion-justify-content-center" *ngIf="showAppointmentSlots">
-                    <ion-col size="3" *ngFor="let t of timeslot.get(c.clinicId).get(day)">
-                        <ion-button [class.selectedTimeSlot]="appointment.time===t" (click)="appointment.time=t;">
-                            <ion-label>{{t}}</ion-label>
+                    <ion-col size="3" *ngFor="let t of timeslot.get(clinics[clinicIndex].clinicId).get(day)">
+                        <ion-button [class.selectedTimeSlot]="appointment.time===t.slot"
+                                    (click)="appointment.time=t.slot; t.isBooked = true"
+                                    [disabled]="t.isBooked">
+                            <ion-label>{{t.slot}}</ion-label>
                         </ion-button>
                     </ion-col>
                 </ion-row>

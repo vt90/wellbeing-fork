@@ -6,10 +6,10 @@ import {DoctorRoutingModule} from './doctor-routing.module';
 import {AddAppointmentComponent} from './appointment/add-appointment/add-appointment.component';
 import {DoctorPage} from './doctor.page';
 import {DoctorService} from '../services/doctor/doctor.service';
-import {AddClinicComponent} from './add-clinic/add-clinic.component';
+
 
 @NgModule({
-  declarations: [AddAppointmentComponent, DoctorPage, AddClinicComponent],
+  declarations: [AddAppointmentComponent, DoctorPage],
   imports: [
     CommonModule,
     FormsModule,

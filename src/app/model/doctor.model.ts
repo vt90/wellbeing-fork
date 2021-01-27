@@ -26,6 +26,7 @@ export class Doctor implements BaseUser, Address{
     experience: string;
     documents: any;
     termsAndConditions: boolean;
+    profilePic: any;
 }
 
 // to come: but these are not arrays but rather again objects. mapped to realtime db.

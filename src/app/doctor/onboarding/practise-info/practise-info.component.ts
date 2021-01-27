@@ -61,7 +61,7 @@ export class PractiseInfoComponent implements OnInit {
   }
 
   specificationsOptions(s: string[]) {
-    let specs = [];
+    const specs = [];
     for (const key in s) {
       if (s.hasOwnProperty(key)) {
         specs.push(s[key]['name_' + this.translate.currentLang]);

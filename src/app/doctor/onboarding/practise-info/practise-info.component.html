@@ -27,14 +27,21 @@
                                ngModel
                                name = "newSpec"
                                [(ngModel)]="newSpecialization"
-                               placeholder="add here">
+                               placeholder="add here"
+                               pattern="[a-zA-Z]*" #sCtrl="ngModel">
                     </ion-input>
+                </ion-item>
+                <ion-item *ngIf="sCtrl.invalid && (sCtrl.touched || sCtrl.dirty)"
+                          lines="none">
+                    <ion-item *ngIf="sCtrl.hasError('pattern')">
+                        <ion-label color="danger"> Enter valid specialization</ion-label>
+                    </ion-item>
                 </ion-item>
 
                 <ion-item>
                     <ion-label><strong> Sub Specialization </strong></ion-label>
                     <ion-select ngModel
-                                name = "subspec"
+                                name = "subSpec"
                                 [(ngModel)]="doctor.subspecialization"
                                 placeholder="sub-specialization">
                         <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
@@ -46,12 +53,18 @@
                 <ion-item>
                     <ion-label><strong>No sub-specialization listed? </strong></ion-label>
                     <ion-input ngModel
-                               name = "newsubspec"
-                               newsubspec
+                               name = "newSub"
                                type="text"
                                [(ngModel)]="newSubSpecialization"
-                               placeholder="add here">
+                               placeholder="add here"
+                               pattern="[a-zA-Z]*" #subCtrl="ngModel">
                     </ion-input>
+                </ion-item>
+                <ion-item *ngIf="subCtrl.invalid && (subCtrl.touched || subCtrl.dirty)"
+                          lines="none">
+                    <ion-item *ngIf="subCtrl.hasError('pattern')">
+                        <ion-label color="danger"> Enter valid sub-specialization</ion-label>
+                    </ion-item>
                 </ion-item>
 
                 <ion-item>
@@ -61,12 +74,18 @@
                                required
                                placeholder="Experience In years"
                                type="number"
+                               pattern="[0-9]{1,2}"
                                [(ngModel)]="doctor.experience"
                                #expCtrl="ngModel">
                     </ion-input>
                 </ion-item>
-                <ion-item *ngIf="!expCtrl.valid && expCtrl.touched " lines="none">
-                    <ion-label color="danger"> Enter years of experience</ion-label>
+                <ion-item *ngIf="expCtrl.invalid && (expCtrl.touched || expCtrl.dirty)" lines="none">
+                    <ion-item *ngIf="expCtrl.errors.required">
+                        <ion-label color="danger"> Experience years required</ion-label>
+                    </ion-item>
+                    <ion-item *ngIf="expCtrl.hasError('pattern')">
+                        <ion-label color="danger"> Experience years invalid</ion-label>
+                    </ion-item>
                 </ion-item>
 
                 <ion-row>

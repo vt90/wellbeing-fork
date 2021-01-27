@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import {AngularFireDatabase} from '@angular/fire/database';
-import {Patient} from "../../model/patient.model";
-import {Doctor} from "../../model/doctor.model";
+import {Doctor} from '../../model/doctor.model';
+import {Clinic} from '../../model/clinic.model';
 
 
 @Injectable({
@@ -40,5 +40,37 @@ export class DoctorService {
           doctor = snapshot.val();
           return doctor;
         });
+  }
+
+  async addClinicData(clinic: Clinic, doctorId: string) {
+    const clinicRef = this.db.ref('/doctors/' + doctorId + '/clinics/');
+    clinicRef.push(clinic);
+    return this.clinicsData(doctorId);
+  }
+
+  deleteClinicData(clinicId: string, doctorId: string){
+    const clinicRef = this.db.ref('/doctors/' + doctorId + '/clinics/' + clinicId);
+    clinicRef.remove().then(r => console.log(r));
+    return this.clinicsData(doctorId);
+  }
+
+  async updateClinicData(clinic: Clinic, doctorId: string) {
+    const clinicRef = this.db.ref('/doctors/' + doctorId + '/clinics/' + clinic.clinicId);
+    await clinicRef.update(clinic);
+    return this.clinicsData(doctorId);
+  }
+
+  private clinicsData(doctorId: string){
+    return this.db.ref('/doctors/' + doctorId + '/clinics/').once('value').then(snapshot => {
+      const clinics = snapshot.val();
+      const c = [];
+      for (const key in clinics) {
+        if (clinics.hasOwnProperty(key)) {
+          clinics[key].clinicId = key;
+          c.push(clinics[key]);
+        }
+      }
+      return c;
+    });
   }
 }

@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {OnboardingService} from '../onboarding-service';
 import {Clinic, Schedule} from '../../../model/clinic.model';
 import {Doctor} from '../../../model/doctor.model';
+import {NgForm} from '@angular/forms';
 
 
 @Component({
@@ -45,8 +46,11 @@ export class AvailabilityComponent implements OnInit {
     this.doctor = this.onboardingService.getOnboadringDetails();
   }
 
-  next() {
-    if (this.clinic){this.doctor.clinics.push(this.clinic); }
+  next(availabilityForm: NgForm) {
+    if (availabilityForm.invalid){return; }
+    if (this.clinic){
+      this.onboardingService.setClinicData(this.clinic);
+    }
     this.router.navigate(['doctor/onboarding/assistant']);
   }
 
@@ -58,7 +62,7 @@ export class AvailabilityComponent implements OnInit {
     if (this.days.length === 0 || this.slots.length === 0 || this.fromTime === '' || this.toTime === '') {
       return;
     }
-    let schedule = new Schedule();
+    const schedule = new Schedule();
     schedule.availableDays = [];
     this.days.forEach((value) => {
       if (value.isChecked) {

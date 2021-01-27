@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {OnboardingService} from '../onboarding-service';
 import {Doctor} from '../../../model/doctor.model';
 import {Assistant} from '../../../model/assistant.model';
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-assistant-details',
@@ -26,7 +27,8 @@ export class AssistantDetailsComponent implements OnInit {
     this.doctor = this.onboardingService.getOnboadringDetails();
   }
 
-  next() {
+  next(assistantForm: NgForm) {
+    if (assistantForm.invalid){return; }
     /*if (this.email !== '') {
       this.authService.signupAssistant(this.email).then(r => console.log(r));
     }*/ // to send the verified email of assistant role on email.

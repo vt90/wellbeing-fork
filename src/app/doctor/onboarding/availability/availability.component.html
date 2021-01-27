@@ -1,4 +1,5 @@
 <ion-content>
+    <form #availabilityForm="ngForm" (ngSubmit)="next(availabilityForm)">
     <ion-grid>
         <ion-row>
             <ion-col size-md="6" offset-md="3">
@@ -11,7 +12,7 @@
                 <div *ngIf="!clinicSetup" class="btn-container">
                     <ion-button (click)="prev()">Back</ion-button>
                     <ion-button (click)="clinicSetup = true">Now</ion-button>
-                    <ion-button (click)="next()">Later</ion-button>
+                    <ion-button (click)="next(availabilityForm)">Later</ion-button>
                 </div>
 
                 <div *ngIf="clinicSetup">
@@ -32,15 +33,26 @@
                             <ion-item>
                                 <ion-label><strong>Clinic Name</strong></ion-label>
                                 <ion-input type="text"
+                                           name="cName"
                                            placeholder="Clinic or Hospital Name"
+                                           pattern="[a-zA-Z0-9 ]*"
+                                           ngModel #nameCtrl="ngModel"
                                            [(ngModel)]="clinic.name">
                                 </ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="nameCtrl.invalid && (nameCtrl.touched || nameCtrl.dirty)"
+                                      lines="none">
+                                <ion-item *ngIf="nameCtrl.hasError('pattern')">
+                                    <ion-label color="danger"> clinic name is invalid</ion-label>
+                                </ion-item>
                             </ion-item>
 
                             <ion-item>
                                 <ion-label><strong>Address line 1</strong></ion-label>
                                 <ion-input type="text"
                                            placeholder="address line 1"
+                                           name="address1"
+                                           ngModel
                                            [(ngModel)]="clinic.addressLine1">
                                 </ion-input>
                             </ion-item>
@@ -49,6 +61,7 @@
                                 <ion-label><strong>Address line 2</strong></ion-label>
                                 <ion-input type="text"
                                            placeholder="address line 2"
+                                           ngModel name="address2"
                                            [(ngModel)]="clinic.addressLine2">
                                 </ion-input>
                             </ion-item>
@@ -56,39 +69,73 @@
                             <ion-item>
                                 <ion-label><strong>City</strong></ion-label>
                                 <ion-input type="text"
+                                           name="city"
                                            placeholder="City"
-                                           [(ngModel)]="clinic.city">
+                                           pattern="[a-zA-Z ]*"
+                                           [(ngModel)]="clinic.city"
+                                           #cityCtrl="ngModel">
                                 </ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="cityCtrl.invalid && (cityCtrl.touched || cityCtrl.dirty)"
+                                      lines="none">
+                                <ion-item *ngIf="cityCtrl.hasError('pattern')">
+                                    <ion-label color="danger"> City is invalid</ion-label>
+                                </ion-item>
                             </ion-item>
 
                             <ion-item>
-                                <ion-label><strong>State/Provience/Region</strong></ion-label>
+                                <ion-label><strong>State/Province/Region</strong></ion-label>
                                 <ion-input type="text"
+                                           name="state"
                                            placeholder="State"
-                                           [(ngModel)]="clinic.state">
+                                           pattern="[a-zA-Z ]*"
+                                           [(ngModel)]="clinic.state"
+                                           #stateCtrl="ngModel">
                                 </ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="stateCtrl.invalid && (stateCtrl.touched || stateCtrl.dirty)"
+                                      lines="none">
+                                <ion-item *ngIf="stateCtrl.hasError('pattern')">
+                                    <ion-label color="danger"> State is invalid</ion-label>
+                                </ion-item>
                             </ion-item>
 
                             <ion-item>
                                 <ion-label><strong>Zip/Postal code</strong></ion-label>
                                 <ion-input type="number"
-                                           placeholder="Zip Code"
-                                           [(ngModel)]="clinic.zipcode">
+                                           name="code"
+                                           ngModel
+                                           placeholder="zipcode"
+                                           [(ngModel)]="clinic.zipcode"
+                                           pattern="[0-9]{6}" #zipCtrl="ngModel">
                                 </ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="zipCtrl.hasError('pattern')">
+                                <ion-label color="danger">enter 6 digit zip code</ion-label>
                             </ion-item>
 
                             <ion-item>
                                 <ion-label><strong>Country</strong></ion-label>
                                 <ion-input type="text"
+                                           ngModel
                                            placeholder="Country"
-                                           [(ngModel)]="clinic.country">
+                                           name="country"
+                                           pattern="[a-zA-Z ]*"
+                                           [(ngModel)]="clinic.country"
+                                           #countryCtrl="ngModel">
                                 </ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="countryCtrl.invalid && (countryCtrl.touched || countryCtrl.dirty)"
+                                      lines="none">
+                                <ion-item *ngIf="countryCtrl.hasError('pattern')">
+                                    <ion-label color="danger"> Country is invalid</ion-label>
+                                </ion-item>
                             </ion-item>
 
                         </ion-col>
                     </ion-row>
 
-                    <!--AVAILIBILITY BLOCK-->
+                    <!--AVAILABILITY BLOCK-->
                     <ion-row>
                         <ion-col class="subBlocks">
                             <ion-label color="primary"><strong>Availability</strong></ion-label>
@@ -105,14 +152,14 @@
                                 <ion-label><strong>Days</strong></ion-label>
                             </ion-item>
                             <ion-label *ngFor="let d of days">{{d.val}}
-                                <ion-checkbox slot="end" [(ngModel)]="d.isChecked"></ion-checkbox>
+                                <ion-checkbox slot="end" name="days" [(ngModel)]="d.isChecked"></ion-checkbox>
                             </ion-label>
 
                             <ion-item>
                                 <ion-label><strong>Slot per Patient</strong></ion-label>
                             </ion-item>
                             <ion-label *ngFor="let s of slots">{{s.val}} mins
-                                <ion-checkbox slot="end" [(ngModel)]="s.isChecked"
+                                <ion-checkbox slot="end"  name="slot" [(ngModel)]="s.isChecked"
                                               (click)="timeSlotSelection(s.val)"></ion-checkbox>
                             </ion-label>
 
@@ -124,28 +171,37 @@
                                 <ion-label><strong>From</strong></ion-label>
                                 <ion-datetime displayFormat="HH:mm"
                                               placeholder="from"
+                                              name="from"
+                                              minuteValues="0,15,30,45"
                                               [(ngModel)]="fromTime">
                                 </ion-datetime>
                                 <ion-label><strong>To</strong></ion-label>
                                 <ion-datetime displayFormat="HH:mm"
                                               placeholder="to"
+                                              name="to"
+                                              minuteValues="0,15,30,45"
                                               [(ngModel)]="toTime">
                                 </ion-datetime>
                             </ion-item>
                             <ion-item>
                                 <ion-button (click)="addSchedule()">Add Schedule</ion-button>
                             </ion-item>
-                            <ion-label *ngIf="clinic.schedules"><strong>Added Schedule</strong></ion-label>
-                            <ion-item>
-                                <ion-row *ngFor="let sc of clinic.schedules; let i = index">
-                                    <ion-col>
+                            <ion-item *ngIf="clinic.schedules.length !== 0">
+                                <ion-row style="width:100%">
+                                    <ion-label><strong>Added Schedule</strong></ion-label>
+                                </ion-row>
+                            </ion-item>
+                            <ion-item  *ngFor="let sc of clinic.schedules; let i = index">
+                                <ion-row style="background-color:#36abe0;width:100%">
+                                    <ion-col size="6">
                                         {{sc.availableDays}}
                                     </ion-col>
-                                    <ion-col>
+                                    <ion-col size="3">
                                         {{sc.fromTime  }} To {{ sc.toTime}}
                                     </ion-col>
-                                    <ion-col>
-                                        <ion-icon name="remove-circle-sharp" (click)="clinic.schedules.splice(i,1)"></ion-icon>
+                                    <ion-col size="3">
+                                        <ion-icon name="remove-circle-sharp"
+                                                  (click)="clinic.schedules.splice(i,1)"></ion-icon>
                                     </ion-col>
                                 </ion-row>
                             </ion-item>
@@ -165,7 +221,7 @@
                         <ion-col class="subBlocks">
                             <ion-item>
                                 <ion-label><strong>Consultation Fee</strong></ion-label>
-                                <ion-input type="number"
+                                <ion-input type="number" name="cFee"
                                            placeholder="Consultation Fee"
                                            [(ngModel)]="clinic.fee.cFee">
                                 </ion-input>
@@ -174,6 +230,7 @@
                             <ion-item>
                                 <ion-label><strong>Follow up Fee</strong></ion-label>
                                 <ion-input type="number"
+                                           name="fFee"
                                            placeholder="Follow up fee"
                                            [(ngModel)]="clinic.fee.fFee">
                                 </ion-input>
@@ -184,10 +241,11 @@
 
                 <div *ngIf="clinicSetup" class="btn-container">
                     <ion-button (click)="prev()">Back</ion-button>
-                    <ion-button (click)="next()">Next</ion-button>
+                    <ion-button type="submit" [disabled]="availabilityForm.invalid">Next</ion-button>
                 </div>
 
             </ion-col>
         </ion-row>
     </ion-grid>
+    </form>
 </ion-content>

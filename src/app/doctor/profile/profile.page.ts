@@ -3,8 +3,8 @@ import {Doctor} from '../../model/doctor.model';
 import {AuthService} from '../../services/auth.service';
 import {DoctorService} from '../../services/doctor/doctor.service';
 import {Clinic} from '../../model/clinic.model';
-import {ModalController} from '@ionic/angular';
-import {AddClinicComponent} from '../add-clinic/add-clinic.component';
+import {AlertController, ModalController} from '@ionic/angular';
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-profile',
@@ -15,10 +15,11 @@ export class ProfilePage implements OnInit{
   doctor: Doctor = null;
   userId: string;
   clinics: Clinic[];
+  changePassword: boolean;
 
   constructor(private authService: AuthService,
               private doctorService: DoctorService,
-              private modalCtrl: ModalController) {}
+              public alertCtrl: AlertController) {}
 
   ngOnInit() {
     this.userId = this.authService.userID;
@@ -28,13 +29,53 @@ export class ProfilePage implements OnInit{
     });
   }
 
-  addClinic(){
-    this.modalCtrl.create({
-      component: AddClinicComponent,
-    }).then(modalElement => {
-      modalElement.present();
-      return modalElement.onDidDismiss();
+  onProfilePicChange(event: any){
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.onload = (e) => { // called once readAsDataURL is completed
+        this.doctor.profilePic = e.target.result;
+      };
+    }
+  }
+  removeProfilePic(){
+    this.alertCtrl.create({
+      message: 'Do you want to remove Profile Pic?',
+      buttons: [
+        {
+          text: 'Yes',
+          role: 'cancel',
+          handler: () => {
+            this.doctor.profilePic = null;
+          }
+        },
+        {
+          text: 'No',
+          handler: () => {
+            console.log('no change in profile pic');
+          }
+        }
+      ]
+    }).then((alert) => {
+      alert.present();
+      return alert.onDidDismiss();
     });
   }
 
+  newPassword(pwdForm: NgForm){
+    if (pwdForm.invalid){
+      return;
+    }
+    const newPwd = pwdForm.value.nPass;
+    this.authService.changePassword(this.doctor.email, newPwd).then((r) => {
+      console.log(r);
+      this.alertCtrl.create({
+        message: 'Password updated successfully',
+        buttons: ['OK']
+      }).then((alert) => {
+        alert.present();
+        return alert.onDidDismiss();
+      });
+    });
+  }
 }

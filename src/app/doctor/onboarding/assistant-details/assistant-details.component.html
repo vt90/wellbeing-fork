@@ -1,4 +1,5 @@
 <ion-content>
+    <form #assistantForm="ngForm" (ngSubmit)="next(assistantForm)">
     <ion-grid>
         <ion-row>
             <ion-col size-md="6" offset-md="3" class="block-border">
@@ -8,12 +9,28 @@
                     <ion-label>Full Name</ion-label>
                     <ion-input type="text"
                                placeholder="FirstName"
+                               ngModel name="fName"
+                               #fCtrl="ngModel"
+                               pattern="[a-zA-Z]*"
                                [(ngModel)]="assistant.fName">
                     </ion-input>
                     <ion-input type="text"
                                placeholder="LastName"
+                               ngModel name="lName"
+                               #lCtrl="ngModel"
+                               pattern="[a-zA-Z]*"
                                [(ngModel)]="assistant.lName">
                     </ion-input>
+                </ion-item>
+                <ion-item *ngIf="fCtrl.invalid && (fCtrl.touched || fCtrl.dirty)" lines="none">
+                    <ion-item *ngIf="fCtrl.hasError('pattern')">
+                        <ion-label color="danger"> First name is invalid</ion-label>
+                    </ion-item>
+                </ion-item>
+                <ion-item *ngIf="lCtrl.invalid && (lCtrl.touched || lCtrl.dirty)" lines="none">
+                    <ion-item *ngIf="lCtrl.hasError('pattern')">
+                        <ion-label color="danger"> Last name is invalid</ion-label>
+                    </ion-item>
                 </ion-item>
 
                 <ion-item>
@@ -21,17 +38,35 @@
                     <ion-input
                             type="email"
                             placeholder="xyz@domain.com"
+                            ngModel name="emailID"
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                            #emailCtrl="ngModel"
                             [(ngModel)]="assistant.email">
                     </ion-input>
+                </ion-item>
+                <ion-item *ngIf="emailCtrl.invalid && (emailCtrl.touched || emailCtrl.dirty)"
+                          lines="none">
+                    <ion-item *ngIf="emailCtrl.hasError('pattern')">
+                        <ion-label color="danger">email is Invalid</ion-label>
+                    </ion-item>
                 </ion-item>
 
                 <ion-item>
                     <ion-label>Contact Number</ion-label>
                     <ion-input
                             type="number"
+                            name="contact"
                             placeholder="Mobile Number"
+                            ngModel pattern="^\d{10}$"
+                            #contactCtrl="ngModel"
                             [(ngModel)]="assistant.contact">
                     </ion-input>
+                </ion-item>
+                <ion-item *ngIf="contactCtrl.invalid && (contactCtrl.touched || contactCtrl.dirty)"
+                          lines="none">
+                    <ion-item *ngIf="contactCtrl.hasError('pattern')">
+                        <ion-label color="danger">Contact Number is invalid</ion-label>
+                    </ion-item>
                 </ion-item>
                 <ion-item>
                     <ion-label>Gender</ion-label>
@@ -45,7 +80,8 @@
         </ion-row>
         <div class="btn-container">
             <ion-button (click)="prev()">Back</ion-button>
-            <ion-button (click)="next()">Next</ion-button>
+            <ion-button type="submit" [disabled]="assistantForm.invalid">Next</ion-button>
         </div>
     </ion-grid>
+    </form>
 </ion-content>

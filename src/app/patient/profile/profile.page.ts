@@ -47,6 +47,7 @@ export class ProfilePage implements OnInit {
 
   async showAlert(){
     return this.alertCtrl.create({
+      backdropDismiss: false,
       message: 'Profile updated successfully',
       buttons: ['OK']
     }).then((alert) => alert.present());
@@ -60,6 +61,7 @@ export class ProfilePage implements OnInit {
     this.authService.changePassword(this.patient.email, newPwd).then((r) => {
         console.log(r);
         this.alertCtrl.create({
+            backdropDismiss: false,
             message: 'Password updated successfully,please login again',
             buttons: ['OK']
         }).then((alert) => {
@@ -71,6 +73,7 @@ export class ProfilePage implements OnInit {
 
   removeProfilePic(){
     this.alertCtrl.create({
+      backdropDismiss: false,
       message: 'Do you want to remove Profile Pic?',
       buttons: [
         {

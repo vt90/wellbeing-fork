@@ -33,7 +33,7 @@ export class DoctorDetailsComponent implements OnInit {
         const month = new Date().getMonth();
         const day = new Date().getDate();
         this.minDate = new Date(currentYear, month, day);
-        this.maxDate = new Date(currentYear, 1, 15);
+        this.maxDate = new Date(currentYear, 1, 10);
     }
 
     ngOnInit() {
@@ -54,6 +54,7 @@ export class DoctorDetailsComponent implements OnInit {
 
     close() {
         this.alertCtrl.create({
+            backdropDismiss: false,
             message: 'Are you sure to close the appointment window?',
             buttons: [
                 {
@@ -68,7 +69,7 @@ export class DoctorDetailsComponent implements OnInit {
                     handler: () => {
                     }
                 }
-            ]
+            ],
         }).then((alert) => {
             alert.present();
             return alert.onDidDismiss();

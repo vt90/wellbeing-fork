@@ -10,7 +10,7 @@
                     </ion-col>
                     <ion-col>
                         <ion-label *ngIf="clinicIndex === 0 && clinics.length>1" (click)="showMoreClinics()"
-                                   style="text-decoration: underline">1 more clinic
+                                   style="text-decoration: underline">{{clinics[1].name}}
                         </ion-label>
                         <ion-label *ngIf="clinicIndex!==0" (click)="clinicIndex = 0"
                                    style="text-decoration: underline">{{clinics[0].name}}

@@ -42,6 +42,7 @@ export class ProfilePage implements OnInit {
 
     removeProfilePic() {
         this.alertCtrl.create({
+            backdropDismiss: false,
             message: 'Do you want to remove Profile Pic?',
             buttons: [
                 {
@@ -72,6 +73,7 @@ export class ProfilePage implements OnInit {
         this.authService.changePassword(this.doctor.email, newPwd).then(() => {
             console.log();
             this.alertCtrl.create({
+                backdropDismiss: false,
                 message: 'Password updated successfully',
                 buttons: ['OK']
             }).then((alert) => {
@@ -87,6 +89,7 @@ export class ProfilePage implements OnInit {
         }
         this.doctorService.addDoctor(this.doctor, this.userId);
         return this.alertCtrl.create({
+            backdropDismiss: false,
             message: 'Profile updated successfully',
             buttons: ['OK']
         }).then((alert) => alert.present());

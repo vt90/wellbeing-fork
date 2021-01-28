@@ -59,10 +59,19 @@
                         </mat-radio-group>
                     </ion-col>
                 </ion-row>
-                <ion-row class="ion-justify-content-center" *ngIf="showAppointmentSlots">
+                <ion-row class="ion-justify-content-center" *ngIf="showAppointmentSlots && !updatedAppointmentSlots">
                     <ion-col size="3" *ngFor="let t of timeslot.get(clinics[clinicIndex].clinicId).get(day)">
-                        <ion-button [class.selectedTimeSlot]="appointment.time===t.slot"
-                                    (click)="appointment.time=t.slot; t.isBooked = true"
+                        <ion-button [ngClass]="appointment.time===t.slot ?'selectedTimeSlot' : ''"
+                                    (click)="appointment.time=t.slot;appointment.time===t.slot? t.isBooked = true : t.isBooked = false"
+                                    [disabled]="t.isBooked">
+                            <ion-label>{{t.slot}}</ion-label>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="ion-justify-content-center" *ngIf="showAppointmentSlots && updatedAppointmentSlots">
+                    <ion-col size="3" *ngFor="let t of updatedTimeslots">
+                        <ion-button [ngClass]="appointment.time===t.slot ?'selectedTimeSlot' : ''"
+                                    (click)="appointment.time=t.slot;appointment.time===t.slot? t.isBooked = true : t.isBooked = false"
                                     [disabled]="t.isBooked">
                             <ion-label>{{t.slot}}</ion-label>
                         </ion-button>

@@ -4,27 +4,41 @@ import {Appointment} from '../../model/appointment.model';
 import * as firebase from 'firebase';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
+
 export class AppointmentService {
-  private db: firebase.database.Database;
+    private db: firebase.database.Database;
 
-  constructor(private adb: AngularFireDatabase) {
-    this.db = adb.database;
-  }
+    constructor(private adb: AngularFireDatabase) {
+        this.db = adb.database;
+    }
 
-  async addNewAppointment(appointment: Appointment): Promise<Appointment>{
-    const snapshot = await this.db.ref('/Appointments/').push(appointment).once('value');
-    return snapshot.val();
-  }
+    addPatientAppointment(appointment: Appointment) {
+        const timestamp = appointment.date.getTime();
+        // tslint:disable-next-line:max-line-length
+        return this.db.ref('/patient-appointment/' + appointment.patientId + '/' + timestamp).push(appointment).once('value').then(snapshot => {
+            return snapshot.val();
+        });
+    }
 
-  updateAppointmentAvailability(cId: string, date: Date, timeslots: any[]){
-    console.log({date, timeslots});
-    this.db.ref('/Availability/' + cId + '/' + date).set(timeslots).then(r => r);
-  }
-  addAppointment(appointment: Appointment){
-    this.db.ref('/doctor-appointment/').push(appointment).once('value').then(() => {
-      this.db.ref('/patient-appointment/').push(appointment);
-    });
-  }
+    addDoctorAppointment(appointment: Appointment) {
+        const timestamp = appointment.date.getTime();
+        // tslint:disable-next-line:max-line-length
+        return this.db.ref('/doctor-appointment/' + appointment.doctorId + '/' + timestamp).push(appointment).once('value').then(snapshot => {
+            return snapshot.val();
+        });
+    }
+
+    getAppointmentAvailability(date: Date, doctorId: string) {
+        const timestamp = date.getTime();
+        return this.db.ref('/doctor-appointment/' + doctorId + '/' + timestamp + '/timeslots').once('value').then(snapshot => {
+            return snapshot.val();
+        });
+    }
+
+    updateAppointmentAvailability(appointment: Appointment, timeslots: any[]) {
+        const timestamp = appointment.date.getTime();
+        this.db.ref('/doctor-appointment/' + appointment.doctorId + '/' + timestamp).update({timeslots}).then(r => r);
+    }
 }

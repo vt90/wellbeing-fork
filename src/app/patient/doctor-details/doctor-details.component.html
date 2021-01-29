@@ -61,7 +61,7 @@
                 </ion-row>
                 <ion-row class="ion-justify-content-center" *ngIf="showAppointmentSlots">
                     <ion-col size="3" *ngFor="let t of updatedTimeslots">
-                        <ion-button (click)="appointment.time=t.slot;t.isBooked = true"
+                        <ion-button (click)="appointment.time=t.slot"
                                     [disabled]="t.isBooked"
                                     [ngClass]="appointment.time===t.slot ?'selectedTimeSlot' : ''">
                             {{t.slot}}

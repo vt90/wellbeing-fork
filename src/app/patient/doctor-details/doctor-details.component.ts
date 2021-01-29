@@ -158,6 +158,7 @@ export class DoctorDetailsComponent implements OnInit {
     }
 
     bookAppointment() {
+        this.markSlotBooked();
         this.appointmentService.addDoctorAppointment(this.appointment).then(() => {
             this.alertCtrl.create({
                 backdropDismiss: false,
@@ -180,5 +181,13 @@ export class DoctorDetailsComponent implements OnInit {
         for (let i = 1; i < this.clinics.length; i++) {
             this.clinicIndex = 1;
         }
+    }
+
+    markSlotBooked() {
+        this.updatedTimeslots.forEach(t => {
+            if (t.slot === this.appointment.time) {
+                t.isBooked = true;
+            }
+        });
     }
 }

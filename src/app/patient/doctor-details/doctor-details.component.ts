@@ -24,7 +24,6 @@ export class DoctorDetailsComponent implements OnInit {
     showAppointmentSlots = false;
     clinicIndex = 0;
     appointment: Appointment;
-    updatedAppointmentSlots = false;
     updatedTimeslots: any[];
 
     constructor(private modalCtrl: ModalController,
@@ -143,12 +142,10 @@ export class DoctorDetailsComponent implements OnInit {
                 this.appointment.time = undefined;
             } else {
                 this.appointmentService.getAppointmentAvailability(this.appointmentDate, this.doc.id).then(t => {
-                    if (t){
-                        this.updatedAppointmentSlots = true;
+                    if (t) {
                         this.updatedTimeslots = t;
-                    }
-                    else{
-                        this.updatedAppointmentSlots = false;
+                    } else {
+                        this.updatedTimeslots = this.timeslot.get(c.clinicId).get(this.day);
                     }
                 });
                 this.showAppointmentSlots = true;
@@ -175,15 +172,12 @@ export class DoctorDetailsComponent implements OnInit {
                 return alert.onDidDismiss();
             });
         }).then(() => {
-            if (!this.updatedAppointmentSlots){
-                this.updatedTimeslots = this.timeslot.get(this.appointment.clinicId).get(this.day);
-            }
             this.appointmentService.updateAppointmentAvailability(this.appointment, this.updatedTimeslots);
         });
     }
 
-    showMoreClinics(){
-        for ( let i = 1; i < this.clinics.length; i++){
+    showMoreClinics() {
+        for (let i = 1; i < this.clinics.length; i++) {
             this.clinicIndex = 1;
         }
     }

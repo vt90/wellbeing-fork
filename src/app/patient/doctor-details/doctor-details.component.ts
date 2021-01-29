@@ -163,6 +163,7 @@ export class DoctorDetailsComponent implements OnInit {
     bookAppointment() {
         this.appointmentService.addDoctorAppointment(this.appointment).then(() => {
             this.alertCtrl.create({
+                backdropDismiss: false,
                 message: 'Appointment Booked!!!!',
                 buttons: ['OK']
             }).then((alert) => {

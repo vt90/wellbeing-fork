@@ -1,11 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
 import {DoctorOnboardingService} from '../../../services/doctor/doctor-onboarding-service';
-import {Clinic, Schedule} from '../../../model/clinic.model';
+import {Clinic, Fee, Schedule} from '../../../model/clinic.model';
 import {Doctor} from '../../../model/doctor.model';
 import {NgForm} from '@angular/forms';
+import {Address} from '../../../model/address.model';
+import {AuthService} from '../../../services/auth.service';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -13,7 +16,7 @@ import {NgForm} from '@angular/forms';
   templateUrl: './availability.component.html',
   styleUrls: ['./availability.component.scss'],
 })
-export class AvailabilityComponent implements OnInit {
+export class AvailabilityComponent implements OnInit, OnDestroy {
   showClinic = true;
   showAvail = false;
   showFee = false;
@@ -22,6 +25,7 @@ export class AvailabilityComponent implements OnInit {
   toTime: string;
   doctor: Doctor;
   clinic: Clinic;
+  sub: Subscription;
 
   days = [{val: 'Monday', isChecked: false},
     {val: 'Tuesday', isChecked: false},
@@ -38,12 +42,33 @@ export class AvailabilityComponent implements OnInit {
 
   constructor(private datePipe: DatePipe,
               private router: Router,
-              public onboardingService: DoctorOnboardingService) {
+              private authService: AuthService,
+              private onboardingService: DoctorOnboardingService) {
     this.clinic = new  Clinic();
+    this.clinic.address = new Address();
+    this.clinic.schedules = [];
+    this.clinic.fee = new Fee();
   }
 
   ngOnInit() {
-    this.doctor = this.onboardingService.getCurrentDoctor();
+    this.doctor = Doctor.fromUser(this.authService.user);
+    this.sub = this.onboardingService.getCurrentDoctor().subscribe(d => {
+      if (!!d) {
+        this.doctor = d;
+        if (!this.doctor.address) {
+          this.doctor.address = new Address();
+        }
+        console.log('PracticeInfo:', d);
+      } else {
+        this.onboardingService.setDoctor(this.doctor);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (!!this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   next(availabilityForm: NgForm) {
@@ -51,7 +76,7 @@ export class AvailabilityComponent implements OnInit {
     if (this.clinic){
       this.onboardingService.setClinicData(this.clinic);
     }
-    this.router.navigate(['doctor/onboarding/assistant']);
+    this.router.navigate(['doctor/onboarding/termsConditions']);
   }
 
   prev() {
@@ -102,4 +127,10 @@ export class AvailabilityComponent implements OnInit {
   }
 
 
+  doSetup() {
+    this.clinicSetup = true;
+    if (!this.doctor.clinics) {
+      this.doctor.clinics = [];
+    }
+  }
 }

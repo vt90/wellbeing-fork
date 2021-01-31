@@ -11,7 +11,7 @@
 
                 <div *ngIf="!clinicSetup" class="btn-container">
                     <ion-button (click)="prev()">Back</ion-button>
-                    <ion-button (click)="clinicSetup = true">Now</ion-button>
+                    <ion-button (click)="doSetup()">Now</ion-button>
                     <ion-button (click)="next(availabilityForm)">Later</ion-button>
                 </div>
 
@@ -53,7 +53,7 @@
                                            placeholder="address line 1"
                                            name="address1"
                                            ngModel
-                                           [(ngModel)]="clinic.addressLine1">
+                                           [(ngModel)]="clinic.address.addressLine1">
                                 </ion-input>
                             </ion-item>
 
@@ -62,7 +62,7 @@
                                 <ion-input type="text"
                                            placeholder="address line 2"
                                            ngModel name="address2"
-                                           [(ngModel)]="clinic.addressLine2">
+                                           [(ngModel)]="clinic.address.addressLine2">
                                 </ion-input>
                             </ion-item>
 
@@ -72,7 +72,7 @@
                                            name="city"
                                            placeholder="City"
                                            pattern="[a-zA-Z ]*"
-                                           [(ngModel)]="clinic.city"
+                                           [(ngModel)]="clinic.address.city"
                                            #cityCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -89,7 +89,7 @@
                                            name="state"
                                            placeholder="State"
                                            pattern="[a-zA-Z ]*"
-                                           [(ngModel)]="clinic.state"
+                                           [(ngModel)]="clinic.address.state"
                                            #stateCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -106,7 +106,7 @@
                                            name="code"
                                            ngModel
                                            placeholder="zipcode"
-                                           [(ngModel)]="clinic.zipcode"
+                                           [(ngModel)]="clinic.address.zipcode"
                                            pattern="[0-9]{6}" #zipCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -121,7 +121,7 @@
                                            placeholder="Country"
                                            name="country"
                                            pattern="[a-zA-Z ]*"
-                                           [(ngModel)]="clinic.country"
+                                           [(ngModel)]="clinic.address.country"
                                            #countryCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -223,7 +223,7 @@
                                 <ion-label><strong>Consultation Fee</strong></ion-label>
                                 <ion-input type="number" name="cFee"
                                            placeholder="Consultation Fee"
-                                           [(ngModel)]="clinic.fee.cFee">
+                                           [(ngModel)]="clinic.fee.consultationFee">
                                 </ion-input>
                             </ion-item>
 
@@ -232,7 +232,7 @@
                                 <ion-input type="number"
                                            name="fFee"
                                            placeholder="Follow up fee"
-                                           [(ngModel)]="clinic.fee.fFee">
+                                           [(ngModel)]="clinic.fee.followUpFee">
                                 </ion-input>
                             </ion-item>
                         </ion-col>

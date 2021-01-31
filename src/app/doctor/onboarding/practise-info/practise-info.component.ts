@@ -23,6 +23,8 @@ export class PractiseInfoComponent implements OnInit, OnDestroy {
   doctor: Doctor;
   noSubspecData = true;
   sub: Subscription;
+  private uploadFile: File = null;
+  uploadCert = true;
 
   constructor(private translate: TranslateService,
               private router: Router,
@@ -38,6 +40,9 @@ export class PractiseInfoComponent implements OnInit, OnDestroy {
         this.doctor = d;
         if (!this.doctor.address) {
           this.doctor.address = new Address();
+        }
+        if (this.doctor.certificate) {
+          this.uploadCert = false;
         }
         console.log('PracticeInfo:', d);
       } else {
@@ -62,6 +67,7 @@ export class PractiseInfoComponent implements OnInit, OnDestroy {
       return;
     }
     this.onboardingService.setDoctor(this.doctor);
+    this.onboardingService.setCertFile(this.uploadFile);
     this.router.navigate(['doctor/onboarding/availability']);
   }
 
@@ -94,5 +100,11 @@ export class PractiseInfoComponent implements OnInit, OnDestroy {
       }
     }
     this.specializations = specs;
+  }
+
+  setUploadFile(files: any) {
+    this.uploadFile = files.item(0);
+    this.doctor.certificate = this.uploadFile.name;
+    this.uploadCert = false;
   }
 }

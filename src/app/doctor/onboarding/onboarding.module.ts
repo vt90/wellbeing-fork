@@ -8,7 +8,6 @@ import {OnboardingPageRoutingModule} from './onboarding-routing.module';
 
 import {OnboardingPage} from './onboarding.page';
 import {BasicInfoComponent} from './basic-info/basic-info.component';
-import {AssistantDetailsComponent} from './assistant-details/assistant-details.component';
 import {AvailabilityComponent} from './availability/availability.component';
 
 import {TermsAndConditionsComponent} from './terms-and-conditions/terms-and-conditions.component';
@@ -36,7 +35,6 @@ import {DoctorService} from '../../services/doctor/doctor.service';
   ],
   declarations: [OnboardingPage,
     BasicInfoComponent,
-    AssistantDetailsComponent,
     AvailabilityComponent,
     PractiseInfoComponent,
     TermsAndConditionsComponent],

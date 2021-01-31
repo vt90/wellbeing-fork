@@ -19,7 +19,7 @@ export class DoctorPage implements OnInit {
 
   ngOnInit() {
     const id = this.authService.userID;
-    this.doctorService.getDoctorById(id).then(doctor => {
+    this.doctorService.getDoctorOrAssistantById(id).then(doctor => {
       this.doctor = doctor;
     });
   }

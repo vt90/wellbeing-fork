@@ -16,8 +16,7 @@ export class OnboardingPage implements OnInit {
       {label: 'Step 1', routerLink: '/doctor/onboarding/basic'},
       {label: 'Step 2', routerLink: '/doctor/onboarding/practise'},
       {label: 'Step 3', routerLink: '/doctor/onboarding/availability'},
-      {label: 'Step 4', routerLink: '/doctor/onboarding/assistant'},
-      {label: 'Step 5', routerLink: '/doctor/onboarding/termsConditions'}
+      {label: 'Step 4', routerLink: '/doctor/onboarding/termsConditions'}
     ];
   }
 }

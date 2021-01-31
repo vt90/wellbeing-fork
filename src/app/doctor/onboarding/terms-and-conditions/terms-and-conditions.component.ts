@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {OnboardingService} from '../onboarding-service';
+import {DoctorOnboardingService} from '../../../services/doctor/doctor-onboarding-service';
 import {Doctor} from '../../../model/doctor.model';
-import {AuthService} from "../../../services/auth.service";
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-terms-and-conditions',
@@ -15,9 +15,9 @@ export class TermsAndConditionsComponent implements OnInit{
   doctorId: string;
 
   constructor(private router: Router,
-              public onboardingService: OnboardingService,
+              public onboardingService: DoctorOnboardingService,
               private authService: AuthService) {
-    this.doctor = this.onboardingService.getOnboadringDetails();
+    this.doctor = this.onboardingService.getCurrentDoctor();
   }
 
   ngOnInit() {
@@ -28,6 +28,6 @@ export class TermsAndConditionsComponent implements OnInit{
     this.router.navigate(['doctor/onboarding/assistant']);
   }
   save(){
-    this.onboardingService.setOnboardingDetails(this.onboardingService.doctor, this.doctorId);
+    this.onboardingService.saveDoctorToDB();
   }
 }

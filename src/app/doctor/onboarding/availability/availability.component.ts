@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
-import {OnboardingService} from '../onboarding-service';
+import {DoctorOnboardingService} from '../../../services/doctor/doctor-onboarding-service';
 import {Clinic, Schedule} from '../../../model/clinic.model';
 import {Doctor} from '../../../model/doctor.model';
 import {NgForm} from '@angular/forms';
@@ -38,12 +38,12 @@ export class AvailabilityComponent implements OnInit {
 
   constructor(private datePipe: DatePipe,
               private router: Router,
-              public onboardingService: OnboardingService) {
+              public onboardingService: DoctorOnboardingService) {
     this.clinic = new  Clinic();
   }
 
   ngOnInit() {
-    this.doctor = this.onboardingService.getOnboadringDetails();
+    this.doctor = this.onboardingService.getCurrentDoctor();
   }
 
   next(availabilityForm: NgForm) {

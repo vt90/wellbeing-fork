@@ -1,37 +1,18 @@
 import {BaseUser} from './base-user';
-import {Address} from './address.interface';
-import { Clinic } from './clinic.model';
-import {Assistant} from './assistant.model';
+import {AuthUser} from './auth-user.model';
 
-export class Doctor implements BaseUser, Address{
-    id: string;
-    email: string;
-    fName: string;
-    lName: string;
-    dateOfBirth: string;
+export class Doctor extends BaseUser {
     registrationId: string;
-    gender: string;
     verified: boolean;
-    addressLine1: string;
-    addressLine2: string;
-    zipcode: number;
-    city: string;
-    state: string;
-    country: string;
-    mobile: number;
-    clinics: Clinic[] = [];
-    assistants: Assistant[] = [];
+    clinics: string[];
+    patients: string[];
+    assistants: string[];
     specialization: string;
     subspecialization: string;
     experience: string;
     documents: any;
-    termsAndConditions: boolean;
-    profilePic: any;
-}
 
-// to come: but these are not arrays but rather again objects. mapped to realtime db.
-    // clinics: string[];
-    // labs: string[];
-    // assistants: string[];
-    // appointments: string[];
-    // patients: string[];
+    public static fromUser(user: AuthUser) {
+        return new Doctor(user.id, user.email, user.role);
+    }
+}

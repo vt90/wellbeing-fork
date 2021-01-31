@@ -12,14 +12,14 @@
                                ngModel name="fName"
                                #fCtrl="ngModel"
                                pattern="[a-zA-Z]*"
-                               [(ngModel)]="assistant.fName">
+                               [(ngModel)]="assistant.firstName">
                     </ion-input>
                     <ion-input type="text"
                                placeholder="LastName"
                                ngModel name="lName"
                                #lCtrl="ngModel"
                                pattern="[a-zA-Z]*"
-                               [(ngModel)]="assistant.lName">
+                               [(ngModel)]="assistant.lastName">
                     </ion-input>
                 </ion-item>
                 <ion-item *ngIf="fCtrl.invalid && (fCtrl.touched || fCtrl.dirty)" lines="none">
@@ -59,7 +59,7 @@
                             placeholder="Mobile Number"
                             ngModel pattern="^\d{10}$"
                             #contactCtrl="ngModel"
-                            [(ngModel)]="assistant.contact">
+                            [(ngModel)]="assistant.address.mobile">
                     </ion-input>
                 </ion-item>
                 <ion-item *ngIf="contactCtrl.invalid && (contactCtrl.touched || contactCtrl.dirty)"

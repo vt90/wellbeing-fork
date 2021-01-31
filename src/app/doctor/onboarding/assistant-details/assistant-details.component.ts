@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Storage} from '@ionic/storage';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
-import {OnboardingService} from '../onboarding-service';
+import {DoctorOnboardingService} from '../../../services/doctor/doctor-onboarding-service';
 import {Doctor} from '../../../model/doctor.model';
 import {Assistant} from '../../../model/assistant.model';
-import {NgForm} from "@angular/forms";
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-assistant-details',
@@ -18,21 +18,19 @@ export class AssistantDetailsComponent implements OnInit {
 
   constructor(private storage: Storage,
               private authService: AuthService,
-              public onboardingService: OnboardingService,
+              public onboardingService: DoctorOnboardingService,
               private router: Router) {
   }
 
   ngOnInit() {
     this.assistant = new Assistant();
-    this.doctor = this.onboardingService.getOnboadringDetails();
+    this.doctor = this.onboardingService.getCurrentDoctor();
   }
 
   next(assistantForm: NgForm) {
     if (assistantForm.invalid){return; }
-    /*if (this.email !== '') {
-      this.authService.signupAssistant(this.email).then(r => console.log(r));
-    }*/ // to send the verified email of assistant role on email.
-    if (this.assistant){this.doctor.assistants.push(this.assistant); }
+    // TODO create a new user!!
+    // if (this.assistant){this.doctor.assistants.push(this.assistant); }
     this.router.navigate(['doctor/onboarding/termsConditions']);
   }
 

@@ -1,9 +1,6 @@
 class Appointment{
     date: number;
-    time: number;
-    name: string;
-    dateOfBirth: number;
-    confirmed: boolean = false;
+    confirmed: boolean;
     clinic: string;
     type: string;
 }

@@ -4,10 +4,11 @@ import {Router} from '@angular/router';
 import {AlertController, LoadingController} from '@ionic/angular';
 import {NgForm} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
-import {BackendError, SuperadminBreak} from '../services/auth-backend';
+import {BackendError, SuperadminBreak} from '../services/auth-exceptions';
 import {TranslateService} from '@ngx-translate/core';
 import {PatientService} from '../services/patient/patient.service';
-import {DoctorService} from "../services/doctor/doctor.service";
+import {DoctorService} from '../services/doctor/doctor.service';
+import {Role, AuthUser} from '../model/auth-user.model';
 
 @Component({
   selector: 'app-auth',
@@ -17,7 +18,8 @@ import {DoctorService} from "../services/doctor/doctor.service";
 export class AuthPage {
   isLoading = false;
   isLogin = true;
-  role = 'patient';
+  role: Role = 'patient';
+  wrongPassword = false;
   private EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND';
   private EMAIL_NOT_FOUND2 = 'auth/user-not-found';
   private WRONG_PASSWORD = 'INVALID_PASSWORD';
@@ -32,13 +34,12 @@ export class AuthPage {
   private TOO_MANY_ATTEMPTS_TRY_LATER2 = 'auth/too-many-requests';
   private USER_DEACTIVATED = 'USER_DEACTIVATED';
   private email: string;
-  wrongPassword = false;
 
   constructor(private authService: AuthService,
               private router: Router,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
-              private translate: TranslateService,
+              public translate: TranslateService,
               private patientService: PatientService,
               private doctorService: DoctorService
   ) {
@@ -53,30 +54,33 @@ export class AuthPage {
     const password = loginForm.value.pass;
     this.isLoading = true;
     this.email = email;
+    let loadingElement: any;
 
     this.loadingCtrl
       .create({keyboardClose: true, message: 'Logging in...'})
       .then(el => {
-        el.present().then();
-        this.authService.login(email, password).then((user) => {
-          this.manageNavigation(user.role, user.id);
+        loadingElement = el;
+        return el.present();
+      })
+      .then(() => {
+        return this.authService.login(email, password);
+      })
+      .then((user: AuthUser) => {
+        return this.toDashboardOrOnboarding(user.role, user.id);
+      })
+      .then(() => {
+        this.loginSuccess(loginForm);
+        return loadingElement.dismiss().then();
+      })
+      .catch(err => {
+        if (err instanceof SuperadminBreak) {
+          this.router.navigateByUrl('/admin').then();
           this.loginSuccess(loginForm);
-        })
-          .catch(error => {
-            if (error instanceof SuperadminBreak) {
-              this.router.navigateByUrl('/admin').then();
-              this.loginSuccess(loginForm);
-            } else {
-              this.showAlert(error).then();
-            }
-          });
-        el.dismiss().then();
+        } else {
+          loadingElement.dismiss().then();
+          this.showAlert(err).then();
+        }
       });
-  }
-
-  private loginSuccess(loginForm: NgForm) {
-    this.isLoading = false;
-    loginForm.resetForm();
   }
 
   onRegister(loginform: NgForm) {
@@ -96,10 +100,12 @@ export class AuthPage {
         return el.present();
       }).then(() => {
       // this fails by design, we want the user to validate the mail and log in again
-      if (this.role === 'doctor' || this.role === 'assistant') {
+      if (this.role === 'doctor') {
         return this.authService.signupDoctor(email, password);
       } else if (this.role === 'patient') {
         return this.authService.signupPatient(email, password);
+      } else {
+        return this.authService.signupAssistant(email, password);
       }
     }).then()
       .catch(error => {
@@ -116,7 +122,20 @@ export class AuthPage {
     this.isLogin = !this.isLogin;
   }
 
-  private  async showAlert(error) {
+  onChangeRole(event) {
+    this.role = event.value;
+  }
+
+  resetPassword(email: string) {
+    this.authService.passwordReset(email);
+  }
+
+  private loginSuccess(loginForm: NgForm) {
+    this.isLoading = false;
+    loginForm.resetForm();
+  }
+
+  private async showAlert(error) {
     console.log(error, typeof error);
     let errorMessage: string;
     let email: string;
@@ -195,36 +214,25 @@ export class AuthPage {
     });
   }
 
-  onChangeRole(event) {
-    this.role = event.value;
-  }
-
-  resetPassword(email: string) {
-    this.authService.passwordReset(email);
-  }
-
-  private manageNavigation(role: string, userid: string){
+  private toDashboardOrOnboarding(role: string, userid: string) {
     if (role === 'patient') {
-      this.patientService.getPatientById(userid).then(
+      return this.patientService.getPatientById(userid).then(
         patient => {
           if (patient === null) {
-            this.router.navigate(['patient/onboarding']);
-          }
-          else{
-            this.router.navigate(['patient']);
-          }
-        });
-    }
-    if (role === 'doctor') {
-      this.doctorService.getDoctorById(userid).then(
-        doctor => {
-          if (doctor === null){
-            this.router.navigate(['doctor/onboarding']);
-          }
-          else{
-            this.router.navigate(['doctor']);
+            return this.router.navigate(['patient/onboarding']);
+          } else {
+            return this.router.navigate(['patient']);
           }
         });
     }
+    // the role is assistant or doctor
+    return this.doctorService.getDoctorOrAssistantById(userid).then(
+      doctor => {
+        if (doctor === null) {
+          return this.router.navigate(['doctor/onboarding']);
+        } else {
+          return this.router.navigate(['doctor']);
+        }
+      });
   }
 }

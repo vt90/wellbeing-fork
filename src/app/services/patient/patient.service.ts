@@ -42,6 +42,7 @@ export class PatientService {
     });
   }
 
+  // TODO THIS DOES NOT BELONG HERE
   async retrieveDoctors(){
     let doctor: Doctor[];
     return this.db.ref('/doctors/').once('value').then(snapshot => {

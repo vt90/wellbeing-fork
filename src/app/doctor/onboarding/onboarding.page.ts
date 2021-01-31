@@ -1,18 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MenuItem} from 'primeng/api';
-import {OnboardingService} from './onboarding-service';
-import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-onboarding',
   templateUrl: './onboarding.page.html',
   styleUrls: ['./onboarding.page.scss'],
 })
-export class OnboardingPage implements OnInit, OnDestroy {
+export class OnboardingPage implements OnInit {
   steps: MenuItem[];
-  subscription: Subscription;
 
-  constructor(public onboardingService: OnboardingService) {}
+  constructor() {}
 
   ngOnInit() {
     this.steps = [
@@ -22,14 +19,5 @@ export class OnboardingPage implements OnInit, OnDestroy {
       {label: 'Step 4', routerLink: '/doctor/onboarding/assistant'},
       {label: 'Step 5', routerLink: '/doctor/onboarding/termsConditions'}
     ];
-    this.subscription = this.onboardingService.stepsComplete$.subscribe((doctorName) => {
-      console.log(doctorName + 'onboarding process completed');
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
   }
 }

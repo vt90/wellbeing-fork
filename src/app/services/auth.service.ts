@@ -4,14 +4,14 @@
  */
 
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {Router} from '@angular/router';
-import {User} from '../model/user.model';
-import {FirebaseBackend} from './firebase-backend';
+import {AuthUser} from '../model/auth-user.model';
+import {AuthBackend} from './auth-backend';
 import {Storage} from '@ionic/storage';
-import {SuperadminBreak} from './auth-backend';
+import {SuperadminBreak} from './auth-exceptions';
 
 /**
  * Authentication Service for the Ionic App.
@@ -25,25 +25,22 @@ export class AuthService {
   private static StorageString = 'WBuserData';
 
   private _fbuser = new BehaviorSubject<any>(null);
-  private _user = new BehaviorSubject<User>(null);
-  private _backend: FirebaseBackend;
+  private _user = new BehaviorSubject<AuthUser>(null);
+  private _backend: AuthBackend;
 
   constructor(private auth: AngularFireAuth,
               private adb: AngularFireDatabase,
               private router: Router,
               private storage: Storage) {
-    this._backend = new FirebaseBackend(auth, adb);
+    this._backend = new AuthBackend(auth, adb);
     this._backend.user.subscribe(u => {
       // this is called also on refresh by AngularFireAuth.
       // if the user is not null, we need to get the rest of the data from local storage.
       this._fbuser.next(u);
       if (!!u) {
-        this.storage.get(AuthService.StorageString).then(data => {
-          if (!!data) {
-            this._user.next(User.fromDBAndStorage(u, data));
-          }
+        AuthUser.fromDB(u).then(usr => {
+          this._user.next(usr);
         });
-        // }
       } else {
         this.router.navigateByUrl('/auth').then();
       }
@@ -53,8 +50,8 @@ export class AuthService {
   /**
    * Return the current User object
    */
-  get user(): Observable<User> {
-    return this._user.asObservable();
+  get user(): AuthUser {
+    return this._user.getValue();
   }
 
   get userIsAuthenticated() {
@@ -73,7 +70,7 @@ export class AuthService {
     return  this._user.getValue().email;
   }
 
-  async login(email: string, password: string): Promise<User> {
+  async login(email: string, password: string): Promise<AuthUser> {
     return this._backend.login(email, password).then(u => {
       this.setUser(u);
       return u;
@@ -94,6 +91,10 @@ export class AuthService {
     return this._backend.signupDoctor(email, password);
   }
 
+  signupAssistant(email: string, password: string) {
+    return this._backend.signupAssistant(email, password);
+  }
+
   logout(): void {
     this._backend.logout();
     this.storage.remove(AuthService.StorageString).then();
@@ -101,18 +102,12 @@ export class AuthService {
     // cancel listeners in other services here!
   }
 
-  // store the data that is not part of authz
-  public setUser(newUser: User): void {
+  public setUser(newUser: AuthUser): void {
     this._user.next(newUser);
-    this.storage.set(AuthService.StorageString, newUser.toStorageString()).then();
   }
 
   passwordReset(email: string) {
     return this._backend.passwordReset(email);
-  }
-
-  signupAssistant(email: string) {
-    return this._backend.signUpAssistant(email);
   }
 
   changePassword(email: string, newPwd: string){

@@ -1,5 +1,4 @@
-import {Address} from './address.interface';
-// import {Schedule} from '../doctor/onboarding/availability/schedule';
+import {Address} from './address.model';
 
 export class Schedule{
     availableDays: string[];
@@ -7,21 +6,17 @@ export class Schedule{
     toTime: string;
     slotPerPatient: number;
 }
-export class Fee{
-    cFee = 0;
-    fFee = 0;
+
+export class Fee {
+    consultationFee: number;
+    followUpFee: number;
 }
-export class Clinic implements Address{
+
+export class Clinic {
     clinicId: string;
     name: string;
     doctors: string[];
-    addressLine1: string;
-    addressLine2: string;
-    city: string;
-    country: string;
-    mobile: number;
-    state: string;
-    zipcode: number;
-    schedules: Schedule[] = [];
-    fee: Fee = new Fee();
+    address: Address;
+    schedules: Schedule[];
+    fee: Fee;
 }

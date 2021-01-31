@@ -12,9 +12,6 @@ import {AuthService} from './services/auth.service';
 })
 export class AppComponent {
   role: string;
-  isPatient = false;
-  isDoctor = false;
-  isAssistant = false;
 
   constructor(
     private platform: Platform,
@@ -23,22 +20,6 @@ export class AppComponent {
     private authService: AuthService
   ) {
     this.initializeApp();
-    this.authService.user.subscribe(u => {
-      if (u) {
-        this.role = u.role;
-        if (u.role === 'patient') {
-          this.isPatient = true;
-          this.isDoctor = false;
-        } else if (u.role === 'doctor') {
-          this.isDoctor = true;
-          this.isPatient = false;
-        } else if (u.role === 'assistant') {
-          this.isAssistant = true;
-          this.isDoctor = false;
-          this.isPatient = false;
-        }
-      }
-    });
   }
 
   initializeApp() {

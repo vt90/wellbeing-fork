@@ -1,15 +1,16 @@
 import {BaseUser} from './base-user';
 import {AuthUser} from './auth-user.model';
+import {Clinic} from './clinic.model';
 
 export class Doctor extends BaseUser {
     registrationId: string;
     verified: boolean;
-    clinics?: string[];
+    clinics: Clinic[];
     patients: string[];
-    assistants?: string[];
     specialization: string;
     subspecialization: string;
     experience: string;
+    about?: string;
     certificate: string;
     documents: any;
 

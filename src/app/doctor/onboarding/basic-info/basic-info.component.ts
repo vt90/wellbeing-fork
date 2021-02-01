@@ -6,6 +6,7 @@ import {Doctor} from '../../../model/doctor.model';
 import {Subscription} from 'rxjs';
 import {Address} from '../../../model/address.model';
 import {AuthService} from '../../../services/auth.service';
+import {Clinic} from '../../../model/clinic.model';
 
 
 @Component({
@@ -28,8 +29,10 @@ export class BasicInfoComponent implements OnInit, OnDestroy {
     this.sub = this.onboardingService.getCurrentDoctor().subscribe(d => {
       if (!!d) {
         this.doctor = d;
-        if (!this.doctor.address) {
-          this.doctor.address = new Address();
+        if (!this.doctor.clinics) {
+          this.doctor.clinics = [];
+          this.doctor.clinics.push(new Clinic());
+          this.doctor.clinics[0].address = new Address();
         }
         console.log('BasicInfo:', d);
       } else {

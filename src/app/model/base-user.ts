@@ -7,7 +7,6 @@ export class BaseUser extends AuthUser {
   lastName: string;
   dateOfBirth: string;
   gender: string;
-  address: Address;
   termsAndConditionsAcceptedAt: string;
   profilePic: any;
 }

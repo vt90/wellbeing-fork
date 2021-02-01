@@ -7,16 +7,14 @@ export class Schedule{
     slotPerPatient: number;
 }
 
-export class Fee {
-    consultationFee: number;
-    followUpFee: number;
-}
 
 export class Clinic {
     clinicId: string;
+    assistants?: string[];
     name: string;
     doctors: string[];
     address: Address;
     schedules: Schedule[];
-    fee: Fee;
+    consultationFee: number;
+    followUpFee: number;
 }

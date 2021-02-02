@@ -38,9 +38,6 @@ export class PractiseInfoComponent implements OnInit, OnDestroy {
     this.sub = this.onboardingService.getCurrentDoctor().subscribe(d => {
       if (!!d) {
         this.doctor = d;
-        if (!this.doctor.address) {
-          this.doctor.address = new Address();
-        }
         if (this.doctor.certificate) {
           this.uploadCert = false;
         }

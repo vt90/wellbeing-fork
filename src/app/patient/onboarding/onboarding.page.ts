@@ -25,9 +25,10 @@ export class OnboardingPage implements OnInit {
 
   ngOnInit() {
     this.patientId = this.authService.userID;
-    this.patient = new Patient();
     this.patient.email = this.authService.emailId;
+    this.patient = Patient.fromUser(this.authService.user);
   }
+
 
   save(basicForm: NgForm) {
     if (!basicForm.valid) {

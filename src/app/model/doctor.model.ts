@@ -13,6 +13,7 @@ export class Doctor extends BaseUser {
     about?: string;
     certificate: string;
     documents: any;
+    mobile: number;
 
     public static fromUser(user: AuthUser) {
         return new Doctor(user.id, user.email, user.role);

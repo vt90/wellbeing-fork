@@ -37,7 +37,7 @@
                                            placeholder="Clinic or Hospital Name"
                                            pattern="[a-zA-Z0-9 ]*"
                                            ngModel #nameCtrl="ngModel"
-                                           [(ngModel)]="clinic.name">
+                                           [(ngModel)]="this.doctor.clinics[0].name">
                                 </ion-input>
                             </ion-item>
                             <ion-item *ngIf="nameCtrl.invalid && (nameCtrl.touched || nameCtrl.dirty)"
@@ -53,7 +53,7 @@
                                            placeholder="address line 1"
                                            name="address1"
                                            ngModel
-                                           [(ngModel)]="clinic.address.addressLine1">
+                                           [(ngModel)]="this.doctor.clinics[0].address.addressLine1">
                                 </ion-input>
                             </ion-item>
 
@@ -62,7 +62,7 @@
                                 <ion-input type="text"
                                            placeholder="address line 2"
                                            ngModel name="address2"
-                                           [(ngModel)]="clinic.address.addressLine2">
+                                           [(ngModel)]="this.doctor.clinics[0].address.addressLine2">
                                 </ion-input>
                             </ion-item>
 
@@ -72,7 +72,7 @@
                                            name="city"
                                            placeholder="City"
                                            pattern="[a-zA-Z ]*"
-                                           [(ngModel)]="clinic.address.city"
+                                           [(ngModel)]="this.doctor.clinics[0].address.city"
                                            #cityCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -89,7 +89,7 @@
                                            name="state"
                                            placeholder="State"
                                            pattern="[a-zA-Z ]*"
-                                           [(ngModel)]="clinic.address.state"
+                                           [(ngModel)]="this.doctor.clinics[0].address.state"
                                            #stateCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -106,7 +106,7 @@
                                            name="code"
                                            ngModel
                                            placeholder="zipcode"
-                                           [(ngModel)]="clinic.address.zipcode"
+                                           [(ngModel)]="this.doctor.clinics[0].address.zipcode"
                                            pattern="[0-9]{6}" #zipCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -121,7 +121,7 @@
                                            placeholder="Country"
                                            name="country"
                                            pattern="[a-zA-Z ]*"
-                                           [(ngModel)]="clinic.address.country"
+                                           [(ngModel)]="this.doctor.clinics[0].address.country"
                                            #countryCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -186,12 +186,12 @@
                             <ion-item>
                                 <ion-button (click)="addSchedule()">Add Schedule</ion-button>
                             </ion-item>
-                            <ion-item *ngIf="clinic.schedules.length !== 0">
+                            <ion-item *ngIf="this.doctor.clinics[0].schedules.length !== 0">
                                 <ion-row style="width:100%">
                                     <ion-label><strong>Added Schedule</strong></ion-label>
                                 </ion-row>
                             </ion-item>
-                            <ion-item  *ngFor="let sc of clinic.schedules; let i = index">
+                            <ion-item  *ngFor="let sc of this.doctor.clinics[0].schedules; let i = index">
                                 <ion-row style="background-color:#36abe0;width:100%">
                                     <ion-col size="6">
                                         {{sc.availableDays}}
@@ -201,7 +201,7 @@
                                     </ion-col>
                                     <ion-col size="3">
                                         <ion-icon name="remove-circle-sharp"
-                                                  (click)="clinic.schedules.splice(i,1)"></ion-icon>
+                                                  (click)="this.doctor.clinics[0].schedules.splice(i,1)"></ion-icon>
                                     </ion-col>
                                 </ion-row>
                             </ion-item>
@@ -223,7 +223,7 @@
                                 <ion-label><strong>Consultation Fee</strong></ion-label>
                                 <ion-input type="number" name="cFee"
                                            placeholder="Consultation Fee"
-                                           [(ngModel)]="clinic.fee.consultationFee">
+                                           [(ngModel)]="this.doctor.clinics[0].consultationFee">
                                 </ion-input>
                             </ion-item>
 
@@ -232,7 +232,7 @@
                                 <ion-input type="number"
                                            name="fFee"
                                            placeholder="Follow up fee"
-                                           [(ngModel)]="clinic.fee.followUpFee">
+                                           [(ngModel)]="this.doctor.clinics[0].followUpFee">
                                 </ion-input>
                             </ion-item>
                         </ion-col>

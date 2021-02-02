@@ -3,7 +3,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
 import {DoctorOnboardingService} from '../../../services/doctor/doctor-onboarding-service';
-import {Clinic, Fee, Schedule} from '../../../model/clinic.model';
+import {Clinic, Schedule} from '../../../model/clinic.model';
 import {Doctor} from '../../../model/doctor.model';
 import {NgForm} from '@angular/forms';
 import {Address} from '../../../model/address.model';
@@ -44,10 +44,9 @@ export class AvailabilityComponent implements OnInit, OnDestroy {
               private router: Router,
               private authService: AuthService,
               private onboardingService: DoctorOnboardingService) {
-    this.clinic = new  Clinic();
+    /*this.clinic = new  Clinic();
     this.clinic.address = new Address();
-    this.clinic.schedules = [];
-    this.clinic.fee = new Fee();
+    this.clinic.schedules = [];*/
   }
 
   ngOnInit() {
@@ -55,11 +54,15 @@ export class AvailabilityComponent implements OnInit, OnDestroy {
     this.sub = this.onboardingService.getCurrentDoctor().subscribe(d => {
       if (!!d) {
         this.doctor = d;
-        if (!this.doctor.address) {
-          this.doctor.address = new Address();
-        }
-        console.log('PracticeInfo:', d);
-      } else {
+        console.log('Availability Info:', d);
+      }
+      if (!this.doctor.clinics) {
+        this.doctor.clinics = [];
+        this.doctor.clinics.push(new Clinic());
+        this.doctor.clinics[0].address = new Address();
+        this.doctor.clinics[0].schedules = [];
+      }
+      else {
         this.onboardingService.setDoctor(this.doctor);
       }
     });
@@ -101,7 +104,7 @@ export class AvailabilityComponent implements OnInit, OnDestroy {
     });
     schedule.fromTime = this.datePipe.transform(this.fromTime, 'HH:mm');
     schedule.toTime = this.datePipe.transform(this.toTime, 'HH:mm');
-    this.clinic.schedules.push(schedule);
+    this.doctor.clinics[0].schedules.push(schedule);
     this.clearSchedule();
   }
 

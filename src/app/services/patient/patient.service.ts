@@ -42,9 +42,10 @@ export class PatientService {
     });
   }
 
+  // TODO THIS DOES NOT BELONG HERE
   async retrieveDoctors(){
     let doctor: Doctor[];
-    return this.db.ref('/demoDoctors/').once('value').then(snapshot => {
+    return this.db.ref('/doctors/').once('value').then(snapshot => {
         doctor = snapshot.val();
         return doctor;
     });

@@ -24,7 +24,7 @@
                     </ion-item>
 
                     <ion-item>
-                        <ion-label><strong>Full Name</strong></ion-label>
+                        <ion-label class="asterisk"><strong>Full Name</strong></ion-label>
                         <ion-input type="text"
                                    ngModel
                                    name="fName"
@@ -32,7 +32,7 @@
                                    pattern="[a-zA-Z]*"
                                    placeholder="FirstName"
                                    #nameCtrl="ngModel"
-                                   [(ngModel)]="doctor.fName">
+                                   [(ngModel)]="doctor.firstName">
                         </ion-input>
                         <ion-input type="text"
                                    ngModel
@@ -41,7 +41,7 @@
                                    pattern="[a-zA-Z]*"
                                    placeholder="LastName"
                                    #lnameCtrl="ngModel"
-                                   [(ngModel)]="doctor.lName">
+                                   [(ngModel)]="doctor.lastName">
                         </ion-input>
                     </ion-item>
                     <ion-item *ngIf="nameCtrl.invalid && (nameCtrl.touched || nameCtrl.dirty)" lines="none">
@@ -61,38 +61,49 @@
                         </ion-item>
                     </ion-item>
                     <ion-item>
-                        <ion-label><strong>Date of Birth</strong></ion-label>
-                        <ion-datetime displayFormat="MMMM DD, YYYY"
-                                      ngModel
-                                      name="dob"
-                                      required
-                                      [(ngModel)]="doctor.dateOfBirth"
-                                      placeholder="Birth Date">
-                        </ion-datetime>
+                        <ion-label class="asterisk"><strong>Date of Birth</strong></ion-label>
+                        <label><input [(ngModel)]="doctor.dateOfBirth"
+                                      type="date" name="bDate"
+                                      ngModel required>
+                        </label>
                     </ion-item>
 
                     <ion-item>
-                        <ion-label><strong>Gender </strong></ion-label>
-                        <ion-select ngModel
-                                    name="gender"
-                                    required
-                                    [(ngModel)]="doctor.gender"
-                                    placeholder="Gender">
-                            <ion-select-option value="m">Male</ion-select-option>
-                            <ion-select-option value="f">Female</ion-select-option>
-                        </ion-select>
+                        <ion-label class="asterisk"><strong>Gender </strong></ion-label>
+                        <ion-item>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender"
+                                       [(ngModel)]="doctor.gender" value="m" required
+                                       #gender="ngModel">Male
+                            </label>
+                        </ion-item>
+                        <ion-item>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender"
+                                       [(ngModel)]="doctor.gender" value="f" required>Female
+                            </label>
+                        </ion-item>
+                        <ion-item>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender"
+                                       [(ngModel)]="doctor.gender" value="o" required>Other
+                            </label>
+                        </ion-item>
+                    </ion-item>
+                    <ion-item *ngIf="gender.invalid && (gender.touched || gender.dirty)" lines="none">
+                    <ion-item *ngIf="gender.errors?.required">
+                        <ion-label color="danger"> Gender Selection required</ion-label>
+                    </ion-item>
                     </ion-item>
 
-
                     <ion-item>
-                        <ion-label><strong>Contact Number</strong></ion-label>
+                        <ion-label class="asterisk"><strong>Contact Number</strong></ion-label>
                         <ion-input type="number"
                                    ngModel
                                    name="contact"
                                    required
                                    placeholder="Mobile Number"
                                    [(ngModel)]="doctor.mobile"
-                                   pattern="[0-9]{10}"
                                    #contactCtrl="ngModel">
                         </ion-input>
                     </ion-item>

@@ -17,11 +17,11 @@ export class AppointmentService {
 
       type: appointment.type,
       date: appointment.date,
-      time: appointment.time,
+     // time: appointment.time,
       confirmed: appointment.confirmed,
-      name: appointment.name,
+      // name: appointment.name,
       clinic: appointment.clinic,
-      dateOfBirth: appointment.dateOfBirth,
+      // dateOfBirth: appointment.dateOfBirth,
     });
   }
 }

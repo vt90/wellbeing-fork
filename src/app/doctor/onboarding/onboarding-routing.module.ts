@@ -6,7 +6,6 @@ import {BasicInfoComponent} from './basic-info/basic-info.component';
 import {PractiseInfoComponent} from './practise-info/practise-info.component';
 import {AvailabilityComponent} from './availability/availability.component';
 import {TermsAndConditionsComponent} from './terms-and-conditions/terms-and-conditions.component';
-import {AssistantDetailsComponent} from './assistant-details/assistant-details.component';
 
 const routes: Routes = [
   {
@@ -15,7 +14,6 @@ const routes: Routes = [
       {path: 'basic', component: BasicInfoComponent},
       {path: 'practise', component: PractiseInfoComponent},
       {path: 'availability', component: AvailabilityComponent},
-      {path: 'assistant', component: AssistantDetailsComponent},
       {path: 'termsConditions', component: TermsAndConditionsComponent}
     ]
   }];

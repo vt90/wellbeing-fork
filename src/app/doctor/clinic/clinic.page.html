@@ -64,7 +64,7 @@
                         <ion-col class="subBlocks">
 
                             <ion-item>
-                                <ion-label><strong>Clinic Name</strong></ion-label>
+                                <ion-label class="asterisk"><strong>Clinic Name</strong></ion-label>
                                 <ion-input type="text"
                                            required
                                            name="cName"
@@ -85,7 +85,7 @@
                                 </ion-item>
                             </ion-item>
                             <ion-item>
-                                <ion-label><strong>Address line 1</strong></ion-label>
+                                <ion-label class="asterisk"><strong>Address line 1</strong></ion-label>
                                 <ion-input type="text"
                                            ngModel
                                            required
@@ -103,7 +103,7 @@
                             </ion-item>
 
                             <ion-item>
-                                <ion-label><strong>Address line 2</strong></ion-label>
+                                <ion-label class="asterisk"><strong>Address line 2</strong></ion-label>
                                 <ion-input type="text"
                                            ngModel
                                            required
@@ -121,7 +121,7 @@
                             </ion-item>
 
                             <ion-item>
-                                <ion-label><strong>City</strong></ion-label>
+                                <ion-label class="asterisk"><strong>City</strong></ion-label>
                                 <ion-input type="text"
                                            ngModel
                                            required
@@ -143,7 +143,7 @@
                             </ion-item>
 
                             <ion-item>
-                                <ion-label><strong>State/Province/Region</strong></ion-label>
+                                <ion-label class="asterisk"><strong>State/Province/Region</strong></ion-label>
                                 <ion-input type="text"
                                            ngModel
                                            required
@@ -165,7 +165,7 @@
                             </ion-item>
 
                             <ion-item>
-                                <ion-label><strong>Zip/Postal code</strong></ion-label>
+                                <ion-label class="asterisk"><strong>Zip/Postal code</strong></ion-label>
                                 <ion-input type="number"
                                            placeholder="Zip Code"
                                            ngModel
@@ -180,7 +180,7 @@
                             </ion-item>
 
                             <ion-item>
-                                <ion-label><strong>Country</strong></ion-label>
+                                <ion-label class="asterisk"><strong>Country</strong></ion-label>
                                 <ion-input type="text"
                                            placeholder="Country"
                                            ngModel
@@ -216,66 +216,72 @@
 
                     <ion-row *ngIf="showAvail">
                         <ion-col class="subBlocks">
-                            <ion-label><strong>Add multiple Schedule </strong></ion-label>
-                            <ion-item>
-                                <ion-label><strong>Days</strong></ion-label>
-                            </ion-item>
-                            <ion-label *ngFor="let d of days">{{d.val}}
-                                <ion-checkbox slot="end" name="days" [(ngModel)]="d.isChecked">
-                                </ion-checkbox>
-                            </ion-label>
+                            <form #scheduleForm="ngForm" (ngSubmit)="addSchedule()">
+                                <ion-label><strong>Add multiple Schedule </strong></ion-label>
+                                <ion-item>
+                                    <ion-label class="asterisk"><strong>Days</strong></ion-label>
+                                </ion-item>
+                                <ion-label *ngFor="let d of days">{{d.val}}
+                                    <ion-checkbox slot="end" name="days" [(ngModel)]="d.isChecked">
+                                    </ion-checkbox>
+                                </ion-label>
 
 
-                            <ion-item>
-                                <ion-label><strong>Slot per Patient</strong></ion-label>
-                            </ion-item>
-                            <ion-label *ngFor="let s of slots">{{s.val}} mins
-                                <ion-checkbox slot="end" name="slot" [(ngModel)]="s.isChecked"
-                                              (click)="timeSlotSelection(s.val)">
-                                </ion-checkbox>
-                            </ion-label>
+                                <ion-item>
+                                    <ion-label class="asterisk"><strong>Slot per Patient</strong></ion-label>
+                                </ion-item>
+                                <ion-label *ngFor="let s of slots">{{s.val}} mins
+                                    <ion-checkbox slot="end" name="slot" [(ngModel)]="s.isChecked"
+                                                  (click)="timeSlotSelection(s.val)">
+                                    </ion-checkbox>
+                                </ion-label>
 
-                            <ion-item>
-                                <ion-label><strong>Shift Timing</strong></ion-label>
-                            </ion-item>
-                            <ion-item>
-                                <ion-label><strong>From</strong></ion-label>
-                                <ion-datetime displayFormat="HH:mm"
-                                              placeholder="from"
-                                              name="from"
-                                              minuteValues="0,15,30,45"
-                                              [(ngModel)]="fromTime">
-                                </ion-datetime>
-                                <ion-label><strong>To</strong></ion-label>
-                                <ion-datetime displayFormat="HH:mm"
-                                              placeholder="to"
-                                              name="to"
-                                              minuteValues="0,15,30,45"
-                                              [(ngModel)]="toTime">
-                                </ion-datetime>
-                            </ion-item>
-                            <ion-item>
-                                <ion-button (click)="addSchedule()">Add Schedule</ion-button>
-                            </ion-item>
-                            <ion-item *ngIf="clinic.schedules.length !== 0">
-                                <ion-row style="width:100%">
-                                    <ion-label><strong>Added Schedule</strong></ion-label>
-                                </ion-row>
-                            </ion-item>
-                            <ion-item  *ngFor="let sc of clinic.schedules; let i = index">
-                                <ion-row style="background-color:#4c8dff;width:100%">
-                                    <ion-col size="6">
-                                        {{sc.availableDays}}
-                                    </ion-col>
-                                    <ion-col size="3">
-                                        {{sc.fromTime  }} To {{ sc.toTime}}
-                                    </ion-col>
-                                    <ion-col size="auto">
-                                        <ion-icon name="remove-circle-sharp"
-                                                  (click)="clinic.schedules.splice(i,1)"></ion-icon>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-item>
+                                <ion-item>
+                                    <ion-label><strong>Shift Timing</strong></ion-label>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label class="asterisk"><strong>From</strong></ion-label>
+                                    <ion-datetime displayFormat="HH:mm"
+                                                  placeholder="from"
+                                                  name="from"
+                                                  ngModel required
+                                                  minuteValues="0,15,30,45"
+                                                  [(ngModel)]="fromTime">
+                                    </ion-datetime>
+                                    <ion-label class="asterisk"><strong>To</strong></ion-label>
+                                    <ion-datetime displayFormat="HH:mm"
+                                                  placeholder="to"
+                                                  name="to"
+                                                  ngModel required
+                                                  minuteValues="0,15,30,45"
+                                                  [(ngModel)]="toTime">
+                                    </ion-datetime>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-button type="submit" [disabled]="scheduleForm.invalid">Add Schedule
+                                    </ion-button>
+                                </ion-item>
+
+                                <ion-item *ngIf="clinic.schedules.length !== 0">
+                                    <ion-row style="width:100%">
+                                        <ion-label><strong>Added Schedule</strong></ion-label>
+                                    </ion-row>
+                                </ion-item>
+                                <ion-item *ngFor="let sc of clinic.schedules; let i = index">
+                                    <ion-row style="background-color:#4c8dff;width:100%">
+                                        <ion-col size="6">
+                                            {{sc.availableDays}}
+                                        </ion-col>
+                                        <ion-col size="3">
+                                            {{sc.fromTime  }} To {{ sc.toTime}}
+                                        </ion-col>
+                                        <ion-col size="auto">
+                                            <ion-icon name="remove-circle-sharp"
+                                                      (click)="clinic.schedules.splice(i,1)"></ion-icon>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-item>
+                            </form>
                         </ion-col>
                     </ion-row>
 

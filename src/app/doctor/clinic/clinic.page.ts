@@ -47,7 +47,7 @@ export class ClinicPage implements OnInit {
 
     ngOnInit() {
         this.userId = this.authService.userID;
-        this.doctorService.getDoctorById(this.userId).then(doctor => {
+        this.doctorService.getDoctorOrAssistantById(this.userId).then(doctor => {
             this.doctor = doctor;
             console.log(doctor.clinics);
             if (doctor.clinics){

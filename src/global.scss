@@ -82,3 +82,9 @@ ion-content{
 ion-toolbar{
     --background: #048bc1 !important;
 }
+
+ion-label.asterisk::after {
+    content: " *";
+    font-size: larger;
+    color: red;
+}

@@ -1,4 +1,4 @@
-class Appointment{
+export class Appointment{
     date: number;
     confirmed: boolean;
     clinic: string;

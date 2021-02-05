@@ -7,7 +7,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {Doctor} from '../model/doctor.model';
 import {ModalController} from '@ionic/angular';
 import {DoctorDetailsComponent} from './doctor-details/doctor-details.component';
-import moment from 'moment/moment';
 
 
 @Component({
@@ -29,8 +28,6 @@ export class PatientPage implements OnInit {
                 private patientService: PatientService,
                 private translate: TranslateService,
                 private modalCtrl: ModalController) {
-        const timeStops = this.getTimeStops('11:00', '15:00', 30);
-        console.log('timeStops ', timeStops);
     }
 
     onLogout() {
@@ -41,8 +38,8 @@ export class PatientPage implements OnInit {
     ngOnInit() {
         const id = this.authService.userID;
         this.patientService.getPatientById(id).then(patient => {
-            console.log(patient);
             this.patient = patient;
+            // this.patient.patientId = id;
         });
         this.patientService.retrieveSpecializations().then(specs => {
             this.specializationsFromDB = specs;
@@ -85,6 +82,7 @@ export class PatientPage implements OnInit {
         for (const key in this.doctors) {
             if (this.doctors.hasOwnProperty(key)) {
                 if (this.doctors[key].specialization === this.specialization) {
+                    this.doctors[key].id = key;
                     docs.push(this.doctors[key]);
                 }
             }
@@ -95,31 +93,10 @@ export class PatientPage implements OnInit {
     showAppointmentDetails(d: Doctor) {
         this.modalCtrl.create({
             component: DoctorDetailsComponent,
-            componentProps: {doc: d}
+            // componentProps: {doc: d, pId: this.patient.patientId}
         }).then(modalElement => {
             modalElement.present();
             return modalElement.onDidDismiss();
         });
     }
-
-    doctorAppointmentSlots(startTime: string, endTime: string, interval: string) {
-
-    }
-
-    getTimeStops(start, end, slot) {
-        const startTime = moment(start, 'HH:mm');
-        const endTime = moment(end, 'HH:mm');
-        if (endTime.isBefore(startTime)) {
-            endTime.add(1, 'day');
-        }
-        const timeStops = [];
-
-        while (startTime <= endTime) {
-            // @ts-ignore
-            timeStops.push(new moment(startTime).format('HH:mm'));
-            startTime.add(slot, 'minutes');
-        }
-        return timeStops;
-    }
-
 }

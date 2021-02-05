@@ -32,7 +32,7 @@
                                    pattern="[a-zA-Z]*"
                                    placeholder="FirstName"
                                    #nameCtrl="ngModel"
-                                   [(ngModel)]="doctor.fName">
+                                   [(ngModel)]="doctor.firstName">
                         </ion-input>
                         <ion-input type="text"
                                    ngModel
@@ -41,7 +41,7 @@
                                    pattern="[a-zA-Z]*"
                                    placeholder="LastName"
                                    #lnameCtrl="ngModel"
-                                   [(ngModel)]="doctor.lName">
+                                   [(ngModel)]="doctor.lastName">
                         </ion-input>
                     </ion-item>
                     <ion-item *ngIf="nameCtrl.invalid && (nameCtrl.touched || nameCtrl.dirty)" lines="none">
@@ -104,7 +104,6 @@
                                    required
                                    placeholder="Mobile Number"
                                    [(ngModel)]="doctor.mobile"
-                                   pattern="[0-9]{10}"
                                    #contactCtrl="ngModel">
                         </ion-input>
                     </ion-item>

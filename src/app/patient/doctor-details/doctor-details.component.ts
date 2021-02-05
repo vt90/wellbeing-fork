@@ -139,7 +139,7 @@ export class DoctorDetailsComponent implements OnInit {
                 this.dateInvalidMessage = 'Please Select valid date';
                 this.appointmentDate = null;
                 this.showAppointmentSlots = false;
-                this.appointment.time = undefined;
+               // this.appointment.time = undefined;
             } else {
                 this.appointmentService.getAppointmentAvailability(this.appointmentDate, this.doc.id).then(t => {
                     if (t) {
@@ -149,17 +149,17 @@ export class DoctorDetailsComponent implements OnInit {
                     }
                 });
                 this.showAppointmentSlots = true;
-                this.appointment.date = this.appointmentDate;
+                /*this.appointment.date = this.appointmentDate;
                 this.appointment.clinicId = c.clinicId;
                 this.appointment.doctorId = this.doc.id;
-                this.appointment.patientId = this.pId;
+                this.appointment.patientId = this.pId;*/
             }
         }
     }
 
     bookAppointment() {
         this.markSlotBooked();
-        this.appointmentService.addDoctorAppointment(this.appointment).then(() => {
+        /*this.appointmentService.addDoctorAppointment(this.appointment).then(() => {
             this.alertCtrl.create({
                 backdropDismiss: false,
                 message: 'Appointment Booked!!!!',
@@ -174,7 +174,7 @@ export class DoctorDetailsComponent implements OnInit {
             });
         }).then(() => {
             this.appointmentService.updateAppointmentAvailability(this.appointment, this.updatedTimeslots);
-        });
+        });*/
     }
 
     showMoreClinics() {
@@ -185,9 +185,9 @@ export class DoctorDetailsComponent implements OnInit {
 
     markSlotBooked() {
         this.updatedTimeslots.forEach(t => {
-            if (t.slot === this.appointment.time) {
+           /* if (t.slot === this.appointment.time) {
                 t.isBooked = true;
-            }
+            }*/
         });
     }
 }

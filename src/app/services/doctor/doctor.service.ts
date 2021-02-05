@@ -23,17 +23,21 @@ export class DoctorService {
     });
   }
 
-  addDoctor(doctor: Doctor, doctorId: string){
-    this.db.ref(`doctors/` + doctorId).set(doctor, (error) => {
+  addDoctor(doctor: Doctor){
+    const docID = doctor.id.repeat(1); // deep copy
+    delete doctor.id;
+    delete doctor.email;
+    delete doctor.role;
+    this.db.ref(`doctors/` + docID).set(doctor, (error) => {
       if (error) {
-        // The write failed...
+        console.log(error);
       } else {
         console.log('Data saved successfully');
       }
     }).then(() => console.log());
   }
 
-  async getDoctorById(doctorId: string) {
+  async getDoctorOrAssistantById(doctorId: string) {
     let doctor: Doctor;
     return this.db.ref('/doctors/' + doctorId).once('value').then(
         (snapshot) => {

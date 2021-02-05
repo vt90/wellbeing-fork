@@ -1,11 +1,6 @@
 export class Appointment{
+    date: number;
+    confirmed: boolean;
+    clinic: string;
     type: string;
-    date: Date;
-    time: string;
-    confirmed = false;
-    cancelled = false;
-    ifCancelledReason: string;
-    clinicId: string;
-    patientId: string;
-    doctorId: string;
 }

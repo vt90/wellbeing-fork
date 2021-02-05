@@ -15,19 +15,19 @@ export class AppointmentService {
     }
 
     addPatientAppointment(appointment: Appointment) {
-        const timestamp = appointment.date.getTime();
+        // const timestamp = appointment.date.getTime();
         // tslint:disable-next-line:max-line-length
-        return this.db.ref('/patient-appointment/' + appointment.patientId + '/' + timestamp).push(appointment).once('value').then(snapshot => {
+        /*return this.db.ref('/patient-appointment/' + appointment.patientId + '/' + timestamp).push(appointment).once('value').then(snapshot => {
             return snapshot.val();
-        });
+        });*/
     }
 
     addDoctorAppointment(appointment: Appointment) {
-        const timestamp = appointment.date.getTime();
+       // const timestamp = appointment.date.getTime();
         // tslint:disable-next-line:max-line-length
-        return this.db.ref('/doctor-appointment/' + appointment.doctorId + '/' + timestamp).push(appointment).once('value').then(snapshot => {
+         /*return this.db.ref('/doctor-appointment/' + appointment.doctorId + '/' + timestamp).push(appointment).once('value').then(snapshot => {
             return snapshot.val();
-        });
+        });*/
     }
 
     getAppointmentAvailability(date: Date, doctorId: string) {
@@ -38,7 +38,7 @@ export class AppointmentService {
     }
 
     updateAppointmentAvailability(appointment: Appointment, timeslots: any[]) {
-        const timestamp = appointment.date.getTime();
-        this.db.ref('/doctor-appointment/' + appointment.doctorId + '/' + timestamp).update({timeslots}).then(r => r);
+        // const timestamp = appointment.date.getTime();
+        // this.db.ref('/doctor-appointment/' + appointment.doctorId + '/' + timestamp).update({timeslots}).then(r => r);
     }
 }

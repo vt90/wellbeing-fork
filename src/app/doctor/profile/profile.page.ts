@@ -5,6 +5,7 @@ import {DoctorService} from '../../services/doctor/doctor.service';
 import {Clinic} from '../../model/clinic.model';
 import {AlertController} from '@ionic/angular';
 import {NgForm} from '@angular/forms';
+import {BehaviorSubject} from "rxjs";
 
 @Component({
     selector: 'app-profile',
@@ -24,7 +25,7 @@ export class ProfilePage implements OnInit {
 
     ngOnInit() {
         this.userId = this.authService.userID;
-        this.doctorService.getDoctorById(this.userId).then(doctor => {
+        this.doctorService.getDoctorOrAssistantById(this.userId).then(doctor => {
             this.doctor = doctor;
             this.clinics = doctor.clinics;
         });
@@ -87,7 +88,7 @@ export class ProfilePage implements OnInit {
         if (profileForm.invalid) {
             return;
         }
-        this.doctorService.addDoctor(this.doctor, this.userId);
+        this.doctorService.addDoctor(this.doctor);
         return this.alertCtrl.create({
             backdropDismiss: false,
             message: 'Profile updated successfully',

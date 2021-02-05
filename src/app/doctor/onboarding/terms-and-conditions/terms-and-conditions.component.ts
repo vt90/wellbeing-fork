@@ -1,33 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {OnboardingService} from '../onboarding-service';
-import {Doctor} from '../../../model/doctor.model';
-import {AuthService} from "../../../services/auth.service";
+import {DoctorOnboardingService} from '../../../services/doctor/doctor-onboarding-service';
 
 @Component({
   selector: 'app-terms-and-conditions',
   templateUrl: './terms-and-conditions.component.html',
   styleUrls: ['./terms-and-conditions.component.scss'],
 })
-export class TermsAndConditionsComponent implements OnInit{
+export class TermsAndConditionsComponent {
   isChecked: boolean;
-  doctor: Doctor;
-  doctorId: string;
+  termsAndConditions: boolean;
 
   constructor(private router: Router,
-              public onboardingService: OnboardingService,
-              private authService: AuthService) {
-    this.doctor = this.onboardingService.getOnboadringDetails();
-  }
-
-  ngOnInit() {
-     this.doctorId = this.authService.userID;
+              public onboardingService: DoctorOnboardingService) {
   }
 
   prev() {
-    this.router.navigate(['doctor/onboarding/assistant']);
+    this.router.navigate(['doctor/onboarding/availability']);
   }
   save(){
-    this.onboardingService.setOnboardingDetails(this.onboardingService.doctor, this.doctorId);
+    this.onboardingService.saveDoctorToDB(Date.now().toString());
   }
 }

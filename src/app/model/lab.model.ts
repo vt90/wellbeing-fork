@@ -1,4 +1,4 @@
-import {Address} from './address.interface';
+import {Address} from './address.model';
 
 class Lab{
     labId: string;

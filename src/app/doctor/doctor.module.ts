@@ -6,6 +6,8 @@ import {DoctorRoutingModule} from './doctor-routing.module';
 import {AddAppointmentComponent} from './appointment/add-appointment/add-appointment.component';
 import {DoctorPage} from './doctor.page';
 import {DoctorService} from '../services/doctor/doctor.service';
+import {HomePageModule} from '../home/home.module';
+import {CalendarModule} from 'ion2-calendar';
 
 
 @NgModule({
@@ -16,6 +18,8 @@ import {DoctorService} from '../services/doctor/doctor.service';
     ReactiveFormsModule,
     IonicModule,
     DoctorRoutingModule,
+    HomePageModule,
+    CalendarModule,
   ],
   exports: [DoctorPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

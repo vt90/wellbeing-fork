@@ -1,128 +1,130 @@
 <ion-content>
-    <form #practiseForm="ngForm" (ngSubmit)="next(practiseForm)">
+  <form #practiseForm="ngForm" (ngSubmit)="next(practiseForm)">
     <ion-grid>
-        <ion-row>
-            <ion-col size-md="6" offset-md="3" class="block-border">
-                <ion-title class="ion-text-center">
-                    <strong>Practise Information </strong>
-                </ion-title>
+      <ion-row>
+        <ion-col size-md="6" offset-md="3" class="block-border">
+          <ion-title class="ion-text-center">
+            <strong>Practise Information </strong>
+          </ion-title>
 
-                <ion-item>
-                    <ion-label class="asterisk"><strong>Specializations</strong></ion-label>
-                    <ion-select ngModel
-                                name = "spec"
-                                required
-                                [(ngModel)]="doctor.specialization"
-                                (ngModelChange)="onSpecChange(doctor.specialization); doctor.subspecialization = ''"
-                                placeholder="specialization">
-                        <ion-select-option *ngIf="doctor.specialization" [value]="doctor.specialization">
-                            {{doctor.specialization}}
-                        </ion-select-option>
-                        <ion-select-option *ngFor="let s of specializations" [value]="s">
-                            {{s}}
-                        </ion-select-option>
-                    </ion-select>
-                </ion-item>
+          <ion-item>
+            <ion-label class="asterisk"><strong>Specializations</strong></ion-label>
+            <ion-select ngModel
+                        name="spec"
+                        required
+                        [(ngModel)]="doctor.specialization"
+                        (ngModelChange)="onSpecChange(doctor.specialization); doctor.subspecialization = ''"
+                        placeholder="specialization">
+              <ion-select-option *ngIf="doctor.specialization" [value]="doctor.specialization">
+                {{doctor.specialization}}
+              </ion-select-option>
+              <ion-select-option *ngFor="let s of specializations" [value]="s">
+                {{s}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
 
-                <ion-item>
-                    <ion-label><strong> No specialization listed?</strong></ion-label>
-                    <ion-input type="text"
-                               ngModel
-                               name = "newSpec"
-                               [(ngModel)]="newSpecialization"
-                               placeholder="add here"
-                               pattern="[a-zA-Z ]*" #sCtrl="ngModel">
-                    </ion-input>
-                </ion-item>
-                <ion-item *ngIf="sCtrl.invalid && (sCtrl.touched || sCtrl.dirty)"
-                          lines="none">
-                    <ion-item *ngIf="sCtrl.hasError('pattern')">
-                        <ion-label color="danger"> Enter valid specialization</ion-label>
-                    </ion-item>
-                </ion-item>
+          <ion-item>
+            <ion-label><strong> No specialization listed?</strong></ion-label>
+            <ion-input type="text"
+                       ngModel
+                       name="newSpec"
+                       [(ngModel)]="newSpecialization"
+                       placeholder="add here"
+                       pattern="[a-zA-Z ]*" #sCtrl="ngModel">
+            </ion-input>
+          </ion-item>
+          <ion-item *ngIf="sCtrl.invalid && (sCtrl.touched || sCtrl.dirty)"
+                    lines="none">
+            <ion-item *ngIf="sCtrl.hasError('pattern')">
+              <ion-label color="danger"> Enter valid specialization</ion-label>
+            </ion-item>
+          </ion-item>
 
-                <ion-item style="color: black!important;">
-                    <ion-label><strong> Sub Specialization</strong></ion-label>
-                    <ion-select ngModel
-                                name = "subSpec"
-                                [disabled]="!noSubspecData"
-                                [(ngModel)]="doctor.subspecialization"
-                                [placeholder]="noSubspecData ? 'sub-specialization':'Not Applicable'">
-                        <ion-select-option *ngIf="doctor.subspecialization" [value]="doctor.subspecialization">
-                            {{doctor.subspecialization}}
-                        </ion-select-option>
-                        <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
-                            {{sub}}
-                        </ion-select-option>
-                    </ion-select>
-                </ion-item>
+          <ion-item style="color: black!important;">
+            <ion-label><strong> Sub Specialization</strong></ion-label>
+            <ion-select ngModel
+                        name="subSpec"
+                        [disabled]="!noSubspecData"
+                        [(ngModel)]="doctor.subspecialization"
+                        [placeholder]="noSubspecData ? 'sub-specialization':'Not Applicable'">
+              <ion-select-option *ngIf="doctor.subspecialization" [value]="doctor.subspecialization">
+                {{doctor.subspecialization}}
+              </ion-select-option>
+              <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
+                {{sub}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
 
-                <ion-item>
-                    <ion-label><strong>No sub-specialization listed? </strong></ion-label>
-                    <ion-input ngModel
-                               name = "newSub"
-                               type="text"
-                               [(ngModel)]="newSubSpecialization"
-                               placeholder="add here"
-                               pattern="[a-zA-Z ]*" #subCtrl="ngModel">
-                    </ion-input>
-                </ion-item>
-                <ion-item *ngIf="subCtrl.invalid && (subCtrl.touched || subCtrl.dirty)"
-                          lines="none">
-                    <ion-item *ngIf="subCtrl.hasError('pattern')">
-                        <ion-label color="danger"> Enter valid sub-specialization</ion-label>
-                    </ion-item>
-                </ion-item>
+          <ion-item>
+            <ion-label><strong>No sub-specialization listed? </strong></ion-label>
+            <ion-input ngModel
+                       name="newSub"
+                       type="text"
+                       [(ngModel)]="newSubSpecialization"
+                       placeholder="add here"
+                       pattern="[a-zA-Z ]*" #subCtrl="ngModel">
+            </ion-input>
+          </ion-item>
+          <ion-item *ngIf="subCtrl.invalid && (subCtrl.touched || subCtrl.dirty)"
+                    lines="none">
+            <ion-item *ngIf="subCtrl.hasError('pattern')">
+              <ion-label color="danger"> Enter valid sub-specialization</ion-label>
+            </ion-item>
+          </ion-item>
 
-                <ion-item>
-                    <ion-label class="asterisk"><strong>Experience In Years </strong></ion-label>
-                    <ion-input ngModel
-                               name = "exp"
-                               required
-                               placeholder="Experience In years"
-                               type="number"
-                               pattern="[0-9]{1,2}"
-                               [(ngModel)]="doctor.experience"
-                               #expCtrl="ngModel">
-                    </ion-input>
-                </ion-item>
-                <ion-item *ngIf="expCtrl.invalid && (expCtrl.touched || expCtrl.dirty)" lines="none">
-                    <ion-item *ngIf="expCtrl.errors.required">
-                        <ion-label color="danger"> Experience years required</ion-label>
-                    </ion-item>
-                    <ion-item *ngIf="expCtrl.hasError('pattern')">
-                        <ion-label color="danger"> Experience years invalid</ion-label>
-                    </ion-item>
-                </ion-item>
+          <ion-item>
+            <ion-label class="asterisk"><strong>Experience In Years </strong></ion-label>
+            <ion-input ngModel
+                       name="exp"
+                       required
+                       placeholder="Experience In years"
+                       type="number"
+                       pattern="[0-9]{1,2}"
+                       [(ngModel)]="doctor.experience"
+                       #expCtrl="ngModel">
+            </ion-input>
+          </ion-item>
+          <ion-item *ngIf="expCtrl.invalid && (expCtrl.touched || expCtrl.dirty)" lines="none">
+            <ion-item *ngIf="expCtrl.errors.required">
+              <ion-label color="danger"> Experience years required</ion-label>
+            </ion-item>
+            <ion-item *ngIf="expCtrl.hasError('pattern')">
+              <ion-label color="danger"> Experience years invalid</ion-label>
+            </ion-item>
+          </ion-item>
 
-                <ion-row>
-                    <ion-col size-md="6">
-                        <ion-item>
-                            <ion-label class="asterisk"><strong> Degree Certificate</strong></ion-label>
-                        </ion-item>
-                    </ion-col>
-                    <ion-col size-md="6">
-                        <ion-item>
-                            <input type="file"
-                                   id="file-input"
-                                   accept="image/*"
-                                   ngModel
-                                   name = "cert">
-                        </ion-item>
-                        <ion-item *ngIf="doctor.documents">
-                            <ion-row>{{doctor.documents}}</ion-row>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-
+          <ion-row>
+            <ion-col size-md="6">
+              <ion-item>
+                <ion-label class="asterisk"><strong> Degree Certificate</strong></ion-label>
+              </ion-item>
             </ion-col>
-        </ion-row>
-        <div class="btn-container">
-            <ion-button (click)="prev()">back</ion-button>
-            <ion-button type="submit" [disabled]="!practiseForm.valid" >next</ion-button>
-        </div>
+            <ion-col size-md="6">
+              <ion-item *ngIf="uploadCert">
+                <input type="file"
+                       id="file-input"
+                       accept="image/*,application/pdf"
+                       (change)="setUploadFile($event.target.files)"
+                       name="cert">
+              </ion-item>
+              <ion-row *ngIf="doctor.certificate && !uploadCert">
+                {{doctor.certificate}}</ion-row>
+              <ion-row  *ngIf="doctor.certificate && !uploadCert">
+                <ion-button (click)="uploadCert = true">Change</ion-button>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+      <div class="btn-container">
+        <ion-button (click)="prev()">back</ion-button>
+        <ion-button type="submit" [disabled]="!practiseForm.valid">next</ion-button>
+      </div>
     </ion-grid>
-    </form>
+  </form>
 </ion-content>
 
 

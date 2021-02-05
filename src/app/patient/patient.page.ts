@@ -39,7 +39,7 @@ export class PatientPage implements OnInit {
         const id = this.authService.userID;
         this.patientService.getPatientById(id).then(patient => {
             this.patient = patient;
-            this.patient.patientId = id;
+            // this.patient.patientId = id;
         });
         this.patientService.retrieveSpecializations().then(specs => {
             this.specializationsFromDB = specs;
@@ -93,7 +93,7 @@ export class PatientPage implements OnInit {
     showAppointmentDetails(d: Doctor) {
         this.modalCtrl.create({
             component: DoctorDetailsComponent,
-            componentProps: {doc: d, pId: this.patient.patientId}
+            // componentProps: {doc: d, pId: this.patient.patientId}
         }).then(modalElement => {
             modalElement.present();
             return modalElement.onDidDismiss();

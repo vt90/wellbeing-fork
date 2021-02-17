@@ -16,7 +16,7 @@
         <ion-col size="2" class="vertical-menu" style="width: 100%; height: 100%">
             Left Navigation
         </ion-col>
-        <ion-col size="10">
+        <ion-col size="10" *ngIf="doctor">
             <ion-row>
                 <ion-col class="ion-float-left">
                     <ion-title>Clinic/ Hospital Details</ion-title>
@@ -26,7 +26,7 @@
                     + Add clinic / hospital details
                 </ion-col>
             </ion-row>
-            <ion-row *ngIf="clinics">
+            <ion-row *ngIf="clinics.length !==0">
                 <ion-col size="4">
                     <ion-title><strong>Name</strong></ion-title>
                 </ion-col>
@@ -34,14 +34,16 @@
                     <ion-title><strong>Address</strong></ion-title>
                 </ion-col>
             </ion-row>
-            <ion-row *ngFor="let c of clinics; let i=index;">
+            <ion-row *ngFor="let c of clinics">
                 <ion-col size="4">{{c.name}}</ion-col>
-                <ion-col size="4">{{c.addressLine1 }},{{c.city}}</ion-col>
-                <ion-col size="2">
-                    <ion-label style="text-decoration: underline;color: blue;padding-right: 5%" (click)="editClinic(c)">
+                <ion-col size="4">{{c.address.addressLine1 }},{{c.address.city}}</ion-col>
+                <ion-col size="2" *ngIf="c.name">
+                    <ion-label style="text-decoration: underline;color: blue;padding-right: 5%"
+                               (click)="editClinic(c)">
                         Edit
                     </ion-label>
-                    <ion-label style="text-decoration: underline;color: #ff0000" (click)="deleteClinic(c.clinicId)">Delete
+                    <ion-label style="text-decoration: underline;color: #ff0000" (click)="deleteClinic(c.clinicId)">
+                        Delete
                     </ion-label>
                 </ion-col>
             </ion-row>
@@ -91,7 +93,7 @@
                                            required
                                            name="address1"
                                            placeholder="address line 1"
-                                           [(ngModel)]="clinic.addressLine1"
+                                           [(ngModel)]="clinic.address.addressLine1"
                                            #address1Ctrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -109,7 +111,7 @@
                                            required
                                            name="address2"
                                            placeholder="address line 2"
-                                           [(ngModel)]="clinic.addressLine2"
+                                           [(ngModel)]="clinic.address.addressLine2"
                                            #address2Ctrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -128,7 +130,7 @@
                                            name="city"
                                            placeholder="City"
                                            pattern="[a-zA-Z ]*"
-                                           [(ngModel)]="clinic.city"
+                                           [(ngModel)]="clinic.address.city"
                                            #cityCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -150,7 +152,7 @@
                                            name="state"
                                            placeholder="State"
                                            pattern="[a-zA-Z ]*"
-                                           [(ngModel)]="clinic.state"
+                                           [(ngModel)]="clinic.address.state"
                                            #stateCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -171,7 +173,7 @@
                                            ngModel
                                            required
                                            name="code"
-                                           [(ngModel)]="clinic.zipcode"
+                                           [(ngModel)]="clinic.address.zipcode"
                                            pattern="[0-9]{6}" #zipCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -187,7 +189,7 @@
                                            required
                                            name="country"
                                            pattern="[a-zA-Z ]*"
-                                           [(ngModel)]="clinic.country"
+                                           [(ngModel)]="clinic.address.country"
                                            #countryCtrl="ngModel">
                                 </ion-input>
                             </ion-item>
@@ -301,7 +303,7 @@
                                 <ion-input type="number"
                                            name="cFee"
                                            placeholder="Consultation Fee"
-                                           [(ngModel)]="clinic.fee.cFee">
+                                           [(ngModel)]="clinic.consultationFee">
                                 </ion-input>
                             </ion-item>
 
@@ -310,7 +312,7 @@
                                 <ion-input type="number"
                                            name="fFee"
                                            placeholder="Follow up fee"
-                                           [(ngModel)]="clinic.fee.fFee">
+                                           [(ngModel)]="clinic.followUpFee">
                                 </ion-input>
                             </ion-item>
                         </ion-col>

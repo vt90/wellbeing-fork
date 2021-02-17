@@ -6,6 +6,7 @@ import {Doctor} from '../../model/doctor.model';
 import {DatePipe} from '@angular/common';
 import {NgForm} from '@angular/forms';
 import {AlertController} from '@ionic/angular';
+import {Address} from '../../model/address.model';
 
 @Component({
     selector: 'app-clinic',
@@ -23,7 +24,6 @@ export class ClinicPage implements OnInit {
     fromTime: string;
     toTime: string;
     clinic: Clinic;
-    clinicList: Clinic[] = [];
     editClinicData = false;
 
     days = [{val: 'Monday', isChecked: false},
@@ -42,23 +42,16 @@ export class ClinicPage implements OnInit {
                 private doctorService: DoctorService,
                 private datePipe: DatePipe,
                 public alertCtrl: AlertController) {
-        this.clinic = new Clinic();
     }
 
     ngOnInit() {
         this.userId = this.authService.userID;
-        this.doctorService.getDoctorOrAssistantById(this.userId).then(doctor => {
-            this.doctor = doctor;
-            console.log(doctor.clinics);
-            if (doctor.clinics){
-                const c = [];
-                for (const key in doctor.clinics) {
-                    if (doctor.clinics.hasOwnProperty(key)) {
-                        doctor.clinics[key].clinicId = key;
-                        c.push(doctor.clinics[key]);
-                    }
-                }
-                this.clinics = c;
+        this.doctorService.getDoctorOrAssistantById(this.userId).then(d => {
+            this.doctor = d;
+            if (!this.doctor.clinics) {
+                this.clinics = [];
+            } else {
+                this.clinics = this.doctor.clinics;
             }
         });
     }
@@ -111,37 +104,28 @@ export class ClinicPage implements OnInit {
             return;
         }
         if (!this.editClinicData) {
-            this.doctorService.addClinicData(this.clinic, this.userId).then(clinics => {
-                this.clinics = clinics;
-                clinicForm.resetForm();
-                this.clinicSetup = false;
-            });
-            this.alertCtrl.create({
-                message: 'Clinic Data saved successfully',
-                buttons: ['OK']
-            }).then((alert) => {
-                alert.present();
-                return alert.onDidDismiss();
-            });
+            this.clinics.push(this.clinic);
         }
-        else{
-          this.doctorService.updateClinicData(this.clinic, this.userId).then(clinics => {
-              this.clinics = clinics;
-              clinicForm.resetForm();
-              this.clinicSetup = false;
-          });
-          this.alertCtrl.create({
-                message: 'Clinic Data Updated successfully',
-                buttons: ['OK']
-            }).then((alert) => {
-                alert.present();
-                return alert.onDidDismiss();
-            });
-        }
+        this.doctor.clinics = this.clinics;
+        this.doctorService.updateDoctorData(this.doctor, this.userId).then(d => {
+            this.clinics = d.clinics;
+            clinicForm.resetForm();
+            this.clinicSetup = false;
+        });
+        this.alertCtrl.create({
+            backdropDismiss: false,
+            message: 'Clinic Data saved successfully',
+            buttons: ['OK']
+        }).then((alert) => {
+            alert.present();
+            return alert.onDidDismiss();
+        });
     }
 
-    newClinic(){
+    newClinic() {
         this.clinic = new Clinic();
+        this.clinic.address = new Address();
+        this.clinic.schedules = [];
         this.clinicSetup = true;
         this.editClinicData = false;
     }
@@ -154,6 +138,7 @@ export class ClinicPage implements OnInit {
 
     deleteClinic(clinicId: string) {
         this.alertCtrl.create({
+            backdropDismiss: false,
             message: 'Do you want to delete this clinic data?',
             buttons: [
                 {

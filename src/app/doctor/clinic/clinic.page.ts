@@ -56,6 +56,7 @@ export class ClinicPage implements OnInit {
         });
     }
 
+    // this is duplicate code... any better way to do this? see availability ...
     addSchedule() {
         if (this.days.length === 0 || this.slots.length === 0 || this.fromTime === '' || this.toTime === '') {
             return;
@@ -78,6 +79,7 @@ export class ClinicPage implements OnInit {
         this.clearSchedule();
     }
 
+    // this is duplicate code... any better way to do this? see availability ...
     private clearSchedule() {
         this.days.forEach((value) => {
             if (value.isChecked) {
@@ -106,22 +108,31 @@ export class ClinicPage implements OnInit {
         if (!this.editClinicData) {
             this.clinics.push(this.clinic);
             this.doctor.clinics = this.clinics;
-            this.doctorService.updateDoctorData(this.doctor, this.userId).then(d => {
-                this.clinics = d.clinics;
-                console.log(d.clinics);
-                console.log(this.clinics);
-                clinicForm.resetForm();
-                this.clinicSetup = false;
-            });
-            this.alertCtrl.create({
-                backdropDismiss: false,
-                message: 'Clinic Data saved successfully',
-                buttons: ['OK']
-            }).then((alert) => {
-                alert.present();
-                return alert.onDidDismiss();
-            });
+            this.updateClinicData();
         }
+    }
+
+    private updateClinicData() {
+        this.doctorService.updateClinics(this.clinics, this.userId)
+          .then(() => {
+              this.alertCtrl.create({
+                  backdropDismiss: false,
+                  message: 'Clinic Data saved successfully',
+                  buttons: ['OK']
+              }).then((alert) => {
+                  alert.present().then();
+                  return alert.onDidDismiss();
+              });
+          }, err => {
+              this.alertCtrl.create({
+                  backdropDismiss: false,
+                  message: 'Clinic Data save FAILED ' + err.toString(),
+                  buttons: ['OK']
+              }).then((alert) => {
+                  alert.present().then();
+                  return alert.onDidDismiss();
+              });
+          }).then();
     }
 
     newClinic() {
@@ -138,7 +149,7 @@ export class ClinicPage implements OnInit {
         this.editClinicData = true;
     }
 
-    deleteClinic(clinicId: string) {
+    deleteClinic(clinicIndex: number) {
         this.alertCtrl.create({
             backdropDismiss: false,
             message: 'Do you want to delete this clinic data?',
@@ -146,18 +157,9 @@ export class ClinicPage implements OnInit {
                 {
                     text: 'Yes',
                     handler: () => {
-                        this.clinicSetup = false;
-                        this.editClinicData = false;
-                        this.doctorService.deleteClinicData(clinicId, this.userId).then(clinics => {
-                            this.clinics = clinics;
-                        });
-                        this.alertCtrl.create({
-                            message: 'Clinic Data deleted successfully',
-                            buttons: ['OK']
-                        }).then((alert) => {
-                            alert.present();
-                            return alert.onDidDismiss();
-                        });
+                        this.clinics.splice(clinicIndex, 1);
+                        this.doctor.clinics = this.clinics;
+                        this.updateClinicData();
                     }
                 },
                 {
@@ -169,7 +171,7 @@ export class ClinicPage implements OnInit {
                 }
             ]
         }).then((alert) => {
-            alert.present();
+            alert.present().then();
             return alert.onDidDismiss();
         });
     }

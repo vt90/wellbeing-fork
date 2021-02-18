@@ -34,7 +34,7 @@
                     <ion-title><strong>Address</strong></ion-title>
                 </ion-col>
             </ion-row>
-            <ion-row *ngFor="let c of clinics">
+            <ion-row *ngFor="let c of clinics; let i = index">
                 <ion-col size="4">{{c.name}}</ion-col>
                 <ion-col size="4">{{c.address.addressLine1 }},{{c.address.city}}</ion-col>
                 <ion-col size="2" *ngIf="c.name">
@@ -42,7 +42,7 @@
                                (click)="editClinic(c)">
                         Edit
                     </ion-label>
-                    <ion-label style="text-decoration: underline;color: #ff0000" (click)="deleteClinic(c.clinicId)">
+                    <ion-label style="text-decoration: underline;color: #ff0000" (click)="deleteClinic(i)">
                         Delete
                     </ion-label>
                 </ion-col>

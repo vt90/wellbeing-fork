@@ -46,46 +46,7 @@ export class DoctorService {
             });
     }
 
-    async addClinicData(clinics: Clinic[], doctorId: string) {
-        const clinicRef = this.db.ref('/doctors/' + doctorId);
-        await clinicRef.update(clinics);
-        return this.clinicsData(doctorId);
-    }
-
-    deleteClinicData(clinicId: string, doctorId: string) {
-        const clinicRef = this.db.ref('/doctors/' + doctorId + '/clinics/' + clinicId);
-        clinicRef.remove().then(r => console.log(r));
-        return this.clinicsData(doctorId);
-    }
-
-    async updateClinicData(clinic: Clinic, doctorId: string) {
-        const clinicRef = this.db.ref('/doctors/' + doctorId + '/clinics/' + clinic.clinicId);
-        await clinicRef.update(clinic);
-        return this.clinicsData(doctorId);
-    }
-
-    private clinicsData(doctorId: string) {
-        return this.db.ref('/doctors/' + doctorId + '/clinics/').once('value').then(snapshot => {
-            /*const c = [];
-            for (const key in clinics) {
-              if (clinics.hasOwnProperty(key)) {
-                clinics[key].clinicId = key;
-                c.push(clinics[key]);
-              }
-            }*/
-            return snapshot.val();
-        });
-    }
-
-    updateDoctorData(doctor: Doctor, doctorId: string) {
-        const docRef = this.db.ref('/doctors/' + doctorId);
-        docRef.once('value').then(() => {
-            this.db.ref('/doctors/' + doctorId + '/clinics/').update(doctor.clinics);
-        });
-        return this.clinicsData(doctorId);
-        /* return docRef.once('value').then(snapshot => {
-             console.log(snapshot.val());
-             return d = snapshot.val();
-         });*/
+    updateClinics(clinics: Clinic[], doctorId: string) {
+        return this.db.ref('/doctors/' + doctorId + '/clinics/').set(clinics);
     }
 }

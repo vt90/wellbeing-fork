@@ -109,6 +109,11 @@ export class ClinicPage implements OnInit {
             this.clinics.push(this.clinic);
             this.doctor.clinics = this.clinics;
             this.updateClinicData();
+            this.clinicSetup = false;
+        }
+        if (this.editClinicData) {
+            this.updateClinicData();
+            this.clinicSetup = false;
         }
     }
 

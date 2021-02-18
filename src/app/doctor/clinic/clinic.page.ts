@@ -105,21 +105,23 @@ export class ClinicPage implements OnInit {
         }
         if (!this.editClinicData) {
             this.clinics.push(this.clinic);
+            this.doctor.clinics = this.clinics;
+            this.doctorService.updateDoctorData(this.doctor, this.userId).then(d => {
+                this.clinics = d.clinics;
+                console.log(d.clinics);
+                console.log(this.clinics);
+                clinicForm.resetForm();
+                this.clinicSetup = false;
+            });
+            this.alertCtrl.create({
+                backdropDismiss: false,
+                message: 'Clinic Data saved successfully',
+                buttons: ['OK']
+            }).then((alert) => {
+                alert.present();
+                return alert.onDidDismiss();
+            });
         }
-        this.doctor.clinics = this.clinics;
-        this.doctorService.updateDoctorData(this.doctor, this.userId).then(d => {
-            this.clinics = d.clinics;
-            clinicForm.resetForm();
-            this.clinicSetup = false;
-        });
-        this.alertCtrl.create({
-            backdropDismiss: false,
-            message: 'Clinic Data saved successfully',
-            buttons: ['OK']
-        }).then((alert) => {
-            alert.present();
-            return alert.onDidDismiss();
-        });
     }
 
     newClinic() {

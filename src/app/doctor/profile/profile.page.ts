@@ -5,7 +5,6 @@ import {DoctorService} from '../../services/doctor/doctor.service';
 import {Clinic} from '../../model/clinic.model';
 import {AlertController} from '@ionic/angular';
 import {NgForm} from '@angular/forms';
-import {BehaviorSubject} from "rxjs";
 
 @Component({
     selector: 'app-profile',

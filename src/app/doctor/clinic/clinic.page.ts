@@ -6,6 +6,7 @@ import {Doctor} from '../../model/doctor.model';
 import {DatePipe} from '@angular/common';
 import {NgForm} from '@angular/forms';
 import {AlertController} from '@ionic/angular';
+import {Address} from '../../model/address.model';
 
 @Component({
     selector: 'app-clinic',
@@ -23,7 +24,6 @@ export class ClinicPage implements OnInit {
     fromTime: string;
     toTime: string;
     clinic: Clinic;
-    clinicList: Clinic[] = [];
     editClinicData = false;
 
     days = [{val: 'Monday', isChecked: false},
@@ -42,27 +42,21 @@ export class ClinicPage implements OnInit {
                 private doctorService: DoctorService,
                 private datePipe: DatePipe,
                 public alertCtrl: AlertController) {
-        this.clinic = new Clinic();
     }
 
     ngOnInit() {
         this.userId = this.authService.userID;
-        this.doctorService.getDoctorOrAssistantById(this.userId).then(doctor => {
-            this.doctor = doctor;
-            console.log(doctor.clinics);
-            if (doctor.clinics){
-                const c = [];
-                for (const key in doctor.clinics) {
-                    if (doctor.clinics.hasOwnProperty(key)) {
-                        doctor.clinics[key].clinicId = key;
-                        c.push(doctor.clinics[key]);
-                    }
-                }
-                this.clinics = c;
+        this.doctorService.getDoctorOrAssistantById(this.userId).then(d => {
+            this.doctor = d;
+            if (!this.doctor.clinics) {
+                this.clinics = [];
+            } else {
+                this.clinics = this.doctor.clinics;
             }
         });
     }
 
+    // this is duplicate code... any better way to do this? see availability ...
     addSchedule() {
         if (this.days.length === 0 || this.slots.length === 0 || this.fromTime === '' || this.toTime === '') {
             return;
@@ -85,6 +79,7 @@ export class ClinicPage implements OnInit {
         this.clearSchedule();
     }
 
+    // this is duplicate code... any better way to do this? see availability ...
     private clearSchedule() {
         this.days.forEach((value) => {
             if (value.isChecked) {
@@ -111,37 +106,44 @@ export class ClinicPage implements OnInit {
             return;
         }
         if (!this.editClinicData) {
-            this.doctorService.addClinicData(this.clinic, this.userId).then(clinics => {
-                this.clinics = clinics;
-                clinicForm.resetForm();
-                this.clinicSetup = false;
-            });
-            this.alertCtrl.create({
-                message: 'Clinic Data saved successfully',
-                buttons: ['OK']
-            }).then((alert) => {
-                alert.present();
-                return alert.onDidDismiss();
-            });
+            this.clinics.push(this.clinic);
+            this.doctor.clinics = this.clinics;
+            this.updateClinicData();
+            this.clinicSetup = false;
         }
-        else{
-          this.doctorService.updateClinicData(this.clinic, this.userId).then(clinics => {
-              this.clinics = clinics;
-              clinicForm.resetForm();
-              this.clinicSetup = false;
-          });
-          this.alertCtrl.create({
-                message: 'Clinic Data Updated successfully',
-                buttons: ['OK']
-            }).then((alert) => {
-                alert.present();
-                return alert.onDidDismiss();
-            });
+        if (this.editClinicData) {
+            this.updateClinicData();
+            this.clinicSetup = false;
         }
     }
 
-    newClinic(){
+    private updateClinicData() {
+        this.doctorService.updateClinics(this.clinics, this.userId)
+          .then(() => {
+              this.alertCtrl.create({
+                  backdropDismiss: false,
+                  message: 'Clinic Data saved successfully',
+                  buttons: ['OK']
+              }).then((alert) => {
+                  alert.present().then();
+                  return alert.onDidDismiss();
+              });
+          }, err => {
+              this.alertCtrl.create({
+                  backdropDismiss: false,
+                  message: 'Clinic Data save FAILED ' + err.toString(),
+                  buttons: ['OK']
+              }).then((alert) => {
+                  alert.present().then();
+                  return alert.onDidDismiss();
+              });
+          }).then();
+    }
+
+    newClinic() {
         this.clinic = new Clinic();
+        this.clinic.address = new Address();
+        this.clinic.schedules = [];
         this.clinicSetup = true;
         this.editClinicData = false;
     }
@@ -152,25 +154,17 @@ export class ClinicPage implements OnInit {
         this.editClinicData = true;
     }
 
-    deleteClinic(clinicId: string) {
+    deleteClinic(clinicIndex: number) {
         this.alertCtrl.create({
+            backdropDismiss: false,
             message: 'Do you want to delete this clinic data?',
             buttons: [
                 {
                     text: 'Yes',
                     handler: () => {
-                        this.clinicSetup = false;
-                        this.editClinicData = false;
-                        this.doctorService.deleteClinicData(clinicId, this.userId).then(clinics => {
-                            this.clinics = clinics;
-                        });
-                        this.alertCtrl.create({
-                            message: 'Clinic Data deleted successfully',
-                            buttons: ['OK']
-                        }).then((alert) => {
-                            alert.present();
-                            return alert.onDidDismiss();
-                        });
+                        this.clinics.splice(clinicIndex, 1);
+                        this.doctor.clinics = this.clinics;
+                        this.updateClinicData();
                     }
                 },
                 {
@@ -182,7 +176,7 @@ export class ClinicPage implements OnInit {
                 }
             ]
         }).then((alert) => {
-            alert.present();
+            alert.present().then();
             return alert.onDidDismiss();
         });
     }

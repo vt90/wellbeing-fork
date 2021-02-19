@@ -105,22 +105,21 @@
                             </ion-item>
 
                             <ion-item>
-                                <ion-label class="asterisk"><strong>Address line 2</strong></ion-label>
+                                <ion-label><strong>Address line 2</strong></ion-label>
                                 <ion-input type="text"
                                            ngModel
-                                           required
                                            name="address2"
                                            placeholder="address line 2"
                                            [(ngModel)]="clinic.address.addressLine2"
                                            #address2Ctrl="ngModel">
                                 </ion-input>
                             </ion-item>
-                            <ion-item *ngIf="address2Ctrl.invalid && (address2Ctrl.touched || address2Ctrl.dirty)"
+                            <!--<ion-item *ngIf="address2Ctrl.invalid && (address2Ctrl.touched || address2Ctrl.dirty)"
                                       lines="none">
                                 <ion-item *ngIf="address2Ctrl.errors.required">
                                     <ion-label color="danger">Address Line 1 required</ion-label>
                                 </ion-item>
-                            </ion-item>
+                            </ion-item>-->
 
                             <ion-item>
                                 <ion-label class="asterisk"><strong>City</strong></ion-label>

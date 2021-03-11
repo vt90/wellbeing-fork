@@ -1,5 +1,3 @@
-import {Clinic} from './clinic.model';
-
 export class Appointment{
     doctorId: string;
     patientId: string;

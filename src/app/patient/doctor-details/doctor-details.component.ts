@@ -163,7 +163,18 @@ export class DoctorDetailsComponent implements OnInit {
 
     bookAppointment() {
         this.markSlotBooked();
-        this.appointmentService.addAppointment(this.appointment);
+        this.appointmentService.addAppointment(this.appointment).then(r => {
+            this.appointmentService.updateAppointmentAvailability(this.appointment, this.updatedTimeslots);
+            this.alertCtrl.create({
+                backdropDismiss: false,
+                message: 'Appointment Booked!!!!',
+                buttons: ['OK']
+            }).then((alert) => {
+                alert.present();
+                this.modalCtrl.dismiss();
+                return alert.onDidDismiss();
+            });
+        });
     }
 
     showMoreClinics() {

@@ -1,6 +1,12 @@
+import {Clinic} from './clinic.model';
+
 export class Appointment{
+    doctorId: string;
+    patientId: string;
     date: number;
+    clinicIndex: number;
+    day: string;
+    time: string;
     confirmed: boolean;
-    clinic: string;
     type: string;
 }

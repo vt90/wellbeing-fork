@@ -1,6 +1,6 @@
 <ion-content>
     <form #appointmentForm="ngForm" (ngSubmit)="bookAppointment()">
-        <ion-title style="text-align: center;"><strong>Dr. {{doc.fName }} {{doc.lName }}</strong></ion-title>
+        <ion-title style="text-align: center;"><strong>Dr. {{doc.firstName }} {{doc.lastName }}</strong></ion-title>
 
         <ion-card style="background-color:#36abe0">
             <ion-card-header>
@@ -21,15 +21,15 @@
             <ion-card-content>
                 <ion-label style="color: black">
                     <ion-card-title><strong>Clinic Address:</strong><br></ion-card-title>
-                    {{clinics[clinicIndex].addressLine1}}<br>
-                    {{clinics[clinicIndex].addressLine2}}<br>
-                    {{clinics[clinicIndex].city}}, {{clinics[clinicIndex].state}}, {{clinics[clinicIndex].country}}<br>
-                    {{clinics[clinicIndex].zipcode}}<br>
+                    {{clinics[clinicIndex].address.addressLine1}}<br>
+                    {{clinics[clinicIndex].address.addressLine2}}<br>
+                    {{clinics[clinicIndex].address.city}}, {{clinics[clinicIndex].address.state}}, {{clinics[clinicIndex].address.country}}<br>
+                    {{clinics[clinicIndex].address.zipcode}}<br>
                 </ion-label>
                 <ion-card-title><strong>Availability</strong><br></ion-card-title>
                 <ion-segment [value]="day">
                     <ion-segment-button (click)="day = d;checkValidDate(clinics[clinicIndex])" [value]="d"
-                                        *ngFor="let d of getKeys(timeslot.get(clinics[clinicIndex].clinicId))">
+                                        *ngFor="let d of getKeys(timeslot.get(clinics[clinicIndex].clinicIndex))">
                         <ion-label><strong>{{d.slice(0, 3)}}</strong></ion-label>
                     </ion-segment-button>
                 </ion-segment>

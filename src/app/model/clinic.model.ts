@@ -9,7 +9,7 @@ export class Schedule{
 
 
 export class Clinic {
-    clinicId: string;
+    clinicIndex: number;
     assistants?: string[];
     name: string;
     doctors: string[];

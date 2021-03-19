@@ -1,17 +1,34 @@
 import {AddAppointmentComponent} from './add-appointment/add-appointment.component';
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
+import {AppointmentService} from '../../services/doctor/appointment.service';
+import {AuthService} from '../../services/auth.service';
+import {DoctorService} from "../../services/doctor/doctor.service";
+import {Clinic} from "../../model/clinic.model";
 
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.page.html',
   styleUrls: ['./appointment.page.scss'],
 })
-export class AppointmentPage {
+export class AppointmentPage implements OnInit{
+  doctorId: string;
+  clinics: Clinic[];
 
-  constructor(private modalCtrl: ModalController) {
+  constructor(private modalCtrl: ModalController,
+              private authService: AuthService,
+              private doctorService: DoctorService,
+              private appointmentService: AppointmentService) {
   }
 
+  ngOnInit() {
+    this.doctorId = this.authService.userID;
+    this.doctorService.getAllClinics(this.doctorId).then(clinics => {
+      this.clinics = clinics;
+      console.log(this.clinics);
+    });
+    this.appointmentService.getAppointments(this.doctorId).then(r => console.log(r));
+  }
 
   filterChanged(event) {
 
@@ -27,5 +44,7 @@ export class AppointmentPage {
       console.log(resultData.data);
     });
   }
+
+
 
 }

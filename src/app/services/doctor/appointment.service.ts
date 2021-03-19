@@ -30,4 +30,10 @@ export class AppointmentService {
     addAppointment(appointment: Appointment){
         return this.db.ref('/new-appointments/').push(appointment);
     }
+
+    getAppointments(doctorId: string){
+        return this.db.ref('/doctor-appointment/' + doctorId).once('value').then(snapshot => {
+            return snapshot.val();
+        });
+    }
 }

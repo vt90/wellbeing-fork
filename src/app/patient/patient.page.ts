@@ -77,17 +77,13 @@ export class PatientPage implements OnInit {
     }
 
     searchDoctors() {
-        const docs = [];
-        console.log(this.doctors);
-        for (const key in this.doctors) {
-            if (this.doctors.hasOwnProperty(key)) {
-                if (this.doctors[key].specialization === this.specialization) {
-                    this.doctors[key].id = key;
-                    docs.push(this.doctors[key]);
-                }
-            }
-        }
-        this.searchedDoctors = docs;
+        this.patientService.getDoctorsBySpecialization(this.specialization).then(r => {
+            const docs = [];
+            Object.keys(r).map(key => {
+                docs.push(r[key]);
+            });
+            this.searchedDoctors = docs;
+        });
     }
 
     showAppointmentDetails(d: Doctor) {

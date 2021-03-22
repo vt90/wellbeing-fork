@@ -48,13 +48,6 @@ export class DoctorDetailsComponent implements OnInit {
             c.push(this.doc.clinics[i]);
             this.getDayWiseSchedule(this.doc.clinics[i]);
         }
-       /* for (const key in this.doc.clinics) {
-            if (this.doc.clinics.hasOwnProperty(key)) {
-                this.doc.clinics[key].clinicIndex = key;
-                c.push(this.doc.clinics[key]);
-                this.getDayWiseSchedule(this.doc.clinics[key]);
-            }
-        }*/
         this.clinics = c;
     }
 

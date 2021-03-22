@@ -2,7 +2,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {Injectable} from '@angular/core';
 import {Appointment} from '../../model/appointment.model';
 import * as firebase from 'firebase';
-import {AuthUser} from "../../model/auth-user.model";
+import {AuthUser} from '../../model/auth-user.model';
 
 @Injectable({
     providedIn: 'root'
@@ -31,9 +31,11 @@ export class AppointmentService {
         return this.db.ref('/new-appointments/').push(appointment);
     }
 
-    getAppointments(doctorId: string){
-        return this.db.ref('/doctor-appointment/' + doctorId).once('value').then(snapshot => {
-            return snapshot.val();
-        });
+    async getAppointments(doctorId: string, clinicIndex: number) {
+        const snapshot = await this.db.ref('/doctor-appointment/' + doctorId + '/')
+            .orderByChild('clinicIndex')
+            .equalTo(clinicIndex)
+            .once('value');
+        return snapshot.val();
     }
 }

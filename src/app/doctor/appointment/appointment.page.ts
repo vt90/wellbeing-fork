@@ -3,8 +3,9 @@ import {Component, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {AppointmentService} from '../../services/doctor/appointment.service';
 import {AuthService} from '../../services/auth.service';
-import {DoctorService} from "../../services/doctor/doctor.service";
-import {Clinic} from "../../model/clinic.model";
+import {DoctorService} from '../../services/doctor/doctor.service';
+import {Clinic} from '../../model/clinic.model';
+import {Appointment} from "../../model/appointment.model";
 
 @Component({
   selector: 'app-appointment',
@@ -14,6 +15,8 @@ import {Clinic} from "../../model/clinic.model";
 export class AppointmentPage implements OnInit{
   doctorId: string;
   clinics: Clinic[];
+  clinicIndex = 0;
+  appointments: Appointment[];
 
   constructor(private modalCtrl: ModalController,
               private authService: AuthService,
@@ -25,9 +28,15 @@ export class AppointmentPage implements OnInit{
     this.doctorId = this.authService.userID;
     this.doctorService.getAllClinics(this.doctorId).then(clinics => {
       this.clinics = clinics;
-      console.log(this.clinics);
     });
-    this.appointmentService.getAppointments(this.doctorId).then(r => console.log(r));
+    this.appointmentService.getAppointments(this.doctorId, this.clinicIndex).then(r => {
+      console.log(r);
+      const appt = [];
+      Object.keys(r).map(key => {
+        appt.push(r[key]);
+      });
+      this.appointments = appt;
+    });
   }
 
   filterChanged(event) {

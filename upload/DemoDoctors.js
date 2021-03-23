@@ -1,12 +1,13 @@
 firebase = require('firebase/app');
 require('firebase/database');
 require('firebase/auth');
+require('dotenv').config();
 
 firebase.initializeApp({
-    apiKey: 'AIzaSyB07oJq9-o40GunNJy1wrUdWFVZXnok32s',
-    authDomain: 'wellbeing-dev.firebaseapp.com',
-    databaseURL: 'https://wellbeing-dev.firebaseio.com/',
-    storageBucket: 'wellbeing-dev.appspot.com'
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.FIREBASE_DATABASE_URL,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
 });
 const db = firebase.database();
 

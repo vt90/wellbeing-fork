@@ -50,7 +50,7 @@
             <ion-searchbar class="search" placeholder="Search appointments"></ion-searchbar>
           </ion-col>
           <ion-col *ngIf="this.clinics">
-            <ion-label *ngFor="let c of this.clinics; let i = index" (click)="clinicIndex = i">{{c.name }}</ion-label>
+            <ion-label *ngFor="let c of this.clinics; let i = index" (click)="clinicIndex = i; getClinicsAppointments()">{{c.name }}</ion-label>
           </ion-col>
       </ion-row>
 

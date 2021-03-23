@@ -5,7 +5,7 @@ import {AppointmentService} from '../../services/doctor/appointment.service';
 import {AuthService} from '../../services/auth.service';
 import {DoctorService} from '../../services/doctor/doctor.service';
 import {Clinic} from '../../model/clinic.model';
-import {Appointment} from "../../model/appointment.model";
+import {Appointment} from '../../model/appointment.model';
 
 @Component({
   selector: 'app-appointment',
@@ -49,6 +49,12 @@ export class AppointmentPage implements OnInit{
     });
   }
 
+  getClinicsAppointments(){
+     this.appointmentService.getAppointments(this.doctorId, this.clinicIndex).then(r => {
+       this.appointments = [];
+       if (r){this.appointments = Object.values(r); }
+     });
+  }
 
 
 }

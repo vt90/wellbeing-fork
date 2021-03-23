@@ -80,6 +80,7 @@ export class PatientPage implements OnInit {
         this.patientService.getDoctorsBySpecialization(this.specialization).then(r => {
             const docs = [];
             Object.keys(r).map(key => {
+                r[key].id = key;
                 docs.push(r[key]);
             });
             this.searchedDoctors = docs;

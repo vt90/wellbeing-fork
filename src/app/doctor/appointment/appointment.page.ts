@@ -30,12 +30,7 @@ export class AppointmentPage implements OnInit{
       this.clinics = clinics;
     });
     this.appointmentService.getAppointments(this.doctorId, this.clinicIndex).then(r => {
-      console.log(r);
-      const appt = [];
-      Object.keys(r).map(key => {
-        appt.push(r[key]);
-      });
-      this.appointments = appt;
+      this.appointments = Object.values(r);
     });
   }
 

@@ -26,3 +26,26 @@ export const setUserType = functions
       return admin.auth(app).setCustomUserClaims(userid, {patient: true});
     });
   });
+
+// Write the new appointment to both the doctor and patient appointment collection.
+// Remove it from new-appointments.
+// This way the same appointment is available on both collections and they can be managed individually
+// by the doctor or the patient, such that security is maintained. Neither the doctor can write to the
+// patient appointments directly nor vice versa.
+export const setAppointment = functions
+  .region(environment.region)
+  .database.instance(environment.firebaseProjectId)
+  .ref('/new-appointments/{newappid}')
+  .onCreate((snapshot, context) => {
+    const newappid = context.params.newappid;
+    const newAppointment = snapshot.val();
+    const docApppointmentRef = snapshot.ref.root.child(`/doctor-appointment/${newAppointment.doctorId}/${newappid}`)
+    const patientApppointmentRef = snapshot.ref.root.child(`/patient-appointment/${newAppointment.patientId}/${newappid}`)
+    return docApppointmentRef.set(newAppointment)
+      .then(() => {
+        return patientApppointmentRef.set(newAppointment);
+      })
+      .then(() => {
+        return snapshot.ref.remove();
+      });
+  });

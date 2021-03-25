@@ -50,4 +50,14 @@ export class PatientService {
         return doctor;
     });
   }
+
+  async getDoctorsBySpecialization(specialization: string) {
+    let doctor: Doctor[];
+    return this.db.ref('/doctors/')
+        .orderByChild('specialization')
+        .equalTo(specialization).once('value').then(snapshot => {
+          doctor = snapshot.val();
+          return doctor;
+        });
+  }
 }

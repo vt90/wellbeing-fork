@@ -7,6 +7,7 @@ import {ModalController} from '@ionic/angular';
 import {TermsAndConditionsComponent} from './terms-and-conditions/terms-and-conditions.component';
 import {PatientService} from '../../services/patient/patient.service';
 import {AuthService} from '../../services/auth.service';
+import {Address} from '../../model/address.model';
 
 @Component({
   selector: 'app-onboarding',
@@ -14,7 +15,7 @@ import {AuthService} from '../../services/auth.service';
   styleUrls: ['./onboarding.page.scss'],
 })
 export class OnboardingPage implements OnInit {
-  patient: Patient = null;
+  patient: Patient;
   patientId: string;
 
   constructor(private router: Router,
@@ -25,8 +26,8 @@ export class OnboardingPage implements OnInit {
 
   ngOnInit() {
     this.patientId = this.authService.userID;
-    this.patient.email = this.authService.emailId;
     this.patient = Patient.fromUser(this.authService.user);
+    this.patient.address = new Address();
   }
 
 

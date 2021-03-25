@@ -4,7 +4,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="patient">
     <form #basicForm="ngForm" (ngSubmit)="save(basicForm)">
         <ion-grid>
             <ion-row>
@@ -20,7 +20,7 @@
                                        required
                                        pattern="[a-zA-Z ]*"
                                        #fnameCtrl="ngModel"
-                                       [(ngModel)]="patient.fName">
+                                       [(ngModel)]="patient.firstName">
                             </ion-input>
                         </ion-item>
                         <ion-item>
@@ -31,7 +31,7 @@
                                        required
                                        pattern="[a-zA-Z ]*"
                                        #lnameCtrl="ngModel"
-                                       [(ngModel)]="patient.lName">
+                                       [(ngModel)]="patient.lastName">
                             </ion-input>
                         </ion-item>
                     </ion-item>
@@ -60,7 +60,7 @@
                                    name="contact"
                                    required
                                    pattern="^\d{10}$"
-                                   [(ngModel)]="patient.contactNumber"
+                                   [(ngModel)]="patient.address.mobile"
                                    #contactCtrl="ngModel">
                         </ion-input>
                     </ion-item>
@@ -110,7 +110,7 @@
                         <ion-label position="floating"><strong>Address line 1</strong></ion-label>
                         <ion-input type="text"
                                    name="address1"
-                                   [(ngModel)]="patient.addressLine1">
+                                   [(ngModel)]="patient.address.addressLine1">
                         </ion-input>
                     </ion-item>
 
@@ -119,7 +119,7 @@
                         <ion-label position="floating"><strong>Address line 2</strong></ion-label>
                         <ion-input type="text"
                                    name="address2"
-                                   [(ngModel)]="patient.addressLine2">
+                                   [(ngModel)]="patient.address.addressLine2">
                         </ion-input>
                     </ion-item>
 
@@ -128,7 +128,7 @@
                         <ion-label position="floating"><strong>City</strong></ion-label>
                         <ion-input type="text"
                                    name="city"
-                                   [(ngModel)]="patient.city">
+                                   [(ngModel)]="patient.address.city">
                         </ion-input>
                     </ion-item>
 
@@ -137,7 +137,7 @@
                         <ion-label position="floating"><strong>State/Provience/Region</strong></ion-label>
                         <ion-input type="text"
                                    name="state"
-                                   [(ngModel)]="patient.state">
+                                   [(ngModel)]="patient.address.state">
                         </ion-input>
                     </ion-item>
 
@@ -146,7 +146,7 @@
                         <ion-label position="floating"><strong>Zip/Postal code</strong></ion-label>
                         <ion-input type="number"
                                    name="code"
-                                   [(ngModel)]="patient.zipcode">
+                                   [(ngModel)]="patient.address.zipcode">
                         </ion-input>
                     </ion-item>
 
@@ -155,7 +155,7 @@
                         <ion-label position="floating"><strong>Country</strong></ion-label>
                         <ion-input type="text"
                                    name="country"
-                                   [(ngModel)]="patient.country">
+                                   [(ngModel)]="patient.address.country">
                         </ion-input>
                     </ion-item>
 
@@ -167,13 +167,13 @@
                         <ion-checkbox slot="start"
                                       name="terms"
                                       required
-                                      [(ngModel)]="patient.termsConditions">
+                                      [(ngModel)]="patient.termsAndConditionsAcceptedAt">
                         </ion-checkbox>
                     </ion-item>
                 </ion-col>
             </ion-row>
             <div class="col text-center">
-                <ion-button type="submit" [disabled]="!basicForm.valid || !patient.termsConditions">Save</ion-button>
+                <ion-button type="submit" [disabled]="!basicForm.valid || !patient.termsAndConditionsAcceptedAt">Save</ion-button>
             </div>
         </ion-grid>
     </form>

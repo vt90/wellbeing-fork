@@ -16,6 +16,7 @@ import {DoctorDetailsComponent} from './doctor-details/doctor-details.component'
 })
 export class PatientPage implements OnInit {
     patient: Patient;
+    patientId: string;
     specializations: string[];
     subSpecializations: string[];
     doctors: Doctor[];
@@ -36,10 +37,9 @@ export class PatientPage implements OnInit {
     }
 
     ngOnInit() {
-        const id = this.authService.userID;
-        this.patientService.getPatientById(id).then(patient => {
+        this.patientId = this.authService.userID;
+        this.patientService.getPatientById(this.patientId).then(patient => {
             this.patient = patient;
-            // this.patient.patientId = id;
         });
         this.patientService.retrieveSpecializations().then(specs => {
             this.specializationsFromDB = specs;
@@ -77,23 +77,20 @@ export class PatientPage implements OnInit {
     }
 
     searchDoctors() {
-        const docs = [];
-        console.log(this.doctors);
-        for (const key in this.doctors) {
-            if (this.doctors.hasOwnProperty(key)) {
-                if (this.doctors[key].specialization === this.specialization) {
-                    this.doctors[key].id = key;
-                    docs.push(this.doctors[key]);
-                }
-            }
-        }
-        this.searchedDoctors = docs;
+        this.patientService.getDoctorsBySpecialization(this.specialization).then(r => {
+            const docs = [];
+            Object.keys(r).map(key => {
+                r[key].id = key;
+                docs.push(r[key]);
+            });
+            this.searchedDoctors = docs;
+        });
     }
 
     showAppointmentDetails(d: Doctor) {
         this.modalCtrl.create({
             component: DoctorDetailsComponent,
-            // componentProps: {doc: d, pId: this.patient.patientId}
+            componentProps: {doc: d, pId: this.patientId}
         }).then(modalElement => {
             modalElement.present();
             return modalElement.onDidDismiss();

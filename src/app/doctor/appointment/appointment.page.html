@@ -49,6 +49,9 @@
           <ion-col>
             <ion-searchbar class="search" placeholder="Search appointments"></ion-searchbar>
           </ion-col>
+          <ion-col *ngIf="this.clinics">
+            <ion-label *ngFor="let c of this.clinics; let i = index" (click)="clinicIndex = i; getClinicsAppointments()">{{c.name }}</ion-label>
+          </ion-col>
       </ion-row>
 
       <ion-row class="filterBar">
@@ -84,44 +87,14 @@
         <ion-col size="6">
           <ion-button (click)="addNewAppointment()">Add New Appointment</ion-button>
           
-          <ion-card>
+          <ion-card *ngFor="let a of appointments">
             <ion-row>
-              <ion-col>Date:15/02/2020</ion-col>
-              <ion-col>Time: 03:00PM</ion-col>
+              <ion-col>Date:{{a.date}}</ion-col>
+              <ion-col>Time: {{a.time}}</ion-col>
             </ion-row>
               <ion-row><ion-col>Name: xyz</ion-col> </ion-row>
-              <ion-row><ion-col>Appointment Type: Follow up</ion-col> </ion-row>
+              <ion-row><ion-col>Appointment Type: {{a.type}}</ion-col> </ion-row>
               <ion-row> <ion-col>Age:21</ion-col></ion-row>
-            <ion-row>
-              <ion-col><ion-button>Confirm</ion-button></ion-col>
-              <ion-col><ion-button>Cancel</ion-button></ion-col>
-              <ion-col><ion-button>Complete</ion-button></ion-col>
-            </ion-row>
-          </ion-card>
-
-          <ion-card>
-            <ion-row>
-              <ion-col>Date:15/02/2020</ion-col>
-              <ion-col>Time: 03:00PM</ion-col>
-            </ion-row>
-            <ion-row><ion-col>Name: xyz</ion-col> </ion-row>
-            <ion-row><ion-col>Appointment Type: Follow up</ion-col> </ion-row>
-            <ion-row> <ion-col>Age:21</ion-col></ion-row>
-            <ion-row>
-              <ion-col><ion-button>Confirm</ion-button></ion-col>
-              <ion-col><ion-button>Cancel</ion-button></ion-col>
-              <ion-col><ion-button>Complete</ion-button></ion-col>
-            </ion-row>
-          </ion-card>
-
-          <ion-card>
-            <ion-row>
-              <ion-col>Date:15/02/2020</ion-col>
-              <ion-col>Time: 03:00PM</ion-col>
-            </ion-row>
-            <ion-row><ion-col>Name: xyz</ion-col> </ion-row>
-            <ion-row><ion-col>Appointment Type: Follow up</ion-col> </ion-row>
-            <ion-row> <ion-col>Age:21</ion-col></ion-row>
             <ion-row>
               <ion-col><ion-button>Confirm</ion-button></ion-col>
               <ion-col><ion-button>Cancel</ion-button></ion-col>

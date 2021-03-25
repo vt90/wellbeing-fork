@@ -15,7 +15,7 @@ export class DoctorDetailsComponent implements OnInit {
     @Input() doc: Doctor;
     @Input() pId: string;
     clinics: Clinic[];
-    timeslot: Map<string, Map<string, any[]>> = new Map<string, Map<string, any[]>>();
+    timeslot: Map<number, Map<string, any[]>> = new Map<number, Map<string, any[]>>();
     day = '';
     minDate: Date;
     maxDate: Date;
@@ -34,7 +34,7 @@ export class DoctorDetailsComponent implements OnInit {
         const month = new Date().getMonth();
         const day = new Date().getDate();
         this.minDate = new Date(currentYear, month, day);
-        this.maxDate = new Date(currentYear, 1, 10);
+        this.maxDate = new Date(currentYear, month + 1, 10);
     }
 
     ngOnInit() {
@@ -43,12 +43,10 @@ export class DoctorDetailsComponent implements OnInit {
 
     getClinics() {
         const c = [];
-        for (const key in this.doc.clinics) {
-            if (this.doc.clinics.hasOwnProperty(key)) {
-                this.doc.clinics[key].clinicId = key;
-                c.push(this.doc.clinics[key]);
-                this.getDayWiseSchedule(this.doc.clinics[key]);
-            }
+        for (let i = 0; i < this.doc.clinics.length ; i++){
+            this.doc.clinics[i].clinicIndex = i;
+            c.push(this.doc.clinics[i]);
+            this.getDayWiseSchedule(this.doc.clinics[i]);
         }
         this.clinics = c;
     }
@@ -101,7 +99,7 @@ export class DoctorDetailsComponent implements OnInit {
                 t.set(d, this.getTimeStops(s));
             });
         });
-        this.timeslot.set(c.clinicId, t);
+        this.timeslot.set(c.clinicIndex, t);
     }
 
     getKeys(map: Map<string, string[]>) {
@@ -139,42 +137,40 @@ export class DoctorDetailsComponent implements OnInit {
                 this.dateInvalidMessage = 'Please Select valid date';
                 this.appointmentDate = null;
                 this.showAppointmentSlots = false;
-               // this.appointment.time = undefined;
             } else {
                 this.appointmentService.getAppointmentAvailability(this.appointmentDate, this.doc.id).then(t => {
                     if (t) {
                         this.updatedTimeslots = t;
                     } else {
-                        this.updatedTimeslots = this.timeslot.get(c.clinicId).get(this.day);
+                        this.updatedTimeslots = this.timeslot.get(c.clinicIndex).get(this.day);
                     }
                 });
                 this.showAppointmentSlots = true;
-                /*this.appointment.date = this.appointmentDate;
-                this.appointment.clinicId = c.clinicId;
+                this.appointment.date = this.appointmentDate.getTime();
+                this.appointment.clinicIndex = c.clinicIndex;
                 this.appointment.doctorId = this.doc.id;
-                this.appointment.patientId = this.pId;*/
+                this.appointment.patientId = this.pId;
             }
         }
     }
 
     bookAppointment() {
         this.markSlotBooked();
-        /*this.appointmentService.addDoctorAppointment(this.appointment).then(() => {
-            this.alertCtrl.create({
-                backdropDismiss: false,
-                message: 'Appointment Booked!!!!',
-                buttons: ['OK']
-            }).then((alert) => {
-                this.appointmentService.addPatientAppointment(this.appointment).then((a) => {
-                    console.log(a);
+        console.log(this.appointment);
+        this.appointmentService.addAppointment(this.appointment).then(r => {
+            if (r){
+                this.appointmentService.updateAppointmentAvailability(this.appointment, this.updatedTimeslots);
+                this.alertCtrl.create({
+                    backdropDismiss: false,
+                    message: 'Appointment Booked!!!!',
+                    buttons: ['OK']
+                }).then((alert) => {
+                    alert.present();
+                    this.modalCtrl.dismiss();
+                    return alert.onDidDismiss();
                 });
-                alert.present();
-                this.modalCtrl.dismiss();
-                return alert.onDidDismiss();
-            });
-        }).then(() => {
-            this.appointmentService.updateAppointmentAvailability(this.appointment, this.updatedTimeslots);
-        });*/
+            }
+        });
     }
 
     showMoreClinics() {
@@ -185,9 +181,9 @@ export class DoctorDetailsComponent implements OnInit {
 
     markSlotBooked() {
         this.updatedTimeslots.forEach(t => {
-           /* if (t.slot === this.appointment.time) {
+            if (t.slot === this.appointment.time) {
                 t.isBooked = true;
-            }*/
+            }
         });
     }
 }

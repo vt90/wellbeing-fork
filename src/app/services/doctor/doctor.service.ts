@@ -49,4 +49,12 @@ export class DoctorService {
     updateClinics(clinics: Clinic[], doctorId: string) {
         return this.db.ref('/doctors/' + doctorId + '/clinics/').set(clinics);
     }
+
+    async getAllClinics(doctorId: string) {
+        let clinics = [];
+        return this.db.ref('/doctors/' + doctorId + '/clinics/').once('value').then(snapshot => {
+            clinics = snapshot.val();
+            return clinics;
+        });
+    }
 }

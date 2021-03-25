@@ -48,13 +48,6 @@ export class DoctorDetailsComponent implements OnInit {
             c.push(this.doc.clinics[i]);
             this.getDayWiseSchedule(this.doc.clinics[i]);
         }
-       /* for (const key in this.doc.clinics) {
-            if (this.doc.clinics.hasOwnProperty(key)) {
-                this.doc.clinics[key].clinicIndex = key;
-                c.push(this.doc.clinics[key]);
-                this.getDayWiseSchedule(this.doc.clinics[key]);
-            }
-        }*/
         this.clinics = c;
     }
 
@@ -163,7 +156,21 @@ export class DoctorDetailsComponent implements OnInit {
 
     bookAppointment() {
         this.markSlotBooked();
-        this.appointmentService.addAppointment(this.appointment);
+        console.log(this.appointment);
+        this.appointmentService.addAppointment(this.appointment).then(r => {
+            if (r){
+                this.appointmentService.updateAppointmentAvailability(this.appointment, this.updatedTimeslots);
+                this.alertCtrl.create({
+                    backdropDismiss: false,
+                    message: 'Appointment Booked!!!!',
+                    buttons: ['OK']
+                }).then((alert) => {
+                    alert.present();
+                    this.modalCtrl.dismiss();
+                    return alert.onDidDismiss();
+                });
+            }
+        });
     }
 
     showMoreClinics() {

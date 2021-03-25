@@ -1,11 +1,11 @@
 import {AddAppointmentComponent} from './add-appointment/add-appointment.component';
 import {Component, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
-import {AppointmentService} from '../../services/doctor/appointment.service';
-import {AuthService} from '../../services/auth.service';
-import {DoctorService} from '../../services/doctor/doctor.service';
-import {Clinic} from '../../model/clinic.model';
-import {Appointment} from '../../model/appointment.model';
+import {AppointmentService} from '../../../services/doctor/appointment.service';
+import {AuthService} from '../../../services/auth.service';
+import {DoctorService} from '../../../services/doctor/doctor.service';
+import {Clinic} from '../../../model/clinic.model';
+import {Appointment} from '../../../model/appointment.model';
 
 @Component({
   selector: 'app-appointment',

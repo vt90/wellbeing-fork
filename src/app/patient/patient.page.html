@@ -20,19 +20,37 @@
             </ion-col>
             <ion-col size="10" *ngIf="patient">
 
-                    <ion-title> Welcome {{ patient.firstName}},</ion-title>
+                <ion-title> Welcome {{ patient.firstName}},</ion-title>
                 <div style="margin-left: 2%">
-                    <ion-text color="dark">
-                        <h3>Notice: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
-                    </ion-text>
+                    <div style="background-color: #bfdcc5;">
+                        <ion-text color="dark">
+                            <h3>Notice: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
+                        </ion-text>
+                    </div>
 
                     <div>
                         <ion-label>Search Doctor</ion-label>
                         <ion-row>
-                            <ion-col>Location</ion-col>
-                            <ion-col>Specialization</ion-col>
-                            <ion-col>Sub Specialization</ion-col>
-                            <ion-col>Visit type</ion-col>
+                            <ion-col>
+                                <ion-button color="secondary">Location
+                                    <ion-icon name="caret-down-outline"></ion-icon>
+                                </ion-button>
+                            </ion-col>
+                            <ion-col>
+                                <ion-button color="secondary">Specialization
+                                    <ion-icon name="caret-down-outline"></ion-icon>
+                                </ion-button>
+                            </ion-col>
+                            <ion-col>
+                                <ion-button color="secondary">Sub Specialization
+                                    <ion-icon name="caret-down-outline"></ion-icon>
+                                </ion-button>
+                            </ion-col>
+                            <ion-col>
+                                <ion-button color="secondary">Visit type
+                                    <ion-icon name="caret-down-outline"></ion-icon>
+                                </ion-button>
+                            </ion-col>
                             <ion-col>
                                 <ion-icon name="search-outline"></ion-icon>
                             </ion-col>
@@ -83,7 +101,50 @@
                                 </ion-list>
                             </ion-col>
                         </ion-row>
+                    </div>
 
+                    <div>
+                        <ion-row>
+                            <ion-col>Book Appointment</ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-calendar></ion-calendar>
+                            </ion-col>
+                            <ion-col>
+                                <div style="background-color: #ef827a;">
+                                    <ion-text color="dark">
+                                        <h3>ALERT: NEXT APPOINTMENT IS IN 5 MINS.
+                                            <ion-icon name="close-circle-outline"></ion-icon>
+                                        </h3>
+                                    </ion-text>
+                                </div>
+                                <div>
+                                    <ion-card>
+                                        <ion-card-header>
+                                            <ion-label style="margin-right:70%">Next Appointment</ion-label>
+                                            <ion-icon name="arrow-forward-circle-outline"></ion-icon>
+                                        </ion-card-header>
+                                        <ion-card-content>
+                                            <ion-row class="ion-justify-content-center">
+                                                <ion-icon style="font-size: x-large;"
+                                                          name="person-circle-outline"></ion-icon>
+                                            </ion-row>
+                                            <ion-row class="ion-justify-content-center">
+                                                <ion-label>SWQA Solution</ion-label>
+                                            </ion-row>
+                                            <ion-row class="ion-justify-content-center">
+                                                <ion-label>Lorem Ipsum has been the industry's standard dummy text ever
+                                                    since the 1500s, when an unknown printer took a galley of type and
+                                                    scrambled it to make a type specimen book.
+                                                </ion-label>
+                                            </ion-row>
+                                            <ion-row class="ion-justify-content-center"><a href="#">View History</a></ion-row>
+                                        </ion-card-content>
+                                    </ion-card>
+                                </div>
+                            </ion-col>
+                        </ion-row>
                     </div>
 
                 </div>

@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev-install": "scp -i \"wellbeing0.pem\" -r www/* ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com:~/wellbeing-dev-www/"
+    "dev-install": "scp -i \"wellbeing0.pem\" -r www/* ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com:~/wellbeing-dev-www/",
+    "prettier": "prettier --write src/**/*.{ts,js,css,html}"
   },
   "private": true,
   "dependencies": {
@@ -48,6 +49,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^11.1.1",
     "@angular-devkit/build-angular": "^0.1100.3",
     "@angular/cli": "10.0.5",
     "@angular/compiler": "~10.0.8",
@@ -58,8 +60,12 @@
     "@ionic/pwa-elements": "^1.5.2",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^12.11.1",
+    "@types/node": "^12.20.6",
     "codelyzer": "^5.1.2",
+    "dotenv": "^8.2.0",
+    "dotenv-webpack": "^7.0.2",
+    "fs": "0.0.1-security",
+    "husky": "^5.2.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~5.0.0",
@@ -67,10 +73,21 @@
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~3.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
+    "path": "^0.12.7",
+    "prettier": "^2.2.1",
     "protractor": "^7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "~3.9.7"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "browser": {
+    "fs": false
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier --staged && ng lint"
+    }
+  }
 }

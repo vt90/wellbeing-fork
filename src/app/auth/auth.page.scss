@@ -38,3 +38,24 @@ ion-button{
 .login-block{
   padding-top: 8px;
 }
+nav {
+ // border-bottom: 1px solid black;
+}
+
+.crumbs ol {
+  list-style-type: none;
+  padding-left: 50%;
+}
+
+.crumb {
+  // display: inline-block;
+}
+
+.crumb a::after {
+  display: inline-block;
+  color: black;
+  content: '>';
+  font-size: 80%;
+  font-weight: bold;
+  padding: 0 3px;
+}

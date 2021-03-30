@@ -16,19 +16,20 @@
     <ion-buttons slot="start" class="menu-tab">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <nav class="navbar" class="menu">
-      <a class="navbar-brand" href="#">Home</a>
-      <a class="navbar-brand" href="#">Features</a>
-      <a class="navbar-brand" href="#">Services</a>
-      <a class="navbar-brand" href="#">About</a>
-    </nav>
     <ion-buttons class="lang-buttons ion-hide-md-down" slot="primary">
+      <nav class="navbar">
+        <a class="nav-link" href="#">Home</a>
+        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="#">Services</a>
+        <a class="nav-link" href="#">About</a>
+      </nav>
       <app-langselect></app-langselect>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-title class="ion-text-center">WellBeing {{ isLogin ? translate.instant('AUTH.LOGIN-TITLE') : 'Registration' }}</ion-title>
   <form #loginform="ngForm" (ngSubmit)="isLogin ? onLogin(loginform) : onRegister(loginform)">
     <ion-grid>
       <div class="container-block">

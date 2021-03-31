@@ -28,16 +28,16 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthPageModule)
+    loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthPageModule)
   },
   {
     path: 'patient',
-    loadChildren: () => import('./patient/patient.module').then(m => m.PatientPageModule),
+    loadChildren: () => import('./pages/patient/patient.module').then(m => m.PatientPageModule),
     ...canActivate(patientOnly)
   },
   {
     path: 'doctor',
-    loadChildren: () => import('./doctor/doctor.module').then(m => m.DoctorPageModule),
+    loadChildren: () => import('./pages/doctor/doctor.module').then(m => m.DoctorPageModule),
     ...canActivate(doctorOnly)
   }
 ];

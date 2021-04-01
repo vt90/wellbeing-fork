@@ -8,34 +8,34 @@
             </ion-col>
             <ion-col size="10" *ngIf="patient">
 
-                <ion-title> Welcome {{ patient.firstName}},</ion-title>
+                <ion-title> {{translate.instant('COMMON.Welcome')}} {{ patient.firstName}},</ion-title>
                 <div style="margin-left: 2%">
                     <div style="background-color: #bfdcc5;">
                         <ion-text color="dark">
-                            <h3>Notice: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
+                            <h3>{{translate.instant('PATIENT.Notice')}}: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
                         </ion-text>
                     </div>
 
                     <div>
-                        <ion-label>Search Doctor</ion-label>
+                        <ion-label>{{translate.instant('COMMON.Search') }} {{translate.instant('COMMON.Doctor')}}</ion-label>
                         <ion-row>
                             <ion-col>
-                                <ion-button color="secondary">Location
+                                <ion-button color="secondary">{{translate.instant('PATIENT.Location')}}
                                     <ion-icon name="caret-down-outline"></ion-icon>
                                 </ion-button>
                             </ion-col>
                             <ion-col>
-                                <ion-button color="secondary">Specialization
+                                <ion-button color="secondary">{{translate.instant('PATIENT.Specialization')}}
                                     <ion-icon name="caret-down-outline"></ion-icon>
                                 </ion-button>
                             </ion-col>
                             <ion-col>
-                                <ion-button color="secondary">Sub Specialization
+                                <ion-button color="secondary">{{translate.instant('PATIENT.Sub Specialization')}}
                                     <ion-icon name="caret-down-outline"></ion-icon>
                                 </ion-button>
                             </ion-col>
                             <ion-col>
-                                <ion-button color="secondary">Visit type
+                                <ion-button color="secondary">{{translate.instant('PATIENT.Visit Type')}}
                                     <ion-icon name="caret-down-outline"></ion-icon>
                                 </ion-button>
                             </ion-col>
@@ -46,8 +46,8 @@
                     </div>
                     <div>
                         <ion-row>
-                            <ion-col>Recently Visited Doctor</ion-col>
-                            <ion-col>Reports</ion-col>
+                            <ion-col>{{translate.instant('PATIENT.Recently Visited') }} {{translate.instant('COMMON.Doctor')}}</ion-col>
+                            <ion-col>{{translate.instant('PATIENT.Reports')}}</ion-col>
                         </ion-row>
                         <ion-row>
                             <ion-col>
@@ -87,14 +87,14 @@
                                         <ion-icon slot="end" name="alert-circle-outline"></ion-icon>
                                     </ion-item>
                                 </ion-list>
-                                <ion-row class="ion-justify-content-center"><a href="#">View All</a></ion-row>
+                                <ion-row class="ion-justify-content-center"><a href="#">{{translate.instant('PATIENT.View All') }}</a></ion-row>
                             </ion-col>
                         </ion-row>
                     </div>
 
                     <div>
                         <ion-row>
-                            <ion-col>Book Appointment</ion-col>
+                            <ion-col>{{translate.instant('PATIENT.Book Appointment') }}</ion-col>
                         </ion-row>
                         <ion-row>
                             <ion-col>
@@ -103,7 +103,7 @@
                             <ion-col>
                                 <div style="background-color: #ef827a;">
                                     <ion-text color="dark">
-                                        <h3>ALERT: NEXT APPOINTMENT IS IN 5 MINS.
+                                        <h3>{{translate.instant('PATIENT.Alert') }}: NEXT APPOINTMENT IS IN 5 MINS.
                                             <ion-icon name="close-circle-outline"></ion-icon>
                                         </h3>
                                     </ion-text>
@@ -111,7 +111,7 @@
                                 <div>
                                     <ion-card>
                                         <ion-card-header>
-                                            <ion-label style="margin-right:70%">Next Appointment</ion-label>
+                                            <ion-label style="margin-right:70%">{{translate.instant('PATIENT.Next Appointment') }}</ion-label>
                                             <ion-icon name="arrow-forward-circle-outline"></ion-icon>
                                         </ion-card-header>
                                         <ion-card-content>
@@ -128,7 +128,7 @@
                                                     scrambled it to make a type specimen book.
                                                 </ion-label>
                                             </ion-row>
-                                            <ion-row class="ion-justify-content-center"><a href="#">View History</a></ion-row>
+                                            <ion-row class="ion-justify-content-center"><a href="#">{{translate.instant('PATIENT.View History') }}</a></ion-row>
                                         </ion-card-content>
                                     </ion-card>
                                 </div>
@@ -137,39 +137,6 @@
                     </div>
 
                 </div>
-                <!-- <ion-row>
-                     <ion-col size="5">
-                         <ion-label><strong> Search Doctor Here </strong></ion-label>
-                         <ion-select name="spec"
-                                     (ionChange)="onSpecChange(specialization)"
-                                     [(ngModel)]="specialization"
-                                     placeholder="specialization">
-                             <ion-select-option *ngFor="let s of specializations" [value]="s">
-                                 {{s}}
-                             </ion-select-option>
-                         </ion-select>
-                         <ion-select name="subspec"
-                                     placeholder="sub-specialization">
-                             <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
-                                 {{sub}}
-                             </ion-select-option>
-                         </ion-select>
-                     </ion-col>
-                     <ion-col size="5">
-                         <ion-label *ngIf="specialization"><strong> {{specialization}} doctors</strong></ion-label>
-                         <ion-chip *ngFor="let d of searchedDoctors" (click)="showAppointmentDetails(d)">
-                             <ion-avatar>
-                                 <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-                             </ion-avatar>
-                             <ion-item>
-                                 <ion-label><strong>Name: </strong> Dr. {{ d.firstName }} {{ d.lastName}}</ion-label>
-                             </ion-item>
-                             <ion-item>
-                                 <ion-label><strong>Specialization:</strong> {{d.specialization}}</ion-label>
-                             </ion-item>
-                         </ion-chip>
-                     </ion-col>
-                 </ion-row>-->
             </ion-col>
         </ion-row>
     </ion-grid>

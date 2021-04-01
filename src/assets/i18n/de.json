@@ -46,5 +46,24 @@
     "PasswordResetMsg": "Eine Email mit Link um das Passwort zurückzusetzten wurde verschickt an ",
     "OtherHeader": "Fehler: ",
     "OtherMsg": "Ungültige Daten. Bitte wenden sie sich an den Support."
+  },
+  "COMMON": {
+    "Welcome": "Herzlich willkommen",
+    "Search": "Suche",
+    "Doctor": "Arzt"
+  },
+  "PATIENT": {
+    "Location": "Ort",
+    "Specialization": "Spezialisierung",
+    "Sub Specialization":  "Subspezialisierung",
+    "Visit Type": "Besuchen Sie Type",
+    "Recently Visited":  "Kürzlich besucht",
+    "Reports": "Berichte",
+    "View All": "Alle ansehen",
+    "View History": "Siehe Verlauf",
+    "Book Appointment": "Einen Termin verabreden",
+    "Alert": "Aufmerksam",
+    "Notice": "Beachten",
+    "Next Appointment": "Nächster Termin"
   }
 }

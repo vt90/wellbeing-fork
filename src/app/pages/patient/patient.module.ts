@@ -12,6 +12,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
+import {CalendarModule} from "ion2-calendar";
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    MatRadioModule
+    MatRadioModule,
+    CalendarModule
   ],
   exports: [PatientPage],
   declarations: [PatientPage, DoctorDetailsComponent],

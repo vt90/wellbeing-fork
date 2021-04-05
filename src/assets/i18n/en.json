@@ -47,5 +47,24 @@
     "PasswordResetMsg": "An email with a password reset link has been sent to ",
     "OtherHeader": "Error: ",
     "OtherMsg": "Unknown problem. Please contact support."
+  },
+  "COMMON": {
+    "Welcome": "Welcome",
+    "Search": "Search",
+    "Doctor": "Doctor"
+  },
+  "PATIENT": {
+    "Location": "Location",
+    "Specialization": "Specialization",
+    "Sub Specialization":  "Sub Specialization",
+    "Visit Type": "Visit Type",
+    "Recently Visited":  "Recently Visited",
+    "Reports": "Reports",
+    "View All": "View All",
+    "View History": "View History",
+    "Book Appointment": "Book Appointment",
+    "Alert": "Alert",
+    "Notice": "Notice",
+    "Next Appointment": "Next Appointment"
   }
 }

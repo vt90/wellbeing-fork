@@ -27,7 +27,7 @@ export class PatientPage implements OnInit {
     constructor(private authService: AuthService,
                 private router: Router,
                 private patientService: PatientService,
-                private translate: TranslateService,
+                public translate: TranslateService,
                 private modalCtrl: ModalController) {
     }
 

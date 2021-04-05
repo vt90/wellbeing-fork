@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-grid>
     <ion-row>
       <ion-col size-md="6" offset-md="3">
@@ -9,11 +9,30 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+</ion-header> -->
+
+<ion-header>
+  <ion-toolbar class="menu-container">
+    <ion-buttons slot="start" class="menu-tab">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons class="lang-buttons ion-hide-md-down" slot="primary">
+      <nav class="navbar">
+        <a class="nav-link" href="#">Home</a>
+        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="#">Services</a>
+        <a class="nav-link" href="#">About</a>
+      </nav>
+      <app-langselect></app-langselect>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-title class="ion-text-center">WellBeing {{ isLogin ? translate.instant('AUTH.LOGIN-TITLE') : 'Registration' }}</ion-title>
   <form #loginform="ngForm" (ngSubmit)="isLogin ? onLogin(loginform) : onRegister(loginform)">
     <ion-grid>
+      <div class="container-block">
       <ion-row *ngIf=!isLogin >
         <ion-col size-md="6" offset-md="3" class="ion-no-padding">
           <ion-item lines="none">
@@ -34,7 +53,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row class="login-block">
         <ion-col size-md="6" offset-md="3">
           <ion-list>
             <ion-item>
@@ -69,7 +88,7 @@
           </ion-list>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row class="login-btn-row">
         <ion-col size-md="6" offset-md="3">
           <ion-button
                   type="button"
@@ -97,6 +116,7 @@
           </ion-button>
         </ion-col>
       </ion-row>
+    </div>
     </ion-grid>
   </form>
 </ion-content>

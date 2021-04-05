@@ -18,3 +18,44 @@
   right: -20px;
   top: 5px;
 }
+
+.login-block{
+  margin-top: 12%;
+}
+ion-button{
+  width: max-content;
+}
+.login-btn-row{
+  text-align: -webkit-center;
+}
+
+.container-block{
+  background: white;
+  margin-left: 20%;
+  margin-right: 20%;
+  box-shadow: 10px 10px 20px #0000009B;
+}
+.login-block{
+  padding-top: 8px;
+}
+nav {
+ // border-bottom: 1px solid black;
+}
+
+.crumbs ol {
+  list-style-type: none;
+  padding-left: 50%;
+}
+
+.crumb {
+  // display: inline-block;
+}
+
+.crumb a::after {
+  display: inline-block;
+  color: black;
+  content: '>';
+  font-size: 80%;
+  font-weight: bold;
+  padding: 0 3px;
+}

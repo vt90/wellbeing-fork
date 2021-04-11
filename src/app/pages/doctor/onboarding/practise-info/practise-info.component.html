@@ -1,130 +1,161 @@
-<ion-content>
+<ion-title class="ion-text-center">
+  <strong>{{ translate.instant('ONBOARDING.Practise Information') }}</strong>
+</ion-title>
+
+<ion-card>
   <form #practiseForm="ngForm" (ngSubmit)="next(practiseForm)">
-    <ion-grid>
-      <ion-row>
-        <ion-col size-md="6" offset-md="3" class="block-border">
-          <ion-title class="ion-text-center">
-            <strong>Practise Information </strong>
-          </ion-title>
+    <div>
+      <ion-item lines="inset">
+        <ion-label
+          class="asterisk"
+          position="stacked"
+          [color]="specializationCtrl.invalid && (specializationCtrl.touched || specializationCtrl.dirty) ? 'danger' : 'dark'"
+        >
+          {{ translate.instant('ONBOARDING.Specialization') }}
+        </ion-label>
 
-          <ion-item>
-            <ion-label class="asterisk"><strong>Specializations</strong></ion-label>
-            <ion-select ngModel
-                        name="spec"
-                        required
-                        [(ngModel)]="doctor.specialization"
-                        (ngModelChange)="onSpecChange(doctor.specialization); doctor.subspecialization = ''"
-                        placeholder="specialization">
-              <ion-select-option *ngIf="doctor.specialization" [value]="doctor.specialization">
-                {{doctor.specialization}}
-              </ion-select-option>
-              <ion-select-option *ngFor="let s of specializations" [value]="s">
-                {{s}}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
+        <ion-select
+          ngModel
+          name="specialization"
+          required
+          [placeholder]="translate.instant('ONBOARDING.Specialization')"
+          [(ngModel)]="doctor.specialization"
+          (ngModelChange)="onSpecChange(doctor.specialization); doctor.subspecialization = ''"
+          #specializationCtrl="ngModel"
+        >
+          <ion-select-option *ngFor="let specialization of specializations" [value]="specialization.value">
+            {{specialization.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
 
-          <ion-item>
-            <ion-label><strong> No specialization listed?</strong></ion-label>
-            <ion-input type="text"
-                       ngModel
-                       name="newSpec"
-                       [(ngModel)]="newSpecialization"
-                       placeholder="add here"
-                       pattern="[a-zA-Z ]*" #sCtrl="ngModel">
-            </ion-input>
-          </ion-item>
-          <ion-item *ngIf="sCtrl.invalid && (sCtrl.touched || sCtrl.dirty)"
-                    lines="none">
-            <ion-item *ngIf="sCtrl.hasError('pattern')">
-              <ion-label color="danger"> Enter valid specialization</ion-label>
-            </ion-item>
-          </ion-item>
+      <ion-item
+        *ngIf="specializationCtrl.invalid && (specializationCtrl.touched || specializationCtrl.dirty)"
+        lines="none"
+      >
+        <ion-label
+          *ngIf="specializationCtrl.hasError('required')"
+          color="danger"
+          class="ion-no-margin"
+        >
+          {{ translate.instant('ONBOARDING.Specialization Required') }}
+        </ion-label>
+      </ion-item>
+    </div>
 
-          <ion-item style="color: black!important;">
-            <ion-label><strong> Sub Specialization</strong></ion-label>
-            <ion-select ngModel
-                        name="subSpec"
-                        [disabled]="!noSubspecData"
-                        [(ngModel)]="doctor.subspecialization"
-                        [placeholder]="noSubspecData ? 'sub-specialization':'Not Applicable'">
-              <ion-select-option *ngIf="doctor.subspecialization" [value]="doctor.subspecialization">
-                {{doctor.subspecialization}}
-              </ion-select-option>
-              <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
-                {{sub}}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
+    <div>
+      <ion-item lines="inset">
+        <ion-label
+          position="stacked"
+          [color]="subspecializationCtrl.invalid && (subspecializationCtrl.touched || subspecializationCtrl.dirty) ? 'danger' : 'dark'"
+        >
+          {{ translate.instant('ONBOARDING.Sub Specialization') }}
+        </ion-label>
 
-          <ion-item>
-            <ion-label><strong>No sub-specialization listed? </strong></ion-label>
-            <ion-input ngModel
-                       name="newSub"
-                       type="text"
-                       [(ngModel)]="newSubSpecialization"
-                       placeholder="add here"
-                       pattern="[a-zA-Z ]*" #subCtrl="ngModel">
-            </ion-input>
-          </ion-item>
-          <ion-item *ngIf="subCtrl.invalid && (subCtrl.touched || subCtrl.dirty)"
-                    lines="none">
-            <ion-item *ngIf="subCtrl.hasError('pattern')">
-              <ion-label color="danger"> Enter valid sub-specialization</ion-label>
-            </ion-item>
-          </ion-item>
+        <ion-select
+          ngModel
+          name="subspecialization"
+          [disabled]="!subSpecializations?.length"
+          [placeholder]="translate.instant(subSpecializations?.length ? 'ONBOARDING.Sub Specialization' : 'COMMON.Not applicable')"
+          [(ngModel)]="doctor.subspecialization"
+          #subspecializationCtrl="ngModel"
+        >
+          <ion-select-option *ngFor="let specialization of subSpecializations" [value]="specialization.value">
+            {{specialization.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
 
-          <ion-item>
-            <ion-label class="asterisk"><strong>Experience In Years </strong></ion-label>
-            <ion-input ngModel
-                       name="exp"
-                       required
-                       placeholder="Experience In years"
-                       type="number"
-                       pattern="[0-9]{1,2}"
-                       [(ngModel)]="doctor.experience"
-                       #expCtrl="ngModel">
-            </ion-input>
-          </ion-item>
-          <ion-item *ngIf="expCtrl.invalid && (expCtrl.touched || expCtrl.dirty)" lines="none">
-            <ion-item *ngIf="expCtrl.errors.required">
-              <ion-label color="danger"> Experience years required</ion-label>
-            </ion-item>
-            <ion-item *ngIf="expCtrl.hasError('pattern')">
-              <ion-label color="danger"> Experience years invalid</ion-label>
-            </ion-item>
-          </ion-item>
+    <div>
+      <ion-item lines="inset">
+        <ion-label
+          class="asterisk"
+          position="stacked"
+          [color]="experienceCtrl.invalid && (experienceCtrl.touched || experienceCtrl.dirty) ? 'danger' : 'dark'"
+        >
+          {{ translate.instant('ONBOARDING.Experience In Years') }}
+        </ion-label>
 
-          <ion-row>
-            <ion-col size-md="6">
-              <ion-item>
-                <ion-label class="asterisk"><strong> Degree Certificate</strong></ion-label>
-              </ion-item>
-            </ion-col>
-            <ion-col size-md="6">
-              <ion-item *ngIf="uploadCert">
-                <input type="file"
-                       id="file-input"
-                       accept="image/*,application/pdf"
-                       (change)="setUploadFile($event.target.files)"
-                       name="cert">
-              </ion-item>
-              <ion-row *ngIf="doctor.certificate && !uploadCert">
-                {{doctor.certificate}}</ion-row>
-              <ion-row  *ngIf="doctor.certificate && !uploadCert">
-                <ion-button (click)="uploadCert = true">Change</ion-button>
-              </ion-row>
-            </ion-col>
-          </ion-row>
+        <ion-input
+          ngModel
+          type="number"
+          name="experience"
+          required
+          [placeholder]="translate.instant('ONBOARDING.Experience In Years')"
+          pattern="[0-9]{1,2}"
+          [(ngModel)]="doctor.experience"
+          #experienceCtrl="ngModel">
+        </ion-input>
+      </ion-item>
 
-        </ion-col>
-      </ion-row>
-      <div class="btn-container">
-        <ion-button (click)="prev()">back</ion-button>
-        <ion-button type="submit" [disabled]="!practiseForm.valid">next</ion-button>
-      </div>
-    </ion-grid>
+      <ion-item
+        *ngIf="experienceCtrl.invalid && (experienceCtrl.touched || experienceCtrl.dirty)"
+        lines="none"
+      >
+        <ion-label
+          *ngIf="experienceCtrl.hasError('required')"
+          color="danger"
+          class="ion-no-margin"
+        >
+          {{ translate.instant('ONBOARDING.Experience Required') }}
+        </ion-label>
+
+        <ion-label
+          *ngIf="experienceCtrl.hasError('patterns')"
+          color="danger"
+          class="ion-no-margin"
+        >
+          {{ translate.instant('ONBOARDING.Experience Invalid') }}
+        </ion-label>
+      </ion-item>
+    </div>
+
+    <div>
+      <ion-item lines="inset" *ngIf="uploadCert">
+        <ion-label
+          class="asterisk"
+          position="stacked"
+          color="dark"
+        >
+          {{ translate.instant('ONBOARDING.Upload Certificate') }}
+        </ion-label>
+
+        <input
+          type="file"
+          id="file-input"
+          accept="image/*,application/pdf"
+          (change)="setUploadFile($event.target.files)"
+          name="cert"
+        >
+      </ion-item>
+
+      <ion-item lines="inset" *ngIf="doctor.certificate && !uploadCert">
+        <ion-label
+          class="asterisk"
+          position="stacked"
+          color="dark"
+        >
+          {{ translate.instant('ONBOARDING.Degree Certificate') }}
+        </ion-label>
+
+        <ion-text>
+          {{doctor.certificate}}
+        </ion-text>
+
+        <ion-button slot="end" (click)="uploadCert = true">
+          {{ translate.instant('COMMON.Change') }}
+        </ion-button>
+      </ion-item>
+    </div>
+
+    <div
+      class="ion-text-center ion-margin-vertical"
+    >
+      <ion-button (click)="prev()">{{ translate.instant('COMMON.Back') }}</ion-button>
+      <ion-button type="submit" [disabled]="!practiseForm.valid">{{ translate.instant(('COMMON.Next')) }}</ion-button>
+    </div>
   </form>
-</ion-content>
+</ion-card>
 
 

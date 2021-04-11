@@ -88,3 +88,7 @@ ion-label.asterisk::after {
     font-size: larger;
     color: red;
 }
+
+ion-item.item-lines-inset::part(native)  {
+  padding-right: 16px;
+}

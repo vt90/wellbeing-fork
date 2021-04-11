@@ -1,39 +1,29 @@
-<ion-content>
-    <ion-grid>
-        <ion-row>
+<ion-title class="ion-text-center">{{ translate.instant('ONBOARDING.Terms and Conditions') }}</ion-title>
 
-            <ion-col size-md="6" offset-md="3" class="block-border">
-                <ion-title class="ion-text-center">Terms And Condition</ion-title>
+<ion-card class="ion-margin-bottom">
+  <ion-item lines="none">
+    <ion-text class="ion-margin-top">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit,
+      vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus,
+      ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique,
+      tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris
+      sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum
+      in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut
+      vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius
+      pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet
+      orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada
+      quis ornare accumsan, blandit sed diam.
+    </ion-text>
+  </ion-item>
 
+  <ion-item lines="none">
+    <ion-label>{{ translate.instant('ONBOARDING.Accept Terms and Conditions') }}</ion-label>
+    <ion-checkbox slot="start" [(ngModel)]="termsAndConditions"></ion-checkbox>
+  </ion-item>
 
-                <ion-item>
-                    <p style="margin-top:30px;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit,
-                        vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus,
-                        ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique,
-                        tortor mauris molestie elit, et lacinia ipsum quam nec dui. Quisque nec mauris
-                        sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio, elementum
-                        in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut
-                        vulputate eros sed felis sodales nec vulputate justo hendrerit. Vivamus varius
-                        pretium ligula, a aliquam odio euismod sit amet. Quisque laoreet sem sit amet
-                        orci ullamcorper at ultricies metus viverra. Pellentesque arcu mauris, malesuada
-                        quis ornare accumsan, blandit sed diam.
-                    </p>
-
-                </ion-item>
-                <ion-item>
-                    <ion-label>Accept Terms and Conditions</ion-label>
-                    <ion-checkbox slot="start" [(ngModel)]="termsAndConditions"></ion-checkbox>
-                </ion-item>
-
-
-            </ion-col>
-
-        </ion-row>
-        <div class="btn-container">
-            <ion-button (click)="prev()">Back</ion-button>
-            <ion-button [disabled]="!termsAndConditions" (click)="save()">Save</ion-button>
-        </div>
-    </ion-grid>
-</ion-content>
+  <div class="ion-text-center ion-margin-bottom">
+    <ion-button (click)="prev()">{{ translate.instant('COMMON.Back') }}</ion-button>
+    <ion-button [disabled]="!termsAndConditions" (click)="save()">{{translate.instant('COMMON.Save')}}</ion-button>
+  </div>
+</ion-card>
 

@@ -12,10 +12,37 @@ ion-col hr{
     border-top: 2px solid #0000001a;
 }
 
-:host ::ng-deep b {
-    display: block
+:host ::ng-deep .p-steps-container {
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  .p-steps-item {
+    .p-menuitem-link {
+      background-color: transparent;
+    }
+  }
+
+  .p-steps-item:before {
+    margin-top: 0 !important;
+  }
+
+  .p-steps-item:first-child:before {
+    width: 50%;
+    left: 50%;
+  }
+
+  .p-steps-item:last-child:before {
+    width: 50%;
+  }
+
+  .p-steps-title {
+    display: none;
+    visibility: hidden;
+  }
 }
 
-:host ::ng-deep .p-card-body {
-    padding: 2rem;
+@media screen and (min-width: 576px) {
+  :host ::ng-deep .p-steps-container {
+    margin-top: 60px;
+  }
 }

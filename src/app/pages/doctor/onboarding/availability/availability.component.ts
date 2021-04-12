@@ -34,6 +34,7 @@ export class AvailabilityComponent implements OnInit, OnDestroy {
 
   doctor: Doctor;
   sub: Subscription;
+  showSetUp = false;
 
 
   constructor(

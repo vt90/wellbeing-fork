@@ -1,123 +1,218 @@
-<ion-content>
+<ion-title class="ion-text-center">{{ translate.instant('ONBOARDING.Basic Information') }}</ion-title>
+
+<ion-card>
   <form #basicForm="ngForm" (ngSubmit)="next(basicForm)">
-    <!--<ion-row>
-      <ion-col size-md="6" offset-md="3" class="block-border">-->
-    <ion-item>
-      <ion-title class="ion-text-center"><strong>Basic Information</strong></ion-title>
-    </ion-item>
+    <div>
+      <ion-item lines="inset">
+        <ion-label
+          class="asterisk"
+          position="stacked"
+          [color]="registrationNumberCtrl.invalid && (registrationNumberCtrl.touched || registrationNumberCtrl.dirty) ? 'danger' : 'dark'"
+        >
+          {{ translate.instant('ONBOARDING.Registration Number') }}
+        </ion-label>
+        <ion-input
+          type="text"
+          ngModel
+          required
+          name="registrationNumber"
+          pattern="[a-zA-Z0-9]*"
+          [placeholder]="translate.instant('ONBOARDING.Please Enter Registration Number')"
+          [(ngModel)]="doctor.registrationId"
+          #registrationNumberCtrl="ngModel"
+        >
+        </ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked"><strong>Registration Number</strong></ion-label>
-      <ion-input type="text"
-                 ngModel
-                 name="rNo"
-                 pattern="[a-zA-Z0-9]*"
-                 placeholder="Registration Number"
-                 [(ngModel)]="doctor.registrationId"
-                 #eCtrl="ngModel">
-      </ion-input>
-    </ion-item>
-    <ion-item *ngIf="eCtrl.invalid && (eCtrl.touched || eCtrl.dirty)"
-              lines="none">
-      <ion-item *ngIf="eCtrl.hasError('pattern')">
-        <ion-label color="danger"> registration number is invalid</ion-label>
-      </ion-item>
-    </ion-item>
+      <ion-item
+        *ngIf="registrationNumberCtrl.invalid && (registrationNumberCtrl.touched || registrationNumberCtrl.dirty)"
+        lines="none"
+      >
+        <ion-label
+          *ngIf="registrationNumberCtrl.hasError('pattern')"
+          color="danger"
+          class="ion-no-margin"
+        >
+          {{ translate.instant('ONBOARDING.Registration Number Invalid') }}
+        </ion-label>
 
-    <ion-item>
-      <ion-label position="stacked" class="asterisk"><strong>Full Name</strong></ion-label>
-      <ion-input type="text"
-                 ngModel
-                 name="fName"
-                 required
-                 pattern="[a-zA-Z]*"
-                 placeholder="FirstName"
-                 #nameCtrl="ngModel"
-                 [(ngModel)]="doctor.firstName">
-      </ion-input>
-      <!--  <ion-input type="text"
-                   ngModel
-                   name="lName"
-                   required
-                   pattern="[a-zA-Z]*"
-                   placeholder="LastName"
-                   #lnameCtrl="ngModel"
-                   [(ngModel)]="doctor.lastName">
-        </ion-input>-->
-    </ion-item>
-    <ion-item *ngIf="nameCtrl.invalid && (nameCtrl.touched || nameCtrl.dirty)" lines="none">
-      <ion-item *ngIf="nameCtrl.errors.required">
-        <ion-label color="danger"> First name required</ion-label>
+        <ion-label
+          *ngIf="registrationNumberCtrl.hasError('required')"
+          color="danger"
+          class="ion-no-margin"
+        >
+          {{ translate.instant('ONBOARDING.Registration Number Required') }}
+        </ion-label>
       </ion-item>
-      <ion-item *ngIf="nameCtrl.hasError('pattern')">
-        <ion-label color="danger"> First name is invalid</ion-label>
-      </ion-item>
-    </ion-item>
-    <!--<ion-item *ngIf="lnameCtrl.invalid && (lnameCtrl.touched || lnameCtrl.dirty)" lines="none">
-        <ion-item *ngIf="lnameCtrl.errors.required">
-            <ion-label color="danger"> Last name required</ion-label>
-        </ion-item>
-        <ion-item *ngIf="lnameCtrl.hasError('pattern')">
-            <ion-label color="danger"> Last name is invalid</ion-label>
-        </ion-item>
-    </ion-item>-->
-    <ion-item>
-      <ion-label position="stacked" class="asterisk"><strong>Date of Birth</strong></ion-label>
-      <br>
-      <label><input [(ngModel)]="doctor.dateOfBirth"
-                    type="date" name="bDate"
-                    ngModel required>
-      </label>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked" class="asterisk"><strong>Gender </strong></ion-label>
-      <br>
-      <ion-row>
-        <ion-col><label class="radio-inline">
-          <input type="radio" name="gender"
-                 [(ngModel)]="doctor.gender" value="m" required
-                 #gender="ngModel">Male
-        </label></ion-col>
-        <ion-col><label class="radio-inline">
-          <input type="radio" name="gender"
-                 [(ngModel)]="doctor.gender" value="f" required>Female
-        </label></ion-col>
-        <ion-col><label class="radio-inline">
-          <input type="radio" name="gender"
-                 [(ngModel)]="doctor.gender" value="o" required>Other
-        </label></ion-col>
-      </ion-row>
-    </ion-item>
-    <ion-item *ngIf="gender.invalid && (gender.touched || gender.dirty)" lines="none">
-      <ion-item *ngIf="gender.errors?.required">
-        <ion-label color="danger"> Gender Selection required</ion-label>
-      </ion-item>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked" class="asterisk"><strong>Contact Number</strong></ion-label>
-      <ion-input type="number"
-                 ngModel
-                 name="contact"
-                 required
-                 placeholder="Mobile Number"
-                 [(ngModel)]="doctor.mobile"
-                 #contactCtrl="ngModel">
-      </ion-input>
-    </ion-item>
-    <ion-item *ngIf="contactCtrl.invalid && (contactCtrl.touched || contactCtrl.dirty)" lines="none">
-      <ion-item *ngIf="contactCtrl.errors.required">
-        <ion-label color="danger"> Contact number required</ion-label>
-      </ion-item>
-      <ion-item *ngIf="contactCtrl.hasError('pattern')">
-        <ion-label color="danger"> Contact number is invalid</ion-label>
-      </ion-item>
-    </ion-item>
-    <!--  </ion-col>-->
-    <div class="col text-center">
-      <ion-button type="submit" [disabled]="!basicForm.valid">next</ion-button>
     </div>
-    <!--</ion-row>-->
+
+    <div>
+      <ion-item lines="inset">
+        <ion-label
+          class="asterisk"
+          position="stacked"
+          [color]="fullNameCtrl.invalid && (fullNameCtrl.touched || fullNameCtrl.dirty) ? 'danger' : 'dark'"
+        >
+          {{ translate.instant('ONBOARDING.Full Name') }}
+        </ion-label>
+
+        <ion-input
+          type="text"
+          ngModel
+          required
+          name="fullName"
+          pattern="^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)$"
+          [(ngModel)]="doctor.fullName"
+          [placeholder]="translate.instant('ONBOARDING.Full Name')"
+          #fullNameCtrl="ngModel"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item
+        *ngIf="fullNameCtrl.invalid && (fullNameCtrl.touched || fullNameCtrl.dirty)"
+        lines="none"
+      >
+        <ion-label
+          *ngIf="fullNameCtrl.hasError('pattern')"
+          color="danger"
+          class="ion-no-margin"
+        >
+          {{ translate.instant('ONBOARDING.Full Name Invalid') }}
+        </ion-label>
+
+        <ion-label
+          *ngIf="fullNameCtrl.hasError('required')"
+          color="danger"
+          class="ion-no-margin"
+        >
+          {{ translate.instant('ONBOARDING.Full Name Required') }}
+        </ion-label>
+      </ion-item>
+    </div>
+
+    <div>
+      <ion-item lines="inset">
+        <ion-label
+          class="asterisk"
+          position="stacked"
+          [color]="dateOfBirthCtrl.invalid && (dateOfBirthCtrl.touched || dateOfBirthCtrl.dirty) ? 'danger' : 'dark'"
+        >
+          {{ translate.instant('ONBOARDING.Date of Birth') }}
+        </ion-label>
+
+        <ion-input
+          type="date"
+          ngModel
+          required
+          name="dateOfBirth"
+          [(ngModel)]="doctor.dateOfBirth"
+          [placeholder]="translate.instant('ONBOARDING.Date of Birth')"
+          #dateOfBirthCtrl="ngModel"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item
+        *ngIf="dateOfBirthCtrl.invalid && (dateOfBirthCtrl.touched || dateOfBirthCtrl.dirty)"
+        lines="none"
+      >
+        <ion-label
+          *ngIf="dateOfBirthCtrl.hasError('required')"
+          color="danger"
+          class="ion-no-margin"
+        >
+          {{ translate.instant('ONBOARDING.Date of Birth Required') }}
+        </ion-label>
+      </ion-item>
+    </div>
+
+    <div>
+      <ion-item lines="inset">
+        <ion-label
+          class="asterisk"
+          position="stacked"
+          [color]="genderCtrl.invalid && (genderCtrl.touched || genderCtrl.dirty) ? 'danger' : 'dark'"
+        >
+          {{ translate.instant('ONBOARDING.Gender') }}
+        </ion-label>
+
+        <ion-select
+          ngModel
+          required
+          name="gender"
+          [(ngModel)]="doctor.gender"
+          [placeholder]="translate.instant('ONBOARDING.Gender')"
+          #genderCtrl="ngModel"
+        >
+          <ion-select-option value="m">{{ translate.instant('ONBOARDING.Male') }}</ion-select-option>
+          <ion-select-option value="f">{{ translate.instant('ONBOARDING.Female') }}</ion-select-option>
+          <ion-select-option value="o">{{ translate.instant('ONBOARDING.Other') }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item
+        *ngIf="genderCtrl.invalid && (genderCtrl.touched || genderCtrl.dirty)"
+        lines="none"
+      >
+        <ion-label
+          *ngIf="genderCtrl.hasError('required')"
+          color="danger"
+          class="ion-no-margin"
+        >
+          {{ translate.instant('ONBOARDING.Gender Selection Required') }}
+        </ion-label>
+      </ion-item>
+    </div>
+
+    <div>
+      <ion-item lines="inset">
+        <ion-label
+          class="asterisk"
+          position="stacked"
+          [color]="contactCtrl.invalid && (contactCtrl.touched || contactCtrl.dirty) ? 'danger' : 'dark'"
+        >
+          {{ translate.instant('ONBOARDING.Contact Number') }}
+        </ion-label>
+
+        <ion-input
+          type="number"
+          ngModel
+          name="contact"
+          required
+          placeholder="Mobile Number"
+          [(ngModel)]="doctor.mobile"
+          #contactCtrl="ngModel"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item
+        *ngIf="contactCtrl.invalid && (contactCtrl.touched || contactCtrl.dirty)"
+        lines="none"
+      >
+        <ion-label
+          *ngIf="contactCtrl.hasError('required')"
+          color="danger"
+          class="ion-no-margin"
+        >
+          {{ translate.instant('ONBOARDING.Contact Number Required') }}
+        </ion-label>
+
+        <ion-label
+          *ngIf="contactCtrl.hasError('pattern')"
+          color="danger"
+          class="ion-no-margin"
+        >
+          {{ translate.instant('ONBOARDING.Contact Number is Invalid') }}
+        </ion-label>
+      </ion-item>
+    </div>
+
+    <div
+      class="ion-text-center ion-margin-vertical"
+    >
+      <ion-button type="submit" [disabled]="!basicForm.valid">{{ translate.instant('COMMON.Next') }}</ion-button>
+    </div>
   </form>
-</ion-content>
+</ion-card>

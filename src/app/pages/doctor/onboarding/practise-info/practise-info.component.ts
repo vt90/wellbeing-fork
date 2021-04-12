@@ -9,29 +9,34 @@ import {Address} from '../../../../model/address.model';
 import {AuthService} from '../../../../services/auth.service';
 import {Subscription} from 'rxjs';
 
+interface SpecializationInfo {
+  name: string;
+  value: string;
+  subspecializations?: SpecializationInfo;
+}
+
 @Component({
   selector: `app-practise-info`,
   templateUrl: './practise-info.component.html',
   styleUrls: ['./practise-info.component.scss'],
 })
 export class PractiseInfoComponent implements OnInit, OnDestroy {
-  specializations: string[];
-  subSpecializations: string[];
-  newSubSpecialization: string;
-  newSpecialization: string;
-  specializationsFromDB: any;
+  specializations: SpecializationInfo[];
+  subSpecializations: SpecializationInfo[];
+
   doctor: Doctor;
-  noSubspecData = true;
   sub: Subscription;
-  private uploadFile: File = null;
   uploadCert = true;
 
-  constructor(private translate: TranslateService,
-              private router: Router,
-              private authService: AuthService,
-              private doctorService: DoctorService,
-              private onboardingService: DoctorOnboardingService) {
-  }
+  private uploadFile: File = null;
+
+  constructor(
+    private authService: AuthService,
+    private doctorService: DoctorService,
+    private onboardingService: DoctorOnboardingService,
+    private router: Router,
+    private translate: TranslateService,
+  ) {}
 
   ngOnInit() {
     this.doctor = Doctor.fromUser(this.authService.user);
@@ -41,16 +46,12 @@ export class PractiseInfoComponent implements OnInit, OnDestroy {
         if (this.doctor.certificate) {
           this.uploadCert = false;
         }
-        console.log('PracticeInfo:', d);
       } else {
         this.onboardingService.setDoctor(this.doctor);
       }
     });
-    this.doctorService.retrieveSpecializations().then(specs => {
-      this.specializationsFromDB = specs;
-      this.specificationsOptions(specs);
-      this.onSpecChange(this.doctor.specialization);
-    });
+
+    this.setSpecializations();
   }
 
   ngOnDestroy() {
@@ -72,36 +73,48 @@ export class PractiseInfoComponent implements OnInit, OnDestroy {
     this.router.navigate(['doctor/onboarding/basic']);
   }
 
-  onSpecChange(s: string) {
-    const subSpecs: string[] = [];
-    for (const key in this.specializationsFromDB) {
-      if (this.specializationsFromDB.hasOwnProperty(key)) {
-        if (this.specializationsFromDB[key].subspecializations &&
-          s === this.specializationsFromDB[key]['name_' + this.translate.currentLang]) {
-          this.specializationsFromDB[key].subspecializations.forEach(sub => {
-            subSpecs.push(sub['name_' + this.translate.currentLang]);
-          });
-        }
-      }
-    }
-    this.subSpecializations = subSpecs;
-    this.subSpecializations.length !== 0 ? this.noSubspecData = true :  this.noSubspecData = false;
-    console.log(this.subSpecializations);
-  }
-
-  specificationsOptions(s: string[]) {
-    const specs = [];
-    for (const key in s) {
-      if (s.hasOwnProperty(key)) {
-        specs.push(s[key]['name_' + this.translate.currentLang]);
-      }
-    }
-    this.specializations = specs;
-  }
-
   setUploadFile(files: any) {
     this.uploadFile = files.item(0);
     this.doctor.certificate = this.uploadFile.name;
     this.uploadCert = false;
+  }
+
+  onSpecChange(specialization: string) {
+    let subSpecs: SpecializationInfo[] = [];
+
+    if (specialization && this.specializations?.length) {
+      const specializationInfo = this.specializations.find((spec) => spec.value === specialization);
+
+      if (specializationInfo?.subspecializations) {
+        // @ts-ignore
+        subSpecs = specializationInfo?.subspecializations;
+      }
+    }
+
+    this.subSpecializations = subSpecs;
+  }
+
+  mapSpecialization(specialization: any): SpecializationInfo {
+    const specializationText = specialization[`name_${this.translate.currentLang}`];
+    const subspecializations = specialization?.subspecializations;
+
+    return {
+      name: specializationText,
+      value: specializationText,
+      subspecializations: !!subspecializations?.length
+        ? subspecializations.map((subSpec) => this.mapSpecialization(subSpec))
+        : []
+    };
+  }
+
+  setSpecializations() {
+    this.doctorService.retrieveSpecializations()
+      .then((specs) => {
+        this.specializations = Object.values(specs)
+          .map((specialization) => this.mapSpecialization(specialization));
+
+        this.onSpecChange(this.doctor.specialization);
+      });
+
   }
 }

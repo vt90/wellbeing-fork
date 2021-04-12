@@ -1,15 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
 import {DoctorOnboardingService} from '../../../../services/doctor/doctor-onboarding-service';
 import {Clinic, Schedule} from '../../../../model/clinic.model';
 import {Doctor} from '../../../../model/doctor.model';
 import {NgForm} from '@angular/forms';
-import {Address} from '../../../../model/address.model';
 import {AuthService} from '../../../../services/auth.service';
 import {Subscription} from 'rxjs';
-
+import {TranslateService} from '@ngx-translate/core';
+import {AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-availability',
@@ -17,36 +16,34 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./availability.component.scss'],
 })
 export class AvailabilityComponent implements OnInit, OnDestroy {
-  showClinic = true;
-  showAvail = false;
-  showFee = false;
-  clinicSetup = false;
-  fromTime: string;
-  toTime: string;
+  expandedItems: { [key: string]: boolean } = {
+    clinic: true,
+    availability: false,
+    fee: false,
+  };
+  days = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
+  slots = [15, 30, 45, 60];
+
   doctor: Doctor;
-  clinic: Clinic;
   sub: Subscription;
 
-  days = [{val: 'Monday', isChecked: false},
-    {val: 'Tuesday', isChecked: false},
-    {val: 'Wednesday', isChecked: false},
-    {val: 'Thursday', isChecked: false},
-    {val: 'Friday', isChecked: false},
-    {val: 'Saturday', isChecked: false},
-    {val: 'Sunday', isChecked: false}];
-  slots = [{val: 15, isChecked: false},
-    {val: 30, isChecked: false},
-    {val: 45, isChecked: false},
-    {val: 60, isChecked: false}];
 
-
-  constructor(private datePipe: DatePipe,
-              private router: Router,
-              private authService: AuthService,
-              private onboardingService: DoctorOnboardingService) {
-    /*this.clinic = new  Clinic();
-    this.clinic.address = new Address();
-    this.clinic.schedules = [];*/
+  constructor(
+    private alertCtrl: AlertController,
+    private authService: AuthService,
+    private datePipe: DatePipe,
+    private onboardingService: DoctorOnboardingService,
+    private router: Router,
+    public translate: TranslateService,
+  ) {
   }
 
   ngOnInit() {
@@ -54,15 +51,11 @@ export class AvailabilityComponent implements OnInit, OnDestroy {
     this.sub = this.onboardingService.getCurrentDoctor().subscribe(d => {
       if (!!d) {
         this.doctor = d;
-        console.log('Availability Info:', d);
       }
       if (!this.doctor.clinics) {
         this.doctor.clinics = [];
         this.doctor.clinics.push(new Clinic());
-        this.doctor.clinics[0].address = new Address();
-        this.doctor.clinics[0].schedules = [];
-      }
-      else {
+      } else {
         this.onboardingService.setDoctor(this.doctor);
       }
     });
@@ -74,12 +67,90 @@ export class AvailabilityComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * @param section - section to be expanded or colapsed
+   */
+  toggleExpanded(section: string) {
+    const isSectionExpanded = this.expandedItems[section];
+
+    this.expandedItems = {
+      ...this.expandedItems,
+      [section]: !isSectionExpanded,
+    };
+  }
+
   next(availabilityForm: NgForm) {
-    if (availabilityForm.invalid){return; }
-    if (this.clinic){
-      this.onboardingService.setClinicData(this.clinic);
+    if (availabilityForm.invalid) {
+      return;
     }
-    this.router.navigate(['doctor/onboarding/termsConditions']);
+
+    this.doctor.clinics = this.doctor.clinics.map((clinic) => ({
+      ...clinic,
+      schedules: clinic.schedules.map((schedule) => ({
+        ...schedule,
+        fromTime: this.datePipe.transform(schedule.fromTime, 'HH:mm'),
+        toTime: this.datePipe.transform(schedule.fromTime, 'HH:mm'),
+      }))
+    }));
+
+    // @ts-ignore
+    this.onboardingService.setDoctor(this.doctor);
+    this.skip();
+  }
+
+  async skip() {
+    const alert = await this.alertCtrl.create({
+      header: `${this.translate.instant('ONBOARDING.Skip Clinic Setup')}?`,
+      message: this.translate.instant('ONBOARDING.Information mandatory for booking'),
+      buttons: [
+        {
+          text: this.translate.instant('COMMON.Cancel'),
+          role: 'cancel',
+        }, {
+          text: this.translate.instant('COMMON.Confirm'),
+          handler: () => {
+            this.router.navigate(['doctor/onboarding/termsConditions']);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async showSectionInfo(event: Event, section: string) {
+    event.stopPropagation();
+    let header: string;
+    let message: string;
+
+    switch (section) {
+      case 'clinic':
+        header = this.translate.instant('ONBOARDING.Clinic/Hospital Details');
+        message = this.translate.instant('ONBOARDING.SECTION_INFO.Clinic');
+        break;
+      case 'availability':
+        header = this.translate.instant('ONBOARDING.Availability');
+        message = this.translate.instant('ONBOARDING.SECTION_INFO.Availability');
+        break;
+      case 'fee':
+        header = this.translate.instant('ONBOARDING.Fee structure');
+        message = this.translate.instant('ONBOARDING.SECTION_INFO.Fee');
+        break;
+    }
+
+    message = `${message}<br /><br />${this.translate.instant('ONBOARDING.SECTION_INFO.Footer')}`;
+
+    const alert = await this.alertCtrl.create({
+      header,
+      message,
+      buttons: [
+        {
+          text: this.translate.instant('COMMON.Confirm'),
+        },
+      ],
+    });
+
+    await alert.present();
   }
 
   prev() {
@@ -87,53 +158,16 @@ export class AvailabilityComponent implements OnInit, OnDestroy {
   }
 
   addSchedule() {
-    if (this.days.length === 0 || this.slots.length === 0 || this.fromTime === '' || this.toTime === '') {
-      return;
-    }
-    const schedule = new Schedule();
-    schedule.availableDays = [];
-    this.days.forEach((value) => {
-      if (value.isChecked) {
-        schedule.availableDays.push(value.val);
-      }
-    });
-    this.slots.forEach((value) => {
-      if (value.isChecked) {
-        schedule.slotPerPatient = value.val;
-      }
-    });
-    schedule.fromTime = this.datePipe.transform(this.fromTime, 'HH:mm');
-    schedule.toTime = this.datePipe.transform(this.toTime, 'HH:mm');
-    this.doctor.clinics[0].schedules.push(schedule);
-    this.clearSchedule();
+    this.doctor.clinics[0].schedules.push(new Schedule());
   }
 
-  private clearSchedule() {
-    this.days.forEach((value) => {
-      if (value.isChecked) {
-        value.isChecked = false;
-      }
-    });
-    this.slots.forEach((value) => {
-      if (value.isChecked) {
-        value.isChecked = false;
-      }
-    });
-    this.fromTime = '';
-    this.toTime = '';
+  removeSchedule(index) {
+    this.doctor.clinics[0].schedules.splice(index, 1);
   }
 
-  timeSlotSelection(v: number) {
-    this.slots.forEach((value) => {
-      value.isChecked = value.isChecked && value.val === v;
-    });
-  }
-
-
-  doSetup() {
-    this.clinicSetup = true;
-    if (!this.doctor.clinics) {
-      this.doctor.clinics = [];
-    }
+  isScheduleTimeValid(schedule: Schedule) {
+    return schedule.fromTime && schedule.toTime && (
+      new Date(schedule.fromTime).getTime() < new Date(schedule.toTime).getTime()
+    );
   }
 }

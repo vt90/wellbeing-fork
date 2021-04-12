@@ -20,6 +20,7 @@ import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {DoctorOnboardingService} from '../../../services/doctor/doctor-onboarding-service';
 import {DoctorService} from '../../../services/doctor/doctor.service';
+import {SharedModule} from '../../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import {DoctorService} from '../../../services/doctor/doctor.service';
     ToastModule,
     CardModule,
     ButtonModule,
+    SharedModule,
   ],
   declarations: [OnboardingPage,
     BasicInfoComponent,

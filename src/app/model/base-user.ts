@@ -8,4 +8,5 @@ export class BaseUser extends AuthUser {
   gender: string;
   termsAndConditionsAcceptedAt: string;
   profilePic: any;
+  fullName?: string;
 }

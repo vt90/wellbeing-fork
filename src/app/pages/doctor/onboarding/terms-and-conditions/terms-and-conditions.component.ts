@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {DoctorOnboardingService} from '../../../../services/doctor/doctor-onboarding-service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-terms-and-conditions',
@@ -11,8 +12,11 @@ export class TermsAndConditionsComponent {
   isChecked: boolean;
   termsAndConditions: boolean;
 
-  constructor(private router: Router,
-              public onboardingService: DoctorOnboardingService) {
+  constructor(
+    public onboardingService: DoctorOnboardingService,
+    private router: Router,
+    private translate: TranslateService,
+  ) {
   }
 
   prev() {

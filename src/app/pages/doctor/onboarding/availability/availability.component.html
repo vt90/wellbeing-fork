@@ -2,12 +2,12 @@
 <div *ngIf="!showSetUp">
   <ion-row class="ion-justify-content-center">
     <ion-col  class="ion-no-padding">
-      <ion-button expand="block"  (click)="prev()">Back</ion-button>
+      <ion-button expand="block"  (click)="prev()">{{ translate.instant('COMMON.Back') }}</ion-button>
     </ion-col>
   </ion-row>
   <ion-row class="ion-justify-content-center">
     <ion-col class="ion-no-padding">
-      <ion-button expand="block"  (click)="skip()">Skip Clinic Set Up</ion-button>
+      <ion-button expand="block"  (click)="skip()">{{ translate.instant(('ONBOARDING.Skip Clinic Setup')) }}</ion-button>
     </ion-col>
   </ion-row>
   <ion-row class="ion-justify-content-center">

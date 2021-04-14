@@ -26,7 +26,7 @@
 on:
   pull_request:
   push:
-    branches: 
+    branches:
       - master
 
 name: Deploy to Amazon DEV
@@ -44,7 +44,7 @@ jobs:
     - name: Checking out source code
       id: check-out
       uses: actions/checkout@v2
-      
+
     - name: Using Node ${{ matrix.node-version }}
       id: use-node
       uses: actions/setup-node@v1
@@ -54,7 +54,7 @@ jobs:
     - name: Installing dependencies
       id: dependency-install
       run: npm install
-      
+
     - name: Building source
       id: build
       env:
@@ -67,8 +67,10 @@ jobs:
         FIREBASE_REGION: europe-west1
         FIREBASE_STORAGE_BUCKET: wellbeing-3d322.appspot.com
       run: npm run build
-      
-      
+
+
     - name: Deploy to AWS
       id: deploy
-      run: scp -i wellbeing0.pem -r www/* ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com:~/wellbeing-dev-www/
+      run: |
+        ssh-keyscan -H 13.235.90.205 >> ~/.ssh/known_hosts
+        scp -i wellbeing0.pem -r www/* ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com:~/wellbeing-dev-www/

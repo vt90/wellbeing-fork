@@ -96,5 +96,6 @@
 
 .infoCards{
   text-align: center;
-  width: fit-content;
+  min-width: max-content;
+  width: -webkit-fill-available;
 }

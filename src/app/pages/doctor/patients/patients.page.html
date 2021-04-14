@@ -1,69 +1,97 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>patients</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar></app-toolbar>
 
 <ion-content>
-  <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <table class="table">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="2" class="vertical-menu ion-hide-md-down">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Appointment</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Patient</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">To do list</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Assistant</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+        </ul>
+      </ion-col>
+      <ion-col size="10">
+        <ion-row>
+          <ion-label class="pageHeader">Patients</ion-label>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-searchbar class="search" placeholder="Search patient"></ion-searchbar>
+        </ion-row>
+        <ion-row class="ion-justify-content-center" style="width: fit-content">
+          <table style="width:100%">
+            <tr style="background-color: #cfe0ea">
+              <th>Name</th>
+              <th>Birth Date</th>
+              <th>Age</th>
+            </tr>
+            <tr>
+              <td>Ada Lovelace</td>
+              <td>DEC 10,1815</td>
+              <td>21</td>
+            </tr>
+            <tr>
+              <td>Grace Hopper</td>
+              <td>Dec 9,1906</td>
+              <td>52</td>
+            </tr>
+            <tr>
+              <td>Margaret Hamilton</td>
+              <td>Aug 17,1936</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Joan Clarke</td>
+              <td>Jun24,1917</td>
+              <td>33</td>
+            </tr>
+          </table>
+        </ion-row>
+        <ion-row style="margin-top:10%">
+          <ion-progress-bar value="0.5"></ion-progress-bar>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center" style="margin-top:10%">
+          <div class="pagination">
+            <a href="#">&laquo;</a>
+            <a href="#">1</a>
+            <a href="#" class="active">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">&raquo;</a>
+          </div>
+        </ion-row>
+        <div>
+          <ion-row  class="ion-justify-content-center">
+            <ion-col size="auto" style="width: fit-content">
+              <ion-item class="box">
+              <ion-label><ion-icon name="arrow-back-outline"></ion-icon>Older</ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="auto" style="width: fit-content" class="ion-text-end">
+              <ion-item class="box">
+              <ion-label>Newer<ion-icon name="arrow-forward-outline"></ion-icon></ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

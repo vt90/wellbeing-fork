@@ -1,110 +1,118 @@
-<ion-header>
-  <ion-toolbar class="menu-container">
-    <ion-buttons slot="start" class="menu-tab">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <nav class="navbar" class="menu">
-      <a class="navbar-brand" href="#">Home</a>
-      <a class="navbar-brand" href="#">Features</a>
-      <a class="navbar-brand" href="#">Services</a>
-      <a class="navbar-brand" href="#">About</a>
-    </nav>
-    <ion-buttons class="lang-buttons ion-hide-md-down" slot="primary">
-      <app-langselect></app-langselect>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar></app-toolbar>
 
 <ion-content>
-<ion-grid>
-  <ion-row>
-    <ion-col size="2" class="vertical-menu">
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Appointment</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Patient</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">To do list</a>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="2" class="vertical-menu ion-hide-md-down">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Dashboard</a>
           </li>
           <li class="nav-item">
-          <a class="nav-link" href="#">Assistant</a>
+            <a class="nav-link" href="#">Appointment</a>
           </li>
           <li class="nav-item">
-          <a class="nav-link" href="#">Profile</a>
+            <a class="nav-link" href="#">Patient</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">To do list</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Assistant</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
           </li>
         </ul>
       </ion-col>
-    <ion-col size="10">
-      <ion-row>
-        <ion-label class="pageHeader">Appointment</ion-label>
-      </ion-row>
+      <ion-col size="10">
+        <ion-row>
+          <ion-label class="pageHeader">Appointments</ion-label>
+        </ion-row>
 
-      <ion-row>
-          <ion-col>
-            <ion-searchbar class="search" placeholder="Search appointments"></ion-searchbar>
+        <ion-row style="background-color: #e4827b;margin-top:2%">
+          <ion-text color="dark">
+            <h5><b>Alert : </b>Next Appointment is in 5 mins.</h5>
+          </ion-text>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center">
+          <ion-searchbar class="search" placeholder="Search appointments"></ion-searchbar>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center">
+          <ion-button style="--border-radius: 20px;" (click)="addNewAppointment()">Add New Appointment</ion-button>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center">
+          <ion-label>
+            <ion-link style="color: #02b9f3;text-decoration: underline">Check Waiting List</ion-link>
+          </ion-label>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center" style="margin-top:2%">
+          <ion-col size="3">
+            <ion-icon class="ion-hide-md-up" name="calendar-outline"></ion-icon>
+            <ion-calendar class="ion-hide-md-down"></ion-calendar>
           </ion-col>
-          <ion-col *ngIf="this.clinics">
-            <ion-label *ngFor="let c of this.clinics; let i = index" (click)="clinicIndex = i; getClinicsAppointments()">{{c.name }}</ion-label>
+          <ion-col size="9">
+            <ion-tabs>
+              <!-- Tab bar -->
+              <ion-tab-bar slot="top">
+                <ion-tab-button tab="day">
+                  <ion-label> Day</ion-label>
+                </ion-tab-button>
+                <ion-tab-button tab="week">
+                  <ion-label>Week</ion-label>
+                </ion-tab-button>
+                <ion-tab-button tab="Month">
+                  <ion-label>Month</ion-label>
+                </ion-tab-button>
+                <ion-tab-button tab="Year">
+                  <ion-label>Year</ion-label>
+                </ion-tab-button>
+              </ion-tab-bar>
+            </ion-tabs>
           </ion-col>
-      </ion-row>
+        </ion-row>
 
-      <ion-row class="filterBar">
-        <ion-col size="6">
-          <ion-icon name="filter-outline"></ion-icon>
-          <ion-label>FILTERS</ion-label>
-        </ion-col>
-        <ion-col size="6">
-          <ion-toolbar>
-            <ion-segment (ionChange)="filterChanged($event)">
-              <ion-segment-button value="day">
-                <ion-label name="day">Day</ion-label>
-              </ion-segment-button>
-              <ion-segment-button value="week">
-                <ion-label name="week">Week</ion-label>
-              </ion-segment-button>
-              <ion-segment-button value="month">
-                <ion-label name="month">Month</ion-label>
-              </ion-segment-button>
-              <ion-segment-button value="year">
-                <ion-label name="year">Year</ion-label>
-              </ion-segment-button>
-            </ion-segment>
-          </ion-toolbar>
-        </ion-col>
-      </ion-row>
 
-      <ion-row>
-        <ion-col size="6">
-          <ion-calendar>
-          </ion-calendar>
-        </ion-col>
-        <ion-col size="6">
-          <ion-button (click)="addNewAppointment()">Add New Appointment</ion-button>
-          
-          <ion-card *ngFor="let a of appointments">
+
+          <ion-card *ngFor="let a of appointments" style="width: max-content;padding-left: unset">
+
+              <ion-row>
+                <ion-col size="6">
+                  <ion-label><strong>Date:</strong>{{a.date}}</ion-label>
+                </ion-col>
+                <ion-col size="6" class="ion-text-end">
+                  <ion-label><strong>Time:</strong> {{a.time}}</ion-label>
+                </ion-col>
+              </ion-row>
             <ion-row>
-              <ion-col>Date:{{a.date}}</ion-col>
-              <ion-col>Time: {{a.time}}</ion-col>
+              <ion-col><strong>Name:</strong> xyz</ion-col>
             </ion-row>
-              <ion-row><ion-col>Name: xyz</ion-col> </ion-row>
-              <ion-row><ion-col>Appointment Type: {{a.type}}</ion-col> </ion-row>
-              <ion-row> <ion-col>Age:21</ion-col></ion-row>
             <ion-row>
-              <ion-col><ion-button>Confirm</ion-button></ion-col>
-              <ion-col><ion-button>Cancel</ion-button></ion-col>
-              <ion-col><ion-button>Complete</ion-button></ion-col>
+              <ion-col><strong>Appointment Type:</strong> {{a.type}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col><strong>Age: </strong>21</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col  size-lg="auto">
+                <ion-label class="aButtons">Reschedule</ion-label>
+              </ion-col>
+              <ion-col  size-lg="auto">
+                <ion-label class="aButtons">Cancel</ion-label>
+              </ion-col>
+              <ion-col size-lg="auto">
+                <ion-label class="aButtons">Status</ion-label>
+              </ion-col>
             </ion-row>
           </ion-card>
 
-        </ion-col>
-      </ion-row>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

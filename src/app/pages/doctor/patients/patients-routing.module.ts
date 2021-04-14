@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: PatientsPage
+  },  {
+    path: 'patient-profile',
+    loadChildren: () => import('./patient-profile/patient-profile.module').then( m => m.PatientProfilePageModule)
   }
+
 ];
 
 @NgModule({

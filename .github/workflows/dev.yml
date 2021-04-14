@@ -68,39 +68,7 @@ jobs:
         FIREBASE_STORAGE_BUCKET: wellbeing-3d322.appspot.com
       run: npm run build
 
-
-
-    - name: Deploy to Server
-      uses: betanzos/scp-upload@v1
-      with:
-        source: www/
-        host: ec2-13-235-90-205.ap-south-1.compute.amazonaws.com
-        username: ubuntu
-        key: -----BEGIN RSA PRIVATE KEY-----
-          MIIEpAIBAAKCAQEAnqvZfXRr1Zl772NVTJg+wcMArohYsAoqK5XT6tqbMftI7LlZ
-          2Jg5DyRcgdC1463b4LpHvlhVKCzcp2gH5hsZoACB9ewkBYi0SSxQDxh7Zmn18rdB
-          QcTa2wZgLuCK9cCwiVUhSeeahi4NJ8dyrOHlt53B31DqAsQXOoQy9rt9iTkolxoQ
-          dQ3LcxzRSLBlJej5HIAG8NbNbLPtL75RV0xFqhl+lX/ipCXjSYLC5/OUHCdGc0/4
-          jduqjEB+D5OGCGlMgoOzeHOmSKMAldEIzSe44HLcGZoe9zmAQgZUfIph8RgBkSTT
-          bOL1H/n4u8rC+vWyaFIt+2Xrai5LgDyJHi1KfQIDAQABAoIBAASHpXLmcvmrIxWn
-          gVTpd8kyVv+kltuXvrJ12ZH34bxgjylq9Tyww9hB0n5GRhsU6JUW3Ft7zBqUhUwm
-          NSuFlIqz2QH7Vt/tkjAQmsyDh2paFhJy1uMYyqK8INzVvkHb2W5iRswEV64C/I8p
-          K4XyAQvn7hQBDF092efqxEW0/pV/R5AYUPrfX5qDDBkvJHJibAgeKmC7diX0/P0X
-          YFQri6RWy2msiFADM4yRAJ84aNk1VI/JBbgq01SgSzh0DBRNoO4kr1/AZtM9HCc6
-          t0dY2ajZTr8egGvpPIoqN59Vo8Y52VtYMkfCHsyJZ0orBcN3YnWJMMqKh5tygmBJ
-          Ls8D34ECgYEA8JMqYS5zLD1HqS4zSSdmR6XMS7DG87VPAU4JZa9TmSRwhdYmMg2K
-          IGrahzailDIxYYwdYBpBw5VGyRG1x2OFJzAZmtFooCwP13GXct1HDhquJ4yV3hfb
-          2B78E3ZbQrjC59Nz13R9L9ldv12TOBl/ksQ+RalZRbgoqsW/SkrgVR0CgYEAqNhO
-          OHxT9HfUhp437SC8GlWzQM4+zEAQXvDYKflDRPYSFl/alLz8a3hfjZ7XNz5bcy9/
-          jx8a/0IBzPh+Tf0u9Q3H4zseX8gGlmseSbd866s6kTEJPfFWNOAHaObQsplknm9a
-          A8aJ0PPwq0PnX02rfuHVeG8mNpixgSZeLFOvrOECgYBSTMYuwMk91Sjyw49f806W
-          LC4bpropHVmNxLiKRNSAi2rDHmOqs98Q//0KTLKJqDIkgN57xf/BfQveNWTOdUlU
-          Aqx/vivgv7Ibrgx1iyWHubDibsHGXLsk0FTEA7VsufBTho8Wog9Bk0by9HwssOxn
-          tSLoieq0Yy/mXAf4zmy4MQKBgQChfKhre/XsNoPs8Px6brmZ0mesTtZfEdLWizGk
-          C4RcO6GXBryPT6V4wFtbnxUmAB0FMOOmplBy3NXODcj3nHTB6hlI6q0lXLF4QiFo
-          zfbLjCxq22SEewNBdReBLGlkuDM1GTkVrVj4oaeIllx/mVCx/Rrnoh8BTs9Ov7yI
-          Vs4J4QKBgQDf5YPqx4EcAcluhOHjSJraB1P8lJ4K/jpZ5TMfgIn8AhKmg5m2xCDA
-          lkmF4HuIRRzqQhb2upyYdeXogYqiau4aFOoCINPVfGdugv6PAoJ2sxNAABNyqmg/
-          ot105OntU3Tb1NjxXJ9n8nPKCHKoC4fbJuqHd0scdLEE/2EuefvrSw==
-          -----END RSA PRIVATE KEY-----
-        remote_dir: '~/wellbeing-dev-www/'
+    - name: Deploy to AWS
+      id: deploy
+      run: |
+        scp -o StrictHostKeyChecking=no -i wellbeing0.pem -r www/* ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com:~/wellbeing-dev-www/

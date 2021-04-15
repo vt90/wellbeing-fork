@@ -1,9 +1,115 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>assistant</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar></app-toolbar>
 
 <ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="2" class="vertical-menu ion-hide-md-down">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Appointment</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Patient</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">To do list</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Assistant</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+        </ul>
+      </ion-col>
+      <ion-col size="10">
+        <ion-row>
+          <ion-label class="pageHeader">Assistant</ion-label>
+        </ion-row>
+        <ion-row>
+          <ion-col size-md="6" offset-md="3">
+            <ion-list>
+              <ion-item>
+                <ion-label position="stacked">Full Name</ion-label>
+                <ion-input
+                  type="text"
+                  name="fullName">
+                </ion-input>
+              </ion-item>
 
+              <ion-item>
+                <ion-label position="stacked">Email</ion-label>
+                <ion-input
+                  type="email"
+                  name="email">
+                </ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Contact Number</ion-label>
+                <ion-input
+                  type="number"
+                  name="contact">
+                </ion-input>
+              </ion-item>
+
+              <ion-item lines="inset">
+                <ion-label
+                  position="stacked">
+                  Gender
+                </ion-label>
+
+                <ion-select
+                  ngModel
+                  required
+                  name="gender">
+                  <ion-select-option value="m">Male</ion-select-option>
+                  <ion-select-option value="f">Female</ion-select-option>
+                  <ion-select-option value="o">Other</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+            <ion-row class="ion-justify-content-center">
+              <ion-button>Add Assistant</ion-button>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <table style="width:50%">
+            <tr style="background-color: #cfe0ea">
+              <th>Name</th>
+              <th>Birth Date</th>
+              <th>Age</th>
+            </tr>
+            <tr>
+              <td>Ada Lovelace</td>
+              <td>DEC 10,1815</td>
+              <td>21</td>
+            </tr>
+            <tr>
+              <td>Grace Hopper</td>
+              <td>Dec 9,1906</td>
+              <td>52</td>
+            </tr>
+            <tr>
+              <td>Margaret Hamilton</td>
+              <td>Aug 17,1936</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Joan Clarke</td>
+              <td>Jun24,1917</td>
+              <td>33</td>
+            </tr>
+          </table>
+        </ion-row>
+        <ion-row style="margin-top:10%">
+          <ion-progress-bar value="0.5"></ion-progress-bar>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

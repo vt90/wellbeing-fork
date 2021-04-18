@@ -13,10 +13,10 @@ export class OnboardingPage implements OnInit {
 
   ngOnInit() {
     this.steps = [
-      {label: 'Step 1', routerLink: '/doctor/onboarding/basic'},
-      {label: 'Step 2', routerLink: '/doctor/onboarding/practise'},
-      {label: 'Step 3', routerLink: '/doctor/onboarding/availability'},
-      {label: 'Step 4', routerLink: '/doctor/onboarding/termsConditions'}
+      {label: '', routerLink: '/doctor/onboarding/basic'},
+      {label: '', routerLink: '/doctor/onboarding/practise'},
+      {label: '', routerLink: '/doctor/onboarding/availability'},
+      {label: '', routerLink: '/doctor/onboarding/termsConditions'}
     ];
   }
 }

@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {DoctorOnboardingService} from '../../../../services/doctor/doctor-onboarding-service';
 import {NgForm} from '@angular/forms';
+import {TranslateService} from '@ngx-translate/core';
 import {Doctor} from '../../../../model/doctor.model';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../../../services/auth.service';
@@ -17,17 +18,21 @@ export class BasicInfoComponent implements OnInit, OnDestroy {
   doctor: Doctor;
   sub: Subscription;
 
-  constructor(private router: Router,
-              private authService: AuthService,
-              private onboardingService: DoctorOnboardingService) {
-  }
+  constructor(
+    private authService: AuthService,
+    private onboardingService: DoctorOnboardingService,
+    private router: Router,
+    public translate: TranslateService,
+  ) {}
 
   ngOnInit() {
     this.doctor = Doctor.fromUser(this.authService.user);
     this.sub = this.onboardingService.getCurrentDoctor().subscribe(d => {
       if (!!d) {
         this.doctor = d;
-        console.log('BasicInfo:', d);
+        this.doctor.fullName = [d.firstName, d.lastName]
+          .filter((name) => !!name)
+          .join(' ');
       } else {
         this.onboardingService.setDoctor(this.doctor);
       }
@@ -44,7 +49,14 @@ export class BasicInfoComponent implements OnInit, OnDestroy {
     if (!basicForm.valid) {
       return;
     }
-    this.onboardingService.setDoctor(this.doctor);
+    const [firstName, ...lastName] = this.doctor.fullName.split(' ');
+
+    // @ts-ignore
+    this.onboardingService.setDoctor({
+      ...this.doctor,
+      firstName,
+      lastName: lastName.join(' '),
+    });
     this.router.navigate(['doctor/onboarding/practise']);
   }
 }

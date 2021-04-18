@@ -1,5 +1,7 @@
 {
   "name": "wellbeing",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

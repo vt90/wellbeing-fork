@@ -38,14 +38,14 @@ jobs:
     - name: Building source
       id: build
       env:
-        FIREBASE_API_KEY: AIzaSyBtLyDgODrQMSgl-Cf8zwTePbqqH4WLJWo
-        FIREBASE_APP_ID: 1:99324770316:web:46597a07ae073a4de39629
-        FIREBASE_AUTH_DOMAIN: wellbeing-3d322.firebaseapp.com
-        FIREBASE_DATABASE_URL: https://wellbeing-3d322-default-rtdb.europe-west1.firebasedatabase.app
-        FIREBASE_MESSAGING_SENDER_ID: 99324770316
-        FIREBASE_PROJECT_ID: wellbeing-3d322
-        FIREBASE_REGION: europe-west1
-        FIREBASE_STORAGE_BUCKET: wellbeing-3d322.appspot.com
+        FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+        FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+        FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+        FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
+        FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+        FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+        FIREBASE_REGION: ${{ secrets.FIREBASE_REGION }}
+        FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
       run: npm run build
 
 

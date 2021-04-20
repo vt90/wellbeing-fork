@@ -23,24 +23,27 @@ import {DoctorService} from '../../../services/doctor/doctor.service';
 import {SharedModule} from '../../../shared/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    IonicModule,
-    OnboardingPageRoutingModule,
-    StepsModule,
-    ToastModule,
-    CardModule,
-    ButtonModule,
-    SharedModule,
-  ],
-  declarations: [OnboardingPage,
-    BasicInfoComponent,
-    AvailabilityComponent,
-    PractiseInfoComponent,
-    TermsAndConditionsComponent],
-  providers: [DatePipe, MessageService, DoctorOnboardingService, DoctorService],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        IonicModule,
+        OnboardingPageRoutingModule,
+        StepsModule,
+        ToastModule,
+        CardModule,
+        ButtonModule,
+        SharedModule,
+    ],
+    declarations: [OnboardingPage,
+        BasicInfoComponent,
+        AvailabilityComponent,
+        PractiseInfoComponent,
+        TermsAndConditionsComponent],
+    providers: [DatePipe, MessageService, DoctorOnboardingService, DoctorService],
+    exports: [
+        AvailabilityComponent
+    ]
 })
 export class OnboardingPageModule {
 }

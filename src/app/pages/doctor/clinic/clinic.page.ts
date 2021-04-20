@@ -17,16 +17,16 @@ export class ClinicPage implements OnInit {
     doctor: Doctor = null;
     userId: string;
     clinics: Clinic[];
-    showClinic = true;
+    /*showClinic = true;
     showAvail = true;
     showFee = true;
     clinicSetup = false;
     fromTime: string;
     toTime: string;
     clinic: Clinic;
-    editClinicData = false;
+    editClinicData = false;*/
 
-    days = [{val: 'Monday', isChecked: false},
+    /*days = [{val: 'Monday', isChecked: false},
         {val: 'Tuesday', isChecked: false},
         {val: 'Wednesday', isChecked: false},
         {val: 'Thursday', isChecked: false},
@@ -36,12 +36,12 @@ export class ClinicPage implements OnInit {
     slots = [{val: 15, isChecked: false},
         {val: 30, isChecked: false},
         {val: 45, isChecked: false},
-        {val: 60, isChecked: false}];
+        {val: 60, isChecked: false}];*/
 
     constructor(private authService: AuthService,
-                private doctorService: DoctorService,
-                private datePipe: DatePipe,
-                public alertCtrl: AlertController) {
+                private doctorService: DoctorService
+                /*private datePipe: DatePipe,
+                public alertCtrl: AlertController*/) {
     }
 
     ngOnInit() {
@@ -57,7 +57,7 @@ export class ClinicPage implements OnInit {
     }
 
     // this is duplicate code... any better way to do this? see availability ...
-    addSchedule() {
+    /*addSchedule() {
         if (this.days.length === 0 || this.slots.length === 0 || this.fromTime === '' || this.toTime === '') {
             return;
         }
@@ -179,5 +179,5 @@ export class ClinicPage implements OnInit {
             alert.present().then();
             return alert.onDidDismiss();
         });
-    }
+    }*/
 }

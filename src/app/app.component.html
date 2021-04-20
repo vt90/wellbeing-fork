@@ -1,98 +1,61 @@
 <ion-app>
-    <ion-menu side="start" menuId="m1" contentId="main">
-        <ion-header>
-            <ion-toolbar>
-                <ion-title>WellBeing</ion-title>
-            </ion-toolbar>
-        </ion-header>
-        <ion-content>
-            <ion-list>
-                <!-- DOCTOR ROLE ROUTES-->
-                <ion-menu-toggle *ngIf="isDoctor || isAssistant">
-                    <ion-item lines="none" routerLink="/doctor" button>
-                        <ion-icon name="home" slot="start"></ion-icon>
-                        <ion-label>Dashboard</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-                <ion-menu-toggle *ngIf="isDoctor || isAssistant">
-                    <ion-item lines="none" routerLink="/doctor/appointment" button>
-                        <ion-icon name="calendar" slot="start"></ion-icon>
-                        <ion-label>Appointment</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-                <ion-menu-toggle *ngIf="isDoctor || isAssistant">
-                    <ion-item lines="none" routerLink="/doctor/patients" button>
-                        <ion-icon name="people-circle-outline" slot="start"></ion-icon>
-                        <ion-label>Patients</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-                <ion-menu-toggle *ngIf="isDoctor || isAssistant">
-                    <ion-item lines="none" routerLink="/doctor/todo" button>
-                        <ion-icon name="calendar" slot="start"></ion-icon>
-                        <ion-label>TO DO List</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-                <ion-menu-toggle *ngIf="isDoctor">
-                    <ion-item lines="none" routerLink="/doctor/assistant" button>
-                        <ion-icon name="person-add" slot="start"></ion-icon>
-                        <ion-label>Assistant</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-                <ion-menu-toggle *ngIf="isDoctor">
-                    <ion-item lines="none" routerLink="/doctor/clinic" button>
-                        <ion-icon name="medkit-outline" slot="start"></ion-icon>
-                        <ion-label>Clinic Set Up</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-                <ion-menu-toggle *ngIf="isDoctor || isAssistant">
-                    <ion-item lines="none" routerLink="/doctor/profile" button>
-                        <ion-icon name="person-circle-outline" slot="start"></ion-icon>
-                        <ion-label>Profile</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-
-                <!-- PATIENT ROLE ROUTES-->
-                <ion-menu-toggle *ngIf="isPatient">
-                    <ion-item lines="none" routerLink="/patient" button>
-                        <ion-icon name="home" slot="start"></ion-icon>
-                        <ion-label>Dashboard</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-
-                <ion-menu-toggle *ngIf="isPatient">
-                    <ion-item lines="none" routerLink="/patient/appointment" button>
-                        <ion-icon name="calendar" slot="start"></ion-icon>
-                        <ion-label>Appointment</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-                <ion-menu-toggle *ngIf="isPatient">
-                    <ion-item lines="none" routerLink="/patient/todo" button>
-                        <ion-icon name="document-text-outline" slot="start"></ion-icon>
-                        <ion-label>TO DO List</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-                <ion-menu-toggle *ngIf="isPatient">
-                    <ion-item lines="none" routerLink="/patient/reports" button>
-                        <ion-icon name="file-tray-full-outline" slot="start"></ion-icon>
-                        <ion-label>Reports</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-                <ion-menu-toggle *ngIf="isPatient">
-                    <ion-item lines="none" routerLink="/patient/profile" button>
-                        <ion-icon name="person-circle-outline" slot="start"></ion-icon>
-                        <ion-label>Profile</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-
-                <!-- COMMON ROUTES-->
-                <ion-menu-toggle>
-                    <ion-item lines="none" (click)="onLogout()" button>
-                        <ion-icon name="exit" slot="start"></ion-icon>
-                        <ion-label>Logout</ion-label>
-                    </ion-item>
-                </ion-menu-toggle>
-            </ion-list>
-        </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main"></ion-router-outlet>
+  <ion-menu side="start" menuId="m1" contentId="main">
+    <ion-content>
+      <ion-row>
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-row>
+      <div>
+        <ion-row class="ion-justify-content-center">
+          <ion-avatar>
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-avatar>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-label>Johanna Doe</ion-label>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-label>johna@company.com</ion-label>
+        </ion-row>
+      </div>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item lines="none" button>
+            <ion-icon name="home-outline" slot="start"></ion-icon>
+            <ion-label>Home</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" button>
+            <ion-icon name="stats-chart-outline" slot="start"></ion-icon>
+            <ion-label>Features</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" button>
+            <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+            <ion-label>About</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" button>
+            <ion-icon name="heart-outline" slot="start"></ion-icon>
+            <ion-label>Profile</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" (click)="onLogout()" button>
+            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-label>Logout</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" button>
+            <ion-icon name="settings-outline" slot="start"></ion-icon>
+            <ion-label>Settings</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

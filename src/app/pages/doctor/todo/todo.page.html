@@ -1,9 +1,73 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>todo</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar></app-toolbar>
 
 <ion-content>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col size="2" class="vertical-menu ion-hide-md-down">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Appointment</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Patient</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">To do list</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Assistant</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+        </ul>
+      </ion-col>
+      <ion-col size="10">
+        <ion-row>
+          <ion-label class="pageHeader">To Do List</ion-label>
+        </ion-row>
+        <ion-row class="ion-justify-content-center">
+          <ion-card style="width:fit-content; background-color: #a6d5fa; color:black">
+            <ion-row>
+              <ion-col size="6">
+                <ion-label>4 Aug 2020</ion-label>
+              </ion-col>
+              <ion-col size="6" class="ion-text-end">
+                <ion-label>8:00 AM</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-text>When you do things right, people won't be sure you have done anything at all.</ion-text>
+              <ion-label>~Futurama</ion-label>
+            </ion-row>
+          </ion-card>
+        </ion-row>
+        <ion-row class="ion-justify-content-center" style="width:max-content">
+          <ion-col size="auto">
+            <input type="date">
+          </ion-col>
+          <ion-col size="auto">
+            <input type="time">
+          </ion-col>
+          <ion-col size="auto">
+            <select>
+              <option disabled>Priority</option>
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+          </ion-col>
+        </ion-row>
+        <ion-row  class="ion-justify-content-center">
+          <ion-textarea  placeholder="type here"></ion-textarea>
+        </ion-row>
+        <ion-row  class="ion-justify-content-center">
+          <ion-button>Submit</ion-button>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

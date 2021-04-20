@@ -8,6 +8,7 @@ import {ClinicPageRoutingModule} from './clinic-routing.module';
 
 import {ClinicPage} from './clinic.page';
 import {SharedModule} from '../../../shared/shared.module';
+import {OnboardingPageModule} from "../onboarding/onboarding.module";
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import {SharedModule} from '../../../shared/shared.module';
         FormsModule,
         IonicModule,
         ClinicPageRoutingModule,
-        SharedModule
+        SharedModule,
+        OnboardingPageModule
     ],
     declarations: [ClinicPage],
     providers: [DatePipe]

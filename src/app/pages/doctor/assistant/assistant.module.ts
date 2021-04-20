@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { AssistantPageRoutingModule } from './assistant-routing.module';
 
 import { AssistantPage } from './assistant.page';
+import {SharedModule} from "../../../shared/shared.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    AssistantPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        AssistantPageRoutingModule,
+        SharedModule
+    ],
   declarations: [AssistantPage]
 })
 export class AssistantPageModule {}

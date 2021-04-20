@@ -4,11 +4,13 @@
   font-weight: 500;
 }
 .search{
-  border-radius: 50px !important;
+  --border-radius: 20px;
   width: max-content;
 }
-.filterBar{
-  background: #37377b;
+.aButtons{
+  background: #1b3a58;
   color: white;
-  font-weight: 500;
+  border-radius: 5px;
+  font-size: smaller;
+  padding: 3px 6px;
 }

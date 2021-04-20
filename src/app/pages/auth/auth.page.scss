@@ -31,12 +31,12 @@ ion-button{
 
 .container-block{
   background: white;
-  margin-left: 20%;
+  /*margin-left: 20%;   //commented as this is not working in mobile version
   margin-right: 20%;
-  box-shadow: 10px 10px 20px #0000009B;
+  box-shadow: 10px 10px 20px #0000009B;*/
 }
-.login-block{
-  padding-top: 8px;
+.login-block{  //commented as this is not working in mobile version
+  //padding-top: 8px;
 }
 nav {
  // border-bottom: 1px solid black;

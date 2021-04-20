@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
 import {DoctorOnboardingService} from '../../../../services/doctor/doctor-onboarding-service';
@@ -34,6 +34,8 @@ export class AvailabilityComponent implements OnInit, OnDestroy {
 
   doctor: Doctor;
   sub: Subscription;
+  showSetUp = false;
+  @Input() onClinicPage = false;
 
 
   constructor(

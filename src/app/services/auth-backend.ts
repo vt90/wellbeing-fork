@@ -36,11 +36,12 @@ export class AuthBackend {
         // this will actually give us most error handling. like wrong pw, etc
         throw new BackendError(error.message, {email, error: error.code});
       })
-      .then(userCred => {
+      .then(async userCred => {
         // do not continue if the email has not yet been verified.
         if (!userCred.user.emailVerified) {
           throw new BackendError('Email is not verified', {email, error: 'EMAIL_UNVERIFIED'});
         }
+
         return AuthUser.fromDB(userCred.user);
       });
   }
@@ -91,6 +92,7 @@ export class AuthBackend {
 
   private signup(email: string, password: string, role: Role) {
     let user: AuthUser;
+
     return this.auth.createUserWithEmailAndPassword(email, password)
       .then(userCred => {
           return AuthUser.fromDB(userCred.user);
@@ -102,10 +104,10 @@ export class AuthBackend {
         return u.sendEmailVerification();
       })
       .then(() => {
-        return this.db.ref(`users/${user.id}`).set({role});
+        return this.db.ref(`users/${user.id}`).set({ role });
       })
       .then(() => {
-        throw new BackendError('Signup Initiated', {error: 'LOGIN_AFTER_SIGNUP'});
+        throw new BackendError('Signup Initiated', {error: 'LOGIN_AFTER_SIGNUP', user});
       })
       .catch(err => {
         if (err instanceof BackendError) {

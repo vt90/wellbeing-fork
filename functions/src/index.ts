@@ -1,8 +1,24 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import {environment} from './environment';
+import * as cors from 'cors';
+import * as express from 'express';
+import * as cookieParser from 'cookie-parser';
+import routes from './routers';
 
+import {environment} from './environment';
 const app = admin.initializeApp();
+const expressApp = express();
+
+// Automatically allow cross-origin requests
+expressApp.use(cors({ origin: true }));
+expressApp.use(cookieParser());
+
+
+expressApp.use(express.json());
+expressApp.use(routes);
+
+// Expose Express API as a single Cloud Function:
+export const api = functions.https.onRequest(expressApp);
 
 export const setUserType = functions
   .region(environment.region)

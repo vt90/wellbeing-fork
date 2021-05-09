@@ -31,50 +31,187 @@
         </ion-row>
         <ion-row>
           <ion-col size-md="6" offset-md="3">
-            <ion-list>
-              <ion-item>
-                <ion-label position="stacked">Full Name</ion-label>
-                <ion-input
-                  type="text"
-                  name="fullName">
-                </ion-input>
-              </ion-item>
+            <form #assistantForm="ngForm" (ngSubmit)="onSubmit(assistantForm)">
+              <div *ngIf="!assistant.id">
+                <ion-item lines="inset">
+                  <ion-label
+                    class="asterisk"
+                    position="stacked"
+                    [color]="emailCtrl.invalid && (emailCtrl.touched || emailCtrl.dirty) ? 'danger' : 'dark'"
+                  >
+                    {{ translate.instant('AUTH.EMAIL-PLACEHOLDER') }}
+                  </ion-label>
 
-              <ion-item>
-                <ion-label position="stacked">Email</ion-label>
-                <ion-input
-                  type="email"
-                  name="email">
-                </ion-input>
-              </ion-item>
+                  <ion-input
+                    type="email"
+                    ngModel
+                    name="email"
+                    required
+                    email
+                    [placeholder]="translate.instant('AUTH.EMAIL-PLACEHOLDER')"
+                    [(ngModel)]="assistant.email"
+                    #emailCtrl="ngModel"
+                  >
+                  </ion-input>
+                </ion-item>
 
-              <ion-item>
-                <ion-label position="stacked">Contact Number</ion-label>
-                <ion-input
-                  type="number"
-                  name="contact">
-                </ion-input>
-              </ion-item>
+                <ion-item
+                  *ngIf="emailCtrl.invalid && (emailCtrl.touched || emailCtrl.dirty)"
+                  lines="none"
+                >
+                  <ion-label
+                    *ngIf="emailCtrl.hasError('pattern')"
+                    color="danger"
+                    class="ion-no-margin"
+                  >
+                    {{ translate.instant('AUTH.INVALID-EMAIL') }}
+                  </ion-label>
 
-              <ion-item lines="inset">
-                <ion-label
-                  position="stacked">
-                  Gender
-                </ion-label>
+                  <ion-label
+                    *ngIf="emailCtrl.hasError('required')"
+                    color="danger"
+                    class="ion-no-margin"
+                  >
+                    {{ translate.instant('ONBOARDING.Email Required') }}
+                  </ion-label>
+                </ion-item>
+              </div>
 
-                <ion-select
-                  ngModel
-                  required
-                  name="gender">
-                  <ion-select-option value="m">Male</ion-select-option>
-                  <ion-select-option value="f">Female</ion-select-option>
-                  <ion-select-option value="o">Other</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-list>
-            <ion-row class="ion-justify-content-center">
-              <ion-button>Add Assistant</ion-button>
-            </ion-row>
+              <div>
+                <ion-item lines="inset">
+                  <ion-label
+                    class="asterisk"
+                    position="stacked"
+                    [color]="fullNameCtrl.invalid && (fullNameCtrl.touched || fullNameCtrl.dirty) ? 'danger' : 'dark'"
+                  >
+                    {{ translate.instant('ONBOARDING.Full Name') }}
+                  </ion-label>
+
+                  <ion-input
+                    type="text"
+                    ngModel
+                    required
+                    name="fullName"
+                    pattern="^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)$"
+                    [(ngModel)]="assistant.fullName"
+                    [placeholder]="translate.instant('ONBOARDING.Full Name')"
+                    #fullNameCtrl="ngModel"
+                  >
+                  </ion-input>
+                </ion-item>
+
+                <ion-item
+                  *ngIf="fullNameCtrl.invalid && (fullNameCtrl.touched || fullNameCtrl.dirty)"
+                  lines="none"
+                >
+                  <ion-label
+                    *ngIf="fullNameCtrl.hasError('pattern')"
+                    color="danger"
+                    class="ion-no-margin"
+                  >
+                    {{ translate.instant('ONBOARDING.Full Name Invalid') }}
+                  </ion-label>
+
+                  <ion-label
+                    *ngIf="fullNameCtrl.hasError('required')"
+                    color="danger"
+                    class="ion-no-margin"
+                  >
+                    {{ translate.instant('ONBOARDING.Full Name Required') }}
+                  </ion-label>
+                </ion-item>
+              </div>
+
+              <div>
+                <ion-item lines="inset">
+                  <ion-label
+                    class="asterisk"
+                    position="stacked"
+                    [color]="dateOfBirthCtrl.invalid && (dateOfBirthCtrl.touched || dateOfBirthCtrl.dirty) ? 'danger' : 'dark'"
+                  >
+                    {{ translate.instant('ONBOARDING.Date of Birth') }}
+                  </ion-label>
+
+                  <ion-input
+                    type="date"
+                    ngModel
+                    required
+                    name="dateOfBirth"
+                    [(ngModel)]="assistant.dateOfBirth"
+                    [placeholder]="translate.instant('ONBOARDING.Date of Birth')"
+                    #dateOfBirthCtrl="ngModel"
+                  >
+                  </ion-input>
+                </ion-item>
+
+                <ion-item
+                  *ngIf="dateOfBirthCtrl.invalid && (dateOfBirthCtrl.touched || dateOfBirthCtrl.dirty)"
+                  lines="none"
+                >
+                  <ion-label
+                    *ngIf="dateOfBirthCtrl.hasError('required')"
+                    color="danger"
+                    class="ion-no-margin"
+                  >
+                    {{ translate.instant('ONBOARDING.Date of Birth Required') }}
+                  </ion-label>
+                </ion-item>
+              </div>
+
+              <div>
+                <ion-item lines="inset">
+                  <ion-label
+                    class="asterisk"
+                    position="stacked"
+                    [color]="contactCtrl.invalid && (contactCtrl.touched || contactCtrl.dirty) ? 'danger' : 'dark'"
+                  >
+                    {{ translate.instant('ONBOARDING.Contact Number') }}
+                  </ion-label>
+
+                  <ion-input
+                    type="number"
+                    ngModel
+                    name="contact"
+                    required
+                    placeholder="Mobile Number"
+                    [(ngModel)]="assistant.mobile"
+                    #contactCtrl="ngModel"
+                  >
+                  </ion-input>
+                </ion-item>
+
+                <ion-item
+                  *ngIf="contactCtrl.invalid && (contactCtrl.touched || contactCtrl.dirty)"
+                  lines="none"
+                >
+                  <ion-label
+                    *ngIf="contactCtrl.hasError('required')"
+                    color="danger"
+                    class="ion-no-margin"
+                  >
+                    {{ translate.instant('ONBOARDING.Contact Number Required') }}
+                  </ion-label>
+
+                  <ion-label
+                    *ngIf="contactCtrl.hasError('pattern')"
+                    color="danger"
+                    class="ion-no-margin"
+                  >
+                    {{ translate.instant('ONBOARDING.Contact Number is Invalid') }}
+                  </ion-label>
+                </ion-item>
+              </div>
+
+              <ion-row *ngIf="!assistant.id" class="ion-justify-content-center">
+                <ion-button type="submit" [disabled]="!assistantForm.valid">Add Assistant</ion-button>
+              </ion-row>
+
+
+              <ion-row *ngIf="assistant.id" class="ion-justify-content-center">
+                <ion-button type="submit" [disabled]="!assistantForm.valid">Edit Assistant</ion-button>
+                <ion-button fill="clear" type="button" (click)="onReset()">Cancel</ion-button>
+              </ion-row>
+            </form>
           </ion-col>
         </ion-row>
         <ion-row class="ion-justify-content-center">
@@ -83,31 +220,23 @@
               <th>Name</th>
               <th>Birth Date</th>
               <th>Age</th>
+              <th>Actions</th>
             </tr>
-            <tr>
-              <td>Ada Lovelace</td>
-              <td>DEC 10,1815</td>
-              <td>21</td>
-            </tr>
-            <tr>
-              <td>Grace Hopper</td>
-              <td>Dec 9,1906</td>
-              <td>52</td>
-            </tr>
-            <tr>
-              <td>Margaret Hamilton</td>
-              <td>Aug 17,1936</td>
-              <td>22</td>
-            </tr>
-            <tr>
-              <td>Joan Clarke</td>
-              <td>Jun24,1917</td>
-              <td>33</td>
+
+            <tr *ngFor="let dAssistant of doctorAssistants; let i = index;">
+              <td>
+                <span *ngIf="dAssistant.gender === 'm'">Mr. </span>
+                <span *ngIf="dAssistant.gender === 'f'">Mrs. </span>
+                <span>{{ dAssistant.firstName }} {{ dAssistant.lastName }}</span>
+              </td>
+              <td>{{ dAssistant.dateOfBirth }}</td>
+              <td>{{ getAge(dAssistant.dateOfBirth) }}</td>
+              <td>
+                <ion-button size="small" color="primary" (click)="onEditInit(dAssistant)">Edit</ion-button>
+                <ion-button size="small" color="danger" (click)="onDelete(dAssistant)">Delete</ion-button>
+              </td>
             </tr>
           </table>
-        </ion-row>
-        <ion-row style="margin-top:10%">
-          <ion-progress-bar value="0.5"></ion-progress-bar>
         </ion-row>
       </ion-col>
     </ion-row>

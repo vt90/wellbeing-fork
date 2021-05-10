@@ -23,7 +23,7 @@ export const patientOnly = () => {
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -39,7 +39,12 @@ const routes: Routes = [
     path: 'doctor',
     loadChildren: () => import('./pages/doctor/doctor.module').then(m => m.DoctorPageModule),
     ...canActivate(doctorOnly)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   }
+
 ];
 
 @NgModule({

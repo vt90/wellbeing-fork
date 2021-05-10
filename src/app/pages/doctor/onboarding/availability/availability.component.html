@@ -337,7 +337,7 @@
             </ion-label>
 
             <ion-select
-              name="days"
+              name="days-{{i}}"
               multiple
               [(ngModel)]="schedule.availableDays"
               [placeholder]="!schedule.availableDays?.length ? translate.instant('ONBOARDING.Select Availability Days') : ''"
@@ -359,7 +359,7 @@
             </ion-label>
 
             <ion-select
-              name="slotPerPatient"
+              name="slot-per-patient-{{i}}"
               [(ngModel)]="schedule.slotPerPatient"
               [placeholder]="!schedule.slotPerPatient ? translate.instant('ONBOARDING.Select Patient Slot Time') : ''"
             >
@@ -377,7 +377,7 @@
 
             <ion-datetime displayFormat="HH:mm"
                           placeholder="from"
-                          name="from"
+                          name="from-{{i}}"
                           minuteValues="0,15,30,45"
                           [(ngModel)]="schedule.fromTime"
             >
@@ -388,8 +388,8 @@
             <ion-label position="stacked">{{translate.instant('ONBOARDING.Shift Ends At')}}</ion-label>
 
             <ion-datetime displayFormat="HH:mm"
-                          placeholder="from"
-                          name="from"
+                          placeholder="to"
+                          name="to-{{i}}"
                           minuteValues="0,15,30,45"
                           [(ngModel)]="schedule.toTime">
             </ion-datetime>

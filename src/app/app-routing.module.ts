@@ -10,13 +10,13 @@ export const redirectUnauthorizedToLogin = () => {
 
 export const doctorOnly = () => {
   return pipe(customClaims, map(claims => {
-    return ( !!claims && (claims.hasOwnProperty('doctor') || claims.hasOwnProperty('assistant')) ) ? true : ['auth'];
+    return ( !!claims && (claims.hasOwnProperty('doctor') || claims.hasOwnProperty('assistant')) ) ? true : ['home'];
   }));
 };
 
 export const patientOnly = () => {
   return pipe(customClaims, map(claims => {
-    return ( !!claims && claims.hasOwnProperty('patient') ) ? true : ['auth'];
+    return ( !!claims && claims.hasOwnProperty('patient') ) ? true : ['home'];
   }));
 };
 
@@ -43,6 +43,10 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'landing',
+    loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule)
   }
 
 ];

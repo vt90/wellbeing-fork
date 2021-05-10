@@ -1,0 +1,43 @@
+<app-toolbar></app-toolbar>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <div>
+        <ion-title> {{translate.instant('COMMON.Welcome')}} User,</ion-title>
+        <ion-label>{{translate.instant('COMMON.Search') }} {{translate.instant('COMMON.Doctor')}}</ion-label>
+        <ion-row>
+          <ion-col>
+            <ion-button color="secondary">{{translate.instant('PATIENT.Location')}}
+              <ion-icon name="caret-down-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="secondary">Date
+              <ion-icon name="caret-down-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="secondary">{{translate.instant('PATIENT.Specialization')}}
+              <ion-icon name="caret-down-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="secondary">{{translate.instant('PATIENT.Sub Specialization')}}
+              <ion-icon name="caret-down-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="secondary">{{translate.instant('PATIENT.Visit Type')}}
+              <ion-icon name="caret-down-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-icon class="search" name="search-outline"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

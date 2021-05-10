@@ -20,6 +20,8 @@ import {CalendarModule} from 'ion2-calendar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService} from './services/auth.service';
 
+console.log('*** env ***', environment);
+
 
 @NgModule({
   declarations: [

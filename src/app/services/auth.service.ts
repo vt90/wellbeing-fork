@@ -67,6 +67,7 @@ export class AuthService {
   }
 
   get token(): string {
+    // @ts-ignore
     return this._user.getValue().getIdToken(true);
   }
 

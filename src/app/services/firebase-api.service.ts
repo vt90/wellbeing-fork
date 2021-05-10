@@ -56,6 +56,7 @@ export class FirebaseApiService {
       const body = error.json() || '';
 
       const err = body;
+      // @ts-ignore
       errMsg = err;
     } else {
       errMsg = error.errorMessage ? error.errorMessage : error.toString();
@@ -93,8 +94,6 @@ export class FirebaseApiService {
 
     if (_body && Object.values(_body)) { _reqOptions.body = _body; }
     if (_headers && Object.values(_headers)) { _reqOptions.headers = _headers; }
-
-    console.log('_reqOptions', _reqOptions);
 
     return this.http
       .request(method, `https://us-central1-wellbeing-3d322.cloudfunctions.net/api${url}`, _reqOptions)

@@ -3,6 +3,7 @@ import 'firebase/auth';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +34,6 @@ export class FirebaseApiService {
       .set('Content-Type', 'application/json')
       .set('X-Requested-With', 'XMLHttpRequest');
 
-    console.log('token inside service: ', token);
-
     for (const name in headers) {
       if (headers.hasOwnProperty(name)) {
         const value = headers[name];
@@ -42,8 +41,6 @@ export class FirebaseApiService {
         _headers.append(name, value);
       }
     }
-
-    console.log(_headers.getAll('Authorization'));
 
     return _headers;
   }
@@ -94,7 +91,7 @@ export class FirebaseApiService {
     if (_headers && Object.values(_headers)) { _reqOptions.headers = _headers; }
 
     return this.http
-      .request(method, `https://us-central1-wellbeing-3d322.cloudfunctions.net/api${url}`, _reqOptions)
+      .request(method, `https://us-central1-${environment.firebase.projectId}.cloudfunctions.net/api${url}`, _reqOptions)
       .toPromise()
       .then(FirebaseApiService.extractData)
       .catch(FirebaseApiService.handleError);

@@ -14,17 +14,36 @@
           </ion-col>
           <ion-col>
             <ion-button color="secondary">Date
-              <ion-icon name="caret-down-outline"></ion-icon>
+              <!--<input type="date" class="dateInput"  [min]="minDate" [max]="maxDate">-->
+              <mat-form-field style="padding-top: 2%;text-align: center;">
+                <label>
+                  <input style="color:black" matInput [matDatepicker]="picker" [min]="minDate"
+                         [max]="maxDate"
+                         placeholder="select date"
+                         name="aDate">
+                </label>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker touchUi="true" #picker ></mat-datepicker>
+              </mat-form-field>
             </ion-button>
           </ion-col>
           <ion-col>
             <ion-button color="secondary">{{translate.instant('PATIENT.Specialization')}}
-              <ion-icon name="caret-down-outline"></ion-icon>
+              <ion-select [(ngModel)]="specialization"
+                          (ionChange)="getSpecializedDoctor(specialization)">
+                <ion-select-option [value]="s" *ngFor="let s of specializations">{{s}}</ion-select-option>
+              </ion-select>
             </ion-button>
           </ion-col>
           <ion-col>
             <ion-button color="secondary">{{translate.instant('PATIENT.Sub Specialization')}}
-              <ion-icon name="caret-down-outline"></ion-icon>
+              <ion-select name="subspec" [disabled]="subSpecializations.length == 0"
+                          [(ngModel)]="subspecialization"
+                          (ionChange)="getSubSpecializedDoctor(subspecialization)">
+                <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
+                  {{sub}}
+                </ion-select-option>
+              </ion-select>
             </ion-button>
           </ion-col>
           <ion-col>
@@ -37,6 +56,18 @@
           </ion-col>
         </ion-row>
       </div>
+    </ion-row>
+    <ion-row>
+      <ion-card *ngFor="let d of doctors" style="width: max-content;padding-left: unset">
+        <p><strong>Name:</strong> Dr. {{d.firstName}}<p>
+        <p><strong>Specialization: </strong>{{d.specialization}}</p>
+        <p><strong>SubSpecialization: </strong>{{d.subspecialization}}</p>
+        <ion-row>
+          <ion-col size-lg="auto">
+            <ion-button class="aButtons" routerLink="/auth">Book appointment</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
     </ion-row>
   </ion-grid>
 </ion-content>

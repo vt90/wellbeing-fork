@@ -43,7 +43,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
-    bootstrap: [AppComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

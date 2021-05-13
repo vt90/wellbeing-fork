@@ -97,7 +97,7 @@ export class AvailabilityComponent implements OnInit, OnDestroy {
 
     // @ts-ignore
     this.onboardingService.setDoctor(this.doctor);
-    this.skip();
+    this.router.navigate(['doctor/onboarding/termsConditions']);
   }
 
   async skip() {

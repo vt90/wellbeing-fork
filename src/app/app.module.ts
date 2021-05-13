@@ -17,6 +17,7 @@ import {IonicStorageModule} from '@ionic/storage';
 import {HttpClientModule} from '@angular/common/http';
 import {CalendarModule} from 'ion2-calendar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {GoogleMapsComponent} from './shared/components/google-maps/google-maps.component';
 
 
 @NgModule({

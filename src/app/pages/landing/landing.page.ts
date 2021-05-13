@@ -1,8 +1,9 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {PatientService} from '../../services/patient/patient.service';
 import {Doctor} from '../../model/doctor.model';
 import {DatePipe} from '@angular/common';
+import {GoogleMapsComponent} from "../../shared/components/google-maps/google-maps.component";
 
 @Component({
   selector: 'app-landing',
@@ -19,6 +20,7 @@ export class LandingPage implements OnInit {
   doctors: Doctor[];
   minDate: Date;
   maxDate: Date;
+  @ViewChild(GoogleMapsComponent) mapComponent: GoogleMapsComponent;
 
   constructor(public translate: TranslateService,
               private patientService: PatientService,
@@ -33,7 +35,10 @@ export class LandingPage implements OnInit {
   ngOnInit() {
     this.specializationLists();
   }
-
+  testMarker(){
+    const center = this.mapComponent.map.getCenter();
+    this.mapComponent.addMarker(center.lat(), center.lng());
+  }
   private specializationLists() {
     this.patientService.retrieveSpecializations().then(s => {
       this.specializationsFromDB = s;

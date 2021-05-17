@@ -102,7 +102,7 @@ export class GoogleMapsComponent implements OnInit {
       const script = this.renderer.createElement('script');
       script.id = 'googleMaps';
       if (this.apiKey) {
-        script.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.apiKey + '&callback=mapInit';
+        script.src = 'https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=' + this.apiKey + '&callback=mapInit';
       } else {
         script.src = 'https://maps.googleapis.com/maps/api/js?callback=mapInit';
       }

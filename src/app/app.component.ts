@@ -1,9 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AuthService} from './services/auth.service';
+import {AuthUser} from './model/auth-user.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +13,14 @@ import {AuthService} from './services/auth.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  role: string;
+  user: AuthUser;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -30,7 +33,12 @@ export class AppComponent {
     });
   }
 
-  onLogout() {
-    this.authService.logout();
+  authenticate() {
+    if (!!this.user){
+      this.authService.logout();
+    }
+    else {
+      this.router.navigateByUrl('/auth');
+    }
   }
 }

@@ -25,11 +25,19 @@ export class AppComponent {
     this.initializeApp();
   }
 
+  watchUser() {
+    this.authService
+      .observeUser()
+      .subscribe((user) => {
+      this.user = user;
+    });
+  }
+
   initializeApp() {
-    console.log('We made it ddddd');
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.watchUser();
     });
   }
 

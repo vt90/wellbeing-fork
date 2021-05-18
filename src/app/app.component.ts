@@ -44,6 +44,7 @@ export class AppComponent {
   authenticate() {
     if (!!this.user){
       this.authService.logout();
+      this.user = null;
     }
     else {
       this.router.navigateByUrl('/auth');

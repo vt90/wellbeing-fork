@@ -5,11 +5,10 @@
 
 on:
   push:
-  pull_request:
     branches:
       - master
 
-name: Deploy to Amazon DEV
+name: Deploy to Amazon Test
 
 jobs:
   deploy:
@@ -53,4 +52,7 @@ jobs:
       id: deploy
       run: |
         chmod 600 wellbeing0.pem
-        scp -i wellbeing0.pem -o "StrictHostKeyChecking no" -r www/* ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com:~/wellbeing-dev-www/
+        tar zcf deploy.tgz -C www .
+        scp -i "wellbeing0.pem" -o "StrictHostKeyChecking no" deploy.tgz ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com:~/wellbeing-test-www/
+        ssh -i "wellbeing0.pem" -o "StrictHostKeyChecking no" ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.comh126039 tar zxf wellbeing-test-www/deploy.tgz -C wellbeing-test-www
+        rm deploy.tgz

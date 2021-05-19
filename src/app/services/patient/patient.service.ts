@@ -3,13 +3,14 @@ import {AngularFireDatabase } from '@angular/fire/database';
 import {Patient} from '../../model/patient.model';
 import * as firebase from 'firebase/app';
 import {Doctor} from '../../model/doctor.model';
-
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientService {
   private db: firebase.database.Database;
+  private searchedDoctors = new BehaviorSubject<Doctor[]>(null);
 
   constructor(private adb: AngularFireDatabase) {
     this.db = adb.database;
@@ -57,6 +58,7 @@ export class PatientService {
         .orderByChild('specialization')
         .equalTo(specialization).once('value').then(snapshot => {
           doctor = snapshot.val();
+          this.searchedDoctors.next(doctor);
           return doctor;
         });
   }
@@ -66,9 +68,13 @@ export class PatientService {
       .orderByChild('subspecialization')
       .equalTo(subspecialization).once('value').then(snapshot => {
         doctor = snapshot.val();
+        this.searchedDoctors.next(doctor);
         return doctor;
       });
   }
 
+  getSearchedDoctors(){
+    return this.searchedDoctors.asObservable();
+  }
 
 }

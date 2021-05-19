@@ -1,95 +1,48 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {PatientService} from '../../services/patient/patient.service';
 import {Doctor} from '../../model/doctor.model';
-import {DatePipe} from '@angular/common';
-import {GoogleMapsComponent} from "../../shared/components/google-maps/google-maps.component";
+import {GoogleMapsComponent} from '../../shared/components/google-maps/google-maps.component';
+import {AuthUser} from '../../model/auth-user.model';
+import {PatientService} from '../../services/patient/patient.service';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.page.html',
   styleUrls: ['./landing.page.scss'],
 })
-export class LandingPage implements OnInit {
+export class LandingPage implements OnInit, OnDestroy {
   patientId: string;
-  specialization: string;
-  subspecialization: string;
-  specializations: string[];
-  subSpecializations: string[] = [];
-  specializationsFromDB: any;
   doctors: Doctor[];
-  minDate: Date;
-  maxDate: Date;
+  user: AuthUser;
   @ViewChild(GoogleMapsComponent) mapComponent: GoogleMapsComponent;
+  subscription: Subscription;
 
-  constructor(public translate: TranslateService,
-              private patientService: PatientService,
-              public datepipe: DatePipe) {
-    const currentYear = new Date().getFullYear();
-    const month = new Date().getMonth();
-    const day = new Date().getDate();
-    this.minDate = new Date(currentYear, month, day);
-    this.maxDate = new Date(currentYear, month + 1, 10);
+  constructor(public translate: TranslateService, public patientService: PatientService) {
   }
 
   ngOnInit() {
-    this.specializationLists();
+    this.subscription = this.patientService.getSearchedDoctors().subscribe(docs => {
+      this.doctors = null;
+      if (docs) {
+        const ds = [];
+        Object.keys(docs).forEach(k => {
+          ds.push(docs[k]);
+        });
+        this.doctors = ds;
+      }
+    });
   }
-  testMarker(){
+
+  testMarker() {
     const center = this.mapComponent.map.getCenter();
     this.mapComponent.addMarker(center.lat(), center.lng());
   }
-  private specializationLists() {
-    this.patientService.retrieveSpecializations().then(s => {
-      this.specializationsFromDB = s;
-      const specs: string[] = [];
-      for (const key in s) {
-        if (s.hasOwnProperty(key)) {
-          specs.push(s[key]['name_' + this.translate.currentLang]);
-        }
-      }
-      this.specializations = specs;
-    });
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
-  getSpecializedDoctor(s: string) {
-    this.getSubSpecializationLists(s);
-    const docs: Doctor[] = [];
-    this.patientService.getDoctorsBySpecialization(s).then(d => {
-      for (const key in d) {
-        if (d.hasOwnProperty(key)) {
-          docs.push(d[key]);
-        }
-      }
-      this.doctors = docs;
-    });
-  }
-
-  getSubSpecializedDoctor(s: string) {
-    const docs: Doctor[] = [];
-    this.patientService.getDoctorsBySubSpecialization(s).then(d => {
-      for (const key in d) {
-        if (d.hasOwnProperty(key)) {
-          docs.push(d[key]);
-        }
-      }
-      this.doctors = docs;
-    });
-  }
-
-  getSubSpecializationLists(s: string) {
-    this.subSpecializations = [];
-    const subSpecs: string[] = [];
-    for (const key in this.specializationsFromDB) {
-      if (this.specializationsFromDB.hasOwnProperty(key)) {
-        if (this.specializationsFromDB[key].subspecializations &&
-          s === this.specializationsFromDB[key]['name_' + this.translate.currentLang]) {
-          this.specializationsFromDB[key].subspecializations.forEach(sub => {
-            subSpecs.push(sub['name_' + this.translate.currentLang]);
-          });
-        }
-      }
-    }
-    this.subSpecializations = subSpecs;
-  }
 }
+
+

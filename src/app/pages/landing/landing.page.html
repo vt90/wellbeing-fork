@@ -3,65 +3,12 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <div>
-        <ion-title> {{translate.instant('COMMON.Welcome')}} User,</ion-title>
-        <ion-label>{{translate.instant('COMMON.Search') }} {{translate.instant('COMMON.Doctor')}}</ion-label>
-        <ion-row>
-          <ion-col>
-            <ion-button color="secondary">{{translate.instant('PATIENT.Location')}}
-              <ion-icon name="caret-down-outline"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button color="secondary">Date
-              <!--<input type="date" class="dateInput"  [min]="minDate" [max]="maxDate">-->
-              <mat-form-field style="padding-top: 2%;text-align: center;">
-                <label>
-                  <input style="color:black" matInput [matDatepicker]="picker" [min]="minDate"
-                         [max]="maxDate"
-                         placeholder="select date"
-                         name="aDate">
-                </label>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker touchUi="true" #picker></mat-datepicker>
-              </mat-form-field>
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button color="secondary">{{translate.instant('PATIENT.Specialization')}}
-              <ion-select [(ngModel)]="specialization"
-                          (ionChange)="getSpecializedDoctor(specialization)">
-                <ion-select-option [value]="s" *ngFor="let s of specializations">{{s}}</ion-select-option>
-              </ion-select>
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button color="secondary">{{translate.instant('PATIENT.Sub Specialization')}}
-              <ion-select name="subspec" [disabled]="subSpecializations.length == 0"
-                          [(ngModel)]="subspecialization"
-                          (ionChange)="getSubSpecializedDoctor(subspecialization)">
-                <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
-                  {{sub}}
-                </ion-select-option>
-              </ion-select>
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button color="secondary">{{translate.instant('PATIENT.Visit Type')}}
-              <ion-icon name="caret-down-outline"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-icon class="search" name="search-outline"></ion-icon>
-          </ion-col>
-        </ion-row>
-      </div>
+      <app-search-doctor></app-search-doctor>
     </ion-row>
     <ion-row>
       <ion-col  style="border-style: groove" size="6">
         <app-google-maps (click)="testMarker()" style="height: 300px; width: 100%; display: block;"
                          apiKey="AIzaSyCgh9AaIQ3TiHafarKAxUrRCNPJRaduXAI"></app-google-maps>
-       <!-- <ion-button color="light" (click)="testMarker()">Test Marker</ion-button>-->
       </ion-col>
       <ion-col size="6" style="overflow-y: scroll">
         <ion-card *ngFor="let d of doctors" style="width: inherit;padding: 5px;border-style: groove">
@@ -72,6 +19,7 @@
           <ion-row>
             <ion-col size-lg="auto">
               <ion-button class="aButtons" routerLink="/auth">Book appointment</ion-button>
+              <ion-button class="aButtons">View Details</ion-button>
             </ion-col>
           </ion-row>
         </ion-card>

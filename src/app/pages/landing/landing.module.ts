@@ -9,11 +9,11 @@ import { LandingPageRoutingModule } from './landing-routing.module';
 import { LandingPage } from './landing.page';
 import {SharedModule} from '../../shared/shared.module';
 import {PatientService} from '../../services/patient/patient.service';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+/*import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatRadioModule} from '@angular/material/radio';
+import {MatRadioModule} from '@angular/material/radio';*/
 
 @NgModule({
   imports: [
@@ -22,11 +22,11 @@ import {MatRadioModule} from '@angular/material/radio';
     IonicModule,
     LandingPageRoutingModule,
     SharedModule,
-    MatDatepickerModule,
+    /*MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    MatRadioModule
+    MatRadioModule*/
   ],
   exports: [LandingPage],
   declarations: [LandingPage],

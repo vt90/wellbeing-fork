@@ -3,17 +3,21 @@
   <ion-label>{{translate.instant('COMMON.Search') }} {{translate.instant('COMMON.Doctor')}}</ion-label>
   <ion-row>
     <ion-col size="auto">
-      <ion-button color="secondary">{{translate.instant('PATIENT.Location')}}
-        <ion-icon name="caret-down-outline"></ion-icon>
+      <ion-button color="primary">
+        <ion-select name="vType"
+                    [placeholder]="translate.instant('PATIENT.Location')">
+          <ion-select-option value="l1"> Location 1</ion-select-option>
+          <ion-select-option value="l2"> Location 2</ion-select-option>
+        </ion-select>
       </ion-button>
     </ion-col>
     <ion-col size="auto">
-      <ion-button color="secondary">Date
-        <mat-form-field style="padding-top: 2%;text-align: center;">
+      <ion-button color="primary">
+        <mat-form-field style="padding-top: 2%;text-align: center;color:white">
           <label>
             <input style="color:black" matInput [matDatepicker]="picker" [min]="minDate"
                    [max]="maxDate"
-                   placeholder="select date"
+                   placeholder="Date"
                    name="aDate">
           </label>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -22,17 +26,19 @@
       </ion-button>
     </ion-col>
     <ion-col  size="auto">
-      <ion-button color="secondary">{{translate.instant('PATIENT.Specialization')}}
+      <ion-button color="primary">
         <ion-select [(ngModel)]="specialization"
+                    [placeholder]="translate.instant('PATIENT.Specialization')"
                     (ionChange)="getSpecializedDoctor(specialization)">
           <ion-select-option [value]="s" *ngFor="let s of specializations">{{s}}</ion-select-option>
         </ion-select>
       </ion-button>
     </ion-col>
     <ion-col size="auto">
-      <ion-button color="secondary">{{translate.instant('PATIENT.Sub Specialization')}}
+      <ion-button color="primary">
         <ion-select name="subspec" [disabled]="subSpecializations.length == 0"
                     [(ngModel)]="subspecialization"
+                    [placeholder]="translate.instant('PATIENT.Sub Specialization')"
                     (ionChange)="getSubSpecializedDoctor(subspecialization)">
           <ion-select-option *ngFor="let sub of subSpecializations" [value]="sub">
             {{sub}}
@@ -41,8 +47,12 @@
       </ion-button>
     </ion-col>
     <ion-col size="auto">
-      <ion-button color="secondary">{{translate.instant('PATIENT.Visit Type')}}
-        <ion-icon name="caret-down-outline"></ion-icon>
+      <ion-button color="primary">
+        <ion-select name="vType"
+                    [placeholder]="translate.instant('PATIENT.Visit Type')">
+          <ion-select-option value="t1"> Type 1</ion-select-option>
+          <ion-select-option value="t2"> Type 2</ion-select-option>
+        </ion-select>
       </ion-button>
     </ion-col>
     <ion-col size="auto">

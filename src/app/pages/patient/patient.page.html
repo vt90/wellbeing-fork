@@ -16,6 +16,22 @@
             </ion-text>
           </div>
           <app-search-doctor></app-search-doctor>
+          <div *ngIf="searchedDoctors">
+            <ion-row>
+              <ion-col size="6">
+                <ion-list>
+                  <ion-item *ngFor="let d of searchedDoctors">
+                    <ion-label>Dr. {{d.firstName}}</ion-label>
+                    <ion-note slot="end">21 may 2020</ion-note>
+                    <ion-icon slot="end" (click)="docDetails = d" name="alert-circle-outline"></ion-icon>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col size="6">
+                <app-doctor-details *ngIf="docDetails" [doc]="docDetails"></app-doctor-details>
+              </ion-col>
+            </ion-row>
+          </div>
           <div>
             <ion-row>
               <ion-col>{{translate.instant('PATIENT.Recently Visited') }} {{translate.instant('COMMON.Doctor')}}</ion-col>

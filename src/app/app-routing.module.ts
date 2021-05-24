@@ -3,6 +3,7 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {redirectUnauthorizedTo, canActivate, customClaims} from '@angular/fire/auth-guard';
 import {pipe} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {DoctorDetailsComponent} from './pages/patient/doctor-details/doctor-details.component';
 
 export const redirectUnauthorizedToLogin = () => {
   return redirectUnauthorizedTo(['/', 'auth']);
@@ -10,20 +11,20 @@ export const redirectUnauthorizedToLogin = () => {
 
 export const doctorOnly = () => {
   return pipe(customClaims, map(claims => {
-    return ( !!claims && (claims.hasOwnProperty('doctor') || claims.hasOwnProperty('assistant')) ) ? true : ['home'];
+    return ( !!claims && (claims.hasOwnProperty('doctor') || claims.hasOwnProperty('assistant')) ) ? true : ['landing'];
   }));
 };
 
 export const patientOnly = () => {
   return pipe(customClaims, map(claims => {
-    return ( !!claims && claims.hasOwnProperty('patient') ) ? true : ['home'];
+    return ( !!claims && claims.hasOwnProperty('patient') ) ? true : ['landing'];
   }));
 };
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'landing',
     pathMatch: 'full'
   },
   {
@@ -47,6 +48,11 @@ const routes: Routes = [
   {
     path: 'landing',
     loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule)
+  },
+  {
+    path: 'doctor-details',
+    component: DoctorDetailsComponent,
+    ...canActivate(patientOnly)
   }
 
 ];

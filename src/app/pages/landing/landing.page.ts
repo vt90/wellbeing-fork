@@ -4,7 +4,7 @@ import {Doctor} from '../../model/doctor.model';
 import {GoogleMapsComponent} from '../../shared/components/google-maps/google-maps.component';
 import {AuthUser} from '../../model/auth-user.model';
 import {PatientService} from '../../services/patient/patient.service';
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-landing',

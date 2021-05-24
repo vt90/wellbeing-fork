@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PatientPage } from './patient.page';
-import {DoctorDetailsComponent} from "./doctor-details/doctor-details.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: PatientPage
+    component: PatientPage,
   },
   {
     path: 'appointment',
@@ -27,12 +26,7 @@ const routes: Routes = [
   {
     path: 'onboarding',
     loadChildren: () => import('./onboarding/onboarding.module').then(m => m.OnboardingPageModule)
-  },
-  {
-    path: 'doctor-details',
-    component: DoctorDetailsComponent
   }
-
 ];
 
 @NgModule({

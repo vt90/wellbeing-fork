@@ -228,7 +228,7 @@ export class AuthPage {
     // the role is assistant or doctor
     return this.doctorService.getDoctorOrAssistantById(userid).then(
       doctor => {
-        if (doctor === null) {
+        if (doctor === null && role === 'doctor') {
           return this.router.navigate(['doctor/onboarding']);
         } else {
           return this.router.navigate(['doctor']);

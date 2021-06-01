@@ -6,7 +6,7 @@ import {map} from 'rxjs/operators';
 import {DoctorDetailsComponent} from './pages/patient/doctor-details/doctor-details.component';
 
 export const redirectUnauthorizedToLogin = () => {
-  return redirectUnauthorizedTo(['/', 'auth']);
+  return redirectUnauthorizedTo(['/', 'landing']);
 };
 
 export const doctorOnly = () => {
@@ -20,6 +20,11 @@ export const patientOnly = () => {
     return ( !!claims && claims.hasOwnProperty('patient') ) ? true : ['landing'];
   }));
 };
+
+export const notLoggedIn = () => {
+  return redirectUnauthorizedTo(['/', 'landing']);
+};
+
 
 const routes: Routes = [
   {
@@ -47,7 +52,8 @@ const routes: Routes = [
   },
   {
     path: 'landing',
-    loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule)
+    loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule),
+    // ...canActivate(notLoggedIn)
   },
   {
     path: 'doctor-details',

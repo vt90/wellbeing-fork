@@ -1,83 +1,54 @@
-<ion-content>
-    <form #appointmentForm="ngForm" (ngSubmit)="bookAppointment()">
-        <ion-title style="text-align: center;"><strong>Dr. {{doc.firstName }} {{doc.lastName }}</strong></ion-title>
-
-        <ion-card style="background-color:#36abe0">
-            <ion-card-header>
-                <ion-row>
-                    <ion-col>
-                        <ion-card-title><strong>{{clinics[clinicIndex].name}}</strong></ion-card-title>
-                    </ion-col>
-                    <ion-col>
-                        <ion-label *ngIf="clinicIndex === 0 && clinics.length>1" (click)="showMoreClinics()"
-                                   style="text-decoration: underline">{{clinics[1].name}}
-                        </ion-label>
-                        <ion-label *ngIf="clinicIndex!==0" (click)="clinicIndex = 0"
-                                   style="text-decoration: underline">{{clinics[0].name}}
-                        </ion-label>
-                    </ion-col>
-                </ion-row>
-            </ion-card-header>
-            <ion-card-content>
-                <ion-label style="color: black">
-                    <ion-card-title><strong>Clinic Address:</strong><br></ion-card-title>
-                    {{clinics[clinicIndex].address.addressLine1}}<br>
-                    {{clinics[clinicIndex].address.addressLine2}}<br>
-                    {{clinics[clinicIndex].address.city}}, {{clinics[clinicIndex].address.state}}, {{clinics[clinicIndex].address.country}}<br>
-                    {{clinics[clinicIndex].address.zipcode}}<br>
-                </ion-label>
-                <ion-card-title><strong>Availability</strong><br></ion-card-title>
-                <ion-segment [value]="day">
-                    <ion-segment-button (click)="day = d;checkValidDate(clinics[clinicIndex])" [value]="d"
-                                        *ngFor="let d of getKeys(timeslot.get(clinics[clinicIndex].clinicIndex))">
-                        <ion-label><strong>{{d.slice(0, 3)}}</strong></ion-label>
-                    </ion-segment-button>
-                </ion-segment>
-                <ion-row class="ion-justify-content-center">
-                    <ion-col size="6">
-                        <mat-form-field style="padding-top: 2%;text-align: center;">
-                            <label>
-                                <input style="color:black" matInput [matDatepicker]="picker" [min]="minDate"
-                                       [max]="maxDate"
-                                       name="aDate"
-                                       [placeholder]="day!==''?'Choose a date of '+day:'Choose a date'"
-                                       [disabled]="day===''" [(ngModel)]="appointmentDate"
-                                       (dateChange)="checkValidDate(clinics[clinicIndex])" ngModel required>
-                            </label>
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker touchUi="true" #picker [disabled]="day===''"></mat-datepicker>
-                            <label style="color: black">{{dateInvalidMessage}}</label>
-                        </mat-form-field>
-                    </ion-col>
-                    <ion-col size="6">
-                        <label style="color: black;padding-top: 2%">Select an Appointment type</label>
-                        <mat-radio-group [(ngModel)]="appointment.type" name="aType" class="example-radio-group"
-                                         aria-label="Select an Appointment type" ngModel
-                                         required>
-                            <mat-radio-button value="new">New</mat-radio-button>
-                            <mat-radio-button value="follow up">Follow up</mat-radio-button>
-                        </mat-radio-group>
-                    </ion-col>
-                </ion-row>
-                <ion-row class="ion-justify-content-center" *ngIf="showAppointmentSlots">
-                    <ion-col size="3" *ngFor="let t of updatedTimeslots">
-                        <ion-button (click)="appointment.time=t.slot"
-                                    [disabled]="t.isBooked"
-                                    [ngClass]="appointment.time===t.slot ?'selectedTimeSlot' : ''">
-                            {{t.slot}}
-                        </ion-button>
-                    </ion-col>
-                </ion-row>
-            </ion-card-content>
-        </ion-card>
-
-        <div class="btn-container">
-            <ion-button type="submit" [disabled]="appointmentForm.invalid || appointment.time===undefined">Book
-                Appointment
-            </ion-button>
-            <ion-button (click)="close()">Close</ion-button>
-        </div>
-    </form>
-</ion-content>
+<div style="border-style: groove">
+  <ion-row>
+    <ion-col size="auto">
+      <ion-avatar>
+        <img src="./assets/imgs/avatar.svg">
+      </ion-avatar>
+    </ion-col>
+    <ion-col size="auto">
+      <ion-label><strong>Dr. {{doc.firstName }} {{doc.lastName }}</strong></ion-label>
+      <br>
+      <ion-label><strong>Registration ID:</strong>{{doc.registrationId}}</ion-label>
+      <br>
+      <ion-label><strong>Specialization:</strong>{{doc.specialization}}</ion-label>
+      <br>
+      <ion-label><strong>SubSpecialization:</strong> {{doc.subspecialization ? doc.subspecialization : "N/A" }}
+      </ion-label>
+      <br>
+      <ion-label><strong>Years of Experience:</strong>{{doc.experience}} years</ion-label>
+      <br>
+      <ion-label><strong>Contact number:</strong>{{doc.mobile}}</ion-label>
+      <br>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6" *ngFor="let c of doc.clinics; let ci = index">
+      <ion-card>
+        <ion-card-header>
+          {{c.name}}
+        </ion-card-header>
+        <ion-card-content>
+          {{c.address.addressLine1}}
+          {{c.address.addressLine2}}
+          {{c.address.city}},{{c.address.country}}
+          {{c.address.state}},{{c.address.zipcode}}<br>
+          <h5 style="color:blue">Availability</h5>
+          <div *ngFor="let s of doc.clinics[ci].schedules; let i = index">
+            <div>
+              <ion-col style ="border-style: inset;padding: 2px;" size="auto"
+                       *ngFor="let day of doc.clinics[ci].schedules[i].availableDays">
+                {{day.substring(0, 3)}}
+              </ion-col>
+            </div>
+            <ion-label><strong>From:</strong>{{doc.clinics[ci].schedules[i].fromTime}}</ion-label>
+            <br>
+            <ion-label><strong>To:</strong>{{doc.clinics[ci].schedules[i].toTime}}</ion-label>
+            <br>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</div>
 
 

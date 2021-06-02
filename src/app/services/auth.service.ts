@@ -118,5 +118,9 @@ export class AuthService {
   changePassword(email: string, newPwd: string){
     return this._backend.changePassword(email, newPwd);
   }
+
+  observeUser() {
+    return this._user.asObservable();
+  }
 }
 

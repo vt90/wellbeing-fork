@@ -1,0 +1,32 @@
+<app-toolbar></app-toolbar>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <app-search-doctor></app-search-doctor>
+    </ion-row>
+    <ion-row>
+      <ion-col  style="border-style: groove" size="6">
+        <app-google-maps (click)="testMarker()" style="height: 300px; width: 100%; display: block;"
+                         apiKey="AIzaSyCgh9AaIQ3TiHafarKAxUrRCNPJRaduXAI"></app-google-maps>
+      </ion-col>
+      <ion-col size="6" style="overflow-y: scroll">
+        <ion-card *ngFor="let d of doctors" style="width: inherit;padding: 5px;border-style: groove">
+          <p><strong>Name:</strong> Dr. {{d.firstName}}
+          <p>
+          <p><strong>Specialization: </strong>{{d.specialization}}</p>
+          <p><strong>SubSpecialization: </strong>{{d.subspecialization}}</p>
+          <ion-row>
+            <ion-col size-lg="auto">
+              <ion-button class="aButtons" routerLink="/auth">Book appointment</ion-button>
+              <ion-button class="aButtons">View Details</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
+

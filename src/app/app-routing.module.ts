@@ -3,27 +3,33 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {redirectUnauthorizedTo, canActivate, customClaims} from '@angular/fire/auth-guard';
 import {pipe} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {DoctorDetailsComponent} from './pages/patient/doctor-details/doctor-details.component';
 
 export const redirectUnauthorizedToLogin = () => {
-  return redirectUnauthorizedTo(['/', 'auth']);
+  return redirectUnauthorizedTo(['/', 'landing']);
 };
 
 export const doctorOnly = () => {
   return pipe(customClaims, map(claims => {
-    return ( !!claims && (claims.hasOwnProperty('doctor') || claims.hasOwnProperty('assistant')) ) ? true : ['auth'];
+    return ( !!claims && (claims.hasOwnProperty('doctor') || claims.hasOwnProperty('assistant')) ) ? true : ['landing'];
   }));
 };
 
 export const patientOnly = () => {
   return pipe(customClaims, map(claims => {
-    return ( !!claims && claims.hasOwnProperty('patient') ) ? true : ['auth'];
+    return ( !!claims && claims.hasOwnProperty('patient') ) ? true : ['landing'];
   }));
 };
+
+export const notLoggedIn = () => {
+  return redirectUnauthorizedTo(['/', 'landing']);
+};
+
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'landing',
     pathMatch: 'full'
   },
   {
@@ -39,7 +45,22 @@ const routes: Routes = [
     path: 'doctor',
     loadChildren: () => import('./pages/doctor/doctor.module').then(m => m.DoctorPageModule),
     ...canActivate(doctorOnly)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'landing',
+    loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule),
+    // ...canActivate(notLoggedIn)
+  },
+  {
+    path: 'doctor-details',
+    component: DoctorDetailsComponent,
+    ...canActivate(patientOnly)
   }
+
 ];
 
 @NgModule({

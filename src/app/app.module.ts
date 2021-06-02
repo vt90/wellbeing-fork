@@ -21,34 +21,35 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService} from './services/auth.service';
 
 console.log('*** env ***', environment);
+import {GoogleMapsComponent} from './shared/components/google-maps/google-maps.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  entryComponents: [],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    IonicModule.forRoot(),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    AngularFireFunctionsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    IonicStorageModule.forRoot(),
-    I18nModule,
-    CalendarModule,
-    BrowserAnimationsModule
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    AuthService,
-    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
-  ],
+    declarations: [
+        AppComponent,
+    ],
+    entryComponents: [],
+    imports: [
+        BrowserModule,
+        CommonModule,
+        IonicModule.forRoot(),
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule,
+        AngularFireAuthModule,
+        AngularFireFunctionsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        IonicStorageModule.forRoot(),
+        I18nModule,
+        CalendarModule,
+        BrowserAnimationsModule
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        AuthService,
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

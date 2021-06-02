@@ -7,7 +7,7 @@
       <div>
         <ion-row class="ion-justify-content-center">
           <ion-avatar>
-            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            <img src="./assets/imgs/avatar.svg">
           </ion-avatar>
         </ion-row>
         <ion-row class="ion-justify-content-center">
@@ -43,9 +43,9 @@
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none" (click)="onLogout()" button>
+          <ion-item lines="none" (click)="authenticate()" button>
             <ion-icon name="exit" slot="start"></ion-icon>
-            <ion-label>Logout</ion-label>
+            <ion-label>{{!!user ? 'Logout':'Login'}}</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>

@@ -1,0 +1,53 @@
+.main_title{
+  color:white;
+}
+.profile{
+  font-size: xx-large;
+  color: white;
+  margin-top: 6px;
+}
+ion-slide div img {
+  width: -webkit-fill-available;
+}
+ion-slide div{
+  margin-top: 2%;
+  height: 200px;
+  width: 650px;
+}
+.content {
+  position: absolute; /* Position the background text */
+  bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+  color: #f1f1f1; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 20px; /* Some padding */
+}
+.header{
+  text-align: left;
+  background: white;
+  width: fit-content;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+.paraText{
+  text-align: left;
+}
+.know{
+  text-align: left;
+  background: white;
+  width: fit-content;
+  padding-left: 2%;
+  padding-right: 2%;
+  color: blue;
+  border-radius: 50px;
+  border-style: solid;
+}
+.os{
+  text-align: left;
+  width: fit-content;
+  padding-left: 8%;
+  padding-right: 8%;
+  color: white;
+  border-radius: 50px;
+  border-style: solid;
+  background-color: blue;
+}

@@ -7,6 +7,7 @@ import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireFunctionsModule} from '@angular/fire/functions';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {I18nModule} from './config/i18n.module';
 import {CommonModule} from '@angular/common';
@@ -17,6 +18,9 @@ import {IonicStorageModule} from '@ionic/storage';
 import {HttpClientModule} from '@angular/common/http';
 import {CalendarModule} from 'ion2-calendar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AuthService} from './services/auth.service';
+
+console.log('*** env ***', environment);
 import {GoogleMapsComponent} from './shared/components/google-maps/google-maps.component';
 
 
@@ -32,6 +36,7 @@ import {GoogleMapsComponent} from './shared/components/google-maps/google-maps.c
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
         AngularFireAuthModule,
+        AngularFireFunctionsModule,
         AppRoutingModule,
         HttpClientModule,
         IonicStorageModule.forRoot(),
@@ -42,6 +47,7 @@ import {GoogleMapsComponent} from './shared/components/google-maps/google-maps.c
     providers: [
         StatusBar,
         SplashScreen,
+        AuthService,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
   bootstrap: [AppComponent]

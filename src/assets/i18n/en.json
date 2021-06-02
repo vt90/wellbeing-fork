@@ -154,5 +154,9 @@
     "Alert": "Alert",
     "Notice": "Notice",
     "Next Appointment": "Next Appointment"
+  },
+  "DOCTOR_ASSISTANT": {
+    "Removing doctor assistant": "Removing doctor assistant",
+    "Saving doctor assistant": "Saving doctor assistant"
   }
 }

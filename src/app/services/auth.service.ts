@@ -66,6 +66,11 @@ export class AuthService {
     return this._user.getValue().id;
   }
 
+  get token(): string {
+    // @ts-ignore
+    return this._user.getValue().getIdToken(true);
+  }
+
   get emailId(): string{
     return  this._user.getValue().email;
   }

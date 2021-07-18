@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AlertController, ModalController} from '@ionic/angular';
 import {Doctor} from '../../../model/doctor.model';
-import {Clinic, Schedule} from '../../../model/clinic.model';
-import {Appointment} from '../../../model/appointment.model';
+import {Schedule} from '../../../model/clinic.model';
 import {AppointmentService} from '../../../services/doctor/appointment.service';
 import moment from 'moment';
 
@@ -13,8 +12,8 @@ import moment from 'moment';
 })
 export class DoctorDetailsComponent implements OnInit {
     @Input() doc: Doctor;
-    @Input() pId: string;
-    clinics: Clinic[];
+   // @Input() pId: string;
+    /*clinics: Clinic[];
     timeslot: Map<number, Map<string, any[]>> = new Map<number, Map<string, any[]>>();
     day = '';
     minDate: Date;
@@ -24,17 +23,17 @@ export class DoctorDetailsComponent implements OnInit {
     showAppointmentSlots = false;
     clinicIndex = 0;
     appointment: Appointment;
-    updatedTimeslots: any[];
+    updatedTimeslots: any[];*/
 
     constructor(private modalCtrl: ModalController,
                 private appointmentService: AppointmentService,
                 public alertCtrl: AlertController) {
-        this.appointment = new Appointment();
+        /*this.appointment = new Appointment();
         const currentYear = new Date().getFullYear();
         const month = new Date().getMonth();
         const day = new Date().getDate();
         this.minDate = new Date(currentYear, month, day);
-        this.maxDate = new Date(currentYear, month + 1, 10);
+        this.maxDate = new Date(currentYear, month + 1, 10);*/
     }
 
     ngOnInit() {
@@ -46,9 +45,9 @@ export class DoctorDetailsComponent implements OnInit {
         for (let i = 0; i < this.doc.clinics.length ; i++){
             this.doc.clinics[i].clinicIndex = i;
             c.push(this.doc.clinics[i]);
-            this.getDayWiseSchedule(this.doc.clinics[i]);
+           // this.getDayWiseSchedule(this.doc.clinics[i]);
         }
-        this.clinics = c;
+       // this.clinics = c;
     }
 
     close() {
@@ -92,7 +91,7 @@ export class DoctorDetailsComponent implements OnInit {
         return timeStops;
     }
 
-    getDayWiseSchedule(c: Clinic) {
+   /* getDayWiseSchedule(c: Clinic) {
         const t: Map<string, string[]> = new Map<string, string[]>();
         c.schedules.forEach(s => {
             s.availableDays.forEach(d => {
@@ -101,14 +100,14 @@ export class DoctorDetailsComponent implements OnInit {
         });
         this.timeslot.set(c.clinicIndex, t);
     }
-
+*/
     getKeys(map: Map<string, string[]>) {
         return Array.from(map.keys());
     }
 
-    checkValidDate(c: Clinic) {
+  /*  checkValidDate(c: Clinic) {
         let weekOfDay = 0;
-        this.dateInvalidMessage = '';
+       // this.dateInvalidMessage = '';
         switch (this.day) {
             case 'Monday':
                 weekOfDay = 1;
@@ -152,11 +151,11 @@ export class DoctorDetailsComponent implements OnInit {
                 this.appointment.patientId = this.pId;
             }
         }
-    }
+    }*/
 
-    bookAppointment() {
+    /*bookAppointment() {
         this.markSlotBooked();
-        console.log(this.appointment);
+       // console.log(this.appointment);
         this.appointmentService.addAppointment(this.appointment).then(r => {
             if (r){
                 this.appointmentService.updateAppointmentAvailability(this.appointment, this.updatedTimeslots);
@@ -172,18 +171,18 @@ export class DoctorDetailsComponent implements OnInit {
             }
         });
     }
-
-    showMoreClinics() {
+*/
+    /*showMoreClinics() {
         for (let i = 1; i < this.clinics.length; i++) {
             this.clinicIndex = 1;
         }
-    }
+    }*/
 
-    markSlotBooked() {
+    /*markSlotBooked() {
         this.updatedTimeslots.forEach(t => {
             if (t.slot === this.appointment.time) {
                 t.isBooked = true;
             }
         });
-    }
+    }*/
 }

@@ -5,7 +5,7 @@ import { PatientPage } from './patient.page';
 const routes: Routes = [
   {
     path: '',
-    component: PatientPage
+    component: PatientPage,
   },
   {
     path: 'appointment',
@@ -27,7 +27,6 @@ const routes: Routes = [
     path: 'onboarding',
     loadChildren: () => import('./onboarding/onboarding.module').then(m => m.OnboardingPageModule)
   }
-
 ];
 
 @NgModule({

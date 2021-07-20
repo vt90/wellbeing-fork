@@ -5,7 +5,6 @@ import {Router} from '@angular/router';
 import {DoctorOnboardingService} from '../../../../services/doctor/doctor-onboarding-service';
 import {NgForm} from '@angular/forms';
 import {Doctor} from '../../../../model/doctor.model';
-import {Address} from '../../../../model/address.model';
 import {AuthService} from '../../../../services/auth.service';
 import {Subscription} from 'rxjs';
 

@@ -5,6 +5,8 @@ import {GoogleMapsComponent} from '../../shared/components/google-maps/google-ma
 import {AuthUser} from '../../model/auth-user.model';
 import {PatientService} from '../../services/patient/patient.service';
 import {Subscription} from 'rxjs';
+import {DoctorSearchModel} from '../../model/doctor.search.model';
+import {DoctorService} from '../../services/doctor/doctor.service';
 
 @Component({
   selector: 'app-landing',
@@ -14,11 +16,16 @@ import {Subscription} from 'rxjs';
 export class LandingPage implements OnInit, OnDestroy {
   patientId: string;
   doctors: Doctor[];
+  doctorsList: any[];
   user: AuthUser;
   @ViewChild(GoogleMapsComponent) mapComponent: GoogleMapsComponent;
   subscription: Subscription;
 
-  constructor(public translate: TranslateService, public patientService: PatientService) {
+  constructor(
+    public translate: TranslateService,
+    public patientService: PatientService,
+    private doctorsService: DoctorService,
+  ) {
   }
 
   ngOnInit() {
@@ -41,6 +48,18 @@ export class LandingPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onDoctorSearch(doctorSearchModel: DoctorSearchModel) {
+    console.log('need to search for doctors based on: ', doctorSearchModel);
+    this.doctorsService.findDoctors(doctorSearchModel)
+      .then((result) => {
+        this.doctorsList = result?.doctors;
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+      })
   }
 
 }

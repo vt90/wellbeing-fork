@@ -1,8 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {NgForm} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {PatientService} from '../../../services/patient/patient.service';
-import {DatePipe} from '@angular/common';
-import {Doctor} from '../../../model/doctor.model';
+import {DoctorService} from '../../../services/doctor/doctor.service';
+import {DoctorSearchModel} from '../../../model/doctor.search.model';
+import * as moment from 'moment';
+
+interface SpecializationInfo {
+  name: string;
+  value: string;
+  subspecializations?: SpecializationInfo;
+}
 
 @Component({
   selector: 'app-search-doctor',
@@ -10,81 +18,72 @@ import {Doctor} from '../../../model/doctor.model';
   styleUrls: ['./search-doctor.component.scss'],
 })
 export class SearchDoctorComponent implements OnInit {
-  specialization: string;
-  subspecialization: string;
-  specializations: string[];
-  subSpecializations: string[] = [];
-  specializationsFromDB: any;
+  @Output() onSearch: EventEmitter<DoctorSearchModel> = new EventEmitter();
+
+  doctorSearchModel: DoctorSearchModel;
+  specializations: SpecializationInfo[];
+  subSpecializations: SpecializationInfo[];
+
+
   minDate: Date;
   maxDate: Date;
-  doctors: Doctor[] = [];
 
-  constructor(public translate: TranslateService,
-              private patientService: PatientService,
-              public datepipe: DatePipe) {
-    const currentYear = new Date().getFullYear();
-    const month = new Date().getMonth();
-    const day = new Date().getDate();
-    this.minDate = new Date(currentYear, month, day);
-    this.maxDate = new Date(currentYear, month + 1, 10);
+  constructor(
+    private doctorService: DoctorService,
+    private translate: TranslateService,
+  ) {
+    this.doctorSearchModel = new DoctorSearchModel();
+    this.doctorSearchModel.appointmentDate = moment().format('YYYY-MM-DD');
+
+    this.minDate = moment().toDate();
+    this.maxDate = moment().add(1, 'month').toDate();
   }
 
   ngOnInit() {
-    this.specializationLists();
+    this.getSpecializations();
   }
 
-  private specializationLists() {
-    this.patientService.retrieveSpecializations().then(s => {
-      this.specializationsFromDB = s;
-      const specs: string[] = [];
-      for (const key in s) {
-        if (s.hasOwnProperty(key)) {
-          specs.push(s[key]['name_' + this.translate.currentLang]);
-        }
-      }
-      this.specializations = specs;
-    });
+  getSpecializations() {
+    this.doctorService.retrieveSpecializations()
+      .then((specs) => {
+        this.specializations = Object.values(specs)
+          .map((specialization) => this.mapSpecialization(specialization));
+      });
+
   }
 
-  getSpecializedDoctor(s: string) {
-    this.getSubSpecializationLists(s);
-    const docs: Doctor[] = [];
-    this.patientService.getDoctorsBySpecialization(s).then(d => {
-      for (const key in d) {
-        if (d.hasOwnProperty(key)) {
-          docs.push(d[key]);
-        }
-      }
-      this.doctors = docs;
-    });
+  mapSpecialization(specialization: any): SpecializationInfo {
+    const specializationText = specialization[`name_${this.translate.currentLang}`];
+    const subspecializations = specialization?.subspecializations;
+
+    return {
+      name: specializationText,
+      value: specializationText,
+      subspecializations: !!subspecializations?.length
+        ? subspecializations.map((subSpec) => this.mapSpecialization(subSpec))
+        : []
+    };
   }
 
-  getSubSpecializedDoctor(s: string) {
-    const docs: Doctor[] = [];
-    this.patientService.getDoctorsBySubSpecialization(s).then(d => {
-      for (const key in d) {
-        if (d.hasOwnProperty(key)) {
-          docs.push(d[key]);
-        }
-      }
-      this.doctors = docs;
-    });
-  }
+  onSpecializationChange(specialization: string) {
+    let subSpecs: SpecializationInfo[] = [];
 
-  getSubSpecializationLists(s: string) {
-    this.subSpecializations = [];
-    const subSpecs: string[] = [];
-    for (const key in this.specializationsFromDB) {
-      if (this.specializationsFromDB.hasOwnProperty(key)) {
-        if (this.specializationsFromDB[key].subspecializations &&
-          s === this.specializationsFromDB[key]['name_' + this.translate.currentLang]) {
-          this.specializationsFromDB[key].subspecializations.forEach(sub => {
-            subSpecs.push(sub['name_' + this.translate.currentLang]);
-          });
-        }
+    if (specialization && this.specializations?.length) {
+      const specializationInfo = this.specializations.find((spec) => spec.value === specialization);
+
+      if (specializationInfo?.subspecializations) {
+        // @ts-ignore
+        subSpecs = specializationInfo?.subspecializations;
       }
     }
+
     this.subSpecializations = subSpecs;
   }
 
+  onSubmit(form: NgForm) {
+    console.log('submitting');
+    console.log(this.doctorSearchModel);
+
+    this.onSearch.emit(this.doctorSearchModel);
+  }
 }

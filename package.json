@@ -10,8 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev-install": "tar zcf deploy.tgz -C www .;scp -i \"wellbeing0.pem\" deploy.tgz ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com:~/wellbeing-dev-www/;ssh -i \"wellbeing0.pem\" ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.comh126039 tar zxf wellbeing-dev-www/deploy.tgz -C wellbeing-dev-www; rm deploy.tgz",
-    "test-install": "tar zcf deploy.tgz -C www .;scp -i \"wellbeing0.pem\" deploy.tgz ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com:~/wellbeing-test-www/;ssh -i \"wellbeing0.pem\" ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.comh126039 tar zxf wellbeing-test-www/deploy.tgz -C wellbeing-test-www; rm deploy.tgz",
+    "dev-install": "tar zcf deploy.tgz -C www .;scp -i \"wellbeing0.pem\" deploy.tgz ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com:~/wellbeing-dev-www/;ssh -i \"wellbeing0.pem\" ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com tar zxf wellbeing-dev-www/deploy.tgz -C wellbeing-dev-www; rm deploy.tgz",
+    "test-install": "tar zcf deploy.tgz -C www .;scp -i \"wellbeing0.pem\" deploy.tgz ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com:~/wellbeing-test-www/;ssh -i \"wellbeing0.pem\" ubuntu@ec2-13-235-90-205.ap-south-1.compute.amazonaws.com tar zxf wellbeing-test-www/deploy.tgz -C wellbeing-test-www; rm deploy.tgz",
     "prettier": "prettier --write src/**/*.{ts,js,css,html}"
   },
   "private": true,

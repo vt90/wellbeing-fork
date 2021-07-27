@@ -68,7 +68,8 @@
     "Thursday": "Thursday",
     "Tuesday": "Tuesday",
     "Wednesday": "Wednesday",
-    "Welcome": "Welcome"
+    "Welcome": "Welcome",
+    "Reschedule": "Reschedule"
   },
   "ONBOARDING": {
     "Accept Terms and Conditions": "Accept Terms and Conditions",
@@ -145,9 +146,9 @@
   "PATIENT": {
     "Location": "Location",
     "Specialization": "Specialization",
-    "Sub Specialization":  "Sub Specialization",
+    "Sub Specialization": "Sub Specialization",
     "Visit Type": "Visit Type",
-    "Recently Visited":  "Recently Visited",
+    "Recently Visited": "Recently Visited",
     "Reports": "Reports",
     "View All": "View All",
     "View History": "View History",
@@ -159,5 +160,19 @@
   "DOCTOR_ASSISTANT": {
     "Removing doctor assistant": "Removing doctor assistant",
     "Saving doctor assistant": "Saving doctor assistant"
+  },
+  "APPOINTMENT": {
+    "DATE": "DATE",
+    "TIME": "TIME",
+    "NAME": "NAME",
+    "APPOINTMENT TYPE": "APPOINTMENT TYPE",
+    "TYPE": {
+      "FOLLOW_UP": "FOLLOW UP",
+      "NEW": "NEW"
+    },
+    "AGE": "AGE",
+    "Pending": "Pending",
+    "Approved": "Approved",
+    "Canceled": "Canceled"
   }
 }

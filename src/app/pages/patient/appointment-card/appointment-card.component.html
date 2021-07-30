@@ -1,0 +1,45 @@
+<ion-card>
+  <ion-card-content>
+    <ion-row>
+      <ion-col>
+        <div style="text-transform: uppercase"><b>{{translate.instant('APPOINTMENT.DATE') }}: </b>{{ day }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div><b>{{translate.instant('APPOINTMENT.TIME') }}:</b> {{ time }}</div>
+      </ion-col>
+      <ion-col size="12">
+        <b>{{translate.instant('APPOINTMENT.NAME') }}:</b>
+        <span *ngIf="appointment.patientName; else elseBlock"> {{appointment.patientName}} </span>
+      </ion-col>
+      <ion-col size="12">
+        <b>{{translate.instant('APPOINTMENT.APPOINTMENT TYPE') }}:</b>
+        <span *ngIf="appointment.appointmentType; else elseBlock"> {{ appointment.appointmentType }}</span>
+      </ion-col>
+      <ion-col size="12"> <b>{{translate.instant('APPOINTMENT.AGE') }}:</b>
+        <span *ngIf="years; else elseBlock"> {{ years }}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4">
+        <ion-button type="button" disabled class="schedule-button">{{translate.instant('COMMON.Reschedule') }}
+        </ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <ion-button fill="outline" type="button" (click)="updateAppointmentAlert('CANCELED')" class="cancel-button">
+          {{translate.instant('COMMON.Cancel') }}
+        </ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <ion-select [value]="status" okText="Okay" cancelText="Dismiss">
+          <ion-select-option value="PENDING" disabled>{{translate.instant('APPOINTMENT.Pending') }}</ion-select-option>
+          <ion-select-option value="APPROVED" disabled>{{translate.instant('APPOINTMENT.Approved') }}
+          </ion-select-option>
+          <ion-select-option value="CANCELED" disabled>{{translate.instant('APPOINTMENT.Canceled') }}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-card>
+<ng-template #elseBlock> N/A</ng-template>

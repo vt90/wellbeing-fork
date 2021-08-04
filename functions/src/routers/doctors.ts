@@ -1,11 +1,13 @@
 import {Request, Response} from 'express';
 import * as fbAdmin from 'firebase-admin';
 import * as geofire from 'geofire-common';
-import * as functions from 'firebase-functions';
+// import * as functions from 'firebase-functions';
 import * as moment from 'moment';
 import {orderBy} from 'lodash';
 import router from 'express-promise-router';
 import {validateFirebaseIdToken} from '../middlewares/validateUser';
+import {getDoctorClinicAvailabilityInfo, getDoctorBookings} from '../services/doctors';
+import {getEmailTemplateByFileName, sendEmail} from '../services/email';
 
 const doctorsRouter = router();
 
@@ -71,7 +73,7 @@ doctorsRouter.route('/find')
     },
   );
 
-doctorsRouter.route('/:doctorId/book')
+doctorsRouter.route('/:doctorId/get-availability')
   .post(
     validateFirebaseIdToken,
     async (req: Request, res: Response) => {
@@ -84,59 +86,84 @@ doctorsRouter.route('/:doctorId/book')
         const { doctorId } = req.params;
         const day =  moment(appointmentDate);
 
-        // check if doctor has a valid schedule
-        const doctorInfo = await fbAdmin.database()
-          .ref('/doctor-booking-info')
-          .orderByChild(`doctorId`)
-          .equalTo(doctorId)
-          .once('value')
-          .then(snapshot =>
-            snapshot.val()
-            && Object.values(snapshot.val())
-          )
-          .then(doctorBookingInfos =>
-            doctorBookingInfos
-            && doctorBookingInfos.filter((bInfo: any) => {
-              return bInfo.clinicIndex === clinicIndex
-                && bInfo.availableDays[day.format('dddd')]
-                && bInfo.clinic.schedules.find((schedule: any) => {
-                  const {
-                    fromTime,
-                    toTime,
-                  } = schedule;
+        const doctorInfo = await getDoctorClinicAvailabilityInfo(doctorId, clinicIndex, appointmentDate);
 
-                  const startDate = moment().set({
-                    hour: fromTime.split(':')[0],
-                    minute: fromTime.split(':')[1],
-                  });
+        if (doctorInfo) {
+          const existingBooking = await getDoctorBookings(doctorId)
+            .then(doctorBookingInfos =>
+              doctorBookingInfos
+              && doctorBookingInfos.filter((bInfo: any) => {
+                return bInfo.appointmentDate.includes(day.format('YYYY.MM.DD'));
+              })
+            );
 
-                  const endDate = moment()
-                    .set({
-                      hour: toTime.split(':')[0],
-                      minute: toTime.split(':')[1],
-                    });
+          // @ts-ignore
+          const availability = doctorInfo.clinic.schedules.reduce((acc, schedule) => {
+            const scheduleAvailability = [];
+            const {
+              fromTime,
+              toTime,
+              slotPerPatient,
+            } = schedule;
 
-                  const comparator = moment()
-                    .set({
-                      hour: day.hour(),
-                      minute: day.minutes(),
-                    });
+            const [startHour, startMinute] = fromTime.split(':');
+            const [endHour, endMinute] = toTime.split(':');
+            const iterator = moment().set({
+              hour: startHour,
+              minute: startMinute,
+            });
+            const comparator = moment().set({
+              hour: endHour,
+              minute: endMinute,
+            });
 
+            while (comparator.diff(iterator) > 0) {
+              const timeSlot = iterator.format('HH:mm');
 
-                  functions.logger.debug(`
-                    ${comparator.format('YYYY-MM-DD HH:mm')} - received day
-                    ${startDate.format('YYYY-MM-DD HH:mm')} - startDate day
-                    ${endDate.format('YYYY-MM-DD HH:mm')} - endDate day
-                    ******
+              // @ts-ignore
+              const isBooked = existingBooking.find((b) => b.appointmentDate.includes(timeSlot));
 
-                    is between ${comparator.isBetween(startDate, endDate)}
-                  `);
+              if (!isBooked) {
+                scheduleAvailability.push(timeSlot);
+              }
 
-                  return comparator.isBetween(startDate, endDate);
-                })
-            })
-          )
-          .then((dBookingInfo) => dBookingInfo[0]);
+              iterator.add(slotPerPatient, 'minutes');
+            }
+
+            return [...acc, ...scheduleAvailability];
+          }, []);
+
+          res.json({
+            availability,
+          });
+        }
+        else {
+          throw new Error('Doctor unavailable');
+        }
+      }
+      catch (e) {
+        res.json({ error: e.message || e })
+      }
+    },
+  );
+
+doctorsRouter.route('/:doctorId/book')
+  .post(
+    validateFirebaseIdToken,
+    async (req: Request, res: Response) => {
+      try {
+        const {
+          appointmentDate,
+          appointmentType,
+          clinicIndex,
+          dateOfBirth,
+          patientName,
+        } = req.body;
+
+        const { doctorId } = req.params;
+        const day =  moment(appointmentDate);
+
+        const doctorInfo = await getDoctorClinicAvailabilityInfo(doctorId, clinicIndex, appointmentDate, true);
 
         if (doctorInfo) {
           // try to find if there are exisiting bookings on that date and time
@@ -146,18 +173,14 @@ doctorsRouter.route('/:doctorId/book')
             doctorId: req.params.doctorId,
             // @ts-ignore
             patientId: req.user.uid,
-            appointmentDate: day.format('YYYY.MM.DD HH:mm')
+            appointmentDate: day.format('YYYY.MM.DD HH:mm'),
+            patientName,
+            dateOfBirth,
+            appointmentType,
+            status: 'PENDING',
           };
 
-          const existingBooking = await fbAdmin.database()
-            .ref('/bookings')
-            .orderByChild(`doctorId`)
-            .equalTo(doctorId)
-            .once('value')
-            .then(snapshot =>
-              snapshot.val()
-              && Object.values(snapshot.val())
-            )
+          const existingBooking = await getDoctorBookings(doctorId)
             .then(doctorBookingInfos =>
               doctorBookingInfos
               && doctorBookingInfos.filter((bInfo: any) => {
@@ -172,7 +195,20 @@ doctorsRouter.route('/:doctorId/book')
             await fbAdmin.database().ref(`/bookings`).push(newBooking)
           }
 
+          const doctorAuthInfo = await fbAdmin.auth().getUser(doctorId);
+
+          const html = getEmailTemplateByFileName('newBooking.pug', {
+            link: 'test',
+          });
+          await sendEmail({
+            to: doctorAuthInfo.email,
+            from: 'noreply@wellbeing.com',
+            subject: 'New booking',
+            html,
+          });
+
           res.json({
+            doctorAuthInfo,
             doctorId: req.params.doctorId,
             doctorInfo,
             existingBooking,

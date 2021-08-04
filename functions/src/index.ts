@@ -8,7 +8,7 @@ import routes from './routers';
 import {removeDoctorBookingInfo} from './services/doctors';
 import {getCoordinatesFromAddress} from './services/geolocation';
 
-import {environment} from './environment';
+// import {environment} from './environment';
 const app = admin.initializeApp();
 const expressApp = express();
 
@@ -24,8 +24,8 @@ expressApp.use(routes);
 export const api = functions.https.onRequest(expressApp);
 
 export const setUserType = functions
-  .region(environment.region)
-  .database.instance(environment.firebaseProjectId)
+  // .region(environment.region)
+  .database// .instance(environment.firebaseProjectId)
   .ref('/users/{userid}/role')
   .onCreate((snapshot, context) => {
     const userid = context.params.userid;
@@ -52,8 +52,8 @@ export const setUserType = functions
 // by the doctor or the patient, such that security is maintained. Neither the doctor can write to the
 // patient appointments directly nor vice versa.
 export const setAppointment = functions
-  .region(environment.region)
-  .database.instance(environment.firebaseProjectId)
+  // .region(environment.region)
+  .database// .instance(environment.firebaseProjectId)
   .ref('/new-appointments/{newappid}')
   .onCreate((snapshot, context) => {
     const newappid = context.params.newappid;
@@ -72,8 +72,8 @@ export const setAppointment = functions
 // Each time a doctor changes something in his account, sync his information
 // in the doctor-booking-info where we denormalize the data in order for it to be searched
 export const setDoctorBookingInfo = functions
-  .region(environment.region)
-  .database.instance(environment.firebaseProjectId)
+  // .region(environment.region)
+  .database// .instance(environment.firebaseProjectId)
   .ref('/doctors/{doctorId}')
   .onWrite(async (change, context) => {
     const doctorId = context.params.doctorId;

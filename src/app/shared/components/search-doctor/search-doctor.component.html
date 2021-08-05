@@ -1,36 +1,7 @@
-<form #basicForm="ngForm" (ngSubmit)="onSubmit(basicForm)">
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <ion-label>{{translate.instant('COMMON.Search') }} {{translate.instant('COMMON.Doctor')}}</ion-label>
 
   <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-md="3">
-        <ion-item lines="inset">
-          <ion-input
-            type="number"
-            ngModel
-            required
-            name="lat"
-            [(ngModel)]="doctorSearchModel.location.lat"
-            [placeholder]="translate.instant('Latitude')"
-          >
-          </ion-input>
-        </ion-item>
-      </ion-col>
-
-      <ion-col size="12" size-md="3">
-        <ion-item lines="inset">
-          <ion-input
-            type="number"
-            ngModel
-            required
-            name="lng"
-            [(ngModel)]="doctorSearchModel.location.lng"
-            [placeholder]="translate.instant('Longitude')"
-          >
-          </ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
     <ion-row>
       <ion-col size="12" size-md="3">
         <ion-item lines="inset">

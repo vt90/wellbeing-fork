@@ -15,7 +15,22 @@
               </h3>
             </ion-text>
           </div>
-          <app-search-doctor></app-search-doctor>
+
+          <app-search-doctor
+            [latitude]="lat"
+            [longitude]="lng"
+            (onSearch)="this.onDoctorSearch($event)"
+          >
+          </app-search-doctor>
+
+          <app-doctors-map
+            [latitude]="lat"
+            [longitude]="lng"
+            [doctorsListForMap]="doctorsListForMap"
+            (onChangeCoordinates)="onMapPositionChange($event)"
+          >
+          </app-doctors-map>
+
           <div *ngIf="searchedDoctors">
             <ion-row>
               <ion-col size="6">

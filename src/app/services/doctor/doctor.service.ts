@@ -7,6 +7,7 @@ import {Assistant} from '../../model/assistant.model';
 import {Clinic} from '../../model/clinic.model';
 import {FirebaseApiService} from '../firebase-api.service';
 import {DoctorSearchModel} from '../../model/doctor.search.model';
+import {DoctorBookModel} from '../../model/doctor.book.model';
 
 
 @Injectable({
@@ -47,6 +48,15 @@ export class DoctorService {
 
   findDoctors(doctorSearchModel: DoctorSearchModel) {
     return this.fbAPIService.post('/doctors/find', doctorSearchModel);
+  }
+
+  bookDoctor(doctorId, doctorBookModel: DoctorBookModel) {
+    return this.fbAPIService.post(`/doctors/${doctorId}/book`, doctorBookModel);
+  }
+
+
+  getDoctorAvailability(doctorId, doctorBookModel: DoctorBookModel) {
+    return this.fbAPIService.post(`/doctors/${doctorId}/get-availability`, doctorBookModel);
   }
 
   addAssistant(assistant: Assistant) {

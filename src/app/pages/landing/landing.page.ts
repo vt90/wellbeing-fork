@@ -1,65 +1,62 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Doctor} from '../../model/doctor.model';
-import {GoogleMapsComponent} from '../../shared/components/google-maps/google-maps.component';
 import {AuthUser} from '../../model/auth-user.model';
-import {PatientService} from '../../services/patient/patient.service';
-import {Subscription} from 'rxjs';
 import {DoctorSearchModel} from '../../model/doctor.search.model';
 import {DoctorService} from '../../services/doctor/doctor.service';
+import {Plugins} from '@capacitor/core';
+import {Router} from '@angular/router';
+
+const {Geolocation} = Plugins;
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.page.html',
   styleUrls: ['./landing.page.scss'],
 })
-export class LandingPage implements OnInit, OnDestroy {
-  patientId: string;
-  doctors: Doctor[];
+export class LandingPage implements OnInit {
   doctorsList: any[];
-  user: AuthUser;
-  @ViewChild(GoogleMapsComponent) mapComponent: GoogleMapsComponent;
-  subscription: Subscription;
+  doctorsListForMap: any[];
+  lat: number = null;
+  lng: number = null;
 
   constructor(
+    public router: Router,
     public translate: TranslateService,
-    public patientService: PatientService,
     private doctorsService: DoctorService,
   ) {
   }
 
   ngOnInit() {
-    this.subscription = this.patientService.getSearchedDoctors().subscribe(docs => {
-      this.doctors = null;
-      if (docs) {
-        const ds = [];
-        Object.keys(docs).forEach(k => {
-          ds.push(docs[k]);
-        });
-        this.doctors = ds;
+    this.getCurrentLocation();
+  }
+
+  getCurrentLocation() {
+    Geolocation
+      .getCurrentPosition()
+      .then((position) => {
+        const { coords: { latitude, longitude } } = position;
+
+        this.lat = latitude;
+        this.lng = longitude;
+      }, (err) => {
+        console.log(err);
+        console.log('Could not initialise map');
+      });
+  }
+
+  onDoctorSearch(doctorSearchModel: DoctorSearchModel) {
+    this.router.navigate(['/doctor-search'], {
+      queryParams: {
+        ...doctorSearchModel,
+        lat: this.lat,
+        lng: this.lng,
       }
     });
   }
 
-  testMarker() {
-    const center = this.mapComponent.map.getCenter();
-    this.mapComponent.addMarker(center.lat(), center.lng());
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  onDoctorSearch(doctorSearchModel: DoctorSearchModel) {
-    console.log('need to search for doctors based on: ', doctorSearchModel);
-    this.doctorsService.findDoctors(doctorSearchModel)
-      .then((result) => {
-        this.doctorsList = result?.doctors;
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log('error: ', error);
-      })
+  onMapPositionChange({ latitude, longitude }) {
+    this.lat = latitude;
+    this.lng = longitude;
   }
 
 }

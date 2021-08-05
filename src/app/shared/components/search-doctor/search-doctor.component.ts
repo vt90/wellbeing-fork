@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {PatientService} from '../../../services/patient/patient.service';
@@ -17,13 +17,17 @@ interface SpecializationInfo {
   templateUrl: './search-doctor.component.html',
   styleUrls: ['./search-doctor.component.scss'],
 })
-export class SearchDoctorComponent implements OnInit {
+export class SearchDoctorComponent implements OnInit, OnChanges {
+  @Input() latitude: number;
+  @Input() longitude: number;
+  @Input() params?: object;
+  @Input() submitOnChange?: boolean;
   @Output() onSearch: EventEmitter<DoctorSearchModel> = new EventEmitter();
+  @ViewChild('form') searchForm: NgForm;
 
   doctorSearchModel: DoctorSearchModel;
   specializations: SpecializationInfo[];
   subSpecializations: SpecializationInfo[];
-
 
   minDate: Date;
   maxDate: Date;
@@ -41,6 +45,33 @@ export class SearchDoctorComponent implements OnInit {
 
   ngOnInit() {
     this.getSpecializations();
+  }
+
+
+  isInitialValueChange(changes: SimpleChanges = {}, field: string) {
+    const analyser = changes[field];
+    return !analyser?.previousValue && analyser?.currentValue;
+  }
+
+  ngOnChanges(changes){
+    const validLatitude = this.isInitialValueChange(changes, 'latitude');
+    const validLongitude = this.isInitialValueChange(changes, 'longitude');
+    const validParams = this.isInitialValueChange(changes, 'params');
+
+    if (validLatitude && validLongitude){
+      this.doctorSearchModel.lat = validLatitude;
+      this.doctorSearchModel.lng = validLongitude;
+    }
+
+    if (validParams) {
+      console.log('this.params: ', this.params);
+      Object.keys(this.params)
+        .forEach((key) => this.doctorSearchModel[key] = this.params[key]);
+    }
+
+    if (this.submitOnChange) {
+      this.onSubmit(this.searchForm);
+    }
   }
 
   getSpecializations() {

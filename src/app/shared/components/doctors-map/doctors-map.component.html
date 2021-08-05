@@ -1,0 +1,61 @@
+<agm-map
+  [latitude]="latitude"
+  [longitude]="longitude"
+  (centerChange)="onMapPositionChange($event)"
+>
+  <agm-marker
+    [latitude]="latitude"
+    [longitude]="longitude"
+  >
+  </agm-marker>
+  <agm-marker
+    *ngFor="let doctorClinicInfo of doctorsListForMap; let i = index;"
+    [latitude]="doctorClinicInfo.coordinates.lat"
+    [longitude]="doctorClinicInfo.coordinates.lng"
+    [iconUrl]="'./assets/icon/hospital.png'"
+  >
+    <agm-info-window>
+      <ion-text color="primary">
+        <p class="ion-no-margin">
+          <strong>
+            {{ doctorClinicInfo.doctorInfo.firstName }} {{ doctorClinicInfo.doctorInfo.lastName }}
+          </strong>
+        </p>
+      </ion-text>
+      <ion-text color="medium">
+        <p>
+          {{ doctorClinicInfo.doctorInfo.specialization }}
+          &#8226; {{ doctorClinicInfo.doctorInfo.subspecialization }}
+        </p>
+      </ion-text>
+
+      <ion-text *ngIf="doctorClinicInfo?.clinic?.consultationFee">
+        <p>
+          ₹{{doctorClinicInfo?.clinic?.consultationFee}} consulting fee
+
+          <span *ngIf="doctorClinicInfo?.clinic?.followUpFee">
+                                , ₹{{doctorClinicInfo?.clinic?.followUpFee}} follow up fee
+                              </span>
+        </p>
+      </ion-text>
+
+
+
+      <ion-button
+        *ngIf="!user"
+        [routerLink]="['/auth']"
+        color="secondary"
+        size="small"
+        expand="full"
+      >Login and Book</ion-button>
+
+      <ion-button
+        *ngIf="!!user"
+        color="secondary"
+        size="small"
+        expand="full"
+        [routerLink]="['/search', { foo: 'foo' }]"
+      >Book Appointment</ion-button>
+    </agm-info-window>
+  </agm-marker>
+</agm-map>

@@ -28,7 +28,7 @@ export class FirebaseApiService {
   }
 
   private static async populateRequestHeaders(headers: object): Promise<HttpHeaders> {
-    const token = await firebase.auth().currentUser.getIdToken(true);
+    const token = await firebase.auth().currentUser?.getIdToken(true);
     const _headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json')

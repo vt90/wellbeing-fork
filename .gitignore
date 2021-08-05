@@ -30,7 +30,7 @@ platforms/android/app/build
 platforms/android/CordovaLib/build
 platforms/
 plugins/
-resources/
+
 #plugins/android.json
 # plugins/ios.json
 www/

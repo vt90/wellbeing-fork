@@ -122,6 +122,7 @@ export class GoogleMapsComponent implements OnInit {
         this.map = new google.maps.Map(this.element.nativeElement, mapOptions);
         resolve(true);
       }, (err) => {
+        console.log(err);
         reject('Could not initialise map');
       });
     });

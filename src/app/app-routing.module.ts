@@ -4,6 +4,7 @@ import {redirectUnauthorizedTo, canActivate, customClaims} from '@angular/fire/a
 import {pipe} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {DoctorDetailsComponent} from './pages/patient/doctor-details/doctor-details.component';
+import {DoctorListComponent} from './pages/patient/doctor-list/doctor-list.component';
 
 export const redirectUnauthorizedToLogin = () => {
   return redirectUnauthorizedTo(['/', 'landing']);
@@ -53,7 +54,10 @@ const routes: Routes = [
   {
     path: 'landing',
     loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule),
-    // ...canActivate(notLoggedIn)
+  },
+  {
+    path: 'doctor-search',
+    loadChildren: () => import('./pages/patient/doctor-list/doctor-list.module').then( m => m.DoctorListModule),
   },
   {
     path: 'doctor-details',

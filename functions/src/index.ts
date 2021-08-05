@@ -5,12 +5,15 @@ import * as express from 'express';
 import * as cookieParser from 'cookie-parser';
 import routes from './routers';
 
-import {environment} from './environment';
+import {removeDoctorBookingInfo} from './services/doctors';
+import {getCoordinatesFromAddress} from './services/geolocation';
+
+// import {environment} from './environment';
 const app = admin.initializeApp();
 const expressApp = express();
 
 // Automatically allow cross-origin requests
-expressApp.use(cors({ origin: true }));
+expressApp.use(cors({origin: true}));
 expressApp.use(cookieParser());
 
 
@@ -21,8 +24,8 @@ expressApp.use(routes);
 export const api = functions.https.onRequest(expressApp);
 
 export const setUserType = functions
-  .region(environment.region)
-  .database.instance(environment.firebaseProjectId)
+  // .region(environment.region)
+  .database// .instance(environment.firebaseProjectId)
   .ref('/users/{userid}/role')
   .onCreate((snapshot, context) => {
     const userid = context.params.userid;
@@ -49,8 +52,8 @@ export const setUserType = functions
 // by the doctor or the patient, such that security is maintained. Neither the doctor can write to the
 // patient appointments directly nor vice versa.
 export const setAppointment = functions
-  .region(environment.region)
-  .database.instance(environment.firebaseProjectId)
+  // .region(environment.region)
+  .database// .instance(environment.firebaseProjectId)
   .ref('/new-appointments/{newappid}')
   .onCreate((snapshot, context) => {
     const newappid = context.params.newappid;
@@ -64,4 +67,84 @@ export const setAppointment = functions
       .then(() => {
         return snapshot.ref.remove();
       });
+  });
+
+// Each time a doctor changes something in his account, sync his information
+// in the doctor-booking-info where we denormalize the data in order for it to be searched
+export const setDoctorBookingInfo = functions
+  // .region(environment.region)
+  .database// .instance(environment.firebaseProjectId)
+  .ref('/doctors/{doctorId}')
+  .onWrite(async (change, context) => {
+    const doctorId = context.params.doctorId;
+
+    if (change.after.exists()) {
+      const doctor = change.after.val();
+
+      // Extract only needed fields/ do not provide any private info
+      const {
+        clinics,
+
+        // meta fields
+        firstName,
+        lastName,
+        gender,
+        specialization,
+        subspecialization,
+      } = doctor;
+
+      try {
+        // 1. remove current doctor booking info
+        await removeDoctorBookingInfo(doctorId);
+
+        if (clinics?.length) {
+          for (let clinicIndex = 0; clinicIndex < clinics.length; clinicIndex++) {
+            const clinic = clinics[clinicIndex];
+
+            const doctorBookingInfo = {
+              doctorId,
+              clinicIndex,
+              doctorInfo: {
+                firstName,
+                lastName,
+                gender,
+                specialization,
+                subspecialization,
+              },
+              clinic,
+              availableDays: {},
+            };
+
+            try {
+              const address = Object.values(clinic.address).join(', ');
+
+              // @ts-ignore
+              doctorBookingInfo.coordinates = await getCoordinatesFromAddress(address);
+            }
+            catch (e) {
+              functions.logger.error(`Error occurred while trying to fetch coordinates for doctor ${doctorId} clinic ${clinic}`);
+            }
+
+            for (let schedule of clinic.schedules) {
+              const { availableDays } = schedule;
+
+              doctorBookingInfo.availableDays = availableDays.reduce((acc: object, day: string) => {
+                return { ...acc, [day]: true }
+              }, doctorBookingInfo.availableDays);
+            }
+
+            await admin
+              .database()
+              .ref(`/doctor-booking-info`)
+              .push(doctorBookingInfo)
+          }
+        }
+      } catch (e) {
+        functions.logger.error('Error occured while tring to fetch coordinates');
+        functions.logger.error(e);
+      }
+    } else {
+      functions.logger.log('doctor has been removed');
+      await removeDoctorBookingInfo(doctorId);
+    }
   });

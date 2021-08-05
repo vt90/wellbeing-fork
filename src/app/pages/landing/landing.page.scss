@@ -9,3 +9,100 @@
   padding-left: 2%;
 }
 
+h3 {
+  margin-bottom: 0;
+}
+
+.main_title{
+  color:white;
+}
+.profile{
+  font-size: xx-large;
+  color: white;
+  margin-top: 6px;
+}
+ion-slide div img {
+  width: -webkit-fill-available;
+}
+// ion-slide div{
+//   height: 200px;
+//   width: 650px;
+// }
+.content {
+  position: absolute; /* Position the background text */
+  top: 10%; /* At the bottom. Use top:0 to append it to the top */
+  color: #444444; /* Grey text */
+  width: 40%; /* Full width */
+  padding: 6%; /* Some padding */
+  text-align: left;
+}
+
+.know{
+  background: #048bc1;
+  width: fit-content;
+  padding-left: 5%;
+  padding-right: 5%;
+  color: white;
+  border-radius: 50px;
+  font-weight:400;
+}
+.os{
+  text-align: left;
+  width: fit-content;
+  padding-left: 8%;
+  padding-right: 8%;
+  color: white;
+  border-radius: 50px;
+  border-style: solid;
+  background-color: blue;
+}
+
+.slider-container{
+  max-height: 350px;
+  padding-bottom: 70px;
+}
+
+.container{
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.content-container{
+  text-align: center;
+  padding-top: 10%;
+  padding-right: 6%;
+}
+
+.service-icon img{
+  height: 200px;
+  width: 200px;
+}
+
+.service-block{
+  background-color: #2ab1a9;
+  color: white;
+}
+
+.contact-block{
+  background-color: #048bc1;
+  color: white;
+}
+.copyright{
+  background-color: #005c9d;
+  color: white;
+}
+.contact-block h1{
+  color: white;
+}
+.desktopslider{display: block;}
+.mobslider{display: none;}
+@media(max-width:700px){
+  .services-row{display: block;}
+  .reports-row{display: block;}
+  .contact-row{display: block;}
+  .content-container{padding-right: none;}
+  .reportimg{padding-right: 22px;}
+  .desktopslider{display: none;}
+  .mobslider{display: block;}
+  .content{top: 5%;}
+}

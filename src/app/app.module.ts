@@ -21,7 +21,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService} from './services/auth.service';
 
 console.log('*** env ***', environment);
-import {GoogleMapsComponent} from './shared/components/google-maps/google-maps.component';
 
 
 @NgModule({

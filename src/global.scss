@@ -10,85 +10,104 @@
  */
 
 /* Core CSS required for Ionic components to work properly */
-@import "~@ionic/angular/css/core.css";
+@import '~@ionic/angular/css/core.css';
 
 /* Basic CSS for apps built with Ionic */
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
 @import '~@ionic/angular/css/display.css';
 
 /* Optional CSS utils that can be commented out */
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
 
-@import "~bootstrap/dist/css/bootstrap.css";
+@import '~bootstrap/dist/css/bootstrap.css';
 
-h1{
-    color: #1d506d;
-    font-size: 22px;
-    text-transform: capitalize;
+h1 {
+  color: #1d506d;
+  font-size: 22px;
+  text-transform: capitalize;
 }
 
 // Complete Profile css
 
-.btn-container{
-    text-align: center;
-    margin: 20px;
+.btn-container {
+  text-align: center;
+  margin: 20px;
 }
 
-ion-grid{
-    background: #f5f5f5;
+ion-grid {
+  background: #f5f5f5;
 }
-ion-content{
-    --background: #f5f5f5;
+ion-content {
+  --background: #f5f5f5;
 }
-.block-border{
-    border: 1px solid lightgrey;
-    box-shadow: 0 2px 9px 6px #d3d3d3;
-    padding: 40px;
-    background: white;
+.block-border {
+  border: 1px solid lightgrey;
+  box-shadow: 0 2px 9px 6px #d3d3d3;
+  padding: 40px;
+  background: white;
 }
 
 // Vertical Menu
-.vertical-menu{
-   background-color: #1d506d;
+.vertical-menu {
+  background-color: #1d506d;
 }
 
-.nav-link{
-    color:white;
+.nav-link {
+  color: white;
 }
 
-@media(min-width:450px){
-    .menu-tab{display: none;}
+@media (min-width: 450px) {
+  .menu-tab {
+    display: none;
+  }
 }
 
-
-@media(min-width:450px){
-    .menu{display: none;}
+@media (min-width: 450px) {
+  .menu {
+    display: none;
+  }
 }
 
-.menu{
-    width: 50%;
-    float: right;
+.menu {
+  width: 50%;
+  float: right;
 }
-.menu a{
-    font-size: 18px;
-    color:white;
+.menu a {
+  font-size: 18px;
+  color: white;
 }
-ion-toolbar{
-    --background: #048bc1 !important;
+ion-toolbar {
+  --background: #048bc1 !important;
 }
 
 ion-label.asterisk::after {
-    content: " *";
-    font-size: larger;
-    color: red;
+  content: ' *';
+  font-size: larger;
+  color: red;
 }
 
-ion-item.item-lines-inset::part(native)  {
+ion-item.item-lines-inset::part(native) {
   padding-right: 16px;
+}
+
+.confirm-alert {
+  .alert-head {
+    .alert-title.sc-ion-alert-md {
+      color: red;
+      text-align: center;
+    }
+  }
+  .alert-message {
+    text-align: center;
+  }
+  .alert-button-group {
+    display: flex;
+    justify-content: space-around;
+  }
 }

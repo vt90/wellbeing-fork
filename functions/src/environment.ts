@@ -6,6 +6,7 @@ dotenv.config({
 });
 
 export const environment = {
-  firebaseProjectId: process.env.FIREBASE_PROJECT_ID,
-  region: process.env.FIREBASE_REGION,
+  apiKey: process.env.FIREBASE_API_KEY || 'AIzaSyBtLyDgODrQMSgl-Cf8zwTePbqqH4WLJWo',
+  firebaseProjectId: process.env.FIREBASE_PROJECT_ID || 'wellbeing-3d322',
+  region: process.env.FIREBASE_REGION || 'europe-west1',
 };

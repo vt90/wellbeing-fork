@@ -1,0 +1,90 @@
+<form #form="ngForm" (ngSubmit)="onSubmit()">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-text color="primary" align="center">
+          <h3>
+            {{ getAppointmentDate() }} {{ translate.instant('PATIENT.Book Appointment') }}
+          </h3>
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="12" *ngIf="!!error">
+        <ion-text color="danger">
+          <p>
+            {{error}}
+          </p>
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item lines="inset">
+          <ion-label position="stacked">Full Name</ion-label>
+          <ion-input
+            ngModel
+            name="fullName"
+            required
+            [(ngModel)]="doctorBookInfo.patientName"
+            [placeholder]="translate.instant('ONBOARDING.Full Name')"
+            #fullNameCtrl="ngModel"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!fullNameCtrl.valid && fullNameCtrl.touched" lines="none">
+          <ion-label color="danger">{{translate.instant('ONBOARDING.Full Name Required')}}</ion-label>
+        </ion-item>
+      </ion-col>
+
+
+      <ion-col size="12" size-md="6">
+        <ion-item lines="inset">
+          <ion-datetime
+            ngModel
+            displayFormat="YYYY.MM.DD"
+            placeholder="Appointment time"
+            name="dateOfBirth"
+            required
+            [(ngModel)]="doctorBookInfo.dateOfBirth"
+            [placeholder]="translate.instant('ONBOARDING.Date of Birth')"
+          >
+          </ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12" size-md="6">
+        <ion-item lines="none">
+          <ion-select
+            ngModel
+            name="subspecialization"
+            [placeholder]="translate.instant('Appointment type')"
+            [(ngModel)]="doctorBookInfo.appointmentType"
+          >
+            <ion-select-option value="New">
+              New
+            </ion-select-option>
+            <ion-select-option value="New">
+              Fallow up
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-row>
+          <ion-col size="6" size-sm="3" size-md="2" *ngFor="let av of availability">
+            <ion-button
+              size="small"
+              (click)="setAppointmentDate(av.timeSlot)"
+              [fill]="isTimeSlotSelected(av.timeSlot) ? 'solid' : 'outline'"
+              [disabled]="!av?.isAvailable"
+            >
+              {{ av?.timeSlot }}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-button type="submit">{{ translate.instant(('PATIENT.Book Appointment')) }}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>

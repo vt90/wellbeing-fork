@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./appointment/appointment.module').then(m => m.AppointmentPageModule)
   },
   {
-    path: 'todo',
+    path: 'to-do',
     loadChildren: () => import('./todo/todo.module').then(m => m.TodoPageModule)
   },
   {

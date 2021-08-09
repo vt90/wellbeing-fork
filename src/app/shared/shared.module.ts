@@ -4,6 +4,7 @@ import {IonicModule} from '@ionic/angular';
 import {FormsModule} from '@angular/forms';
 import {LanguageSelectComponent} from './components/languageSelect/languageSelect.component';
 import {ToolbarComponent} from './components/toolbar/toolbar.component';
+import {SideMenuComponent} from './components/side-menu/side.menu.component';
 import {GoogleMapsComponent} from './components/google-maps/google-maps.component';
 import {SearchDoctorComponent} from './components/search-doctor/search-doctor.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -22,6 +23,7 @@ export const COMMON_COMPONENTS = [
   ToolbarComponent,
   GoogleMapsComponent,
   SearchDoctorComponent,
+  SideMenuComponent,
 ];
 
 @NgModule({

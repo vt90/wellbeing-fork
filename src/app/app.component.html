@@ -1,61 +1,6 @@
 <ion-app>
   <ion-menu side="start" menuId="m1" contentId="main">
-    <ion-content>
-      <ion-row>
-        <ion-icon name="close-outline"></ion-icon>
-      </ion-row>
-      <div>
-        <ion-row class="ion-justify-content-center">
-          <ion-avatar>
-            <img src="./assets/imgs/avatar.svg">
-          </ion-avatar>
-        </ion-row>
-        <ion-row class="ion-justify-content-center">
-          <ion-label>Johanna Doe</ion-label>
-        </ion-row>
-        <ion-row class="ion-justify-content-center">
-          <ion-label>johna@company.com</ion-label>
-        </ion-row>
-      </div>
-      <ion-list>
-        <ion-menu-toggle>
-          <ion-item lines="none" button>
-            <ion-icon name="home-outline" slot="start"></ion-icon>
-            <ion-label>Home</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item lines="none" button>
-            <ion-icon name="stats-chart-outline" slot="start"></ion-icon>
-            <ion-label>Features</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item lines="none" button>
-            <ion-icon name="person-circle-outline" slot="start"></ion-icon>
-            <ion-label>About</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item lines="none" button>
-            <ion-icon name="heart-outline" slot="start"></ion-icon>
-            <ion-label>Profile</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item lines="none" (click)="authenticate()" button>
-            <ion-icon name="exit" slot="start"></ion-icon>
-            <ion-label>{{!!user ? 'Logout':'Login'}}</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle>
-          <ion-item lines="none" button>
-            <ion-icon name="settings-outline" slot="start"></ion-icon>
-            <ion-label>Settings</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-    </ion-content>
+    <app-side-menu></app-side-menu>
   </ion-menu>
 
   <ion-router-outlet id="main"></ion-router-outlet>

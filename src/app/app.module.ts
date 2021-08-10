@@ -19,6 +19,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {CalendarModule} from 'ion2-calendar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthService} from './services/auth.service';
+import {SharedModule} from './shared/shared.module';
 
 console.log('*** env ***', environment);
 
@@ -28,21 +29,22 @@ console.log('*** env ***', environment);
         AppComponent,
     ],
     entryComponents: [],
-    imports: [
-        BrowserModule,
-        CommonModule,
-        IonicModule.forRoot(),
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireDatabaseModule,
-        AngularFireAuthModule,
-        AngularFireFunctionsModule,
-        AppRoutingModule,
-        HttpClientModule,
-        IonicStorageModule.forRoot(),
-        I18nModule,
-        CalendarModule,
-        BrowserAnimationsModule
-    ],
+  imports: [
+    BrowserModule,
+    CommonModule,
+    IonicModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireFunctionsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    IonicStorageModule.forRoot(),
+    I18nModule,
+    CalendarModule,
+    BrowserAnimationsModule,
+    SharedModule
+  ],
     providers: [
         StatusBar,
         SplashScreen,

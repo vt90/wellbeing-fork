@@ -41,7 +41,7 @@ export class AuthService {
         AuthUser.fromDB(u).then(usr => {
           this._user.next(usr);
         });
-      } else {
+      } else if (this.router.url !== '/landing') {
         this.router.navigateByUrl('/auth').then();
       }
     });

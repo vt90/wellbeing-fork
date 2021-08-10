@@ -16,6 +16,8 @@ import { AgmCoreModule } from '@agm/core';
 import { DoctorsMapComponent } from './components/doctors-map/doctors-map.component';
 import { RouterModule } from '@angular/router';
 import { AppointmentRescheduleComponent } from '../shared/components/appointment-card/appointment-reschedule/appointment-reschedule.component';
+import { SideMenuComponent } from './components/side-menu/side.menu.component';
+
 export const COMMON_COMPONENTS = [
   DoctorsMapComponent,
   LanguageSelectComponent,
@@ -24,6 +26,7 @@ export const COMMON_COMPONENTS = [
   SearchDoctorComponent,
   AppointmentCardComponent,
   AppointmentRescheduleComponent,
+  SideMenuComponent,
 ];
 
 @NgModule({

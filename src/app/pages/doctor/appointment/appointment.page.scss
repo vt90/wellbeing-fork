@@ -1,16 +1,20 @@
-.pageHeader{
+.pageHeader {
   width: fit-content;
   font-size: large;
   font-weight: 500;
 }
-.search{
+.search {
   --border-radius: 20px;
   width: max-content;
 }
-.aButtons{
+.aButtons {
   background: #1b3a58;
   color: white;
   border-radius: 5px;
   font-size: smaller;
   padding: 3px 6px;
+}
+
+.waitingCol {
+  padding: 0;
 }

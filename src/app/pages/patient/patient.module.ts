@@ -7,7 +7,6 @@ import { PatientPage } from './patient.page';
 import { PatientService } from '../../services/patient/patient.service';
 import { SharedModule } from '../../shared/shared.module';
 import { DoctorDetailsComponent } from './doctor-details/doctor-details.component';
-import { AppointmentCardComponent } from './appointment-card/appointment-card.component';
 import { CalendarModule } from 'ion2-calendar';
 
 @NgModule({
@@ -20,7 +19,7 @@ import { CalendarModule } from 'ion2-calendar';
     CalendarModule,
   ],
   exports: [PatientPage],
-  declarations: [PatientPage, DoctorDetailsComponent, AppointmentCardComponent],
+  declarations: [PatientPage, DoctorDetailsComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [PatientService, DatePipe],
 })

@@ -226,4 +226,40 @@ doctorsRouter
     }
   });
 
+doctorsRouter.route('/:doctorId').get(async (req: Request, res: Response) => {
+  try {
+    const { doctorId } = req.params;
+
+    const doctors = await fbAdmin
+      .database()
+      .ref(`/doctors/${doctorId}`)
+      .once('value')
+      .then((snapshot) => snapshot.val());
+    res.json({ ...doctors });
+  } catch (e) {
+    res.json({ error: e });
+  }
+});
+
+doctorsRouter.route('/:doctorId').put(async (req: Request, res: Response) => {
+  try {
+    const { ...fields } = req.body;
+    const { doctorId } = req.params;
+
+    const doctor = await fbAdmin
+      .database()
+      .ref(`/doctors/${doctorId}`)
+      .once('value')
+      .then((snapshot) => snapshot.val());
+    const submitFields = Object.assign(doctor, fields);
+    await fbAdmin.database().ref(`/doctors/${doctorId}`).set(submitFields);
+    res.json({
+      message: 'User updated',
+      user: { ...submitFields },
+    });
+  } catch (e) {
+    res.json({ error: e });
+  }
+});
+
 export default doctorsRouter;

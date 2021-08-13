@@ -1,0 +1,33 @@
+<form #form="ngForm" (ngSubmit)="addNote(form)">
+  <div class="container">
+    <div>
+
+      <ion-row class="title-wrapper">
+        <ion-text color="primary">
+          <h3>
+            Add new Note
+          </h3>
+        </ion-text>
+      </ion-row>
+
+      <ion-row class="text-area-wrapper">
+        <ion-item>
+          <ion-textarea rows="6" required ngModel name="note" cols="20" placeholder="Enter any notes here...">
+          </ion-textarea>
+        </ion-item>
+
+      </ion-row>
+      <ion-row *ngIf='error'>
+        <ion-text color="danger">
+          {{error}}
+        </ion-text>
+      </ion-row>
+    </div>
+    <div class="action-wrapper">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+      <ion-button type="submit">Add Note</ion-button>
+    </div>
+
+  </div>
+
+</form>

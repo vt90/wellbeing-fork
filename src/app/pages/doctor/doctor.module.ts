@@ -1,17 +1,18 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import {DoctorRoutingModule} from './doctor-routing.module';
-import {AddAppointmentComponent} from './appointment/add-appointment/add-appointment.component';
-import {DoctorPage} from './doctor.page';
-import {DoctorService} from '../../services/doctor/doctor.service';
-import {SharedModule} from '../../shared/shared.module';
-import {CalendarModule} from 'ion2-calendar';
-
+import { DoctorRoutingModule } from './doctor-routing.module';
+import { AddAppointmentComponent } from './appointment/add-appointment/add-appointment.component';
+import { AddNoteComponent } from './add-note/add-note.component';
+import { ViewAllNotesComponent } from './view-all-notes/view-all-notes.component';
+import { DoctorPage } from './doctor.page';
+import { DoctorService } from '../../services/doctor/doctor.service';
+import { SharedModule } from '../../shared/shared.module';
+import { CalendarModule } from 'ion2-calendar';
 
 @NgModule({
-  declarations: [AddAppointmentComponent, DoctorPage],
+  declarations: [AddAppointmentComponent, DoctorPage, AddNoteComponent, ViewAllNotesComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -23,6 +24,6 @@ import {CalendarModule} from 'ion2-calendar';
   ],
   exports: [DoctorPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [DoctorService]
+  providers: [DoctorService],
 })
 export class DoctorPageModule {}

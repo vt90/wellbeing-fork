@@ -22,7 +22,7 @@
     </ion-row>
     <ion-row>
       <ion-col size="4">
-        <ion-button type="button" disabled class="schedule-button">{{translate.instant('COMMON.Reschedule') }}
+        <ion-button type="button" (click)="rescheduleAppointment()" class="schedule-button">{{translate.instant('COMMON.Reschedule') }}
         </ion-button>
       </ion-col>
       <ion-col size="4">
@@ -31,11 +31,13 @@
         </ion-button>
       </ion-col>
       <ion-col size="4">
-        <ion-select [value]="status" okText="Okay" cancelText="Dismiss">
-          <ion-select-option value="PENDING" disabled>{{translate.instant('APPOINTMENT.Pending') }}</ion-select-option>
-          <ion-select-option value="APPROVED" disabled>{{translate.instant('APPOINTMENT.Approved') }}
+        <ion-select [(ngModel)]="status" okText="Okay" cancelText="Dismiss" (ionChange)="onChange($event)"
+          [placeholder]="translate.instant('APPOINTMENT.Pending')">
+          <ion-select-option value="APPROVED" [disabled]="isAppointmentStatusDisabled">
+            {{translate.instant('APPOINTMENT.Approved') }}
           </ion-select-option>
-          <ion-select-option value="CANCELED" disabled>{{translate.instant('APPOINTMENT.Canceled') }}
+          <ion-select-option value="CANCELED" [disabled]="isAppointmentStatusDisabled">
+            {{translate.instant('APPOINTMENT.Canceled') }}
           </ion-select-option>
         </ion-select>
       </ion-col>

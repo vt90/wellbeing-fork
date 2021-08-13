@@ -1,0 +1,47 @@
+<div>
+  <ion-list class="bg-transparent ion-hide-sm-down">
+    <ion-item lines="none" class="bg-transparent"  button [routerLink]="doctor ? '/doctor' : '/patient'">
+      <ion-icon name="home-outline" slot="start"></ion-icon>
+      <ion-label>Dashboard</ion-label>
+    </ion-item>
+    <ion-item lines="none" class="bg-transparent"  button [routerLink]="doctor ? '/doctor/profile' : '/patient/profile'">
+      <ion-icon name="person" slot="start"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-item>
+    <ion-item *ngIf="doctor" lines="none" class="bg-transparent"  button [routerLink]="'/doctor/assistant'">
+      <ion-icon name="people" slot="start"></ion-icon>
+      <ion-label>Assistants</ion-label>
+    </ion-item>
+    <ion-item *ngIf="!doctor" lines="none" class="bg-transparent"  button [routerLink]="'/patient/reports'">
+      <ion-icon name="reader-outline" slot="start"></ion-icon>
+      <ion-label>Reports</ion-label>
+    </ion-item>
+    <ion-item lines="none" class="bg-transparent"  (click)="authenticate()" button>
+      <ion-icon name="exit" slot="start"></ion-icon>
+      <ion-label>{{!!user ? 'Logout':'Login'}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list class="bg-transparent ion-hide-md-up">
+    <ion-menu-toggle  class="bg-transparent">
+      <ion-item lines="none" class="bg-transparent" button [routerLink]="doctor ? '/doctor' : '/patient'">
+        <ion-icon name="home-outlines" slot="start"></ion-icon>
+        <ion-label>Dashboard</ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+
+    <ion-menu-toggle class="bg-transparent">
+      <ion-item lines="none" class="bg-transparent"  button [routerLink]="doctor ? '/doctor/profile' : '/patient/profile'">
+        <ion-icon name="person" slot="start"></ion-icon>
+        <ion-label>Profile</ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+
+    <ion-menu-toggle class="bg-transparent">
+      <ion-item lines="none" class="bg-transparent"  (click)="authenticate()" button>
+        <ion-icon name="exit" slot="start"></ion-icon>
+        <ion-label>{{!!user ? 'Logout':'Login'}}</ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+  </ion-list>
+</div>

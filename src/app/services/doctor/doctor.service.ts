@@ -48,6 +48,9 @@ export class DoctorService {
 
   findDoctors(doctorSearchModel: DoctorSearchModel) {
     return this.fbAPIService.post('/doctors/find', doctorSearchModel);
+  }  
+  findDoctorById(doctorId: string) {
+    return this.fbAPIService.get(`/doctors/${doctorId}/find`);
   }
 
   bookDoctor(doctorId, doctorBookModel: DoctorBookModel) {

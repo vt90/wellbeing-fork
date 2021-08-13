@@ -1,41 +1,33 @@
-import {AngularFireDatabase} from '@angular/fire/database';
-import {Injectable} from '@angular/core';
-import {Appointment} from '../../model/appointment.model';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import {AuthUser} from '../../model/auth-user.model';
+import { FirebaseApiService } from '../firebase-api.service';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AppointmentService {
-    private db: firebase.database.Database;
+  private db: firebase.database.Database;
 
-    constructor(private adb: AngularFireDatabase) {
-        this.db = adb.database;
-    }
+  constructor(private adb: AngularFireDatabase, private fbAPIService: FirebaseApiService) {
+    this.db = adb.database;
+  }
 
-    getAppointmentAvailability(date: Date, doctorId: string) {
-        const timestamp = date.getTime();
-        return this.db.ref('/doctor-appointment/' + doctorId + '/' + timestamp + '/timeslots').once('value').then(snapshot => {
-            return snapshot.val();
-        });
-    }
+  async getAppointments(doctorId: string) {
+    const snapshot = await this.db
+      .ref('/bookings/')
+      .orderByChild('doctorId')
+      .equalTo(doctorId)
+      .once('value');
+    const values = snapshot.val();
+    return values;
+  }
 
-    updateAppointmentAvailability(appointment: Appointment, timeslots: any[]) {
-         const timestamp = appointment.date;
-         this.db.ref('/doctor-appointment/' + appointment.doctorId + '/' + timestamp).update({timeslots}).then(r => r);
-    }
+  async editAppointment(appointmentId: string, appointment: any) {
+     await this.fbAPIService.put(`/bookings/${appointmentId}/`, { ...appointment });
+  }
 
-    addAppointment(appointment: Appointment){
-        return this.db.ref('/new-appointments/').push(appointment);
-    }
-
-    async getAppointments(doctorId: string, clinicIndex: number) {
-        const snapshot = await this.db.ref('/doctor-appointment/' + doctorId + '/')
-            .orderByChild('clinicIndex')
-            .equalTo(clinicIndex)
-            .once('value');
-        return snapshot.val();
-    }
+  async deleteAppointment(bookingId: string) {
+     await this.fbAPIService.delete(`/bookings/${bookingId}`);
+  }
 }

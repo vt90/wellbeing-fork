@@ -1,20 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-avatar slot="end" style="width: 36px; height: 36px;">
-      <img src="./assets/imgs/avatar.svg" alt="profilePic">
-    </ion-avatar>
-    <ion-buttons class="ion-hide-md-up" slot="end">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-buttons class="ion-hide-sm-down" slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      WellBeing
-    </ion-title>
-    <ion-buttons class="lang-buttons ion-hide-md-down" slot="primary">
-      <app-langselect></app-langselect>
-    </ion-buttons>
+    <ion-row class="align-items-center">
+      <ion-col size-xs="12" size-md="4">
+        <ion-title class="main_title">Wellbeing</ion-title>
+      </ion-col>
 
+      <ion-col size-xs="12" size-md="4">
+        <nav class="navbar">
+          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link" href="#">Services</a>
+          <a class="nav-link" href="#">About</a>
+        </nav>
+      </ion-col>
+
+      <ion-col size-xs="12" size-md="4" class="profile-container">
+        <ion-icon class="profile" name="person" routerLink="/auth"></ion-icon>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>

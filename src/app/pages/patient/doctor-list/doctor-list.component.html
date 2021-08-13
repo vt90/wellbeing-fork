@@ -1,137 +1,150 @@
 <app-toolbar></app-toolbar>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-sm="10" offset-sm="1">
-        <app-search-doctor
-          #doctorSearch
-          [latitude]="lat"
-          [longitude]="lng"
-          [params]="queryParmas"
-          [submitOnChange]="true"
-          (onSearch)="this.onDoctorSearch($event)"
-        >
-        </app-search-doctor>
-      </ion-col>
-    </ion-row>
+  <ion-row>
+    <ion-col size="2" class="vertical-menu">
+      <app-side-menu></app-side-menu>
+    </ion-col>
 
-    <ion-row *ngIf="doctorsList?.length">
-      <ion-col size="12" size-md="8">
-        <ion-row *ngFor="let doctorClinicInfo of doctorsList; let i = index;">
-          <ion-col size="12">
-            <ion-card class="ion-padding">
-              <ion-row>
-                <ion-col size="auto">
-                  <ion-avatar>
-                    <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-                  </ion-avatar>
-                </ion-col>
+    <ion-col size="10">
+      <ion-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" size-sm="10" offset-sm="1">
+              <app-search-doctor
+                  #doctorSearch
+                  [latitude]="lat"
+                  [longitude]="lng"
+                  [params]="queryParmas"
+                  [submitOnChange]="true"
+                  (onSearch)="this.onDoctorSearch($event)"
+              >
+              </app-search-doctor>
+            </ion-col>
+          </ion-row>
 
-                <ion-col class="ion-padding-horizontalin">
-                  <div class="border-bottom">
-                    <ion-text color="primary">
-                      <h3 class="ion-no-margin">
-                        {{ doctorClinicInfo.doctorInfo.firstName }} {{ doctorClinicInfo.doctorInfo.lastName }}
-                      </h3>
-                    </ion-text>
+          <ion-row *ngIf="doctorsList?.length">
+            <ion-col size="12" size-md="8">
+              <ion-row *ngFor="let doctorClinicInfo of doctorsList; let i = index;">
+                <ion-col size="12">
+                  <ion-card class="ion-padding">
+                    <ion-row>
+                      <ion-col size="auto">
+                        <ion-avatar>
+                          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                        </ion-avatar>
+                      </ion-col>
 
-                    <ion-text color="medium">
-                      <p>
-                        {{ doctorClinicInfo.doctorInfo.specialization }}
-                        &#8226; {{ doctorClinicInfo.doctorInfo.subspecialization }}
-                      </p>
-                    </ion-text>
+                      <ion-col class="ion-padding-horizontalin">
+                        <div class="border-bottom">
+                          <ion-text color="primary">
+                            <h3 class="ion-no-margin">
+                              {{ doctorClinicInfo.doctorInfo.firstName }} {{ doctorClinicInfo.doctorInfo.lastName }}
+                            </h3>
+                          </ion-text>
 
-                    <ion-text>
-                      <p>
-                        <b>{{ doctorClinicInfo?.clinic?.name }} &#8226; </b>
-                        <span *ngIf="doctorClinicInfo?.clinic?.address?.addressLine1">
+                          <ion-text color="medium">
+                            <p>
+                              {{ doctorClinicInfo.doctorInfo.specialization }}
+                              &#8226; {{ doctorClinicInfo.doctorInfo.subspecialization }}
+                            </p>
+                          </ion-text>
+
+                          <ion-text>
+                            <p>
+                              <b>{{ doctorClinicInfo?.clinic?.name }} &#8226; </b>
+                              <span *ngIf="doctorClinicInfo?.clinic?.address?.addressLine1">
                           &nbsp;{{doctorClinicInfo?.clinic?.address?.addressLine1}}
                         </span>
 
-                        <span *ngIf="doctorClinicInfo?.clinic?.address?.addressLine2">
+                              <span *ngIf="doctorClinicInfo?.clinic?.address?.addressLine2">
                           ,&nbsp;{{doctorClinicInfo?.clinic?.address?.addressLine2}}
                         </span>
 
-                        <span *ngIf="doctorClinicInfo?.clinic?.address?.city">
+                              <span *ngIf="doctorClinicInfo?.clinic?.address?.city">
                           ,&nbsp;{{doctorClinicInfo?.clinic?.address?.city}}
                         </span>
 
-                        <span *ngIf="doctorClinicInfo?.clinic?.address?.zipcode">
+                              <span *ngIf="doctorClinicInfo?.clinic?.address?.zipcode">
                           ,&nbsp;{{doctorClinicInfo?.clinic?.address?.zipcode}}
                         </span>
 
-                        <span *ngIf="doctorClinicInfo?.clinic?.address?.state">
+                              <span *ngIf="doctorClinicInfo?.clinic?.address?.state">
                           ,&nbsp;{{doctorClinicInfo?.clinic?.address?.state}}
                         </span>
 
 
-                        <span *ngIf="doctorClinicInfo?.clinic?.address?.country">
+                              <span *ngIf="doctorClinicInfo?.clinic?.address?.country">
                           ,&nbsp;{{doctorClinicInfo?.clinic?.address?.country}}.
                         </span>
-                      </p>
-                    </ion-text>
+                            </p>
+                          </ion-text>
 
-                    <ion-text>
-                      <p>
-                        Available
-                        <span *ngFor="let schedule of doctorClinicInfo?.clinic?.schedules; let si = index;">
+                          <ion-text>
+                            <p>
+                              Available
+                              <span *ngFor="let schedule of doctorClinicInfo?.clinic?.schedules; let si = index;">
                     from {{ schedule.fromTime }} to {{ schedule.toTime }}.
                   </span>
-                      </p>
-                    </ion-text>
+                            </p>
+                          </ion-text>
 
-                    <ion-text *ngIf="doctorClinicInfo?.clinic?.consultationFee">
-                      <p>
-                        ₹{{doctorClinicInfo?.clinic?.consultationFee}} consulting fee
+                          <ion-text *ngIf="doctorClinicInfo?.clinic?.consultationFee">
+                            <p>
+                              ₹{{doctorClinicInfo?.clinic?.consultationFee}} consulting fee
 
-                        <span *ngIf="doctorClinicInfo?.clinic?.followUpFee">
+                              <span *ngIf="doctorClinicInfo?.clinic?.followUpFee">
                     , ₹{{doctorClinicInfo?.clinic?.followUpFee}} follow up fee
                   </span>
-                      </p>
-                    </ion-text>
+                            </p>
+                          </ion-text>
 
-                  </div>
+                        </div>
 
-                  <div class="ion-margin-top">
-                    <ion-chip color="success">
-                      <ion-label>{{ doctorClinicInfo.distanceInKm | number: '1.0-1' }} km from you</ion-label>
-                    </ion-chip>
-                  </div>
-                </ion-col>
+                        <div class="ion-margin-top">
+                          <ion-chip color="success">
+                            <ion-label>{{ doctorClinicInfo.distanceInKm | number: '1.0-1' }} km from you</ion-label>
+                          </ion-chip>
+                        </div>
+                      </ion-col>
 
 
-                <ion-col size="12" size-sm="3" size-md="3">
-                  <ion-button
-                    *ngIf="!user"
-                    [routerLink]="['/auth']"
-                    color="secondary"
-                    size="small"
-                    expand="full"
-                  >Login and Book</ion-button>
+                      <ion-col size="12" size-sm="3" size-md="3">
+                        <ion-button
+                          *ngIf="!user"
+                          [routerLink]="['/auth']"
+                          color="secondary"
+                          size="small"
+                          expand="full"
+                        >Login and Book
+                        </ion-button>
 
-                  <ion-button
-                    *ngIf="!!user"
-                    color="secondary"
-                    size="small"
-                    expand="full"
-                    (click)="presentAlertPrompt(doctorClinicInfo)"
-                  >Book Appointment</ion-button>
+                        <ion-button
+                          *ngIf="!!user"
+                          color="secondary"
+                          size="small"
+                          expand="full"
+                          (click)="presentAlertPrompt(doctorClinicInfo)"
+                        >Book Appointment
+                        </ion-button>
+                      </ion-col>
+                    </ion-row>
+                  </ion-card>
                 </ion-col>
               </ion-row>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-      <ion-col size="12" size-md="4">
-        <app-doctors-map
-          [latitude]="lat"
-          [longitude]="lng"
-          [doctorsListForMap]="doctorsListForMap"
-        >
-        </app-doctors-map>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+            </ion-col>
+            <ion-col size="12" size-md="4">
+              <app-doctors-map
+                [latitude]="lat"
+                [longitude]="lng"
+                [doctorsListForMap]="doctorsListForMap"
+              >
+              </app-doctors-map>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-content>
+
+    </ion-col>
+  </ion-row>
 </ion-content>

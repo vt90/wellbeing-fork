@@ -56,6 +56,11 @@ ion-content {
 // Vertical Menu
 .vertical-menu {
   background-color: #1d506d;
+  min-height: calc(100vh - 62px);
+}
+
+:host(.vertical-menu) * {
+  background-color: #1d506d !important;
 }
 
 .nav-link {

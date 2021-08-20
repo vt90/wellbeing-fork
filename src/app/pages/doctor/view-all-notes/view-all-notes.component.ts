@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
+import { DoctorService } from 'src/app/services/doctor/doctor.service';
 
 @Component({
   selector: 'app-view-all-notes',
@@ -10,12 +11,13 @@ export class ViewAllNotesComponent implements OnInit {
   @Input() notes: string[];
   @Input() doctorId: string;
 
-  constructor(private alertController: AlertController, private toastController: ToastController) {}
+  constructor(
+    private alertController: AlertController,
+    private toastController: ToastController,
+    private doctorService: DoctorService
+  ) {}
 
-  ngOnInit() {
-    console.log(this.notes);
-    console.log(this.doctorId);
-  }
+  ngOnInit() {}
   async delete(id: number) {
     const alert = await this.alertController.create({
       cssClass: 'confirm-alert',
@@ -32,17 +34,21 @@ export class ViewAllNotesComponent implements OnInit {
           text: 'Yes',
           handler: () => {
             this.notes.splice(id, 1);
-            console.log('ID', id);
-            console.log('notes after remove', this.notes);
-            // this.updateAppointment(status).then(() => {
-              this.toastController
-                .create({
-                  message: 'Note succesfully deleted.',
-                  duration: 3000,
-                  position: 'top',
-                })
-                .then((toast) => toast.present());
-            // });
+
+            this.doctorService
+              .editDoctorInfo(this.doctorId, { notes: this.notes })
+              .then(() => {
+                this.toastController
+                  .create({
+                    message: 'Note succesfully deleted.',
+                    duration: 3000,
+                    position: 'top',
+                  })
+                  .then((toast) => toast.present());
+              })
+              .catch((error) => {
+                console.log(error);
+              });
           },
         },
       ],

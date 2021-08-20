@@ -21,6 +21,9 @@ export class DoctorPage implements OnInit {
   totalPatients: number = 0;
   todayPatients: number = 0;
   nextPatient: any;
+  allAppointments: AppointmentBook[];
+  selectedAppointments: AppointmentBook[];
+  areAllAppointmentsVisible: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -40,11 +43,20 @@ export class DoctorPage implements OnInit {
         });
         return appointment;
       });
+      appointments.sort((a, b) =>
+        moment(a.appointmentDate) > moment(b.appointmentDate)
+          ? 1
+          : moment(b.appointmentDate) > moment(a.appointmentDate)
+          ? -1
+          : 0
+      );
+
+      this.allAppointments = appointments;
       this.totalPatients = appointments.length;
       const nextAppointment = appointments.filter((val: AppointmentBook) => {
         const today = moment();
         const appointmentDay = moment(val.appointmentDate);
-        if (appointmentDay >= today) {
+        if (appointmentDay >= today && val.status === 'APPROVED') {
           return val;
         }
       })[0];
@@ -54,13 +66,16 @@ export class DoctorPage implements OnInit {
       this.newPatients = appointments.filter(
         (val: AppointmentBook) => val.status !== 'PENDING' && val.status
       ).length;
-      this.todayPatients = appointments.filter((val: AppointmentBook) => {
+      const todayAppointments = appointments.filter((val: AppointmentBook) => {
         const today = moment().format('YYYY-MM-DD');
         const appointmentDay = moment(val.appointmentDate).format('YYYY-MM-DD');
-        if (today == appointmentDay) {
+        if (today == appointmentDay && val.status == 'APPROVED') {
           return val;
         }
-      }).length;
+      });
+
+      this.todayPatients = todayAppointments.length;
+      this.selectedAppointments = todayAppointments;
     });
   }
 
@@ -72,7 +87,6 @@ export class DoctorPage implements OnInit {
     const id = this.authService.userID;
     this.doctorService.getDoctorOrAssistantById(id).then((doctor) => {
       this.doctor = doctor;
-      console.log(doctor);
     });
   }
 
@@ -105,5 +119,17 @@ export class DoctorPage implements OnInit {
     });
 
     await modal.present();
+  }
+  onCalendarChange(e: any) {
+    this.selectedAppointments = this.allAppointments.filter((val: AppointmentBook) => {
+      const selectedDay = moment(e).format('YYYY-MM-DD');
+      const appointmentDay = moment(val.appointmentDate).format('YYYY-MM-DD');
+      if (selectedDay == appointmentDay && val.status == 'APPROVED') {
+        return val;
+      }
+    });
+  }
+  handleAreAllAppointmentsVisible() {
+    this.areAllAppointmentsVisible = !this.areAllAppointmentsVisible;
   }
 }

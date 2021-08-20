@@ -1,4 +1,14 @@
-.search{
+.search {
   padding: 9px;
   border-style: solid;
+}
+.next-appointment {
+  .row {
+    display: flex;
+    align-items: center;
+    padding: 0 16px 8px;
+    ion-icon{
+      margin-right: 8px;
+    }
+  }
 }

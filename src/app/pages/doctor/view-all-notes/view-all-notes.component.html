@@ -8,15 +8,15 @@
   </ion-row>
   <ion-row>
 
-    <ion-col size="12" *ngFor="let note of notes; let i = index">
-      <ion-card class="note-card">
-        <ion-card-header>
-          <ion-button size="small" (click)="delete(i)">Delete</ion-button>
-        </ion-card-header>
-        <ion-card-content>
-          {{note}}
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
+
+    <ion-card class="note-card" *ngFor="let note of notes; let i = index">
+      <ion-card-header>
+        <ion-button size="small" (click)="delete(i)">Delete</ion-button>
+      </ion-card-header>
+      <ion-card-content>
+        {{note}}
+      </ion-card-content>
+    </ion-card>
+
   </ion-row>
 </div>

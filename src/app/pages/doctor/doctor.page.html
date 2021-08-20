@@ -63,7 +63,7 @@
       </ion-row>
 
 
-      <ion-row>
+      <!-- <ion-row>
         <ion-col size="12">
           <ion-card style="background-color: #9dbf84;">
             <ion-card-header>
@@ -73,7 +73,7 @@
             </ion-card-header>
           </ion-card>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
 
       <ion-row class="row-2">
         <ion-col>
@@ -121,10 +121,6 @@
                 <ion-button (click)="addNote()">
                   Add your first note
                 </ion-button>
-                <!-- <ion-item>
-                  <ion-label>Notes</ion-label>
-                  <ion-textarea rows="6" cols="20" placeholder="Enter any notes here..."></ion-textarea>
-                </ion-item> -->
               </ion-card-content>
 
             </ng-template>
@@ -132,43 +128,46 @@
         </ion-col>
       </ion-row>
 
-      <ion-row>
-
-        <ion-list>
-          <ion-list-header>
-            Appointments
-          </ion-list-header>
-
-          <ion-item>
-            <ion-avatar slot="start">
-              <img src="./assets/imgs/avatar-poe.png">
-            </ion-avatar>
-            <ion-label>
-              <h3>Ada Lovelace</h3>
-            </ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-avatar slot="start">
-              <img src="./assets/imgs/avatar-poe.png">
-            </ion-avatar>
-            <ion-label>
-              <h3>Mark Hopper</h3>
-            </ion-label>
-          </ion-item>
-
-          <ion-item>
-            <ion-avatar slot="start">
-              <img src="./assets/imgs/avatar-poe.png">
-            </ion-avatar>
-            <ion-label>
-              <h3>Margaret Hamlton</h3>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-row>
       <ion-row class="history">
-        <h1 class="ion-padding">History</h1>
+        <h1 class="ion-padding">Check Appointment</h1>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-calendar (change)="onCalendarChange($event)"></ion-calendar>
+        </ion-col>
+        <ion-col>
+          <ion-card>
+            <ion-card-header *ngIf="selectedAppointments.length>=1;">
+              <ion-row>
+                <ion-col>Name</ion-col>
+                <ion-col>Appointment Type</ion-col>
+              </ion-row>
+            </ion-card-header>
+            <ion-card-content *ngIf="selectedAppointments.length>=3; else elseNoPatientDay">
+              <div style="max-height: 140px; overflow: auto;">
+                <ion-row *ngFor="let appointment of selectedAppointments; let i = index">
+                  <ng-template [ngIf]="(i <= 3 && !areAllAppointmentsVisible) || (areAllAppointmentsVisible)">
+                    <ion-col>{{appointment.patientName}}</ion-col>
+                    <ion-col>{{appointment.appointmentType}}</ion-col>
+                  </ng-template>
+                </ion-row>
+              </div>
+              <ion-row *ngIf="selectedAppointments.length>=5;">
+                <ion-link class="pageHeader" style="color: #02b9f3;text-decoration: underline;cursor:pointer"
+                  (click)="handleAreAllAppointmentsVisible()">
+                  <ng-template [ngIf]="areAllAppointmentsVisible == false" [ngIfElse]="viewLess">
+                    View All</ng-template>
+                  <ng-template #viewLess>
+                    View Less
+                  </ng-template>
+                </ion-link>
+              </ion-row>
+            </ion-card-content>
+            <ng-template #elseNoPatientDay>
+              <ion-card-content>No patients this day</ion-card-content>
+            </ng-template>
+          </ion-card>
+        </ion-col>
       </ion-row>
     </ion-col>
   </ion-row>

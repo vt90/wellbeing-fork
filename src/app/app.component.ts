@@ -23,6 +23,7 @@ export class AppComponent {
     private router: Router
   ) {
     this.initializeApp();
+    console.log('inside AppComponent constructor');
   }
 
   watchUser() {

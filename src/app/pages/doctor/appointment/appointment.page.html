@@ -17,9 +17,9 @@
           </ion-text>
         </ion-row>
 
-        <ion-row class="ion-justify-content-center">
+        <!-- <ion-row class="ion-justify-content-center">
           <ion-searchbar class="search" placeholder="Search appointments"></ion-searchbar>
-        </ion-row>
+        </ion-row> -->
 
 
 
@@ -47,9 +47,9 @@
             </ion-tabs>
           </ion-col> -->
           <ion-col size="6">
-            <ion-row class="ion-justify-content-center">
+            <!-- <ion-row class="ion-justify-content-center">
               <ion-button style="--border-radius: 20px;" (click)="addNewAppointment()">Add New Appointment</ion-button>
-            </ion-row>
+            </ion-row> -->
             <div *ngFor="let appointment of appointments; let i = index">
               <app-appointment-card (reloadData)="loadAppointments()" [appointment]="appointment" [isDoctor]=true>
               </app-appointment-card>

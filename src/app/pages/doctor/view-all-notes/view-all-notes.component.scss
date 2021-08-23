@@ -1,0 +1,16 @@
+.container {
+  .title-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  .note-card {
+      width: 100%;
+    ion-card-header {
+      display: flex;
+      justify-content: flex-end;
+    }
+    ion-card-content {
+      white-space: pre-wrap;
+    }
+  }
+}

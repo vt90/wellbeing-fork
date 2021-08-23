@@ -1,9 +1,40 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>appointment</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar></app-toolbar>
 
 <ion-content>
+  <ion-row>
+    <ion-col size="2" class="vertical-menu">
+      <app-side-menu></app-side-menu>
+    </ion-col>
+    <ion-col size="10">
+      <div>
+        <ion-title>Book Appointments </ion-title>
+        <div>
+          <app-search-doctor [latitude]="lat" [longitude]="lng" (onSearch)="this.onDoctorSearch($event)">
+          </app-search-doctor>
 
+          <app-doctors-map [latitude]="lat" [longitude]="lng" [doctorsListForMap]="doctorsListForMap"
+            (onChangeCoordinates)="onMapPositionChange($event)">
+          </app-doctors-map>
+        </div>
+        <div>
+          <ion-row>
+            <ion-col>{{translate.instant('PATIENT.Book Appointment') }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-calendar></ion-calendar>
+            </ion-col>
+            <ion-col>
+              <div *ngFor="let appointment of appointments">
+                <app-appointment-card *ngIf="appointment" (reloadData)="loadAppointments()" [appointment]="appointment">
+                </app-appointment-card>
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+
+
+    </ion-col>
+  </ion-row>
 </ion-content>

@@ -17,7 +17,7 @@ export class AppointmentPage implements OnInit {
   clinics: Clinic[];
   clinicIndex = 0;
   appointments: AppointmentBook[];
-  waitingAppointments: AppointmentBook[];
+  waitingAppointments: AppointmentBook[] = [];
   areAllAppointmentsVisible: boolean = false;
 
   constructor(

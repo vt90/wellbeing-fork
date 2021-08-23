@@ -6,13 +6,15 @@
             Left Navigation
         </ion-col>
         <ion-col size="10" *ngIf="doctor">
-            <ion-grid>
+            <ion-grid class="profile-container">
                 <form #profileForm="ngForm" (ngSubmit)="save(profileForm)">
 
                     <!-- Profile Pic and change password block -->
-                    <ion-row>
+                    <ion-row class="bg-color">
+                        <ion-row class="blue-bg">
+                        </ion-row>
                         <ion-col>
-                            <ion-item>
+                            <ion-item class="profilepic-container">
                                 <ion-avatar style="width: 200px;height: 200px;" slot="start">
                                     <label class="hoverable" for="fileInput">
                                         <img [src]="doctor.profilePic ? doctor.profilePic: './assets/icon/profile.jpg'"
@@ -113,6 +115,9 @@
 
                     <!-- Basic Details Block -->
                     <ion-row>
+                        <h2 class="block-title">Basic Info</h2>
+                    </ion-row>
+                    <ion-row class="bg-color">
                         <ion-col>
                             <ion-item>
                                 <ion-label class="asterisk" position="stacked"><strong>First Name</strong></ion-label>
@@ -173,6 +178,9 @@
 
                     <!-- specialization Details Block -->
                     <ion-row>
+                        <h2 class="block-title">Specialization Details</h2>
+                    </ion-row>
+                    <ion-row class="bg-color">
                         <ion-col>
                             <ion-item>
                                 <ion-label position="stacked"><strong>Specialization</strong>

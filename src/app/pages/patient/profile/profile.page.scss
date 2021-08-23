@@ -1,6 +1,7 @@
 ion-item ion-label{
   margin-bottom: 2%;
   font-size: larger;
+  font-weight: 300;
 }
 img {
   height: 100%;
@@ -51,3 +52,14 @@ img {
 #fileInputLink{
   display: none;
 }
+
+.bg-color{background-color: white;margin-bottom: 16px; box-shadow: 2px 2px 5px 2px lightgrey;}
+
+.profile-container{
+  margin : 10px 30px 20px 30px;
+}
+.block-title{color:#1d506d;}
+ion-col{
+  padding: 20px 30px 20px 30px;
+}
+.blue-bg{background-color: #d4e3fc;padding: 20px 20px 20px 20px;margin-bottom: -30px;width: 100%;}

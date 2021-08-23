@@ -5,12 +5,12 @@
     <ion-row>
       <ion-col size="2" class="vertical-menu"> Left side navigation </ion-col>
       <ion-col size="10" *ngIf="patient">
-        <ion-title> {{translate.instant('COMMON.Welcome')}} {{ patient.firstName}},</ion-title>
+        <ion-title class="page-title"> {{translate.instant('COMMON.Welcome')}} {{ patient.firstName}},</ion-title>
         <div style="margin-left: 2%">
           <div style="background-color: #bfdcc5">
             <ion-text color="dark">
-              <h3>
-                {{translate.instant('PATIENT.Notice')}}: Lorem ipsum dolor sit amet, consectetur
+              <h3 class="notice">
+                {{translate.instant('PATIENT.Notice')}}:  Lorem ipsum dolor sit amet, consectetur
                 adipiscing elit.
               </h3>
             </ion-text>
@@ -48,10 +48,10 @@
             </ion-row>
           </div>
           <div>
-            <ion-row>
-              <ion-col>{{translate.instant('PATIENT.Recently Visited') }}
+            <ion-row class="reports-row">
+              <ion-col class="block-title">{{translate.instant('PATIENT.Recently Visited') }}
                 {{translate.instant('COMMON.Doctor')}}</ion-col>
-              <ion-col>{{translate.instant('PATIENT.Reports')}}</ion-col>
+              <ion-col class="block-title">{{translate.instant('PATIENT.Reports')}}</ion-col>
             </ion-row>
             <ion-row>
               <ion-col>
@@ -99,7 +99,7 @@
 
           <div>
             <ion-row>
-              <ion-col>{{translate.instant('PATIENT.Book Appointment') }}</ion-col>
+              <ion-col class="block-title">{{translate.instant('PATIENT.Book Appointment') }}</ion-col>
             </ion-row>
             <ion-row>
               <ion-col>
@@ -108,9 +108,8 @@
               <ion-col>
                 <div style="background-color: #ef827a">
                   <ion-text color="dark">
-                    <h3>
-                      {{translate.instant('PATIENT.Alert') }}: NEXT APPOINTMENT IS IN 5 MINS.
-                      <ion-icon name="close-circle-outline"></ion-icon>
+                    <h3  class="alert">
+                      {{translate.instant('PATIENT.Alert') }}:  NEXT APPOINTMENT IS IN 5 MINS.
                     </h3>
                   </ion-text>
                 </div>

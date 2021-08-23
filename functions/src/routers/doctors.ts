@@ -127,7 +127,7 @@ doctorsRouter
             const timeSlot = iterator.format('HH:mm');
 
             // @ts-ignore
-            const isBooked = existingBooking.find((b) => b.appointmentDate.includes(timeSlot));
+            const isBooked = existingBooking && existingBooking.find((b) => b.appointmentDate.includes(timeSlot));
 
             if (!isBooked) {
               scheduleAvailability.push(timeSlot);

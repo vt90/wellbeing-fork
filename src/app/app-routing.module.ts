@@ -23,7 +23,7 @@ export const patientOnly = () => {
 };
 
 export const notLoggedIn = () => {
-  return redirectUnauthorizedTo(['/', 'landing']);
+  return redirectUnauthorizedTo(['landing', '/']);
 };
 
 

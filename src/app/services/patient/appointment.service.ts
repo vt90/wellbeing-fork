@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import * as firebase from 'firebase';
+import { FirebaseApiService } from '../firebase-api.service';
 @Injectable({
   providedIn: 'root',
 })
 export class AppointmentService {
   private db: firebase.database.Database;
-  constructor(private adb: AngularFireDatabase) {
+  constructor(private adb: AngularFireDatabase, private fbAPIService: FirebaseApiService) {
     this.db = this.adb.database;
   }
   async getAppointments(patientId: string) {
@@ -20,6 +21,6 @@ export class AppointmentService {
   }
 
   async editAppointment(appointmentId: string, appointment: any) {
-    this.db.ref(`/bookings/${appointmentId}`).set(appointment);
+    await this.fbAPIService.put(`/bookings/${appointmentId}/`, { ...appointment });
   }
 }

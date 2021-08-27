@@ -3,27 +3,8 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col size="2" class="vertical-menu ion-hide-md-down">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Appointment</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Patient</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">To do list</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Assistant</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
-          </li>
-        </ul>
+      <ion-col size="2" class="vertical-menu">
+        <app-side-menu></app-side-menu>
       </ion-col>
       <ion-col size="10">
         <ion-row>
@@ -36,28 +17,19 @@
           </ion-text>
         </ion-row>
 
-        <ion-row class="ion-justify-content-center">
+        <!-- <ion-row class="ion-justify-content-center">
           <ion-searchbar class="search" placeholder="Search appointments"></ion-searchbar>
-        </ion-row>
+        </ion-row> -->
 
-        <ion-row class="ion-justify-content-center">
-          <ion-button style="--border-radius: 20px;" (click)="addNewAppointment()">Add New Appointment</ion-button>
-        </ion-row>
 
-        <ion-row class="ion-justify-content-center">
-          <ion-label>
-            <ion-link style="color: #02b9f3;text-decoration: underline">Check Waiting List</ion-link>
-          </ion-label>
-        </ion-row>
 
         <ion-row class="ion-justify-content-center" style="margin-top:2%">
-          <ion-col size="3">
+          <ion-col size="6">
             <ion-icon class="ion-hide-md-up" name="calendar-outline"></ion-icon>
             <ion-calendar class="ion-hide-md-down"></ion-calendar>
           </ion-col>
-          <ion-col size="9">
+          <!-- <ion-col size="9">
             <ion-tabs>
-              <!-- Tab bar -->
               <ion-tab-bar slot="top">
                 <ion-tab-button tab="day">
                   <ion-label> Day</ion-label>
@@ -73,45 +45,50 @@
                 </ion-tab-button>
               </ion-tab-bar>
             </ion-tabs>
+          </ion-col> -->
+          <ion-col size="6">
+            <!-- <ion-row class="ion-justify-content-center">
+              <ion-button style="--border-radius: 20px;" (click)="addNewAppointment()">Add New Appointment</ion-button>
+            </ion-row> -->
+            <div *ngFor="let appointment of appointments; let i = index">
+              <app-appointment-card (reloadData)="loadAppointments()" [appointment]="appointment" [isDoctor]=true>
+              </app-appointment-card>
+            </div>
+
           </ion-col>
         </ion-row>
 
 
 
-          <ion-card *ngFor="let a of appointments" style="width: max-content;padding-left: unset">
-
-              <ion-row>
-                <ion-col size="6">
-                  <ion-label><strong>Date:</strong>{{a.date}}</ion-label>
-                </ion-col>
-                <ion-col size="6" class="ion-text-end">
-                  <ion-label><strong>Time:</strong> {{a.time}}</ion-label>
-                </ion-col>
-              </ion-row>
+        <ion-row *ngIf="waitingAppointments.length>=1">
+          <ion-col size="12">
+            <ion-label class="pageHeader">Check Waiting List</ion-label>
+          </ion-col>
+          <ion-col size="12" style="max-height: 333px; overflow: auto;">
             <ion-row>
-              <ion-col><strong>Name:</strong> xyz</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col><strong>Appointment Type:</strong> {{a.type}}</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col><strong>Age: </strong>21</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col  size-lg="auto">
-                <ion-label class="aButtons">Reschedule</ion-label>
-              </ion-col>
-              <ion-col  size-lg="auto">
-                <ion-label class="aButtons">Cancel</ion-label>
-              </ion-col>
-              <ion-col size-lg="auto">
-                <ion-label class="aButtons">Status</ion-label>
+              <ion-col size="6" *ngFor="let appointment of waitingAppointments; let i = index" class="waitingCol">
+                <ng-template [ngIf]="(i <= 1 && !areAllAppointmentsVisible) || (areAllAppointmentsVisible)">
+                  <app-appointment-card (reloadData)="loadAppointments()" [appointment]="appointment" [isDoctor]=true>
+                  </app-appointment-card>
+                </ng-template>
               </ion-col>
             </ion-row>
-          </ion-card>
-
-
-
+          </ion-col>
+          <ion-col size="12">
+            <ion-row class="ion-justify-content-center">
+              <ion-label>
+                <ion-link class="pageHeader" style="color: #02b9f3;text-decoration: underline;cursor:pointer"
+                  (click)="handleAreAllAppointmentsVisible()">
+                  <ng-template [ngIf]="areAllAppointmentsVisible == false" [ngIfElse]="viewLess">
+                    View All</ng-template>
+                  <ng-template #viewLess>
+                    View Less
+                  </ng-template>
+                </ion-link>
+              </ion-label>
+            </ion-row>
+          </ion-col>
+        </ion-row>
       </ion-col>
     </ion-row>
   </ion-grid>

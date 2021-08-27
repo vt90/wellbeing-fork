@@ -1,0 +1,16 @@
+.main_title{
+  color:white;
+}
+.profile{
+  font-size: x-large;
+  color: white;
+}
+
+.profile-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bg-transparent * {
+  background-color: transparent !important;
+}

@@ -1,0 +1,25 @@
+form {
+  height: 100%;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  .title-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  .text-area-wrapper {
+    width: 100%;
+    ion-item {
+      width: 100%;
+    }
+  }
+  .action-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+}

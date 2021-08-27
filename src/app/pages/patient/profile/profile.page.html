@@ -5,7 +5,7 @@
         <ion-row>
             <!-- LEFT SIDE BLOCK-->
             <ion-col size="2" class="vertical-menu">
-                Left side navigation
+              <app-side-menu></app-side-menu>
             </ion-col>
 
             <!-- RIGHT SIDE BLOCK START-->
@@ -13,9 +13,9 @@
                 <ion-grid class="profile-container">
                     <form #profileForm="ngForm" (ngSubmit)="save(profileForm)">
                         <!-- PROFILE PICTURE AND PASSWORD CHANGE BLOCK START-->
-                        <ion-row class="bg-color">
-                            <ion-row class="blue-bg">
-                            </ion-row>
+                      <ion-row class="bg-color">
+                        <ion-row class="blue-bg">
+                        </ion-row>
                             <ion-col>
                                 <ion-item>
                                     <ion-avatar style="width: 200px;height: 200px;" slot="start">
@@ -120,10 +120,10 @@
                         </ion-row>
 
                         <!-- BASIC DETAILS BLOCK-->
-                        <ion-row>
-                            <h2 class="block-title">Basic Info</h2>
-                        </ion-row>
-                        <ion-row class="bg-color">
+                      <ion-row>
+                        <h2 class="block-title">Basic Info</h2>
+                      </ion-row>
+                      <ion-row class="bg-color">
                             <ion-col>
                                 <ion-item>
                                     <ion-label position="stacked"><strong>First Name</strong>
@@ -142,130 +142,130 @@
                                     </ion-item>
                                 </ion-item>
 
-                                <ion-item>
-                                    <ion-label position="stacked"><strong> Date Of Birth</strong> <br>
-                                        <label><input class="birthDate" type="date" name="bDate"></label>
-                                    </ion-label>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-label position="stacked"><strong>Contact Number</strong>
-                                        <ion-input type="number" name="contact" ngModel required pattern="^\d{10}$"
-                                                   #contactCtrl="ngModel" [(ngModel)]="patient.contactNumber">
-                                        </ion-input>
-                                    </ion-label>
-                                </ion-item>
-                                <ion-item *ngIf="contactCtrl.invalid && (contactCtrl.touched || contactCtrl.dirty)"
-                                          lines="none">
-                                    <ion-item *ngIf="contactCtrl.errors.required">
-                                        <ion-label color="danger"> Contact Number required</ion-label>
-                                    </ion-item>
-                                    <ion-item *ngIf="contactCtrl.hasError('pattern')">
-                                        <ion-label color="danger">Contact Number is invalid</ion-label>
-                                    </ion-item>
-                                </ion-item>
-                            </ion-col>
+              <ion-item>
+                <ion-label position="stacked"><strong> Date Of Birth</strong> <br>
+                  <label><input class="birthDate" type="date" name="bDate"></label>
+                </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked"><strong>Contact Number</strong>
+                  <ion-input type="number" name="contact" ngModel required pattern="^\d{10}$"
+                             #contactCtrl="ngModel" [(ngModel)]="patient.contactNumber">
+                  </ion-input>
+                </ion-label>
+              </ion-item>
+              <ion-item *ngIf="contactCtrl.invalid && (contactCtrl.touched || contactCtrl.dirty)"
+                        lines="none">
+                <ion-item *ngIf="contactCtrl.errors.required">
+                  <ion-label color="danger"> Contact Number required</ion-label>
+                </ion-item>
+                <ion-item *ngIf="contactCtrl.hasError('pattern')">
+                  <ion-label color="danger">Contact Number is invalid</ion-label>
+                </ion-item>
+              </ion-item>
+            </ion-col>
 
-                            <ion-col>
-                                <ion-item>
-                                    <ion-label position="stacked"><strong>Last Name</strong>
-                                        <ion-input type="text" ngModel name="lName" required pattern="[a-zA-Z ]*"
-                                                   #lnameCtrl="ngModel" [(ngModel)]="patient.lName">
-                                        </ion-input>
-                                    </ion-label>
-                                </ion-item>
-                                <ion-item *ngIf="lnameCtrl.invalid && (lnameCtrl.touched || lnameCtrl.dirty)"
-                                          lines="none">
-                                    <ion-item *ngIf="lnameCtrl.errors.required">
-                                        <ion-label color="danger"> Last name required,cannot be empty</ion-label>
-                                    </ion-item>
-                                    <ion-item *ngIf="lnameCtrl.hasError('pattern')">
-                                        <ion-label color="danger"> Last name is invalid</ion-label>
-                                    </ion-item>
-                                </ion-item>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked"><strong>Last Name</strong>
+                  <ion-input type="text" ngModel name="lName" required pattern="[a-zA-Z ]*"
+                             #lnameCtrl="ngModel" [(ngModel)]="patient.lName">
+                  </ion-input>
+                </ion-label>
+              </ion-item>
+              <ion-item *ngIf="lnameCtrl.invalid && (lnameCtrl.touched || lnameCtrl.dirty)"
+                        lines="none">
+                <ion-item *ngIf="lnameCtrl.errors.required">
+                  <ion-label color="danger"> Last name required,cannot be empty</ion-label>
+                </ion-item>
+                <ion-item *ngIf="lnameCtrl.hasError('pattern')">
+                  <ion-label color="danger"> Last name is invalid</ion-label>
+                </ion-item>
+              </ion-item>
 
-                                <ion-item>
-                                    <ion-label position="stacked"><strong>Email Address</strong>
-                                        <ion-input type="email" ngModel name="emailID" required
-                                                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                                                   [(ngModel)]="patient.email"
-                                                   #emailCtrl="ngModel">
-                                        </ion-input>
-                                    </ion-label>
-                                </ion-item>
-                                <ion-item *ngIf="emailCtrl.invalid && (emailCtrl.touched || emailCtrl.dirty)"
-                                          lines="none">
-                                    <ion-item *ngIf="emailCtrl.errors.required">
-                                        <ion-label color="danger"> Email required</ion-label>
-                                    </ion-item>
-                                    <ion-item *ngIf="emailCtrl.hasError('pattern')">
-                                        <ion-label color="danger">email is Invalid</ion-label>
-                                    </ion-item>
-                                </ion-item>
-                            </ion-col>
-                        </ion-row>
+              <ion-item>
+                <ion-label position="stacked"><strong>Email Address</strong>
+                  <ion-input type="email" ngModel name="emailID" required
+                             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                             [(ngModel)]="patient.email"
+                             #emailCtrl="ngModel">
+                  </ion-input>
+                </ion-label>
+              </ion-item>
+              <ion-item *ngIf="emailCtrl.invalid && (emailCtrl.touched || emailCtrl.dirty)"
+                        lines="none">
+                <ion-item *ngIf="emailCtrl.errors.required">
+                  <ion-label color="danger"> Email required</ion-label>
+                </ion-item>
+                <ion-item *ngIf="emailCtrl.hasError('pattern')">
+                  <ion-label color="danger">email is Invalid</ion-label>
+                </ion-item>
+              </ion-item>
+            </ion-col>
+          </ion-row>
 
-                        <!-- ADDRESS DETAILS BLOCK-->
-                        <ion-row>
-                            <h2 class="block-title">Address Info</h2>
-                        </ion-row>
-                        <ion-row class="bg-color">
-                            <ion-col>
-                                <ion-item>
-                                    <ion-label position="stacked"><strong>Address line 1</strong>
-                                        <ion-input type="text" name="address1" [(ngModel)]="patient.addressLine1">
-                                        </ion-input>
-                                    </ion-label>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-label position="stacked"><strong>City</strong>
-                                        <ion-input type="text" name="city" [(ngModel)]="patient.city" ngModel
-                                                   pattern="[a-zA-Z ]*" #cityCtrl="ngModel">
-                                        </ion-input>
-                                    </ion-label>
-                                </ion-item>
-                                <ion-item *ngIf="cityCtrl.hasError('pattern')">
-                                    <ion-label color="danger">enter valid input</ion-label>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-label position="stacked"><strong>Country</strong>
-                                        <ion-input type="text" name="country" [(ngModel)]="patient.country" ngModel
-                                                   pattern="[a-zA-Z ]*" #countryCtrl="ngModel">
-                                        </ion-input>
-                                    </ion-label>
-                                </ion-item>
-                                <ion-item *ngIf="countryCtrl.hasError('pattern')">
-                                    <ion-label color="danger">enter valid input</ion-label>
-                                </ion-item>
-                            </ion-col>
-                            <ion-col>
-                                <ion-item>
-                                    <ion-label position="stacked"><strong>Address line 2</strong>
-                                        <ion-input type="text" name="address2" [(ngModel)]="patient.addressLine2">
-                                        </ion-input>
-                                    </ion-label>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-label position="stacked"><strong>State/Provience/Region</strong>
-                                        <ion-input type="text" name="state" [(ngModel)]="patient.state" ngModel
-                                                   pattern="[a-zA-Z ]*" #stateCtrl="ngModel">
-                                        </ion-input>
-                                    </ion-label>
-                                </ion-item>
-                                <ion-item *ngIf="stateCtrl.hasError('pattern')">
-                                    <ion-label color="danger">enter valid input</ion-label>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-label position="stacked"><strong>Zip/Postal code</strong>
-                                        <ion-input type="number" name="code" [(ngModel)]="patient.zipcode" ngModel
-                                                   pattern="[0-9]{6}" #zipCtrl="ngModel">
-                                        </ion-input>
-                                    </ion-label>
-                                </ion-item>
-                                <ion-item *ngIf="zipCtrl.hasError('pattern')">
-                                    <ion-label color="danger">enter 6 digit zip code</ion-label>
-                                </ion-item>
-                            </ion-col>
-                        </ion-row>
+          <!-- ADDRESS DETAILS BLOCK-->
+          <ion-row>
+            <h2 class="block-title">Address Info</h2>
+          </ion-row>
+          <ion-row class="bg-color">
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked"><strong>Address line 1</strong>
+                  <ion-input type="text" name="address1" [(ngModel)]="patient.addressLine1">
+                  </ion-input>
+                </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked"><strong>City</strong>
+                  <ion-input type="text" name="city" [(ngModel)]="patient.city" ngModel
+                             pattern="[a-zA-Z ]*" #cityCtrl="ngModel">
+                  </ion-input>
+                </ion-label>
+              </ion-item>
+              <ion-item *ngIf="cityCtrl.hasError('pattern')">
+                <ion-label color="danger">enter valid input</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked"><strong>Country</strong>
+                  <ion-input type="text" name="country" [(ngModel)]="patient.country" ngModel
+                             pattern="[a-zA-Z ]*" #countryCtrl="ngModel">
+                  </ion-input>
+                </ion-label>
+              </ion-item>
+              <ion-item *ngIf="countryCtrl.hasError('pattern')">
+                <ion-label color="danger">enter valid input</ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked"><strong>Address line 2</strong>
+                  <ion-input type="text" name="address2" [(ngModel)]="patient.addressLine2">
+                  </ion-input>
+                </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked"><strong>State/Provience/Region</strong>
+                  <ion-input type="text" name="state" [(ngModel)]="patient.state" ngModel
+                             pattern="[a-zA-Z ]*" #stateCtrl="ngModel">
+                  </ion-input>
+                </ion-label>
+              </ion-item>
+              <ion-item *ngIf="stateCtrl.hasError('pattern')">
+                <ion-label color="danger">enter valid input</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked"><strong>Zip/Postal code</strong>
+                  <ion-input type="number" name="code" [(ngModel)]="patient.zipcode" ngModel
+                             pattern="[0-9]{6}" #zipCtrl="ngModel">
+                  </ion-input>
+                </ion-label>
+              </ion-item>
+              <ion-item *ngIf="zipCtrl.hasError('pattern')">
+                <ion-label color="danger">enter 6 digit zip code</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
 
                         <div class="col text-center">
                             <ion-button type="submit" [disabled]="profileForm.invalid">Save</ion-button>

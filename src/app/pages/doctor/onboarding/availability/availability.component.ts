@@ -91,7 +91,7 @@ export class AvailabilityComponent implements OnInit, OnDestroy {
       schedules: clinic.schedules.map((schedule) => ({
         ...schedule,
         fromTime: this.datePipe.transform(schedule.fromTime, 'HH:mm'),
-        toTime: this.datePipe.transform(schedule.fromTime, 'HH:mm'),
+        toTime: this.datePipe.transform(schedule.toTime, 'HH:mm'),
       }))
     }));
 

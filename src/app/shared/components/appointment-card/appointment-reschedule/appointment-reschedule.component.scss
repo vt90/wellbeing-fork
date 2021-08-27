@@ -1,0 +1,16 @@
+.container {
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .action-container {
+    ion-button {
+      margin-top: 16px;
+      float: right;
+    }
+  }
+  ion-grid {
+    background: transparent;
+  }
+}

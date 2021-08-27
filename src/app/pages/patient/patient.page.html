@@ -1,106 +1,124 @@
 <app-toolbar></app-toolbar>
 
 <ion-content>
-  <ion-row>
-    <ion-col size="2" class="vertical-menu">
-      <app-side-menu></app-side-menu>
-    </ion-col>
-    <ion-col size="10" *ngIf="patient">
-      <ion-title> {{translate.instant('COMMON.Welcome')}} {{ patient.firstName}},</ion-title>
-      <div style="margin-left: 2%">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="2" class="vertical-menu">
+        <app-side-menu></app-side-menu>
+      </ion-col>
+      <ion-col size="10" *ngIf="patient">
+        <ion-title> {{translate.instant('COMMON.Welcome')}} {{ patient.firstName}},</ion-title>
+        <div style="margin-left: 2%">
+          <div style="background-color: #bfdcc5">
+            <ion-text color="dark">
+              <h3>
+                {{translate.instant('PATIENT.Notice')}}: Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit.
+              </h3>
+            </ion-text>
+          </div>
 
-        <app-search-doctor [latitude]="lat" [longitude]="lng" (onSearch)="this.onDoctorSearch($event)">
-        </app-search-doctor>
+          <app-search-doctor
+            [latitude]="lat"
+            [longitude]="lng"
+            (onSearch)="this.onDoctorSearch($event)"
+          >
+          </app-search-doctor>
 
-        <app-doctors-map [latitude]="lat" [longitude]="lng" [doctorsListForMap]="doctorsListForMap"
-          (onChangeCoordinates)="onMapPositionChange($event)">
-        </app-doctors-map>
 
-        <div *ngIf="searchedDoctors">
-          <ion-row>
-            <ion-col size="6">
-              <ion-list>
-                <ion-item *ngFor="let d of searchedDoctors">
-                  <ion-label>Dr. {{d.firstName}}</ion-label>
-                  <ion-note slot="end">21 may 2020</ion-note>
-                  <ion-icon slot="end" (click)="docDetails = d" name="alert-circle-outline"></ion-icon>
-                </ion-item>
-              </ion-list>
-            </ion-col>
-            <ion-col size="6">
-              <app-doctor-details *ngIf="docDetails" [doc]="docDetails"></app-doctor-details>
-            </ion-col>
-          </ion-row>
-        </div>
-        <div>
-          <ion-row>
-            <ion-col>{{translate.instant('PATIENT.Recently Visited') }}
-              {{translate.instant('COMMON.Doctor')}}</ion-col>
-            <ion-col>{{translate.instant('PATIENT.Reports')}}</ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-list *ngIf="appointmentsDone.length >= 1; else elseNoAppointmentsDone">
-                <ion-item *ngFor="let appointment of appointmentsDone">
-                  <ion-label>{{appointment.doctorInfo.fullName}}</ion-label>
-                  <ion-note slot="end">{{appointment.appointmentDateParsed}}
-                  </ion-note>
-                  <ion-icon slot="end" name="alert-circle-outline"></ion-icon>
-                </ion-item>
-              </ion-list>
-              <ng-template #elseNoAppointmentsDone>
+          <app-doctors-map
+            [latitude]="lat"
+            [longitude]="lng"
+            [doctorsListForMap]="doctorsListForMap"
+            (onChangeCoordinates)="onMapPositionChange($event)"
+          >
+          </app-doctors-map>
+
+          <div *ngIf="searchedDoctors">
+            <ion-row>
+              <ion-col size="6">
+                <ion-list>
+                  <ion-item *ngFor="let d of searchedDoctors">
+                    <ion-label>Dr. {{d.firstName}}</ion-label>
+                    <ion-note slot="end">21 may 2020</ion-note>
+                    <ion-icon slot="end" (click)="docDetails = d" name="alert-circle-outline"></ion-icon>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col size="6">
+                <app-doctor-details *ngIf="docDetails" [doc]="docDetails"></app-doctor-details>
+              </ion-col>
+            </ion-row>
+          </div>
+          <div>
+            <ion-row class="reports-row">
+              <ion-col class="block-title">{{translate.instant('PATIENT.Recently Visited') }}
+                {{translate.instant('COMMON.Doctor')}}</ion-col>
+              <ion-col class="block-title">{{translate.instant('PATIENT.Reports')}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-list *ngIf="appointmentsDone.length >= 1; else elseNoAppointmentsDone">
+                  <ion-item *ngFor="let appointment of appointmentsDone">
+                    <ion-label>{{appointment.doctorInfo.fullName}}</ion-label>
+                    <ion-note slot="end">{{appointment.appointmentDateParsed}}
+                    </ion-note>
+                    <ion-icon slot="end" name="alert-circle-outline"></ion-icon>
+                  </ion-item>
+                </ion-list>
+                <ng-template #elseNoAppointmentsDone>
+                  <ion-list>
+                    <ion-item>
+                      <ion-label>
+                        No doctor visited
+                      </ion-label>
+                    </ion-item>
+                  </ion-list>
+                </ng-template>
+              </ion-col>
+              <ion-col>
                 <ion-list>
                   <ion-item>
-                    <ion-label>
-                      No doctor visited
-                    </ion-label>
+                    <ion-label>Reports will be soon available</ion-label>
                   </ion-item>
-
                 </ion-list>
-              </ng-template>
-            </ion-col>
-            <ion-col>
-              <ion-list>
-                <ion-item>
-                  <ion-label>Reports will be soon available</ion-label>
-                </ion-item>
-              </ion-list>
-            </ion-col>
-          </ion-row>
-        </div>
+              </ion-col>
+            </ion-row>
+          </div>
 
-        <div>
-          <ion-row>
-            <ion-col>{{translate.instant('PATIENT.Book Appointment') }}</ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="6">
-              <ion-card class="next-appointment">
-                <ion-card-header>
-                  Next Appointment
-                </ion-card-header>
-                <ion-card-content *ngIf="nextAppointment; else esleNoNextAppointment">
-                  <div class="row">
-                    <ion-icon name="person-circle-outline"></ion-icon> Dr. {{nextAppointment.doctorInfo.fullName}}
-                  </div>
-                  <div class="row" *ngIf="nextAppointment.doctorInfo.mobile">
-                    <ion-icon name="call"></ion-icon> {{nextAppointment.doctorInfo.mobile}}
-                  </div>
-                  <div class="row">
-                    <ion-icon name="timer-outline"></ion-icon> {{nextAppointment.appointmentDate}}
-                  </div>
-                </ion-card-content>
-
-                <ng-template #esleNoNextAppointment>
-                  <ion-card-content>
-                    No more appointments
+          <div>
+            <ion-row>
+              <ion-col class="block-title">{{translate.instant('PATIENT.Book Appointment') }}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6">
+                <ion-card class="next-appointment">
+                  <ion-card-header>
+                    Next Appointment
+                  </ion-card-header>
+                  <ion-card-content *ngIf="nextAppointment; else esleNoNextAppointment">
+                    <div class="row">
+                      <ion-icon name="person-circle-outline"></ion-icon> Dr. {{nextAppointment.doctorInfo.fullName}}
+                    </div>
+                    <div class="row" *ngIf="nextAppointment.doctorInfo.mobile">
+                      <ion-icon name="call"></ion-icon> {{nextAppointment.doctorInfo.mobile}}
+                    </div>
+                    <div class="row">
+                      <ion-icon name="timer-outline"></ion-icon> {{nextAppointment.appointmentDate}}
+                    </div>
                   </ion-card-content>
-                </ng-template>
-              </ion-card>
-            </ion-col>
-          </ion-row>
+
+                  <ng-template #esleNoNextAppointment>
+                    <ion-card-content>
+                      No more appointments
+                    </ion-card-content>
+                  </ng-template>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </div>
         </div>
-      </div>
-    </ion-col>
-  </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

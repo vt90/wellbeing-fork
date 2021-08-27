@@ -2,16 +2,19 @@
 
 <ion-content>
   <ion-row>
+    <!-- LEFT SIDE BLOCK-->
     <ion-col size="2" class="vertical-menu">
       <app-side-menu></app-side-menu>
     </ion-col>
 
     <!-- RIGHT SIDE BLOCK START-->
     <ion-col size="10" *ngIf="patient">
-      <ion-grid>
+      <ion-grid class="profile-container">
         <form #profileForm="ngForm" (ngSubmit)="save(profileForm)">
           <!-- PROFILE PICTURE AND PASSWORD CHANGE BLOCK START-->
-          <ion-row>
+          <ion-row class="bg-color">
+            <ion-row class="blue-bg">
+            </ion-row>
             <ion-col>
               <ion-item>
                 <ion-avatar style="width: 200px;height: 200px;" slot="start">
@@ -117,6 +120,9 @@
 
           <!-- BASIC DETAILS BLOCK-->
           <ion-row>
+            <h2 class="block-title">Basic Info</h2>
+          </ion-row>
+          <ion-row class="bg-color">
             <ion-col>
               <ion-item>
                 <ion-label position="stacked"><strong>First Name</strong>
@@ -199,6 +205,9 @@
 
           <!-- ADDRESS DETAILS BLOCK-->
           <ion-row>
+            <h2 class="block-title">Address Info</h2>
+          </ion-row>
+          <ion-row class="bg-color">
             <ion-col>
               <ion-item>
                 <ion-label position="stacked"><strong>Address line 1</strong>

@@ -55,6 +55,21 @@ const routes: Routes = [
     path: 'landing',
     loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule),
   },
+
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule),
+  },
+
+  {
+    path: 'features',
+    loadChildren: () => import('./pages/features/features.module').then( m => m.FeaturesPageModule),
+  },
+
+  {
+    path: 'services',
+    loadChildren: () => import('./pages/services/services.module').then( m => m.ServicesPageModule),
+  },
   {
     path: 'doctor-search',
     loadChildren: () => import('./pages/patient/doctor-list/doctor-list.module').then( m => m.DoctorListModule),
